@@ -1,11 +1,19 @@
 ---
-import { getCollection } from 'astro:content';
 import Layout from '../../components/Layout.astro';
-import ProgramCard from '../../components/ProgramCard.astro';
-const programs = (await getCollection('programs')).sort((a, b) => a.data.name.localeCompare(b.data.name));
+const base = import.meta.env.BASE_URL;
+const withBase = (path: string) => `${base}${path.replace(/^\//, '')}`;
+const programs = [
+  {code:'RSJP',name:'Ritsumeikan Summer Japanese Program',season:'Summer',duration:'4 weeks',focus:'Japanese language + Japan Studies',audience:'Students seeking an immersive summer experience',format:'Open program'},
+  {code:'RWJP',name:'Ritsumeikan Winter Japanese Program',season:'Winter',duration:'4 weeks',focus:'Japanese language + culture',audience:'Students seeking a fuller winter program',format:'Open program'},
+  {code:'EXPRESS',name:'RWJP Express',season:'Winter',duration:'2 weeks',focus:'Intensive language + culture',audience:'Students with limited time',format:'Open program'},
+  {code:'RDSP',name:'Ritsumeikan Discover Studies Program',season:'Summer',duration:'Short format',focus:'Interdisciplinary discovery',audience:'Students exploring Japan through multiple themes',format:'Open program'},
+  {code:'RBMP',name:'Ritsumeikan Business & Management Program',season:'Flexible',duration:'Custom',focus:'Business, management + innovation',audience:'Business and management cohorts',format:'Partner program'},
+  {code:'CUSTOM',name:'Custom Programs',season:'Flexible',duration:'Flexible',focus:'Designed with partner universities',audience:'Overseas universities and organized groups',format:'Partner program'},
+];
 ---
-<Layout title="Programs | Short Programs Prototype" description="Browse fictional short-term study programs in Japan, including dates, themes and sample fees.">
-  <header class="page-hero"><div class="container narrow"><p class="eyebrow">Explore programs</p><h1>Short stays. Expansive ideas.</h1><p class="lede">Compare our fictional sample programs by academic focus, season and setting. All details are for demonstration only.</p></div></header>
-  <section class="section"><div class="container"><div class="card-grid">{programs.map((program) => <ProgramCard program={program} />)}</div></div></section>
-  <section class="cta compact"><div class="container"><h2>Not sure where to begin?</h2><p>Our FAQ explains how this prototype presents the short-program journey.</p><a class="button light" href="/faq/">Visit the FAQ</a></div></section>
+<Layout title="Compare programs | Digital Prospectus Prototype" description="Compare six sample short-term study program pathways in a mobile-friendly format.">
+  <header class="page-hero"><div class="container narrow"><p class="eyebrow">Compare programs</p><h1>One view. Six different pathways.</h1><p class="lede">This sample comparison makes season, duration, focus and audience easy to scan. Details remain illustrative while the digital prospectus is under development.</p></div></header>
+  <section class="section"><div class="container"><div class="compare-table" role="table" aria-label="Program comparison"><div class="compare-row compare-head" role="row"><div role="columnheader">Program</div><div role="columnheader">Season</div><div role="columnheader">Duration</div><div role="columnheader">Academic focus</div><div role="columnheader">Best suited to</div><div role="columnheader">Format</div></div>{programs.map((p) => <article class="compare-row" role="row"><div role="cell" data-label="Program"><span class="program-code">{p.code}</span><strong>{p.name}</strong></div><div role="cell" data-label="Season">{p.season}</div><div role="cell" data-label="Duration">{p.duration}</div><div role="cell" data-label="Academic focus">{p.focus}</div><div role="cell" data-label="Best suited to">{p.audience}</div><div role="cell" data-label="Format"><span class="format-pill">{p.format}</span></div></article>)}</div></div></section>
+  <section class="section muted"><div class="container split"><div><p class="eyebrow">Mobile-first comparison</p><h2>No tiny spreadsheet on a phone.</h2><p class="large-copy">Below 760px, every comparison row becomes a clearly labeled card. Important differences stay readable without horizontal scrolling.</p></div><div class="notice-card"><p class="eyebrow">Next content step</p><h2>Replace sample facts with approved program data.</h2><p>Dates, fees, eligibility, accommodation and application status can be added once the official content set is confirmed.</p></div></div></section>
+  <section class="cta compact"><div class="container"><h2>Questions while comparing?</h2><p>The FAQ can later be connected to the separate Q&A application.</p><div class="button-row"><a class="button light" href={withBase('/faq/')}>Open the FAQ</a><a class="button outline-light" href={withBase('/')}>Return home</a></div></div></section>
 </Layout>
