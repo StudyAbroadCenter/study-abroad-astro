@@ -1,6 +1,8 @@
 ---
 import Layout from '../components/Layout.astro';
+const base = import.meta.env.BASE_URL;
+const withBase = (path: string) => `${base}${path.replace(/^\//, '')}`;
 ---
 <Layout title="Page not found | Short Programs Prototype" description="The requested page could not be found on this study-program website prototype.">
-  <section class="not-found"><div class="container narrow"><p class="error-code">404</p><p class="eyebrow">Page not found</p><h1>This path led somewhere unexpected.</h1><p class="lede">The page may have moved, or the address may be incorrect. Return home or continue exploring the fictional programs.</p><div class="button-row"><a class="button" href="/">Return home</a><a class="button secondary" href="/programs/">Browse programs</a></div></div></section>
+  <section class="not-found"><div class="container narrow"><p class="error-code">404</p><p class="eyebrow">Page not found</p><h1>This path led somewhere unexpected.</h1><p class="lede">The page may have moved, or the address may be incorrect. Return home or continue exploring the fictional programs.</p><div class="button-row"><a class="button" href={withBase('/')}>Return home</a><a class="button secondary" href={withBase('/programs/')}>Browse programs</a></div></div></section>
 </Layout>

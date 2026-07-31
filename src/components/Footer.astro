@@ -1,8 +1,12 @@
+---
+const base = import.meta.env.BASE_URL;
+const withBase = (path: string) => `${base}${path.replace(/^\//, '')}`;
+---
 <footer class="site-footer">
   <div class="container footer-grid">
     <div><strong>Study in Japan</strong><p>Short Programs Prototype</p></div>
     <nav aria-label="Footer navigation">
-      <a href="/programs/">Programs</a><a href="/faq/">FAQ</a><a href="/about/">About</a><a href="/contact/">Contact</a>
+      <a href={withBase('/programs/')}>Programs</a><a href={withBase('/faq/')}>FAQ</a><a href={withBase('/about/')}>About</a><a href={withBase('/contact/')}>Contact</a>
     </nav>
   </div>
   <div class="container prototype-footer">This is a prototype website created for evaluation purposes. It is not an official university website.</div>
