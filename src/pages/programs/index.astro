@@ -1,0 +1,11 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../components/Layout.astro';
+import ProgramCard from '../../components/ProgramCard.astro';
+const programs = (await getCollection('programs')).sort((a, b) => a.data.name.localeCompare(b.data.name));
+---
+<Layout title="Programs | Short Programs Prototype" description="Browse fictional short-term study programs in Japan, including dates, themes and sample fees.">
+  <header class="page-hero"><div class="container narrow"><p class="eyebrow">Explore programs</p><h1>Short stays. Expansive ideas.</h1><p class="lede">Compare our fictional sample programs by academic focus, season and setting. All details are for demonstration only.</p></div></header>
+  <section class="section"><div class="container"><div class="card-grid">{programs.map((program) => <ProgramCard program={program} />)}</div></div></section>
+  <section class="cta compact"><div class="container"><h2>Not sure where to begin?</h2><p>Our FAQ explains how this prototype presents the short-program journey.</p><a class="button light" href="/faq/">Visit the FAQ</a></div></section>
+</Layout>
