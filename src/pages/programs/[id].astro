@@ -8,9 +8,11 @@ export async function getStaticPaths() {
 interface Props { program: CollectionEntry<'programs'>; }
 const { program } = Astro.props;
 const { Content } = await render(program);
+const base = import.meta.env.BASE_URL;
+const withBase = (path: string) => `${base}${path.replace(/^\//, '')}`;
 ---
 <Layout title={`${program.data.name} | Short Programs Prototype`} description={program.data.summary}>
-  <header class="program-hero"><div class="container"><a class="back-link" href="/programs/">← All programs</a><div class="program-title-grid"><div><p class="eyebrow">{program.data.status} · {program.data.duration}</p><h1>{program.data.name}</h1><p class="lede">{program.data.summary}</p></div><div class="program-emblem" aria-hidden="true"><span>PROGRAM<br />PLACEHOLDER</span></div></div></div></header>
+  <header class="program-hero"><div class="container"><a class="back-link" href={withBase('/programs/')}>← All programs</a><div class="program-title-grid"><div><p class="eyebrow">{program.data.status} · {program.data.duration}</p><h1>{program.data.name}</h1><p class="lede">{program.data.summary}</p></div><div class="program-emblem" aria-hidden="true"><span>PROGRAM<br />PLACEHOLDER</span></div></div></div></header>
   <section class="facts-band"><div class="container"><dl class="facts-grid"><div><dt>Dates</dt><dd>{program.data.dates}</dd></div><div><dt>Location</dt><dd>{program.data.location}</dd></div><div><dt>Application deadline</dt><dd>{program.data.applicationDeadline}</dd></div><div><dt>Sample fee</dt><dd>{program.data.fee}</dd></div></dl></div></section>
-  <section class="section"><div class="container detail-grid"><article class="prose"><Content /></article><aside class="detail-aside"><h2>At a glance</h2><dl><div><dt>Academic focus</dt><dd>{program.data.academicFocus.join(', ')}</dd></div><div><dt>Accommodation</dt><dd>{program.data.accommodation}</dd></div><div><dt>Status</dt><dd>{program.data.status}</dd></div></dl><a class="button" href="/contact/">Ask a prototype question</a><p class="fine-print">This fictional program does not accept applications.</p></aside></div></section>
+  <section class="section"><div class="container detail-grid"><article class="prose"><Content /></article><aside class="detail-aside"><h2>At a glance</h2><dl><div><dt>Academic focus</dt><dd>{program.data.academicFocus.join(', ')}</dd></div><div><dt>Accommodation</dt><dd>{program.data.accommodation}</dd></div><div><dt>Status</dt><dd>{program.data.status}</dd></div></dl><a class="button" href={withBase('/contact/')}>Ask a prototype question</a><p class="fine-print">This fictional program does not accept applications.</p></aside></div></section>
 </Layout>
