@@ -2,14 +2,16 @@
 import type { CollectionEntry } from 'astro:content';
 interface Props { program: CollectionEntry<'programs'>; }
 const { program } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const programUrl = `${base}programs/${program.id}/`;
 ---
 <article class="program-card">
   <div class="program-visual" aria-hidden="true"><span>{program.data.duration}</span></div>
   <div class="card-body">
     <p class="eyebrow">{program.data.status}</p>
-    <h3><a href={`/programs/${program.id}/`}>{program.data.name}</a></h3>
+    <h3><a href={programUrl}>{program.data.name}</a></h3>
     <p>{program.data.summary}</p>
     <dl class="card-facts"><div><dt>Dates</dt><dd>{program.data.dates}</dd></div><div><dt>Location</dt><dd>{program.data.location}</dd></div></dl>
-    <a class="text-link" href={`/programs/${program.id}/`}>Explore program <span aria-hidden="true">→</span></a>
+    <a class="text-link" href={programUrl}>Explore program <span aria-hidden="true">→</span></a>
   </div>
 </article>
