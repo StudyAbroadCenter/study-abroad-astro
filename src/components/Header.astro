@@ -1,0 +1,28 @@
+---
+const path = Astro.url.pathname;
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/programs/', label: 'Programs' },
+  { href: '/faq/', label: 'FAQ' },
+  { href: '/about/', label: 'About this prototype' },
+  { href: '/contact/', label: 'Contact' },
+];
+---
+<header class="site-header">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <div class="container nav-wrap">
+    <a class="brand" href="/" aria-label="Study in Japan prototype home">
+      <span class="brand-mark" aria-hidden="true">短</span>
+      <span>Study in Japan <small>Short Programs Prototype</small></span>
+    </a>
+    <details class="mobile-nav">
+      <summary>Menu</summary>
+      <nav aria-label="Primary navigation">
+        {links.map((link) => <a href={link.href} aria-current={path === link.href ? 'page' : undefined}>{link.label}</a>)}
+      </nav>
+    </details>
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      {links.map((link) => <a href={link.href} aria-current={path === link.href ? 'page' : undefined}>{link.label}</a>)}
+    </nav>
+  </div>
+</header>
