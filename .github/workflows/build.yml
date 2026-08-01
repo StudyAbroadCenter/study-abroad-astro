@@ -38,3 +38,11 @@ jobs:
 
       - name: Check and build Astro site
         run: npm run build
+
+      - name: Upload built site for visual review
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: astro-pr-preview
+          path: dist
+          retention-days: 7
