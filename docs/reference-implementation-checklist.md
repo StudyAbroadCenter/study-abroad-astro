@@ -1,0 +1,6 @@
+- Wide diagonal white Hero panel
+- Intentional two-line headline
+- Bright Kinugasa clock-tower image
+- Yellow circular badge
+- Compact Hero facts
+- Seven slim colour-coded programme cards near the fold
