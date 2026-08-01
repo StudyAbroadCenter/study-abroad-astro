@@ -30,8 +30,7 @@ def enhance_hero(image: Image.Image) -> Image.Image:
     image = ImageEnhance.Brightness(image).enhance(1.08)
     image = ImageEnhance.Contrast(image).enhance(1.09)
     image = ImageEnhance.Color(image).enhance(1.34)
-    image = image.filter(ImageFilter.UnsharpMask(radius=1.4, percent=75, threshold=3))
-    return image
+    return image.filter(ImageFilter.UnsharpMask(radius=1.4, percent=75, threshold=3))
 
 
 for name, (source, width, height, quality, treatment) in JOBS.items():
@@ -41,6 +40,9 @@ for name, (source, width, height, quality, treatment) in JOBS.items():
         image = ImageOps.exif_transpose(original).convert('RGB')
         if treatment == 'hero':
             image = enhance_hero(image)
+            # The page currently references the source JPG directly. Replacing the
+            # build-time copy keeps that URL stable while deploying the enhanced image.
+            image.save(source, 'JPEG', quality=90, optimize=True, progressive=True)
         else:
             image = ImageEnhance.Color(image).enhance(1.04)
         image = fit(image, width, height)
