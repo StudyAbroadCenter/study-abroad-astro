@@ -4,6 +4,7 @@ import Footer from './Footer.astro';
 import '../styles/global.css';
 import '../styles/prospectus.css';
 import '../styles/japanese.css';
+import '../styles/japanese-impact.css';
 interface Props { title: string; description: string; lang?: string; }
 const { title, description, lang = 'en' } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
