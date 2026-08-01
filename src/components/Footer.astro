@@ -1,13 +1,15 @@
 ---
-const base = import.meta.env.BASE_URL;
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
 const withBase = (path: string) => `${base}${path.replace(/^\//, '')}`;
+const isJapanese = Astro.url.pathname.includes('/ja/');
 ---
 <footer class="site-footer">
   <div class="container footer-grid">
-    <div><strong>Study in Japan</strong><p>Short Programs Prototype</p></div>
-    <nav aria-label="Footer navigation">
-      <a href={withBase('/programs/')}>Programs</a><a href={withBase('/faq/')}>FAQ</a><a href={withBase('/about/')}>About</a><a href={withBase('/contact/')}>Contact</a>
+    <div><strong>{isJapanese ? '立命館大学 短期受入プログラム' : 'Study in Japan'}</strong><p>{isJapanese ? 'デジタルパンフレット・プロトタイプ' : 'Short Programs Prototype'}</p></div>
+    <nav aria-label={isJapanese ? 'フッターナビゲーション' : 'Footer navigation'}>
+      {isJapanese ? <><a href={withBase('/ja/#programs')}>プログラム</a><a href={withBase('/ja/#eligibility')}>参加資格</a><a href={withBase('/ja/#faq')}>よくある質問</a><a href={withBase('/')}>English</a></> : <><a href={withBase('/programs/')}>Programs</a><a href={withBase('/faq/')}>FAQ</a><a href={withBase('/about/')}>About</a><a href={withBase('/contact/')}>Contact</a></>}
     </nav>
   </div>
-  <div class="container prototype-footer">This is a prototype website created for evaluation purposes. It is not an official university website.</div>
+  <div class="container prototype-footer">{isJapanese ? '本サイトは評価用に作成したプロトタイプです。立命館大学の公式サイトではありません。' : 'This is a prototype website created for evaluation purposes. It is not an official university website.'}</div>
 </footer>
