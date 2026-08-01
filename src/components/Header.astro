@@ -18,23 +18,23 @@ const links = isJapanese ? [
   { href: withBase('/contact/'), label: 'Contact' },
 ];
 ---
-<header class="site-header">
+<header class={`site-header ${isJapanese ? 'sample-header' : ''}`}>
   <a class="skip-link" href="#main-content">{isJapanese ? '本文へ移動' : 'Skip to content'}</a>
   <div class="container nav-wrap">
     <a class="brand" href={isJapanese ? withBase('/ja/') : withBase('/')} aria-label={isJapanese ? '短期受入プログラム日本語版ホーム' : 'Study in Japan prototype home'}>
-      <span class="brand-mark" aria-hidden="true">短</span>
+      <span class="brand-mark" aria-hidden="true">{isJapanese ? 'R' : 'S'}</span>
       <span>{isJapanese ? '立命館大学 短期受入プログラム' : 'Study in Japan'} <small>{isJapanese ? 'デジタルパンフレット・プロトタイプ' : 'Short Programs Prototype'}</small></span>
     </a>
     <details class="mobile-nav">
       <summary>{isJapanese ? 'メニュー' : 'Menu'}</summary>
       <nav aria-label={isJapanese ? 'メインナビゲーション' : 'Primary navigation'}>
         {links.map((link) => <a href={link.href}>{link.label}</a>)}
-        <a class="language-link" href={isJapanese ? withBase('/') : withBase('/ja/')}>{isJapanese ? 'English' : '日本語'}</a>
+        <a class="language-link" href={isJapanese ? withBase('/') : withBase('/ja/')}>{isJapanese ? 'English ◎' : '日本語'}</a>
       </nav>
     </details>
     <nav class="desktop-nav" aria-label={isJapanese ? 'メインナビゲーション' : 'Primary navigation'}>
-      {links.map((link) => <a href={link.href}>{link.label}</a>)}
-      <a class="language-link" href={isJapanese ? withBase('/') : withBase('/ja/')}>{isJapanese ? 'English' : '日本語'}</a>
+      {links.map((link, index) => <a class={index === 0 ? 'is-active' : ''} href={link.href}>{link.label}</a>)}
+      <a class="language-link" href={isJapanese ? withBase('/') : withBase('/ja/')}>{isJapanese ? 'English ◎' : '日本語'}</a>
     </nav>
   </div>
 </header>

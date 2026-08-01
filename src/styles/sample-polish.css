@@ -1,0 +1,150 @@
+/* Visual corrections after automated screenshot review */
+.sample-hero {
+  background: #8fd0f4 !important;
+}
+
+.sample-hero::after {
+  content: '';
+  position: absolute;
+  inset: -1.5%;
+  z-index: -2;
+  background-image: var(--sample-hero);
+  background-size: cover;
+  background-position: center 45%;
+  filter: brightness(1.16) saturate(1.48) contrast(1.06);
+  transform: scale(1.02);
+}
+
+.sample-hero::before {
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(255,255,255,.08), transparent 45%),
+    linear-gradient(180deg, rgba(52,176,242,.08), rgba(255,255,255,.02));
+}
+
+.sample-hero-panel {
+  width: min(40.5vw, 622px);
+  padding: 108px 64px 26px 70px;
+  clip-path: polygon(0 0, 80% 0, 100% 100%, 0 100%);
+}
+
+.sample-title-wrap h1,
+.sample-programme-head h2 {
+  font-family: "Noto Sans JP", "Yu Gothic", "YuGothic", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif !important;
+  font-weight: 900 !important;
+}
+
+.sample-title-wrap h1 {
+  font-size: clamp(3.55rem, 4.72vw, 5.25rem);
+  line-height: .99;
+  letter-spacing: -.062em;
+}
+
+.sample-script {
+  left: 63%;
+  top: 47%;
+  font-size: clamp(1.45rem, 1.82vw, 2.05rem);
+  line-height: 1;
+  z-index: 3;
+  transform: rotate(-5deg);
+}
+
+.sample-lede {
+  max-width: 465px;
+  margin-top: 1.55rem;
+  line-height: 1.7;
+}
+
+.sample-actions {
+  margin-top: .15rem;
+}
+
+.sample-stats {
+  width: min(590px, calc(100vw - 110px));
+  box-shadow: 0 16px 36px rgba(21,36,48,.13);
+}
+
+.sample-badge {
+  right: 8.5%;
+  bottom: 116px;
+  width: 190px;
+  box-shadow: 0 18px 42px rgba(0,0,0,.16);
+}
+
+.sample-badge strong {
+  font-size: 1.98rem;
+}
+
+.sample-slider {
+  right: 6.7%;
+}
+
+.sample-programmes {
+  padding-top: 2.15rem;
+}
+
+.sample-programme-head {
+  grid-template-columns: minmax(430px, 1.35fr) minmax(280px, .7fr) auto;
+  gap: 2rem;
+}
+
+.sample-programme-head h2 {
+  font-size: clamp(2.25rem, 3vw, 3.45rem);
+  white-space: nowrap;
+  letter-spacing: -.055em;
+}
+
+.sample-programme-head h2::after {
+  width: 92%;
+}
+
+.sample-programme-head > p {
+  font-size: .82rem;
+}
+
+.sample-card-copy {
+  height: 130px;
+}
+
+.sample-card-copy h3 {
+  font-family: "Noto Sans JP", "Yu Gothic", "YuGothic", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+  font-size: .82rem;
+  letter-spacing: -.02em;
+}
+
+.sample-card-photo {
+  height: 108px;
+}
+
+@media (max-width: 1200px) {
+  .sample-hero-panel {
+    width: min(45vw, 640px);
+  }
+
+  .sample-title-wrap h1 {
+    font-size: clamp(3.42rem, 5vw, 4.85rem);
+  }
+
+  .sample-programme-head {
+    grid-template-columns: 1fr .75fr auto;
+  }
+}
+
+@media (max-width: 1100px) {
+  .sample-programme-head h2 {
+    white-space: normal;
+  }
+}
+
+@media (max-width: 699px) {
+  .sample-hero::after {
+    background-position: 58% top;
+    filter: brightness(1.12) saturate(1.35) contrast(1.04);
+  }
+
+  .sample-script {
+    left: auto;
+    right: .8rem;
+    top: 43%;
+  }
+}

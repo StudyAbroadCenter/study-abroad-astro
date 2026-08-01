@@ -38,3 +38,42 @@ jobs:
 
       - name: Check and build Astro site
         run: npm run build
+
+      - name: Upload built site for visual review
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: astro-pr-preview
+          path: dist
+          retention-days: 7
+
+      - name: Prepare local preview path
+        if: github.event_name == 'pull_request'
+        run: |
+          mkdir -p preview-root/study-abroad-astro
+          cp -R dist/. preview-root/study-abroad-astro/
+
+      - name: Install Playwright browser
+        if: github.event_name == 'pull_request'
+        run: npx --yes playwright@1.55.0 install --with-deps chromium
+
+      - name: Capture Japanese landing page
+        if: github.event_name == 'pull_request'
+        run: |
+          python -m http.server 4173 --directory preview-root > /tmp/astro-preview.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID' EXIT
+          sleep 3
+          npx --yes playwright@1.55.0 screenshot \
+            --viewport-size="1536,1024" \
+            --wait-for-timeout=3000 \
+            http://127.0.0.1:4173/study-abroad-astro/ja/ \
+            pr-japanese-home.png
+
+      - name: Upload visual screenshot
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: japanese-home-screenshot
+          path: pr-japanese-home.png
+          retention-days: 7
