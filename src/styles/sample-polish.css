@@ -2,7 +2,13 @@
 .sample-hero {
   background-position: center 46%;
   background-blend-mode: screen;
-  background-color: rgba(130, 190, 230, .13);
+  background-color: rgba(120, 195, 238, .22);
+}
+
+.sample-hero::before {
+  background:
+    linear-gradient(90deg, rgba(255,255,255,.08), transparent 46%),
+    linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
 }
 
 .sample-hero-panel {
@@ -18,16 +24,17 @@
 }
 
 .sample-title-wrap h1 {
-  font-size: clamp(3.75rem, 5vw, 5.55rem);
+  font-size: clamp(3.6rem, 4.8vw, 5.35rem);
   line-height: .98;
   letter-spacing: -.065em;
 }
 
 .sample-script {
-  left: 73%;
-  top: 48%;
-  font-size: clamp(1.55rem, 2vw, 2.25rem);
+  left: 61%;
+  top: 49%;
+  font-size: clamp(1.5rem, 1.9vw, 2.15rem);
   line-height: 1;
+  z-index: 3;
 }
 
 .sample-lede {
@@ -37,6 +44,20 @@
 
 .sample-stats {
   width: min(585px, calc(100vw - 110px));
+}
+
+.sample-badge {
+  right: 8.2%;
+  bottom: 112px;
+  width: 198px;
+}
+
+.sample-badge strong {
+  font-size: 2.05rem;
+}
+
+.sample-slider {
+  right: 6.4%;
 }
 
 .sample-programmes {
@@ -63,7 +84,7 @@
 }
 
 .sample-card-copy {
-  height: 136px;
+  height: 132px;
 }
 
 .sample-card-copy h3 {
@@ -72,13 +93,17 @@
   letter-spacing: -.02em;
 }
 
+.sample-card-photo {
+  height: 105px;
+}
+
 @media (max-width: 1200px) {
   .sample-hero-panel {
     width: min(45vw, 640px);
   }
 
   .sample-title-wrap h1 {
-    font-size: clamp(3.5rem, 5.3vw, 5rem);
+    font-size: clamp(3.45rem, 5.1vw, 4.9rem);
   }
 
   .sample-programme-head {
