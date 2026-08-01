@@ -16,10 +16,11 @@
 }
 
 .sample-script {
-  left: 72%;
-  top: 39%;
-  font-size: clamp(1.15rem, 1.4vw, 1.55rem);
+  left: 76%;
+  top: 31%;
+  font-size: clamp(1.12rem, 1.36vw, 1.5rem);
   transform: rotate(-5deg);
+  white-space: nowrap;
 }
 
 .sample-lede {
@@ -75,7 +76,8 @@
   }
 
   .sample-script {
-    left: 68%;
+    left: 70%;
+    top: 34%;
   }
 }
 
@@ -111,7 +113,7 @@
   .sample-script {
     left: auto;
     right: .8rem;
-    top: 41%;
+    top: 38%;
   }
 
   .sample-card-photo {
