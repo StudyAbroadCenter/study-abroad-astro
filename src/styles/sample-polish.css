@@ -29,15 +29,15 @@
   background-image: var(--sample-hero);
   background-size: cover;
   background-position: center 44%;
-  filter: brightness(1.12) saturate(1.62) contrast(1.09);
+  filter: brightness(1.02) saturate(1.12) contrast(1.03);
   transform: scale(1.02);
 }
 
 .sample-hero::before {
   z-index: -1;
   background:
-    linear-gradient(180deg, rgba(0, 142, 232, .22) 0%, rgba(66, 180, 239, .08) 32%, transparent 58%),
-    linear-gradient(90deg, rgba(255,255,255,.08), transparent 45%);
+    linear-gradient(180deg, rgba(0, 133, 226, .09) 0%, rgba(66, 180, 239, .035) 34%, transparent 58%),
+    linear-gradient(90deg, rgba(255,255,255,.07), transparent 45%);
   mix-blend-mode: soft-light;
 }
 
@@ -64,9 +64,9 @@
 }
 
 .sample-script {
-  left: 67%;
-  top: 48%;
-  font-size: clamp(1.48rem, 1.86vw, 2.1rem);
+  left: 71%;
+  top: 43%;
+  font-size: clamp(1.4rem, 1.72vw, 1.95rem);
   line-height: 1;
   z-index: 3;
   transform: rotate(-5deg);
@@ -208,11 +208,11 @@
 
   .sample-hero::after {
     background-position: 58% top;
-    filter: brightness(1.1) saturate(1.42) contrast(1.05);
+    filter: brightness(1.02) saturate(1.08) contrast(1.03);
   }
 
   .sample-hero::before {
-    background: linear-gradient(180deg, rgba(0, 143, 231, .16), transparent 50%);
+    background: linear-gradient(180deg, rgba(0, 143, 231, .08), transparent 50%);
   }
 
   .sample-hero-panel {
