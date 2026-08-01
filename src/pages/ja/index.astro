@@ -4,7 +4,7 @@ const rawBase = import.meta.env.BASE_URL;
 const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
 const withBase = (path: string) => `${base}${path.replace(/^\//, '')}`;
 const image = (name: string) => withBase(`/images/${name}`);
-const hero = withBase('/images/Hero/hero-kinugasa-clocktower.jpg');
+const hero = withBase('/images/hero/hero-kinugasa-clocktower.jpg');
 const programs = [
   ['RSJP','立命館サマー日本語プログラム','夏・5週間','日本語、日本文化、学生交流','成績表あり','IMG_8178.JPG'],
   ['RSJP Express','RSJP Express','夏・2週間','RSJPの短期集中版','成績表なし','IMG_5092.JPG'],
