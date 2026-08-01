@@ -1,0 +1,122 @@
+/* Final visual tuning after screenshot review. */
+.sample-hero {
+  min-height: 700px;
+}
+
+.sample-hero-panel {
+  width: min(39.5vw, 620px);
+  padding: 112px 62px 30px 64px;
+  clip-path: polygon(0 0, 81% 0, 100% 100%, 0 100%);
+}
+
+.sample-title-wrap h1 {
+  max-width: 520px;
+  font-size: clamp(3.35rem, 4.35vw, 4.8rem);
+  line-height: .99;
+}
+
+.sample-script {
+  left: 76%;
+  top: 31%;
+  font-size: clamp(1.12rem, 1.36vw, 1.5rem);
+  transform: rotate(-5deg);
+  white-space: nowrap;
+}
+
+.sample-lede {
+  margin-top: 1.45rem;
+}
+
+.sample-actions {
+  max-width: 420px;
+}
+
+.sample-stats {
+  left: 64px;
+  width: min(560px, calc(100vw - 110px));
+}
+
+.sample-badge {
+  right: 9.2%;
+  bottom: 132px;
+  width: 166px;
+}
+
+.sample-slider {
+  right: 7.3%;
+}
+
+.sample-programmes {
+  padding-top: 4.1rem;
+}
+
+.sample-programme-head {
+  grid-template-columns: minmax(470px, 1.3fr) minmax(280px, .62fr) auto;
+}
+
+.sample-programme-head h2 {
+  font-size: clamp(2.7rem, 3.55vw, 3.95rem);
+}
+
+.sample-card-row {
+  gap: 1rem;
+}
+
+.sample-card-copy {
+  height: 136px;
+}
+
+.sample-card-photo {
+  height: 136px;
+}
+
+@media (max-width: 1280px) {
+  .sample-hero-panel {
+    width: 45vw;
+  }
+
+  .sample-script {
+    left: 70%;
+    top: 34%;
+  }
+}
+
+@media (max-width: 1080px) {
+  .sample-hero-panel {
+    width: 52vw;
+  }
+
+  .sample-programme-head {
+    grid-template-columns: 1fr .7fr;
+  }
+
+  .sample-programme-head > a {
+    grid-column: 2;
+    justify-self: start;
+  }
+}
+
+@media (max-width: 699px) {
+  .sample-hero {
+    min-height: 780px;
+  }
+
+  .sample-hero-panel {
+    width: 100%;
+    padding: 4rem 1rem 1rem;
+  }
+
+  .sample-title-wrap h1 {
+    font-size: clamp(3rem, 14vw, 4.2rem);
+  }
+
+  .sample-script {
+    left: auto;
+    right: .8rem;
+    top: 38%;
+  }
+
+  .sample-card-photo {
+    height: 150px;
+  }
+}
