@@ -44,6 +44,15 @@ def vertical_mask(width: int, height: int, stops: tuple[tuple[float, int], ...])
     return mask.resize((width, height))
 
 
+def sky_colour_mask(image: Image.Image) -> Image.Image:
+    """Select blue/cyan sky pixels while protecting white clouds and neutral buildings."""
+    red, green, blue = image.split()
+    blue_over_red = ImageChops.subtract(blue, red)
+    blue_over_green = ImageChops.subtract(blue, green)
+    blue_signal = ImageChops.lighter(blue_over_red, blue_over_green)
+    return blue_signal.point(lambda value: max(0, min(255, (value - 6) * 7)))
+
+
 def lift_shadows(image: Image.Image) -> Image.Image:
     """Open dark areas without flattening the sky and highlights."""
     luminance = ImageOps.grayscale(image)
@@ -59,29 +68,34 @@ def enhance_hero(image: Image.Image) -> Image.Image:
     image = lift_shadows(image)
     image = ImageEnhance.Brightness(image).enhance(1.10)
     image = ImageEnhance.Contrast(image).enhance(1.08)
-    image = ImageEnhance.Color(image).enhance(1.20)
+    image = ImageEnhance.Color(image).enhance(1.18)
 
     width, height = image.size
 
-    # Main summer-sky pass: clear, saturated blue across the upper half.
-    main_sky_layer = Image.new('RGB', image.size, (24, 122, 242))
-    main_sky_treatment = ImageChops.soft_light(image, main_sky_layer)
-    main_sky_mask = vertical_mask(
+    # Target only existing blue/cyan sky pixels. This preserves the white clouds,
+    # clock tower and stone facade while moving the sky toward royal blue.
+    colour_mask = sky_colour_mask(image)
+    upper_mask = vertical_mask(
         width,
         height,
-        ((0.0, 188), (0.08, 178), (0.24, 154), (0.42, 94), (0.62, 18), (0.72, 0), (1.0, 0)),
+        ((0.0, 255), (0.16, 255), (0.38, 224), (0.56, 92), (0.68, 0), (1.0, 0)),
     )
-    image = Image.composite(main_sky_treatment, image, main_sky_mask)
+    targeted_sky_mask = ImageChops.multiply(colour_mask, upper_mask)
 
-    # Royal-blue pass near the top: deeper and more aspirational without becoming dark.
-    royal_sky_layer = Image.new('RGB', image.size, (9, 83, 198))
-    royal_sky_treatment = ImageChops.soft_light(image, royal_sky_layer)
-    royal_sky_mask = vertical_mask(
+    royal_layer = Image.new('RGB', image.size, (7, 78, 205))
+    royal_treatment = Image.blend(image, royal_layer, 0.46)
+    image = Image.composite(royal_treatment, image, targeted_sky_mask)
+
+    # Add a lighter summer-blue transition near the horizon for a natural depth gradient.
+    transition_layer = Image.new('RGB', image.size, (24, 118, 242))
+    transition_treatment = ImageChops.soft_light(image, transition_layer)
+    transition_mask = vertical_mask(
         width,
         height,
-        ((0.0, 118), (0.10, 108), (0.26, 84), (0.40, 32), (0.52, 0), (1.0, 0)),
+        ((0.0, 70), (0.18, 92), (0.38, 112), (0.54, 56), (0.66, 0), (1.0, 0)),
     )
-    image = Image.composite(royal_sky_treatment, image, royal_sky_mask)
+    transition_mask = ImageChops.multiply(colour_mask, transition_mask)
+    image = Image.composite(transition_treatment, image, transition_mask)
 
     # Keep the lawn fresh and bright.
     green_layer = Image.new('RGB', image.size, (76, 190, 73))
