@@ -55,36 +55,35 @@ def lift_shadows(image: Image.Image) -> Image.Image:
 
 
 def enhance_hero(image: Image.Image) -> Image.Image:
-    """Create a vivid midsummer blue-sky treatment for the Japanese Hero."""
+    """Create a bright Hero with a vivid, hopeful midsummer royal-blue sky."""
     image = lift_shadows(image)
     image = ImageEnhance.Brightness(image).enhance(1.10)
-    image = ImageEnhance.Contrast(image).enhance(1.09)
-    image = ImageEnhance.Color(image).enhance(1.30)
+    image = ImageEnhance.Contrast(image).enhance(1.08)
+    image = ImageEnhance.Color(image).enhance(1.20)
 
     width, height = image.size
 
-    # Push the upper half toward a vivid midsummer blue rather than a pale sky-blue.
-    blue_layer = Image.new('RGB', image.size, (0, 112, 238))
-    blue_treatment = ImageChops.soft_light(image, blue_layer)
-    sky_mask = vertical_mask(
+    # Main summer-sky pass: clear, saturated blue across the upper half.
+    main_sky_layer = Image.new('RGB', image.size, (24, 122, 242))
+    main_sky_treatment = ImageChops.soft_light(image, main_sky_layer)
+    main_sky_mask = vertical_mask(
         width,
         height,
-        ((0.0, 214), (0.16, 202), (0.36, 156), (0.56, 54), (0.68, 0), (1.0, 0)),
+        ((0.0, 188), (0.08, 178), (0.24, 154), (0.42, 94), (0.62, 18), (0.72, 0), (1.0, 0)),
     )
-    image = Image.composite(blue_treatment, image, sky_mask)
+    image = Image.composite(main_sky_treatment, image, main_sky_mask)
 
-    # Add a second restrained multiply pass near the very top to create a deeper,
-    # clear-summer-sky gradient while preserving clouds and architectural detail.
-    deep_blue_layer = Image.new('RGB', image.size, (24, 118, 228))
-    deep_blue_treatment = ImageChops.multiply(image, deep_blue_layer)
-    deep_blue_mask = vertical_mask(
+    # Royal-blue pass near the top: deeper and more aspirational without becoming dark.
+    royal_sky_layer = Image.new('RGB', image.size, (9, 83, 198))
+    royal_sky_treatment = ImageChops.soft_light(image, royal_sky_layer)
+    royal_sky_mask = vertical_mask(
         width,
         height,
-        ((0.0, 34), (0.22, 27), (0.46, 8), (0.60, 0), (1.0, 0)),
+        ((0.0, 118), (0.10, 108), (0.26, 84), (0.40, 32), (0.52, 0), (1.0, 0)),
     )
-    image = Image.composite(deep_blue_treatment, image, deep_blue_mask)
+    image = Image.composite(royal_sky_treatment, image, royal_sky_mask)
 
-    # Keep the lawn fresh and bright without making the building look artificial.
+    # Keep the lawn fresh and bright.
     green_layer = Image.new('RGB', image.size, (76, 190, 73))
     green_treatment = ImageChops.soft_light(image, green_layer)
     green_mask = vertical_mask(
@@ -94,17 +93,17 @@ def enhance_hero(image: Image.Image) -> Image.Image:
     )
     image = Image.composite(green_treatment, image, green_mask)
 
-    # Retain a little airy lift only below the sky so the deep blue is not washed out.
-    airy_layer = Image.new('RGB', image.size, (232, 246, 255))
+    # Preserve an airy finish below the sky, without washing the blue back toward cyan.
+    airy_layer = Image.new('RGB', image.size, (233, 246, 255))
     airy_treatment = ImageChops.screen(image, airy_layer)
     airy_mask = vertical_mask(
         width,
         height,
-        ((0.0, 0), (0.42, 0), (0.62, 4), (1.0, 8)),
+        ((0.0, 0), (0.42, 0), (0.68, 8), (1.0, 14)),
     )
     image = Image.composite(airy_treatment, image, airy_mask)
 
-    return image.filter(ImageFilter.UnsharpMask(radius=1.35, percent=74, threshold=3))
+    return image.filter(ImageFilter.UnsharpMask(radius=1.35, percent=72, threshold=3))
 
 
 for name, (source, width, height, quality, treatment) in JOBS.items():
