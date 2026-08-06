@@ -1,0 +1,47 @@
+---
+import { experiencePillars } from '../content/experience-pillars';
+import '../styles/experience-pillars.css';
+
+const copy = experiencePillars.ja;
+const titleLines = copy.title.split('\n');
+---
+<section class="experience-pillars" id="experience-pillars" aria-labelledby="experience-pillars-title">
+  <div class="site-shell experience-pillars__intro">
+    <p class="experience-pillars__kicker">{copy.kicker}</p>
+    <h2 id="experience-pillars-title">
+      {titleLines.map((line) => <span>{line}</span>)}
+    </h2>
+    <div class="experience-pillars__lead">
+      <p>{copy.lead}</p>
+      <small>{copy.question}</small>
+    </div>
+  </div>
+
+  <div class="site-shell experience-pillars__grid">
+    {copy.pillars.map((pillar) => (
+      <article class={`experience-pillar experience-pillar--${pillar.id}`}>
+        <header>
+          <span>{pillar.number}</span>
+          <p>{pillar.eyebrow}</p>
+        </header>
+        <h3>{pillar.title}</h3>
+        <p class="experience-pillar__body">{pillar.body}</p>
+        <details class="experience-pillar__examples">
+          <summary>過去の体験例を見る <span aria-hidden="true">＋</span></summary>
+          <ul>
+            {pillar.examples.map((example) => <li>{example}</li>)}
+          </ul>
+        </details>
+        {pillar.note && <p class="experience-pillar__note">{pillar.note}</p>}
+      </article>
+    ))}
+  </div>
+
+  <div class="experience-pillars__outro">
+    <div class="site-shell experience-pillars__outro-inner">
+      <p>{copy.outroKicker}</p>
+      <h2>{copy.outroTitle}</h2>
+      <span>{copy.outroBody}</span>
+    </div>
+  </div>
+</section>
