@@ -10,7 +10,7 @@ const links = [
   { href: '#support-preview', label: 'サポート' },
 ];
 ---
-<header class="recruitment-header">
+<header class="recruitment-header" data-recruitment-header>
   <a class="skip-link" href="#main-content">本文へ移動</a>
   <div class="site-shell recruitment-header__inner">
     <a class="recruitment-brand" href={withBase('/ja/')} aria-label="立命館大学短期受入プログラム 日本語トップ">
@@ -27,7 +27,7 @@ const links = [
       <a class="recruitment-nav__cta" href="#program-finder">自分に合うプログラム</a>
     </nav>
 
-    <details class="recruitment-menu">
+    <details class="recruitment-menu" data-recruitment-menu>
       <summary aria-label="メニューを開く">
         <span></span><span></span><span></span>
       </summary>
@@ -39,3 +39,21 @@ const links = [
     </details>
   </div>
 </header>
+
+<script>
+  const header = document.querySelector('[data-recruitment-header]');
+  const menu = document.querySelector('[data-recruitment-menu]');
+
+  const updateHeader = () => {
+    header?.classList.toggle('is-scrolled', window.scrollY > 24);
+  };
+
+  updateHeader();
+  window.addEventListener('scroll', updateHeader, { passive: true });
+
+  menu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      if (menu instanceof HTMLDetailsElement) menu.open = false;
+    });
+  });
+</script>
