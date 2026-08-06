@@ -1,5 +1,7 @@
 .campus-journey__intro,
-.campus-journey__outro {
+.campus-journey__outro,
+.mvp-preview,
+.recruitment-footer {
   content-visibility: auto;
   contain-intrinsic-size: auto 760px;
 }
@@ -45,7 +47,7 @@
 }
 
 .campus-scene__card {
-  contain: layout paint style;
+  contain: layout style;
   background:
     linear-gradient(145deg, rgba(7, 24, 42, 0.96), rgba(7, 24, 42, 0.9)),
     var(--campus-accent-soft);
