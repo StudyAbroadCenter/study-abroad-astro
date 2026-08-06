@@ -14,6 +14,8 @@ const sourceFiles = [
   'IMG_5092.JPG',
   'IMG_1687.JPG',
   'IMG_3725.JPG',
+  'IMG_8263.JPG',
+  'IMG_6091.JPG',
 ];
 
 const variants = [
@@ -94,4 +96,4 @@ await writeFile(
   'utf8',
 );
 
-console.log(`immersive image total ${(totalOutputBytes / 1024 / 1024).toFixed(2)} MiB across ${manifest.assets.length} files`);
+console.log(`responsive image total ${(totalOutputBytes / 1024 / 1024).toFixed(2)} MiB across ${manifest.assets.length} files`);
