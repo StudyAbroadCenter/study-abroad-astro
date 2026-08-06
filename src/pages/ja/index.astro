@@ -2,6 +2,7 @@
 import StudentRecruitmentLayout from '../../components/StudentRecruitmentLayout.astro';
 import RecruitmentHero from '../../components/RecruitmentHero.astro';
 import ProgramFinder from '../../components/ProgramFinder.astro';
+import ParticipantDay from '../../components/ParticipantDay.astro';
 ---
 <StudentRecruitmentLayout
   title="立命館大学 短期受入プログラム"
@@ -9,21 +10,17 @@ import ProgramFinder from '../../components/ProgramFinder.astro';
 >
   <RecruitmentHero />
   <ProgramFinder />
+  <ParticipantDay />
 
   <section class="mvp-preview" aria-label="今後追加するコンテンツ">
-    <div class="site-shell mvp-preview__grid">
-      <article id="experience-preview">
-        <span>NEXT 01</span>
-        <h2>学びと体験</h2>
-        <p>授業、Buddy、文化体験、学生生活を、実際の写真と参加者目線のストーリーで紹介します。</p>
-      </article>
+    <div class="site-shell mvp-preview__grid mvp-preview__grid--two">
       <article id="campuses-preview">
-        <span>NEXT 02</span>
+        <span>NEXT 01</span>
         <h2>3つの地域とキャンパス</h2>
         <p>京都・大阪・滋賀それぞれの学び、街、アクセス、キャンパスの魅力を整理します。</p>
       </article>
       <article id="support-preview">
-        <span>NEXT 03</span>
+        <span>NEXT 02</span>
         <h2>参加前から帰国までの支援</h2>
         <p>応募、渡航準備、宿泊、保険、緊急時対応まで、安心材料を分かりやすく提示します。</p>
       </article>
