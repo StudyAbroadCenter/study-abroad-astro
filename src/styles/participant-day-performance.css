@@ -1,0 +1,88 @@
+@layer components {
+  .participant-day__intro,
+  .participant-day__outro {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 760px;
+  }
+
+  .day-scene__picture {
+    position: absolute;
+    inset: 0;
+    z-index: -3;
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .day-scene__picture .day-scene__image {
+    position: static;
+    inset: auto;
+    z-index: auto;
+    display: block;
+    width: 100%;
+    height: 100%;
+    filter: none;
+    transform: scale(1.012);
+    transition: transform 760ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .day-scene.is-active .day-scene__picture .day-scene__image {
+    transform: scale(1);
+  }
+
+  @media (min-width: 900px) {
+    .day-stage {
+      contain: paint;
+    }
+
+    .day-stage__picture {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .day-stage__image {
+      visibility: hidden;
+      opacity: 0;
+      filter: none;
+      transform: scale(1.018);
+      transition:
+        opacity 460ms ease,
+        transform 880ms cubic-bezier(0.2, 0.8, 0.2, 1),
+        visibility 0s linear 460ms;
+    }
+
+    .day-stage__image.is-active {
+      visibility: visible;
+      opacity: 1;
+      transform: scale(1);
+      transition-delay: 0s;
+    }
+
+    .day-scene__picture {
+      display: none;
+    }
+
+    .day-scene__content {
+      contain: layout paint style;
+      transform: translateY(16px);
+      transition:
+        opacity 300ms ease,
+        transform 380ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .day-stage__image,
+    .day-scene__picture .day-scene__image,
+    .day-scene__content {
+      transition: none !important;
+      transform: none !important;
+    }
+  }
+}

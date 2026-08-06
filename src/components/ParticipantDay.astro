@@ -3,7 +3,17 @@ import '../styles/participant-day.css';
 
 const rawBase = import.meta.env.BASE_URL;
 const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
-const image = (path: string) => `${base}images/${path.replace(/^\//, '')}`;
+const optimizedImage = (path: string, width: number) => {
+  const stem = path.replace(/^\//, '').replace(/\.[^.]+$/, '');
+  return `${base}images/optimized/${stem}-${width}.webp`;
+};
+const responsiveImages = (path: string) => ({
+  mobile: optimizedImage(path, 960),
+  mobileSrcset: `${optimizedImage(path, 640)} 640w, ${optimizedImage(path, 960)} 960w`,
+  desktop: optimizedImage(path, 1920),
+  desktopSrcset: `${optimizedImage(path, 1280)} 1280w, ${optimizedImage(path, 1920)} 1920w`,
+});
+const transparentPixel = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
 
 const scenes = [
   {
@@ -74,18 +84,28 @@ const scenes = [
   <div class="day-journey">
     <div class="day-stage" aria-hidden="true">
       <div class="day-stage__images">
-        {scenes.map((scene, index) => (
-          <img
-            class={`day-stage__image ${index === 0 ? 'is-active' : ''}`}
-            src={image(scene.image)}
-            alt=""
-            loading={index === 0 ? 'eager' : 'lazy'}
-            decoding="async"
-            data-day-image
-            data-scene-index={index}
-            style={`--day-focus: ${scene.focus}`}
-          />
-        ))}
+        {scenes.map((scene, index) => {
+          const sources = responsiveImages(scene.image);
+          return (
+            <picture class="day-stage__picture">
+              <source media="(max-width: 899px)" srcset={transparentPixel} />
+              <img
+                class={`day-stage__image ${index === 0 ? 'is-active' : ''}`}
+                src={index === 0 ? sources.desktop : transparentPixel}
+                srcset={index === 0 ? sources.desktopSrcset : undefined}
+                data-src={sources.desktop}
+                data-srcset={sources.desktopSrcset}
+                sizes="min(64vw, 1180px)"
+                alt=""
+                loading="lazy"
+                decoding="async"
+                data-day-image
+                data-scene-index={index}
+                style={`--day-focus: ${scene.focus}`}
+              />
+            </picture>
+          );
+        })}
       </div>
       <div class="day-stage__shade"></div>
       <div class="day-stage__hud">
@@ -105,30 +125,44 @@ const scenes = [
     </div>
 
     <div class="day-scenes">
-      {scenes.map((scene, index) => (
-        <article
-          class={`day-scene ${index === 0 ? 'is-active' : ''}`}
-          data-day-scene
-          data-scene-index={index}
-          style={`--day-focus: ${scene.focus}`}
-        >
-          <img class="day-scene__image" src={image(scene.image)} alt={scene.alt} loading="lazy" decoding="async" />
-          <div class="day-scene__shade" aria-hidden="true"></div>
-          <div class="day-scene__content">
-            <div class="day-scene__meta">
-              <span>{String(index + 1).padStart(2, '0')} / {String(scenes.length).padStart(2, '0')}</span>
-              <strong>{scene.time}</strong>
-              <b>{scene.label}</b>
+      {scenes.map((scene, index) => {
+        const sources = responsiveImages(scene.image);
+        return (
+          <article
+            class={`day-scene ${index === 0 ? 'is-active' : ''}`}
+            data-day-scene
+            data-scene-index={index}
+            style={`--day-focus: ${scene.focus}`}
+          >
+            <picture class="day-scene__picture">
+              <source media="(min-width: 900px)" srcset={transparentPixel} />
+              <img
+                class="day-scene__image"
+                src={sources.mobile}
+                srcset={sources.mobileSrcset}
+                sizes="100vw"
+                alt={scene.alt}
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+            <div class="day-scene__shade" aria-hidden="true"></div>
+            <div class="day-scene__content">
+              <div class="day-scene__meta">
+                <span>{String(index + 1).padStart(2, '0')} / {String(scenes.length).padStart(2, '0')}</span>
+                <strong>{scene.time}</strong>
+                <b>{scene.label}</b>
+              </div>
+              <h3>{scene.title}</h3>
+              <p>{scene.text}</p>
+              <div class="day-scene__shift">
+                <small>THIS MOMENT CHANGES</small>
+                <strong>{scene.shift}</strong>
+              </div>
             </div>
-            <h3>{scene.title}</h3>
-            <p>{scene.text}</p>
-            <div class="day-scene__shift">
-              <small>THIS MOMENT CHANGES</small>
-              <strong>{scene.shift}</strong>
-            </div>
-          </div>
-        </article>
-      ))}
+          </article>
+        );
+      })}
     </div>
   </div>
 
@@ -148,15 +182,39 @@ const scenes = [
 
   if (dayRoot) {
     const scenes = Array.from(dayRoot.querySelectorAll<HTMLElement>('[data-day-scene]'));
-    const images = Array.from(dayRoot.querySelectorAll<HTMLElement>('[data-day-image]'));
+    const images = Array.from(dayRoot.querySelectorAll<HTMLImageElement>('[data-day-image]'));
     const rails = Array.from(dayRoot.querySelectorAll<HTMLElement>('[data-day-rail]'));
     const clock = dayRoot.querySelector<HTMLElement>('[data-day-clock]');
     const label = dayRoot.querySelector<HTMLElement>('[data-day-label]');
     const progress = dayRoot.querySelector<HTMLElement>('[data-day-progress]');
+    const desktop = window.matchMedia('(min-width: 900px)');
+
+    let activeIndex = -1;
+    let pendingIndex = 0;
+    let animationFrame = 0;
+
+    const loadStageImage = (index: number) => {
+      if (!desktop.matches) return;
+      const item = images[index];
+      const source = item?.dataset.src;
+      const sourceSet = item?.dataset.srcset;
+      if (!item || !source) return;
+      if (sourceSet && item.getAttribute('srcset') !== sourceSet) item.setAttribute('srcset', sourceSet);
+      if (item.getAttribute('src') !== source) item.setAttribute('src', source);
+    };
+
+    const preloadUpcomingImages = (index: number) => {
+      for (let offset = 0; offset <= 2; offset += 1) {
+        loadStageImage(Math.min(index + offset, images.length - 1));
+      }
+    };
 
     const activateScene = (index: number) => {
       const scene = scenes[index];
-      if (!scene) return;
+      if (!scene || index === activeIndex) return;
+      activeIndex = index;
+
+      preloadUpcomingImages(index);
 
       scenes.forEach((item, itemIndex) => item.classList.toggle('is-active', itemIndex === index));
       images.forEach((item, itemIndex) => item.classList.toggle('is-active', itemIndex === index));
@@ -165,6 +223,15 @@ const scenes = [
       if (clock) clock.textContent = scene.querySelector('.day-scene__meta strong')?.textContent ?? '';
       if (label) label.textContent = scene.querySelector('.day-scene__meta b')?.textContent ?? '';
       if (progress) progress.style.width = `${((index + 1) / scenes.length) * 100}%`;
+    };
+
+    const scheduleScene = (index: number) => {
+      pendingIndex = index;
+      if (animationFrame) return;
+      animationFrame = window.requestAnimationFrame(() => {
+        animationFrame = 0;
+        activateScene(pendingIndex);
+      });
     };
 
     if ('IntersectionObserver' in window) {
@@ -176,12 +243,19 @@ const scenes = [
 
           if (!visible) return;
           const index = Number((visible.target as HTMLElement).dataset.sceneIndex ?? 0);
-          activateScene(index);
+          scheduleScene(index);
         },
-        { rootMargin: '-28% 0px -42%', threshold: [0.05, 0.25, 0.5, 0.75] },
+        { rootMargin: '-30% 0px -38%', threshold: [0.24, 0.52] },
       );
 
       scenes.forEach((scene) => observer.observe(scene));
     }
+
+    const refreshForViewport = () => {
+      if (desktop.matches) preloadUpcomingImages(Math.max(activeIndex, 0));
+    };
+
+    desktop.addEventListener('change', refreshForViewport);
+    activateScene(0);
   }
 </script>
