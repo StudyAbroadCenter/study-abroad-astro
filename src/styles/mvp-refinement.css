@@ -5,7 +5,7 @@ html {
 #main-content,
 #program-finder,
 #participant-day,
-#campuses-preview,
+#campus-journey,
 #support-preview {
   scroll-margin-top: 92px;
 }
@@ -106,8 +106,8 @@ html {
   background: linear-gradient(135deg, #1746d1 0%, #2b61f2 100%);
 }
 
-.mvp-preview__grid--two {
-  max-width: 920px;
+.mvp-preview__grid--single {
+  max-width: 640px;
 }
 
 @media (max-width: 559px) {
@@ -118,7 +118,7 @@ html {
   #main-content,
   #program-finder,
   #participant-day,
-  #campuses-preview,
+  #campus-journey,
   #support-preview {
     scroll-margin-top: 76px;
   }
@@ -290,9 +290,5 @@ html {
 
   .programme-grid {
     margin-top: 18px;
-  }
-
-  .mvp-preview__grid--two {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
