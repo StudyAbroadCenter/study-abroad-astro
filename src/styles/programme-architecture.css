@@ -1,0 +1,318 @@
+@layer components {
+  .programme-finder--reframed {
+    overflow: clip;
+  }
+
+  .programme-finder__intro-copy {
+    display: grid;
+    gap: 14px;
+    max-width: 680px;
+    color: var(--ink-soft);
+  }
+
+  .programme-finder__intro-copy small {
+    display: block;
+    border-left: 3px solid var(--orange);
+    padding-left: 14px;
+    color: rgba(7, 28, 51, 0.58);
+    font-size: 0.72rem;
+    font-weight: 750;
+    line-height: 1.7;
+  }
+
+  .programme-pathways {
+    display: grid;
+    gap: 1px;
+    margin-top: 40px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    background: var(--line);
+  }
+
+  .programme-pathways article {
+    position: relative;
+    min-height: 190px;
+    padding: 24px;
+    background: rgba(255, 255, 255, 0.86);
+  }
+
+  .programme-pathways article::after {
+    position: absolute;
+    right: 20px;
+    bottom: 18px;
+    width: 44px;
+    height: 2px;
+    background: var(--orange);
+    content: '';
+    transform-origin: right;
+    transition: transform 220ms ease;
+  }
+
+  .programme-pathways article:hover::after {
+    transform: scaleX(1.8);
+  }
+
+  .programme-pathways article > span {
+    color: var(--blue);
+    font-size: 0.66rem;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+  }
+
+  .programme-pathways article > p {
+    margin-top: 28px;
+    color: rgba(7, 28, 51, 0.46);
+    font-size: 0.58rem;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+  }
+
+  .programme-pathways h3 {
+    margin-top: 5px;
+    font-size: 1.45rem;
+    letter-spacing: -0.04em;
+  }
+
+  .programme-pathways small {
+    display: block;
+    max-width: 260px;
+    margin-top: 10px;
+    color: rgba(7, 28, 51, 0.62);
+    font-size: 0.68rem;
+    line-height: 1.6;
+  }
+
+  .finder-options--programme-family {
+    grid-template-columns: 1fr;
+  }
+
+  .programme-card {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .programme-card__visual > small {
+    position: absolute;
+    z-index: 2;
+    top: 14px;
+    left: 14px;
+    border-radius: 999px;
+    padding: 6px 10px;
+    background: rgba(7, 28, 51, 0.78);
+    color: #fff;
+    font-size: 0.58rem;
+    font-weight: 850;
+    letter-spacing: 0.05em;
+    backdrop-filter: blur(6px);
+  }
+
+  .programme-card--specialist .programme-card__visual > small {
+    background: rgba(29, 85, 255, 0.82);
+  }
+
+  .programme-card__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+  }
+
+  .programme-card__meta {
+    flex-wrap: wrap;
+  }
+
+  .programme-card__meta .programme-card__campus {
+    background: rgba(255, 107, 61, 0.12);
+    color: #b63d1d;
+  }
+
+  .programme-card__experience {
+    margin-top: 18px !important;
+    border-left: 2px solid var(--orange);
+    padding-left: 13px;
+    color: var(--ink) !important;
+    font-size: 0.76rem !important;
+    font-weight: 780;
+    line-height: 1.65;
+  }
+
+  .programme-card__link {
+    margin-top: auto;
+    padding-top: 18px;
+  }
+
+  .partner-programme--expanded {
+    margin-top: 78px;
+    background:
+      radial-gradient(circle at 92% 8%, rgba(255, 216, 77, 0.24), transparent 26%),
+      linear-gradient(135deg, #143fdd 0%, #071c33 76%);
+  }
+
+  .partner-programme--expanded::after {
+    width: 300px;
+    height: 300px;
+    border-width: 62px;
+  }
+
+  .partner-programme__lead {
+    display: grid;
+    gap: 16px;
+  }
+
+  .partner-programme__lead h2 {
+    margin-top: 0;
+  }
+
+  .partner-programme__lead > p:not(.section-kicker) {
+    max-width: 780px;
+    color: rgba(255, 255, 255, 0.82);
+  }
+
+  .partner-programme__promise {
+    border-left: 3px solid var(--yellow);
+    padding-left: 16px;
+    color: #fff !important;
+    font-weight: 700;
+  }
+
+  .partner-programme__process {
+    display: grid;
+    gap: 1px;
+    margin-top: 38px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.14);
+  }
+
+  .partner-programme__process > div {
+    min-height: 170px;
+    padding: 22px;
+    background: rgba(7, 28, 51, 0.72);
+  }
+
+  .partner-programme__process span {
+    color: var(--yellow);
+    font-size: 0.62rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+  }
+
+  .partner-programme__process strong {
+    display: block;
+    margin-top: 20px;
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+  }
+
+  .partner-programme__process p {
+    margin-top: 9px;
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 0.78rem;
+    line-height: 1.7;
+  }
+
+  .partner-programme__themes {
+    margin-top: 38px;
+  }
+
+  .partner-programme__themes > p {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.62rem;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+  }
+
+  .partner-programme__themes ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .partner-programme__themes li {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    padding: 8px 13px;
+    background: rgba(255, 255, 255, 0.08);
+    font-size: 0.7rem;
+    font-weight: 780;
+  }
+
+  .partner-programme__themes li::before {
+    display: none;
+  }
+
+  .partner-programme__footer {
+    display: grid;
+    gap: 22px;
+    margin-top: 38px;
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+    padding-top: 26px;
+  }
+
+  .partner-programme__footer > p {
+    max-width: 760px;
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 0.7rem;
+    line-height: 1.8;
+  }
+
+  .partner-programme__footer .action-button {
+    margin: 0;
+  }
+}
+
+@media (min-width: 560px) {
+  .programme-pathways {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .finder-options--programme-family {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .partner-programme__process {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 900px) {
+  .programme-finder__intro-copy {
+    padding-bottom: 8px;
+  }
+
+  .programme-pathways {
+    margin-top: 58px;
+  }
+
+  .programme-pathways article {
+    min-height: 230px;
+    padding: 30px;
+  }
+
+  .programme-pathways h3 {
+    font-size: 1.75rem;
+  }
+
+  .partner-programme__process {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .partner-programme__footer {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+  }
+}
+
+@media (max-width: 359px) {
+  .programme-pathways article {
+    min-height: 170px;
+    padding: 20px;
+  }
+
+  .programme-card__visual > small {
+    top: 10px;
+    left: 10px;
+  }
+}
