@@ -4,7 +4,14 @@ import '../styles/programme-architecture.css';
 
 const rawBase = import.meta.env.BASE_URL;
 const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
-const image = (path: string) => `${base}images/${path.replace(/^\//, '')}`;
+const optimizedImage = (path: string, width: number) => {
+  const stem = path.replace(/^\//, '').replace(/\.[^.]+$/, '');
+  return `${base}images/optimized/${stem}-${width}.webp`;
+};
+const responsiveCardImages = (path: string) => ({
+  src: optimizedImage(path, 960),
+  srcset: `${optimizedImage(path, 640)} 640w, ${optimizedImage(path, 960)} 960w`,
+});
 const studentProgrammes = programmes.filter((programme) => programme.audience === 'individual');
 const partnerProgramme = programmes.find((programme) => programme.audience === 'partner');
 const customThemes = [
@@ -78,6 +85,7 @@ const customThemes = [
     <div class="programme-grid" data-programme-grid>
       {studentProgrammes.map((programme) => {
         const copy = programme.copy.ja;
+        const sources = responsiveCardImages(programme.image);
         return (
           <article
             class={`programme-card programme-card--${programme.goals[0]}`}
@@ -86,7 +94,16 @@ const customThemes = [
             data-season={programme.season}
           >
             <div class="programme-card__visual">
-              <img src={image(programme.image)} alt={copy.imageAlt} width="720" height="480" loading="lazy" decoding="async" />
+              <img
+                src={sources.src}
+                srcset={sources.srcset}
+                sizes="(min-width: 900px) 380px, (min-width: 560px) 50vw, 100vw"
+                alt={copy.imageAlt}
+                width="960"
+                height="640"
+                loading="lazy"
+                decoding="async"
+              />
               <span>{programme.code}</span>
               <small>{copy.familyLabel}</small>
             </div>
