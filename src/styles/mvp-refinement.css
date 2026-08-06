@@ -1,0 +1,298 @@
+html {
+  scroll-padding-top: 92px;
+}
+
+#main-content,
+#program-finder,
+#participant-day,
+#campuses-preview,
+#support-preview {
+  scroll-margin-top: 92px;
+}
+
+#main-content:focus {
+  outline: none;
+}
+
+.skip-link:focus:not(:focus-visible) {
+  transform: translateY(-160%);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+.recruitment-header {
+  transition:
+    height 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.recruitment-header.is-scrolled {
+  height: 64px;
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+  background: rgba(7, 28, 51, 0.98);
+  box-shadow: 0 10px 30px rgba(7, 28, 51, 0.2);
+  backdrop-filter: blur(16px);
+}
+
+.recruitment-brand__mark,
+.recruitment-brand__text strong,
+.recruitment-brand__text small {
+  transition:
+    width 180ms ease,
+    height 180ms ease,
+    font-size 180ms ease;
+}
+
+.recruitment-header.is-scrolled .recruitment-brand__mark {
+  width: 32px;
+  height: 32px;
+  font-size: 0.92rem;
+}
+
+.recruitment-brand__text strong {
+  font-size: 0.82rem;
+}
+
+.recruitment-brand__text small {
+  font-size: 0.58rem;
+}
+
+.recruitment-header.is-scrolled .recruitment-brand__text strong {
+  font-size: 0.76rem;
+}
+
+.recruitment-header.is-scrolled .recruitment-brand__text small {
+  font-size: 0.53rem;
+}
+
+.recruitment-hero__image {
+  filter: saturate(0.94) contrast(1.03);
+}
+
+.recruitment-hero__facts dd {
+  word-break: keep-all;
+}
+
+.programme-finder {
+  padding-block: 60px 84px;
+}
+
+.section-intro {
+  gap: 10px;
+}
+
+.finder-controls {
+  margin-top: 28px;
+}
+
+.finder-results-heading {
+  margin-top: 32px;
+}
+
+.finder-results-heading small {
+  max-width: 580px;
+}
+
+.programme-grid {
+  margin-top: 16px;
+}
+
+.partner-programme {
+  margin-top: 44px;
+  background: linear-gradient(135deg, #1746d1 0%, #2b61f2 100%);
+}
+
+.mvp-preview__grid--two {
+  max-width: 920px;
+}
+
+@media (max-width: 559px) {
+  html {
+    scroll-padding-top: 76px;
+  }
+
+  #main-content,
+  #program-finder,
+  #participant-day,
+  #campuses-preview,
+  #support-preview {
+    scroll-margin-top: 76px;
+  }
+
+  .programme-finder {
+    padding-block: 54px 72px;
+  }
+
+  .section-intro h2 {
+    font-size: clamp(2.25rem, 10vw, 3rem);
+  }
+
+  .recruitment-hero h1 {
+    font-size: clamp(2.75rem, 13vw, 3.3rem);
+  }
+
+  .recruitment-hero__lead {
+    font-size: 0.96rem;
+  }
+
+  .recruitment-hero__facts dd {
+    font-size: clamp(0.68rem, 2.8vw, 0.82rem);
+  }
+
+  .finder-controls {
+    margin-top: 24px;
+  }
+
+  .finder-results-heading {
+    margin-top: 28px;
+  }
+
+  .partner-programme {
+    margin-top: 36px;
+  }
+}
+
+@media (max-width: 359px) {
+  .site-shell {
+    width: calc(100% - 24px);
+  }
+
+  .recruitment-header {
+    height: 64px;
+  }
+
+  .recruitment-header.is-scrolled {
+    height: 60px;
+  }
+
+  .recruitment-brand {
+    gap: 8px;
+  }
+
+  .recruitment-brand__mark {
+    width: 34px;
+    height: 34px;
+  }
+
+  .recruitment-brand__text strong {
+    font-size: 0.72rem;
+  }
+
+  .recruitment-brand__text small {
+    font-size: 0.49rem;
+  }
+
+  .recruitment-menu summary {
+    width: 40px;
+    height: 40px;
+  }
+
+  .recruitment-hero {
+    min-height: 700px;
+  }
+
+  .recruitment-hero__content {
+    padding-block: 108px 102px;
+  }
+
+  .recruitment-hero h1 {
+    font-size: 2.48rem;
+    letter-spacing: -0.06em;
+  }
+
+  .recruitment-hero__lead {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    line-height: 1.75;
+  }
+
+  .recruitment-hero__actions {
+    margin-top: 22px;
+  }
+
+  .action-button {
+    min-height: 50px;
+    padding-inline: 14px;
+    font-size: 0.84rem;
+  }
+
+  .recruitment-hero__facts {
+    margin-top: 28px;
+  }
+
+  .recruitment-hero__facts div {
+    padding-inline: 5px;
+  }
+
+  .recruitment-hero__facts dt {
+    font-size: 0.56rem;
+  }
+
+  .recruitment-hero__facts dd {
+    font-size: 0.64rem;
+  }
+
+  .recruitment-hero__note {
+    font-size: 0.56rem;
+  }
+
+  .section-intro h2 {
+    font-size: 2rem;
+  }
+
+  .finder-controls fieldset {
+    padding: 14px;
+  }
+
+  .finder-options label span {
+    min-height: 50px;
+    padding-inline: 6px;
+    font-size: 0.73rem;
+  }
+
+  .programme-card__body {
+    padding: 18px;
+  }
+
+  .partner-programme h2 {
+    font-size: 1.65rem;
+  }
+}
+
+@media (min-width: 900px) {
+  html {
+    scroll-padding-top: 92px;
+  }
+
+  .recruitment-header.is-scrolled {
+    height: 68px;
+  }
+
+  .programme-finder {
+    padding-block: 76px 104px;
+  }
+
+  .section-intro {
+    gap: 10px 54px;
+  }
+
+  .finder-controls {
+    margin-top: 34px;
+  }
+
+  .finder-results-heading {
+    margin-top: 40px;
+  }
+
+  .programme-grid {
+    margin-top: 18px;
+  }
+
+  .mvp-preview__grid--two {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

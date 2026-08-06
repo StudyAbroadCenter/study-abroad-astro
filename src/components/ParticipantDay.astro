@@ -1,0 +1,187 @@
+---
+import '../styles/participant-day.css';
+
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const image = (path: string) => `${base}images/${path.replace(/^\//, '')}`;
+
+const scenes = [
+  {
+    time: '08:45',
+    label: 'ARRIVE',
+    title: '知らないキャンパスが、今日から自分の場所になる。',
+    text: '朝のキャンパスへ。教室を探し、同じプログラムの仲間と挨拶を交わす。旅先だった日本が、少しずつ「通う場所」に変わっていきます。',
+    shift: '訪問者から、キャンパスの一員へ。',
+    image: 'IMG_1656.JPG',
+    alt: '立命館大学のキャンパスと時計台',
+    focus: 'center 46%',
+  },
+  {
+    time: '09:00',
+    label: 'LEARN',
+    title: '教室で覚えたことばを、その日のうちに使う。',
+    text: '日本語や専門分野を学ぶだけで終わらない。質問し、考え、伝える。授業は、午後の交流や街での発見につながる一日の起点です。',
+    shift: '知識が、使える経験に変わる。',
+    image: 'IMG_8178.JPG',
+    alt: '立命館大学で日本語の授業を受ける学生たち',
+    focus: 'center 42%',
+  },
+  {
+    time: '12:15',
+    label: 'CONNECT',
+    title: '昼休みの会話が、いちばん忘れられない授業になる。',
+    text: 'Buddyや立命館の学生と昼食へ。完璧な日本語でなくてもいい。好きな音楽、大学生活、将来のこと。小さな会話から、人との距離が縮まります。',
+    shift: 'クラスメートから、友人へ。',
+    image: 'IMG_1588.JPG',
+    alt: '短期プログラムに参加する学生が集まる教室',
+    focus: 'center 58%',
+  },
+  {
+    time: '14:30',
+    label: 'DISCOVER',
+    title: '文化を見るのではなく、手を動かして理解する。',
+    text: '茶、芸術、地域、企業、フィールドワーク。背景を学び、実際に体験し、自分の文化との違いを言葉にする。観光では得られない解像度で日本を見つめます。',
+    shift: '「知っている日本」から、「考えた日本」へ。',
+    image: 'IMG_5092.JPG',
+    alt: '茶道体験で使う茶釜と茶道具',
+    focus: 'center 52%',
+  },
+  {
+    time: '17:30',
+    label: 'EXPLORE',
+    title: '授業が終わっても、学びは街の中で続いている。',
+    text: '京都・大阪・滋賀へ。電車に乗り、店に入り、道を尋ね、友人と歩く。予定表には書けない経験が、帰国後も残る自分だけの物語になります。',
+    shift: '短期留学が、自分の世界を広げる。',
+    image: 'IMG_1687.JPG',
+    alt: '青空の下に広がる立命館大学のキャンパス',
+    focus: 'center 48%',
+  },
+];
+---
+<section class="participant-day" id="participant-day" aria-labelledby="participant-day-title" data-participant-day>
+  <div class="site-shell participant-day__intro">
+    <p class="participant-day__kicker">A DAY THAT CHANGES YOUR VIEW</p>
+    <h2 id="participant-day-title">
+      <span>ある一日が、</span>
+      <span>日本の見え方を変える。</span>
+    </h2>
+    <div class="participant-day__intro-copy">
+      <p>授業、友人、文化、街。短期留学の価値は、予定表の項目ではなく、それらが一日の中でつながる瞬間にあります。</p>
+      <small>下へスクロールして、参加者の一日を追体験してください。</small>
+    </div>
+  </div>
+
+  <div class="day-journey">
+    <div class="day-stage" aria-hidden="true">
+      <div class="day-stage__images">
+        {scenes.map((scene, index) => (
+          <img
+            class={`day-stage__image ${index === 0 ? 'is-active' : ''}`}
+            src={image(scene.image)}
+            alt=""
+            loading={index === 0 ? 'eager' : 'lazy'}
+            decoding="async"
+            data-day-image
+            data-scene-index={index}
+            style={`--day-focus: ${scene.focus}`}
+          />
+        ))}
+      </div>
+      <div class="day-stage__shade"></div>
+      <div class="day-stage__hud">
+        <p class="day-stage__eyebrow">YOUR DAY AT RITSUMEIKAN</p>
+        <p class="day-stage__clock" data-day-clock>{scenes[0].time}</p>
+        <p class="day-stage__label" data-day-label>{scenes[0].label}</p>
+        <div class="day-stage__progress" aria-hidden="true"><span data-day-progress></span></div>
+        <ol class="day-stage__rail">
+          {scenes.map((scene, index) => (
+            <li class={index === 0 ? 'is-active' : ''} data-day-rail data-scene-index={index}>
+              <span>{String(index + 1).padStart(2, '0')}</span>
+              <b>{scene.time}</b>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+
+    <div class="day-scenes">
+      {scenes.map((scene, index) => (
+        <article
+          class={`day-scene ${index === 0 ? 'is-active' : ''}`}
+          data-day-scene
+          data-scene-index={index}
+          style={`--day-focus: ${scene.focus}`}
+        >
+          <img class="day-scene__image" src={image(scene.image)} alt={scene.alt} loading="lazy" decoding="async" />
+          <div class="day-scene__shade" aria-hidden="true"></div>
+          <div class="day-scene__content">
+            <div class="day-scene__meta">
+              <span>{String(index + 1).padStart(2, '0')} / {String(scenes.length).padStart(2, '0')}</span>
+              <strong>{scene.time}</strong>
+              <b>{scene.label}</b>
+            </div>
+            <h3>{scene.title}</h3>
+            <p>{scene.text}</p>
+            <div class="day-scene__shift">
+              <small>THIS MOMENT CHANGES</small>
+              <strong>{scene.shift}</strong>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+
+  <div class="site-shell participant-day__outro">
+    <p class="participant-day__outro-mark" aria-hidden="true">“</p>
+    <div>
+      <p class="participant-day__kicker">NOT JUST A SCHEDULE</p>
+      <h2>帰国するとき、持ち帰るのは知識だけではない。</h2>
+      <p>使えるようになったことば。名前で呼べる友人。自分の足で歩いた街。そして、以前とは少し違う世界の見方です。</p>
+    </div>
+    <small>掲載している授業・交流・文化体験等は過去実施例です。実際の内容はプログラムにより異なります。</small>
+  </div>
+</section>
+
+<script>
+  const dayRoot = document.querySelector('[data-participant-day]');
+
+  if (dayRoot) {
+    const scenes = Array.from(dayRoot.querySelectorAll<HTMLElement>('[data-day-scene]'));
+    const images = Array.from(dayRoot.querySelectorAll<HTMLElement>('[data-day-image]'));
+    const rails = Array.from(dayRoot.querySelectorAll<HTMLElement>('[data-day-rail]'));
+    const clock = dayRoot.querySelector<HTMLElement>('[data-day-clock]');
+    const label = dayRoot.querySelector<HTMLElement>('[data-day-label]');
+    const progress = dayRoot.querySelector<HTMLElement>('[data-day-progress]');
+
+    const activateScene = (index: number) => {
+      const scene = scenes[index];
+      if (!scene) return;
+
+      scenes.forEach((item, itemIndex) => item.classList.toggle('is-active', itemIndex === index));
+      images.forEach((item, itemIndex) => item.classList.toggle('is-active', itemIndex === index));
+      rails.forEach((item, itemIndex) => item.classList.toggle('is-active', itemIndex === index));
+
+      if (clock) clock.textContent = scene.querySelector('.day-scene__meta strong')?.textContent ?? '';
+      if (label) label.textContent = scene.querySelector('.day-scene__meta b')?.textContent ?? '';
+      if (progress) progress.style.width = `${((index + 1) / scenes.length) * 100}%`;
+    };
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          const visible = entries
+            .filter((entry) => entry.isIntersecting)
+            .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+          if (!visible) return;
+          const index = Number((visible.target as HTMLElement).dataset.sceneIndex ?? 0);
+          activateScene(index);
+        },
+        { rootMargin: '-28% 0px -42%', threshold: [0.05, 0.25, 0.5, 0.75] },
+      );
+
+      scenes.forEach((scene) => observer.observe(scene));
+    }
+  }
+</script>

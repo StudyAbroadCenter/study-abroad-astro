@@ -1,172 +1,29 @@
 ---
-import Layout from '../../components/Layout.astro';
-const rawBase = import.meta.env.BASE_URL;
-const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
-const withBase = (path: string) => `${base}${path.replace(/^\//, '')}`;
-const image = (name: string) => withBase(`/images/${name}`);
-const generated = (name: string) => image(`generated/${name}.webp`);
-const hero = image('hero/hero-kinugasa-clocktower.jpg');
-const programs = [
-  ['RSJP','立命館サマー日本語プログラム','夏・5週間','rsjp'],
-  ['RSJP Express','RSJP Express','夏・2週間','rsjp-express'],
-  ['RWJP','立命館ウィンター日本語プログラム','冬・5週間','rwjp'],
-  ['RWJP Express','RWJP Express','冬・2週間','rwjp-express'],
-  ['RDSP','立命館データサイエンスプログラム','期間未定','rdsp'],
-  ['RBMP','立命館ビジネス・マネジメントプログラム','期間未定','rbmp'],
-  ['CUSTOM','立命館サステナビリティツアープログラム','期間未定','custom'],
-];
-const experiences = [
-  { label: 'LEARN', title: 'ことばを学び、すぐに使う。', text: '教室で身につけた日本語を、キャンパスや京都での会話につなげます。', image: 'rsjp', alt: '日本語講座の授業風景' },
-  { label: 'CONNECT', title: '学生と出会い、京都に居場所をつくる。', text: 'バディや学生団体との交流を通して、短い滞在を人とのつながりに変えます。', image: 'rwjp-express', alt: '学生交流のイメージ' },
-  { label: 'DISCOVER', title: '京都の街を、もう一つの教室に。', text: '文化体験やフィールドワークを通して、見学だけでは終わらない学びへ進みます。', image: 'rsjp-express', alt: '日本文化体験のイメージ' },
-  { label: 'BELONG', title: '見学者ではなく、キャンパスの一員へ。', text: '授業、昼休み、交流、日常。そのすべてを日本の大学生活として体験します。', image: 'rbmp', alt: '大学キャンパスで学ぶ学生のイメージ' },
-];
+import StudentRecruitmentLayout from '../../components/StudentRecruitmentLayout.astro';
+import RecruitmentHero from '../../components/RecruitmentHero.astro';
+import ProgramFinder from '../../components/ProgramFinder.astro';
+import ParticipantDay from '../../components/ParticipantDay.astro';
 ---
-<Layout lang="ja" title="立命館大学 短期受入プログラム | 日本語版プロトタイプ" description="立命館大学の短期受入プログラムを紹介する日本語版デジタルパンフレットのプロトタイプです。">
-  <section class="sample-hero" style={`--sample-hero:url('${hero}')`}>
-    <div class="sample-hero-panel">
-      <p class="sample-kicker">京都・衣笠キャンパスで学ぶ</p>
-      <div class="sample-title-wrap">
-        <h1><span>学ぶだけでは、</span><span>終わらない。</span></h1>
-        <p class="sample-script">Make it real.</p>
-      </div>
-      <p class="sample-lede">日本語・日本文化・データサイエンス・ビジネス。<br />世界中の大学生のための短期プログラム。</p>
-      <div class="sample-actions">
-        <a class="sample-button primary" href="#programs">プログラムを見る <span>→</span></a>
-        <a class="sample-button secondary" href="#experience">体験をのぞく <span>→</span></a>
-      </div>
-      <dl class="sample-stats">
-        <div><dt>対象</dt><dd>大学生・大学院生</dd></div>
-        <div><dt>プログラム</dt><dd>7</dd></div>
-        <div><dt>期間</dt><dd>2〜5週間</dd></div>
-        <div><dt>開催地</dt><dd>京都</dd></div>
-      </dl>
-    </div>
-    <div class="sample-badge"><span>京都で、</span><span>世界とつながる</span><strong>2週間〜</strong><small>まずはチェック！</small></div>
-    <div class="sample-slider" aria-hidden="true"><button>Ⅱ</button><button>‹</button><button>›</button><div><strong>01</strong><span></span><b>03</b></div></div>
-  </section>
+<StudentRecruitmentLayout
+  title="立命館大学 短期受入プログラム"
+  description="京都・大阪・滋賀で学び、日本の大学生活と学生交流を体験する、海外大学の学生向け短期受入プログラム。"
+>
+  <RecruitmentHero />
+  <ProgramFinder />
+  <ParticipantDay />
 
-  <aside class="notice"><div class="container"><strong>PROTOTYPE</strong><p>本サイトは評価用サンプルです。立命館大学の公式サイトではありません。</p></div></aside>
-
-  <section class="sample-programmes" id="programs">
-    <div class="container sample-programme-head">
-      <div><p class="eyebrow">PROGRAMS</p><h2>選ぶ。比べる。飛び込む。</h2></div>
-      <p>目的や興味に合わせて選べる、<br />多彩な短期プログラムを用意しています。<br />自分にぴったりの学びを見つけてください。</p>
-      <a href="#finder">自分に合うプログラムを探す <span>→</span></a>
-    </div>
-    <div class="container sample-card-row">
-      {programs.map(([code,name,term,file], index) =>
-        <article class={`sample-program-card sample-card-${index + 1}`}>
-          <div class="sample-card-copy"><p>0{index + 1}</p><h3>{name}</h3><span>{term}</span></div>
-          <div class="sample-card-photo"><img src={generated(file)} alt="" loading="lazy" decoding="async" width="720" height="480" /><a href="#comparison" aria-label={`${name}を見る`}>→</a></div>
-        </article>
-      )}
+  <section class="mvp-preview" aria-label="今後追加するコンテンツ">
+    <div class="site-shell mvp-preview__grid mvp-preview__grid--two">
+      <article id="campuses-preview">
+        <span>NEXT 01</span>
+        <h2>3つの地域とキャンパス</h2>
+        <p>京都・大阪・滋賀それぞれの学び、街、アクセス、キャンパスの魅力を整理します。</p>
+      </article>
+      <article id="support-preview">
+        <span>NEXT 02</span>
+        <h2>参加前から帰国までの支援</h2>
+        <p>応募、渡航準備、宿泊、保険、緊急時対応まで、安心材料を分かりやすく提示します。</p>
+      </article>
     </div>
   </section>
-
-  <section class="promotion-proof">
-    <div class="container promotion-proof-grid">
-      <p class="eyebrow">WHY RITSUMEIKAN</p>
-      <h2>京都を訪れるのではなく、<br />京都で学ぶ学生になる。</h2>
-      <div class="promotion-proof-points">
-        <p><strong>REAL CAMPUS</strong><span>日本の大学キャンパスで学び、日常を体験する。</span></p>
-        <p><strong>REAL CONNECTIONS</strong><span>学生との交流を通して、人とつながる。</span></p>
-        <p><strong>REAL KYOTO</strong><span>街と文化を、教室の外の学びに変える。</span></p>
-      </div>
-    </div>
-  </section>
-
-  <section class="promotion-voice" aria-label="参加後のイメージ">
-    <div class="container promotion-voice-inner">
-      <p class="promotion-voice-mark">“</p>
-      <div>
-        <p class="eyebrow">YOUR STORY</p>
-        <h2>最初は知らない場所。<br />帰る頃には、思い出のある場所。</h2>
-        <p>授業で覚えたことばを使い、学生と昼食をとり、京都の街へ出る。短期プログラムの価値は、予定表だけではなく、その間に生まれる小さな経験の積み重ねにあります。</p>
-      </div>
-      <span class="promotion-voice-note">参加者の声は、承認済みコメントを取得後に掲載予定</span>
-    </div>
-  </section>
-
-  <section class="section promotion-experience" id="experience">
-    <div class="container">
-      <div class="promotion-heading">
-        <div><p class="eyebrow">EXPERIENCE</p><h2>教室の外まで、<br />全部が学びになる。</h2></div>
-        <p>授業、文化、仲間、京都。<br />短いからこそ、毎日が濃くなる。</p>
-      </div>
-      <div class="promotion-experience-grid">
-        {experiences.map((item, index) =>
-          <article class={`promotion-experience-card promotion-experience-card-${index + 1}`}>
-            <img src={generated(item.image)} alt={item.alt} loading="lazy" decoding="async" width="720" height="480" />
-            <div>
-              <p class="eyebrow">{item.label}</p>
-              <h3>{item.title}</h3>
-              <p>{item.text}</p>
-            </div>
-          </article>
-        )}
-      </div>
-    </div>
-  </section>
-
-  <section class="section promotion-day">
-    <div class="container promotion-day-layout">
-      <div class="promotion-day-intro">
-        <p class="eyebrow">A SAMPLE DAY</p>
-        <h2>一日の中に、<br />いくつもの初めてがある。</h2>
-        <p>学ぶ、話す、出会う、街へ出る。キャンパスと京都が自然につながる一日を紹介します。</p>
-        <small>※時間と内容は一例です。実際のスケジュールはプログラムにより異なります。</small>
-      </div>
-      <ol class="promotion-day-list">
-        <li><span>09:00</span><div><p>LEARN</p><h3>日本語講座</h3><small>午前は日本語を集中的に学ぶ。</small></div></li>
-        <li><span>12:15</span><div><p>CONNECT</p><h3>昼休み・学生交流</h3><small>食べる、話す、つながる。</small></div></li>
-        <li><span>13:30</span><div><p>DISCOVER</p><h3>Japan Studies</h3><small>文化講義、共修、フィールドワーク。</small></div></li>
-        <li><span>16:30</span><div><p>EXPLORE</p><h3>京都へ</h3><small>学びを街へ持ち出す。</small></div></li>
-      </ol>
-    </div>
-  </section>
-
-  <section class="section promotion-finder" id="finder">
-    <div class="container">
-      <div class="promotion-heading">
-        <div><p class="eyebrow">FIND YOUR PROGRAMME</p><h2>あなたは、<br />何を持ち帰りたい？</h2></div>
-        <p>期間だけでなく、目的から選ぶ。<br />最初の選択をシンプルにします。</p>
-      </div>
-      <div class="promotion-finder-grid">
-        <a href="#comparison"><span>01</span><p>日本語を<br />しっかり学びたい</p><strong>RSJP / RWJP</strong><b>→</b></a>
-        <a href="#comparison"><span>02</span><p>短期間で<br />日本を体験したい</p><strong>Express</strong><b>→</b></a>
-        <a href="#comparison"><span>03</span><p>専門分野を<br />英語で学びたい</p><strong>RDSP / RBMP</strong><b>→</b></a>
-        <a href="#comparison"><span>04</span><p>大学単位より<br />経験を重視したい</p><strong>All programmes</strong><b>→</b></a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section eligibility-section" id="eligibility"><div class="container split align-start"><div><p class="eyebrow">ELIGIBILITY</p><h2><span>参加条件は、</span><span>シンプルです。</span></h2><p class="large-copy">参加時点で大学または大学院に正規在籍し、在籍証明書を提出できる方が対象です。</p></div><div class="eligibility-panel"><div><strong>参加できる方</strong><p>現役の大学生・大学院生。就業中でも、大学・大学院に正規在籍していれば参加できます。</p></div><div><strong>参加できない方</strong><p>高校生、大学・大学院に在籍していない社会人、既卒者。</p></div><div><strong>単位</strong><p>立命館大学の単位は付与されません。所属大学での単位認定は、所属大学へご確認ください。</p></div></div></div></section>
-
-  <section class="section comparison-section" id="comparison"><div class="container"><div class="section-heading bold-heading light"><div><p class="eyebrow">COMPARE</p><h2><span>5週間か。</span><span>2週間か。</span></h2></div><p>深く学ぶか、短く集中するか。</p></div><div class="ja-comparison"><div><strong>RSJP / RWJP</strong><span>5週間</span><span>日本語講座の成績表を発行</span></div><div><strong>RSJP / RWJP Express</strong><span>2週間</span><span>成績表は発行せず、教員コメントを提供</span></div></div></div></section>
-
-  <section class="section promotion-reassurance">
-    <div class="container promotion-reassurance-layout">
-      <div><p class="eyebrow">SUPPORTED EXPERIENCE</p><h2>挑戦できる。<br />でも、一人ではない。</h2></div>
-      <div class="promotion-reassurance-grid">
-        <article><span>01</span><h3>大学プログラム</h3><p>大学・大学院生を対象とした、明確な参加条件を持つ短期プログラムです。</p></article>
-        <article><span>02</span><h3>学びと交流</h3><p>授業だけでなく、学生交流や文化体験を含む構成を目指しています。</p></article>
-        <article><span>03</span><h3>情報を明確に</h3><p>対象、期間、成績表、単位など、参加判断に必要な情報を整理します。</p></article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section faq-section" id="faq"><div class="container split"><div><p class="eyebrow">FAQ</p><h2><span>迷ったら、</span><span>ここから。</span></h2><p class="large-copy">将来は、現在開発中のQ&Aアプリと連携し、承認済みの情報を表示する構想です。</p></div><div class="faq-preview"><details open><summary>社会人でも参加できますか？</summary><p>大学または大学院に正規在籍し、在籍証明書を提出できる場合は参加できます。</p></details><details><summary>単位は取得できますか？</summary><p>立命館大学の単位は付与されません。</p></details><details><summary>Japan Studiesの内容は毎年同じですか？</summary><p>茶道、和太鼓、スポーツなどを候補としていますが、学生団体や年度の状況により変わります。</p></details></div></div></section>
-
-  <section class="promotion-final-cta">
-    <div class="container promotion-final-cta-inner">
-      <p class="eyebrow">YOUR KYOTO STORY</p>
-      <h2>次に京都を訪れるとき、<br />あなたは観光客ではなく、学生かもしれない。</h2>
-      <p>まずは、自分に合うプログラムを見つけるところから。</p>
-      <div>
-        <a class="sample-button primary" href="#programs">プログラムを見る <span>→</span></a>
-        <a class="sample-button secondary" href="#faq">参加条件を確認する <span>→</span></a>
-      </div>
-    </div>
-  </section>
-</Layout>
+</StudentRecruitmentLayout>
