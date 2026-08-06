@@ -3,7 +3,16 @@ import '../styles/participant-day.css';
 
 const rawBase = import.meta.env.BASE_URL;
 const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
-const image = (path: string) => `${base}images/${path.replace(/^\//, '')}`;
+const optimizedImage = (path: string, width: number) => {
+  const stem = path.replace(/^\//, '').replace(/\.[^.]+$/, '');
+  return `${base}images/optimized/${stem}-${width}.webp`;
+};
+const responsiveImages = (path: string) => ({
+  mobile: optimizedImage(path, 960),
+  mobileSrcset: `${optimizedImage(path, 640)} 640w, ${optimizedImage(path, 960)} 960w`,
+  desktop: optimizedImage(path, 1920),
+  desktopSrcset: `${optimizedImage(path, 1280)} 1280w, ${optimizedImage(path, 1920)} 1920w`,
+});
 const transparentPixel = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
 
 const scenes = [
@@ -76,14 +85,17 @@ const scenes = [
     <div class="day-stage" aria-hidden="true">
       <div class="day-stage__images">
         {scenes.map((scene, index) => {
-          const source = image(scene.image);
+          const sources = responsiveImages(scene.image);
           return (
             <picture class="day-stage__picture">
               <source media="(max-width: 899px)" srcset={transparentPixel} />
               <img
                 class={`day-stage__image ${index === 0 ? 'is-active' : ''}`}
-                src={index === 0 ? source : transparentPixel}
-                data-src={source}
+                src={index === 0 ? sources.desktop : transparentPixel}
+                srcset={index === 0 ? sources.desktopSrcset : undefined}
+                data-src={sources.desktop}
+                data-srcset={sources.desktopSrcset}
+                sizes="min(64vw, 1180px)"
                 alt=""
                 loading="lazy"
                 decoding="async"
@@ -113,33 +125,44 @@ const scenes = [
     </div>
 
     <div class="day-scenes">
-      {scenes.map((scene, index) => (
-        <article
-          class={`day-scene ${index === 0 ? 'is-active' : ''}`}
-          data-day-scene
-          data-scene-index={index}
-          style={`--day-focus: ${scene.focus}`}
-        >
-          <picture class="day-scene__picture">
-            <source media="(min-width: 900px)" srcset={transparentPixel} />
-            <img class="day-scene__image" src={image(scene.image)} alt={scene.alt} loading="lazy" decoding="async" />
-          </picture>
-          <div class="day-scene__shade" aria-hidden="true"></div>
-          <div class="day-scene__content">
-            <div class="day-scene__meta">
-              <span>{String(index + 1).padStart(2, '0')} / {String(scenes.length).padStart(2, '0')}</span>
-              <strong>{scene.time}</strong>
-              <b>{scene.label}</b>
+      {scenes.map((scene, index) => {
+        const sources = responsiveImages(scene.image);
+        return (
+          <article
+            class={`day-scene ${index === 0 ? 'is-active' : ''}`}
+            data-day-scene
+            data-scene-index={index}
+            style={`--day-focus: ${scene.focus}`}
+          >
+            <picture class="day-scene__picture">
+              <source media="(min-width: 900px)" srcset={transparentPixel} />
+              <img
+                class="day-scene__image"
+                src={sources.mobile}
+                srcset={sources.mobileSrcset}
+                sizes="100vw"
+                alt={scene.alt}
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+            <div class="day-scene__shade" aria-hidden="true"></div>
+            <div class="day-scene__content">
+              <div class="day-scene__meta">
+                <span>{String(index + 1).padStart(2, '0')} / {String(scenes.length).padStart(2, '0')}</span>
+                <strong>{scene.time}</strong>
+                <b>{scene.label}</b>
+              </div>
+              <h3>{scene.title}</h3>
+              <p>{scene.text}</p>
+              <div class="day-scene__shift">
+                <small>THIS MOMENT CHANGES</small>
+                <strong>{scene.shift}</strong>
+              </div>
             </div>
-            <h3>{scene.title}</h3>
-            <p>{scene.text}</p>
-            <div class="day-scene__shift">
-              <small>THIS MOMENT CHANGES</small>
-              <strong>{scene.shift}</strong>
-            </div>
-          </div>
-        </article>
-      ))}
+          </article>
+        );
+      })}
     </div>
   </div>
 
@@ -174,8 +197,16 @@ const scenes = [
       if (!desktop.matches) return;
       const item = images[index];
       const source = item?.dataset.src;
-      if (!item || !source || item.src === source) return;
-      item.src = source;
+      const sourceSet = item?.dataset.srcset;
+      if (!item || !source) return;
+      if (sourceSet && item.getAttribute('srcset') !== sourceSet) item.setAttribute('srcset', sourceSet);
+      if (item.getAttribute('src') !== source) item.setAttribute('src', source);
+    };
+
+    const preloadUpcomingImages = (index: number) => {
+      for (let offset = 0; offset <= 2; offset += 1) {
+        loadStageImage(Math.min(index + offset, images.length - 1));
+      }
     };
 
     const activateScene = (index: number) => {
@@ -183,8 +214,7 @@ const scenes = [
       if (!scene || index === activeIndex) return;
       activeIndex = index;
 
-      loadStageImage(index);
-      loadStageImage(Math.min(index + 1, images.length - 1));
+      preloadUpcomingImages(index);
 
       scenes.forEach((item, itemIndex) => item.classList.toggle('is-active', itemIndex === index));
       images.forEach((item, itemIndex) => item.classList.toggle('is-active', itemIndex === index));
@@ -222,10 +252,7 @@ const scenes = [
     }
 
     const refreshForViewport = () => {
-      if (desktop.matches) {
-        loadStageImage(Math.max(activeIndex, 0));
-        loadStageImage(Math.min(Math.max(activeIndex, 0) + 1, images.length - 1));
-      }
+      if (desktop.matches) preloadUpcomingImages(Math.max(activeIndex, 0));
     };
 
     desktop.addEventListener('change', refreshForViewport);
