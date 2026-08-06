@@ -1,0 +1,226 @@
+---
+import '../styles/campus-journey.css';
+import { campusPlaces } from '../data/campuses';
+import { campusExperienceCopyJa } from '../content/ja/campuses';
+
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const image = (path: string) => `${base}images/${path.replace(/^\//, '')}`;
+
+const campuses = campusPlaces.map((place) => {
+  const copy = campusExperienceCopyJa.find((item) => item.id === place.id);
+  if (!copy) throw new Error(`Missing Japanese campus copy for ${place.id}`);
+  return { ...place, ...copy };
+});
+---
+<section class="campus-journey" id="campus-journey" aria-labelledby="campus-journey-title" data-campus-journey>
+  <div class="site-shell campus-journey__intro">
+    <div>
+      <p class="campus-journey__kicker">THREE PLACES. ONE LARGER JAPAN.</p>
+      <h2 id="campus-journey-title">
+        <span>ひとつの日本では、</span>
+        <span>終わらない。</span>
+      </h2>
+    </div>
+    <div class="campus-journey__intro-copy">
+      <p>京都の文脈、大阪のエネルギー、滋賀の余白。場所が変われば、見える日本も、学び方も変わります。</p>
+      <small>地域を移動しながら、3つの異なる留学体験をたどってください。</small>
+    </div>
+  </div>
+
+  <div class="campus-atlas" data-campus-atlas>
+    <div class="campus-atlas__stage">
+      <div class="campus-atlas__images" aria-hidden="true">
+        {campuses.map((campus, index) => (
+          <img
+            class={`campus-atlas__image ${index === 0 ? 'is-active' : ''}`}
+            src={image(campus.image)}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            data-campus-image
+            data-campus-index={index}
+            style={`--campus-focus: ${campus.focus}`}
+          />
+        ))}
+      </div>
+      <div class="campus-atlas__veil" aria-hidden="true"></div>
+      <div class="campus-atlas__grid" aria-hidden="true"></div>
+
+      <div class="site-shell campus-atlas__toolbar">
+        <p>JOURNEY <strong data-campus-counter>01 / 03</strong></p>
+        <div class="campus-atlas__tabs" aria-label="地域を選択">
+          {campuses.map((campus, index) => (
+            <button
+              type="button"
+              class={index === 0 ? 'is-active' : ''}
+              data-campus-tab
+              data-campus-index={index}
+              aria-pressed={index === 0 ? 'true' : 'false'}
+              aria-controls={`campus-scene-${campus.id}`}
+            >
+              <span>{String(index + 1).padStart(2, '0')}</span>
+              {campus.cityJa}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div class="site-shell campus-atlas__identity">
+        <p class="campus-atlas__prefecture" data-campus-prefecture>{campuses[0].prefecture}</p>
+        <p class="campus-atlas__city" data-campus-city aria-hidden="true">{campuses[0].city}</p>
+        <div class="campus-atlas__stage-copy">
+          <p data-campus-theme>{campuses[0].theme}</p>
+          <h3 data-campus-headline>{campuses[0].headline}</h3>
+          <span data-campus-name>{campuses[0].campus}</span>
+        </div>
+      </div>
+
+      <div class="site-shell campus-atlas__route" aria-hidden="true">
+        <div class="campus-atlas__route-line"><span data-campus-route-progress></span></div>
+        <ol>
+          {campuses.map((campus, index) => (
+            <li class={index === 0 ? 'is-active' : ''} data-campus-route-node data-campus-index={index}>
+              <span></span>
+              <b>{campus.city}</b>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+
+    <div class="campus-atlas__stories">
+      {campuses.map((campus, index) => (
+        <article
+          class={`campus-scene ${index === 0 ? 'is-active' : ''}`}
+          id={`campus-scene-${campus.id}`}
+          data-campus-scene
+          data-campus-index={index}
+          data-city={campus.city}
+          data-prefecture={campus.prefecture}
+          data-theme={campus.theme}
+          data-headline={campus.headline}
+          data-campus-name={campus.campus}
+          data-accent={campus.accent}
+          data-accent-soft={campus.accentSoft}
+          style={`--campus-accent: ${campus.accent}; --campus-accent-soft: ${campus.accentSoft}; --campus-focus: ${campus.focus}`}
+        >
+          <img class="campus-scene__image" src={image(campus.image)} alt={campus.imageAlt} loading="lazy" decoding="async" />
+          <div class="campus-scene__shade" aria-hidden="true"></div>
+          <div class="site-shell campus-scene__layout">
+            <div class="campus-scene__card">
+              <div class="campus-scene__meta">
+                <span>{String(index + 1).padStart(2, '0')} / {String(campuses.length).padStart(2, '0')}</span>
+                <strong>{campus.city}</strong>
+                <b>{campus.cityJa}</b>
+              </div>
+              <p class="campus-scene__theme">{campus.theme}</p>
+              <h3>{campus.headline}</h3>
+              <p class="campus-scene__body">{campus.body}</p>
+              <ul class="campus-scene__lenses" aria-label={`${campus.cityJa}の特徴`}>
+                {campus.lenses.map((lens) => <li>{lens}</li>)}
+              </ul>
+              <div class="campus-scene__contribution">
+                <small>WHAT THIS PLACE ADDS</small>
+                <strong>{campus.contribution}</strong>
+              </div>
+              <div class="campus-scene__footer">
+                <span>{campus.campus} · {campus.locality}</span>
+                <p>{campus.afterClass}</p>
+              </div>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+
+  <div class="site-shell campus-journey__outro">
+    <div class="campus-journey__outro-copy">
+      <p class="campus-journey__kicker">CHOOSE MORE THAN A PROGRAMME</p>
+      <h2>学ぶ内容だけでなく、過ごす場所も留学をつくる。</h2>
+    </div>
+    <div class="campus-journey__comparison">
+      {campuses.map((campus, index) => (
+        <div style={`--campus-accent: ${campus.accent}`}>
+          <span>{String(index + 1).padStart(2, '0')}</span>
+          <strong>{campus.city}</strong>
+          <p>{campus.contribution}</p>
+        </div>
+      ))}
+    </div>
+    <p class="campus-journey__note">実施キャンパスおよび訪問地域は、プログラムによって異なります。掲載写真は過去の実施例またはキャンパスイメージです。</p>
+  </div>
+</section>
+
+<script>
+  const campusRoot = document.querySelector('[data-campus-journey]');
+
+  if (campusRoot) {
+    const scenes = Array.from(campusRoot.querySelectorAll<HTMLElement>('[data-campus-scene]'));
+    const images = Array.from(campusRoot.querySelectorAll<HTMLElement>('[data-campus-image]'));
+    const tabs = Array.from(campusRoot.querySelectorAll<HTMLButtonElement>('[data-campus-tab]'));
+    const routeNodes = Array.from(campusRoot.querySelectorAll<HTMLElement>('[data-campus-route-node]'));
+    const counter = campusRoot.querySelector<HTMLElement>('[data-campus-counter]');
+    const city = campusRoot.querySelector<HTMLElement>('[data-campus-city]');
+    const prefecture = campusRoot.querySelector<HTMLElement>('[data-campus-prefecture]');
+    const theme = campusRoot.querySelector<HTMLElement>('[data-campus-theme]');
+    const headline = campusRoot.querySelector<HTMLElement>('[data-campus-headline]');
+    const campusName = campusRoot.querySelector<HTMLElement>('[data-campus-name]');
+    const routeProgress = campusRoot.querySelector<HTMLElement>('[data-campus-route-progress]');
+    const atlas = campusRoot.querySelector<HTMLElement>('[data-campus-atlas]');
+
+    const activateCampus = (index: number) => {
+      const scene = scenes[index];
+      if (!scene) return;
+
+      scenes.forEach((item, itemIndex) => item.classList.toggle('is-active', itemIndex === index));
+      images.forEach((item, itemIndex) => item.classList.toggle('is-active', itemIndex === index));
+      routeNodes.forEach((item, itemIndex) => item.classList.toggle('is-active', itemIndex === index));
+      tabs.forEach((item, itemIndex) => {
+        const active = itemIndex === index;
+        item.classList.toggle('is-active', active);
+        item.setAttribute('aria-pressed', String(active));
+      });
+
+      if (counter) counter.textContent = `${String(index + 1).padStart(2, '0')} / ${String(scenes.length).padStart(2, '0')}`;
+      if (city) city.textContent = scene.dataset.city ?? '';
+      if (prefecture) prefecture.textContent = scene.dataset.prefecture ?? '';
+      if (theme) theme.textContent = scene.dataset.theme ?? '';
+      if (headline) headline.textContent = scene.dataset.headline ?? '';
+      if (campusName) campusName.textContent = scene.dataset.campusName ?? '';
+      if (routeProgress) routeProgress.style.width = scenes.length > 1 ? `${(index / (scenes.length - 1)) * 100}%` : '100%';
+      if (atlas) {
+        atlas.style.setProperty('--active-campus-accent', scene.dataset.accent ?? '#ff6a42');
+        atlas.style.setProperty('--active-campus-soft', scene.dataset.accentSoft ?? 'rgba(255, 106, 66, 0.22)');
+      }
+    };
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const index = Number(tab.dataset.campusIndex ?? 0);
+        activateCampus(index);
+        scenes[index]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    });
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          const visible = entries
+            .filter((entry) => entry.isIntersecting)
+            .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+          if (!visible) return;
+          const index = Number((visible.target as HTMLElement).dataset.campusIndex ?? 0);
+          activateCampus(index);
+        },
+        { rootMargin: '-26% 0px -42%', threshold: [0.08, 0.25, 0.5, 0.72] },
+      );
+
+      scenes.forEach((scene) => observer.observe(scene));
+    }
+
+    activateCampus(0);
+  }
+</script>
