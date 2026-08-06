@@ -1,0 +1,41 @@
+---
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const withBase = (path: string) => `${base}${path.replace(/^\//, '')}`;
+
+const links = [
+  { href: '#program-finder', label: 'プログラム' },
+  { href: '#experience-preview', label: '学びと体験' },
+  { href: '#campuses-preview', label: 'キャンパス' },
+  { href: '#support-preview', label: 'サポート' },
+];
+---
+<header class="recruitment-header">
+  <a class="skip-link" href="#main-content">本文へ移動</a>
+  <div class="site-shell recruitment-header__inner">
+    <a class="recruitment-brand" href={withBase('/ja/')} aria-label="立命館大学短期受入プログラム 日本語トップ">
+      <span class="recruitment-brand__mark" aria-hidden="true">R</span>
+      <span class="recruitment-brand__text">
+        <strong>RITSUMEIKAN</strong>
+        <small>SHORT-TERM PROGRAMS</small>
+      </span>
+    </a>
+
+    <nav class="recruitment-nav recruitment-nav--desktop" aria-label="メインナビゲーション">
+      {links.map((link) => <a href={link.href}>{link.label}</a>)}
+      <a class="recruitment-nav__language" href={withBase('/')}>EN</a>
+      <a class="recruitment-nav__cta" href="#program-finder">自分に合うプログラム</a>
+    </nav>
+
+    <details class="recruitment-menu">
+      <summary aria-label="メニューを開く">
+        <span></span><span></span><span></span>
+      </summary>
+      <nav aria-label="モバイルナビゲーション">
+        {links.map((link) => <a href={link.href}>{link.label}</a>)}
+        <a href={withBase('/')}>English</a>
+        <a class="recruitment-menu__cta" href="#program-finder">自分に合うプログラムを探す</a>
+      </nav>
+    </details>
+  </div>
+</header>
