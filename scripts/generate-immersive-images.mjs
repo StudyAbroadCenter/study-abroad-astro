@@ -1,4 +1,4 @@
-import { mkdir, stat } from 'node:fs/promises';
+import { mkdir, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
@@ -34,32 +34,64 @@ const isCurrent = async (source, output) => {
 
 await mkdir(outputDirectory, { recursive: true });
 
+const manifest = {
+  generatedAt: new Date().toISOString(),
+  format: 'webp',
+  sources: {},
+  assets: [],
+};
+
+let totalOutputBytes = 0;
+
 for (const sourceFile of sourceFiles) {
   const source = path.join(sourceDirectory, sourceFile);
   const stem = path.parse(sourceFile).name;
+  const sourceStats = await stat(source);
+  manifest.sources[sourceFile] = { bytes: sourceStats.size };
 
   for (const variant of variants) {
-    const output = path.join(outputDirectory, `${stem}-${variant.width}.webp`);
+    const outputFile = `${stem}-${variant.width}.webp`;
+    const output = path.join(outputDirectory, outputFile);
 
     if (await isCurrent(source, output)) {
       console.log(`current ${path.relative(root, output)}`);
-      continue;
+    } else {
+      await sharp(source, { failOn: 'warning' })
+        .rotate()
+        .resize({
+          width: variant.width,
+          withoutEnlargement: true,
+          fit: 'inside',
+        })
+        .webp({
+          quality: variant.quality,
+          effort: 5,
+          smartSubsample: true,
+        })
+        .toFile(output);
+
+      console.log(`generated ${path.relative(root, output)}`);
     }
 
-    await sharp(source, { failOn: 'warning' })
-      .rotate()
-      .resize({
-        width: variant.width,
-        withoutEnlargement: true,
-        fit: 'inside',
-      })
-      .webp({
-        quality: variant.quality,
-        effort: 5,
-        smartSubsample: true,
-      })
-      .toFile(output);
-
-    console.log(`generated ${path.relative(root, output)}`);
+    const [outputStats, metadata] = await Promise.all([stat(output), sharp(output).metadata()]);
+    totalOutputBytes += outputStats.size;
+    manifest.assets.push({
+      source: sourceFile,
+      file: outputFile,
+      requestedWidth: variant.width,
+      width: metadata.width,
+      height: metadata.height,
+      quality: variant.quality,
+      bytes: outputStats.size,
+    });
   }
 }
+
+manifest.totalOutputBytes = totalOutputBytes;
+await writeFile(
+  path.join(outputDirectory, 'manifest.json'),
+  `${JSON.stringify(manifest, null, 2)}\n`,
+  'utf8',
+);
+
+console.log(`immersive image total ${(totalOutputBytes / 1024 / 1024).toFixed(2)} MiB across ${manifest.assets.length} files`);
