@@ -52,8 +52,8 @@ export const programmes: Programme[] = [
     summary: '短期間で、日本語・学生交流・文化体験をバランスよく経験したい学生向けのプログラムです。',
     audience: 'individual',
     goals: ['short', 'language'],
-    image: 'IMG_1588.JPG',
-    imageAlt: '短期プログラムで交流する学生たち',
+    image: 'IMG_3725.JPG',
+    imageAlt: '短期プログラムで日本文化を体験する様子',
   },
   {
     id: 'rdsp',
@@ -65,8 +65,8 @@ export const programmes: Programme[] = [
     summary: 'データサイエンスを軸に、専門的な学びと日本の大学生との共修を組み合わせます。',
     audience: 'individual',
     goals: ['specialist'],
-    image: 'IMG_3725.JPG',
-    imageAlt: '専門分野を学ぶ短期プログラムの参加学生たち',
+    image: 'IMG_1687.JPG',
+    imageAlt: '立命館大学のキャンパスで専門分野を学ぶ短期プログラム',
   },
   {
     id: 'rbmp',
