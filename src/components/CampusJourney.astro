@@ -6,7 +6,16 @@ import { campusExperienceCopyJa } from '../content/ja/campuses';
 
 const rawBase = import.meta.env.BASE_URL;
 const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
-const image = (path: string) => `${base}images/${path.replace(/^\//, '')}`;
+const optimizedImage = (path: string, width: number) => {
+  const stem = path.replace(/^\//, '').replace(/\.[^.]+$/, '');
+  return `${base}images/optimized/${stem}-${width}.webp`;
+};
+const responsiveImages = (path: string) => ({
+  mobile: optimizedImage(path, 960),
+  mobileSrcset: `${optimizedImage(path, 640)} 640w, ${optimizedImage(path, 960)} 960w`,
+  desktop: optimizedImage(path, 1920),
+  desktopSrcset: `${optimizedImage(path, 1280)} 1280w, ${optimizedImage(path, 1920)} 1920w`,
+});
 const transparentPixel = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
 
 const campuses = campusPlaces.map((place) => {
@@ -34,14 +43,17 @@ const campuses = campusPlaces.map((place) => {
     <div class="campus-atlas__stage">
       <div class="campus-atlas__images" aria-hidden="true">
         {campuses.map((campus, index) => {
-          const source = image(campus.image);
+          const sources = responsiveImages(campus.image);
           return (
             <picture class="campus-atlas__picture">
               <source media="(max-width: 899px)" srcset={transparentPixel} />
               <img
                 class={`campus-atlas__image ${index === 0 ? 'is-active' : ''}`}
-                src={index === 0 ? source : transparentPixel}
-                data-src={source}
+                src={index === 0 ? sources.desktop : transparentPixel}
+                srcset={index === 0 ? sources.desktopSrcset : undefined}
+                data-src={sources.desktop}
+                data-srcset={sources.desktopSrcset}
+                sizes="100vw"
                 alt=""
                 loading="lazy"
                 decoding="async"
@@ -99,51 +111,62 @@ const campuses = campusPlaces.map((place) => {
     </div>
 
     <div class="campus-atlas__stories">
-      {campuses.map((campus, index) => (
-        <article
-          class={`campus-scene ${index === 0 ? 'is-active' : ''}`}
-          id={`campus-scene-${campus.id}`}
-          data-campus-scene
-          data-campus-index={index}
-          data-city={campus.city}
-          data-prefecture={campus.prefecture}
-          data-theme={campus.theme}
-          data-headline={campus.headline}
-          data-campus-name={campus.campus}
-          data-accent={campus.accent}
-          data-accent-soft={campus.accentSoft}
-          style={`--campus-accent: ${campus.accent}; --campus-accent-soft: ${campus.accentSoft}; --campus-focus: ${campus.focus}`}
-        >
-          <picture class="campus-scene__picture">
-            <source media="(min-width: 900px)" srcset={transparentPixel} />
-            <img class="campus-scene__image" src={image(campus.image)} alt={campus.imageAlt} loading="lazy" decoding="async" />
-          </picture>
-          <div class="campus-scene__shade" aria-hidden="true"></div>
-          <div class="site-shell campus-scene__layout">
-            <div class="campus-scene__card">
-              <div class="campus-scene__meta">
-                <span>{String(index + 1).padStart(2, '0')} / {String(campuses.length).padStart(2, '0')}</span>
-                <strong>{campus.city}</strong>
-                <b>{campus.cityJa}</b>
-              </div>
-              <p class="campus-scene__theme">{campus.theme}</p>
-              <h3>{campus.headline}</h3>
-              <p class="campus-scene__body">{campus.body}</p>
-              <ul class="campus-scene__lenses" aria-label={`${campus.cityJa}の特徴`}>
-                {campus.lenses.map((lens) => <li>{lens}</li>)}
-              </ul>
-              <div class="campus-scene__contribution">
-                <small>WHAT THIS PLACE ADDS</small>
-                <strong>{campus.contribution}</strong>
-              </div>
-              <div class="campus-scene__footer">
-                <span>{campus.campus} · {campus.locality}</span>
-                <p>{campus.afterClass}</p>
+      {campuses.map((campus, index) => {
+        const sources = responsiveImages(campus.image);
+        return (
+          <article
+            class={`campus-scene ${index === 0 ? 'is-active' : ''}`}
+            id={`campus-scene-${campus.id}`}
+            data-campus-scene
+            data-campus-index={index}
+            data-city={campus.city}
+            data-prefecture={campus.prefecture}
+            data-theme={campus.theme}
+            data-headline={campus.headline}
+            data-campus-name={campus.campus}
+            data-accent={campus.accent}
+            data-accent-soft={campus.accentSoft}
+            style={`--campus-accent: ${campus.accent}; --campus-accent-soft: ${campus.accentSoft}; --campus-focus: ${campus.focus}`}
+          >
+            <picture class="campus-scene__picture">
+              <source media="(min-width: 900px)" srcset={transparentPixel} />
+              <img
+                class="campus-scene__image"
+                src={sources.mobile}
+                srcset={sources.mobileSrcset}
+                sizes="100vw"
+                alt={campus.imageAlt}
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+            <div class="campus-scene__shade" aria-hidden="true"></div>
+            <div class="site-shell campus-scene__layout">
+              <div class="campus-scene__card">
+                <div class="campus-scene__meta">
+                  <span>{String(index + 1).padStart(2, '0')} / {String(campuses.length).padStart(2, '0')}</span>
+                  <strong>{campus.city}</strong>
+                  <b>{campus.cityJa}</b>
+                </div>
+                <p class="campus-scene__theme">{campus.theme}</p>
+                <h3>{campus.headline}</h3>
+                <p class="campus-scene__body">{campus.body}</p>
+                <ul class="campus-scene__lenses" aria-label={`${campus.cityJa}の特徴`}>
+                  {campus.lenses.map((lens) => <li>{lens}</li>)}
+                </ul>
+                <div class="campus-scene__contribution">
+                  <small>WHAT THIS PLACE ADDS</small>
+                  <strong>{campus.contribution}</strong>
+                </div>
+                <div class="campus-scene__footer">
+                  <span>{campus.campus} · {campus.locality}</span>
+                  <p>{campus.afterClass}</p>
+                </div>
               </div>
             </div>
-          </div>
-        </article>
-      ))}
+          </article>
+        );
+      })}
     </div>
   </div>
 
@@ -191,8 +214,16 @@ const campuses = campusPlaces.map((place) => {
       if (!desktop.matches) return;
       const item = images[index];
       const source = item?.dataset.src;
-      if (!item || !source || item.getAttribute('src') === source) return;
-      item.src = source;
+      const sourceSet = item?.dataset.srcset;
+      if (!item || !source) return;
+      if (sourceSet && item.getAttribute('srcset') !== sourceSet) item.setAttribute('srcset', sourceSet);
+      if (item.getAttribute('src') !== source) item.setAttribute('src', source);
+    };
+
+    const preloadUpcomingImages = (index: number) => {
+      for (let offset = 0; offset <= 1; offset += 1) {
+        loadAtlasImage(Math.min(index + offset, images.length - 1));
+      }
     };
 
     const activateCampus = (index: number) => {
@@ -200,8 +231,7 @@ const campuses = campusPlaces.map((place) => {
       if (!scene || index === activeIndex) return;
       activeIndex = index;
 
-      loadAtlasImage(index);
-      loadAtlasImage(Math.min(index + 1, images.length - 1));
+      preloadUpcomingImages(index);
 
       scenes.forEach((item, itemIndex) => item.classList.toggle('is-active', itemIndex === index));
       images.forEach((item, itemIndex) => item.classList.toggle('is-active', itemIndex === index));
@@ -261,10 +291,7 @@ const campuses = campusPlaces.map((place) => {
     }
 
     const refreshForViewport = () => {
-      if (desktop.matches) {
-        loadAtlasImage(Math.max(activeIndex, 0));
-        loadAtlasImage(Math.min(Math.max(activeIndex, 0) + 1, images.length - 1));
-      }
+      if (desktop.matches) preloadUpcomingImages(Math.max(activeIndex, 0));
     };
 
     desktop.addEventListener('change', refreshForViewport);
