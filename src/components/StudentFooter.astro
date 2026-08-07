@@ -1,0 +1,53 @@
+---
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const withBase = (path: string) => `${base}${path.replace(/^\//, '')}`;
+const officialLogo = 'https://www.ritsumei.ac.jp/image.jsp?id=228381';
+
+const primaryLinks = [
+  { href: '#program-finder', label: 'プログラム' },
+  { href: '#experience-pillars', label: '学びと体験' },
+  { href: '#participant-day', label: '参加者の一日' },
+  { href: '#campus-journey', label: '学ぶ場所' },
+  { href: '#support-preview', label: 'サポート' },
+];
+---
+<footer class="recruitment-footer">
+  <div class="site-shell recruitment-footer__inner">
+    <div class="recruitment-footer__top">
+      <div class="recruitment-footer__identity">
+        <a class="recruitment-footer__logo-plate" href={withBase('/ja/')} aria-label="立命館大学 短期受入プログラム 日本語トップ">
+          <img src={officialLogo} alt="RITSUMEIKAN" loading="lazy" decoding="async" />
+        </a>
+        <div>
+          <p>SHORT-TERM PROGRAMS</p>
+          <span>立命館大学で学ぶ、世界の大学生のための短期プログラム。</span>
+        </div>
+      </div>
+
+      <nav class="recruitment-footer__nav" aria-label="フッターナビゲーション">
+        {primaryLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+      </nav>
+
+      <div class="recruitment-footer__actions">
+        <a href="https://www.ritsumei.ac.jp/" target="_blank" rel="noopener noreferrer">
+          立命館大学公式サイト <span aria-hidden="true">↗</span>
+        </a>
+        <a href={withBase('/')}>English <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+
+    <div class="recruitment-footer__rule" aria-hidden="true"><span></span></div>
+
+    <div class="recruitment-footer__bottom">
+      <div>
+        <strong>Ritsumeikan Study Abroad Support Desk</strong>
+        <p>掲載している授業・交流・文化体験等は過去実施例です。実施内容はプログラムにより異なります。</p>
+      </div>
+      <div class="recruitment-footer__meta">
+        <a href="#main-content">ページ上部へ ↑</a>
+        <small>© Ritsumeikan University</small>
+      </div>
+    </div>
+  </div>
+</footer>
