@@ -6,13 +6,19 @@ The Global Learning Network section visualises Ritsumeikan short-term inbound ed
 
 Every named country and university shown in the live network must be supported by a confirmed short-term programme participation, delivery, or partner-programme record. Do not add a university simply because it is a Ritsumeikan institutional partner.
 
-The initial review build intentionally contains only examples explicitly confirmed during programme planning:
+The current review build contains 39 university examples across 9 countries / regions, confirmed for this project as short-term inbound / programme connection examples:
 
-- United States: James Madison University (JMU), Case Western Reserve University (CWRU), Rutgers University
-- Australia: RMIT University, The University of Melbourne
-- Korea: Kyung Hee University, Yonsei University, Daejeon University
+- United States: James Madison University (JMU), Case Western Reserve University (CWRU), Rutgers University, The City University of New York (CUNY), University of North Carolina Asheville (UNCA), Florida International University (FIU), University of Oklahoma, University of California, Davis (UC Davis), DePaul University, Georgia College & State University, University of Michigan, Appalachian State University, Princeton University
+- Canada: University of Alberta, George Brown College, University of British Columbia (UBC), Simon Fraser University (SFU)
+- Australia: Australian National University (ANU), RMIT University, The University of Melbourne, University of New South Wales (UNSW), Macquarie University, The University of Adelaide
+- Korea: Yonsei University, Kyung Hee University, Sookmyung Women's University, Inha University, Gachon University, Konkuk University, Daejeon University, Pusan National University
+- China: Shanghai Jiao Tong University, Shaoxing University, Beijing Normal University
+- Taiwan: National Taiwan University (NTU), National Taiwan Normal University (NTNU)
+- Indonesia: Universitas Airlangga
+- Japan: Hiroshima University
+- United Arab Emirates: Zayed University
 
-The interface labels these as examples rather than a complete network.
+The interface deliberately labels these as examples and explicitly states that the wider network includes additional countries, regions and universities that are not shown.
 
 ## Before public launch
 
@@ -27,7 +33,7 @@ Create or verify a source-of-truth table with at least:
 - programme type (Japanese Language & Culture / Specialist / Custom)
 - whether the relationship may be publicly named
 
-If student counts or number-of-country / number-of-university metrics are added later, calculate them from that table rather than writing them manually into components.
+The live `9 countries / regions` and `39 university examples` figures are calculated from `src/data/globalNetwork.ts`, not manually duplicated in the component. When the source-of-truth table is available, migrate those figures to verified historical data and calculate any participant totals from that table as well.
 
 ## Editorial principle
 
