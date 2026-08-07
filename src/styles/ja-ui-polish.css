@@ -1,0 +1,101 @@
+/* Final polish layered over the PR #27 UI system. */
+
+/* The current public logo preview is a flattened raster with white pixels.
+   On the light header, multiply visually removes that white box without
+   altering the official red artwork. Replace with the approved transparent
+   local asset before production. */
+.recruitment-brand__logo-plate {
+  overflow: visible;
+  border-radius: 0;
+  background: transparent;
+}
+
+.recruitment-brand__logo {
+  mix-blend-mode: multiply;
+}
+
+.recruitment-header.is-scrolled .recruitment-brand__logo {
+  opacity: 0.92;
+}
+
+/* Footer: do not repeat a flattened raster on a dark surface. Use a quiet
+   typographic institutional signature until the approved transparent asset
+   is available. */
+.recruitment-footer__identity--type {
+  align-items: stretch;
+}
+
+.recruitment-footer__wordmark {
+  position: relative;
+  display: flex;
+  min-width: 178px;
+  flex-direction: column;
+  justify-content: center;
+  padding: 7px 22px 7px 0;
+  color: #fff;
+  text-decoration: none;
+}
+
+.recruitment-footer__wordmark::after {
+  position: absolute;
+  top: 7px;
+  right: 0;
+  bottom: 7px;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.18);
+  content: '';
+}
+
+.recruitment-footer__wordmark strong {
+  font-family: var(--font-latin);
+  font-size: 1.02rem;
+  font-weight: 700;
+  letter-spacing: 0.075em;
+  line-height: 1;
+}
+
+.recruitment-footer__wordmark span {
+  margin-top: 7px;
+  color: #d1a2aa;
+  font-family: var(--font-latin);
+  font-size: 0.54rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+}
+
+.recruitment-footer__identity--type > div {
+  border-left: 0;
+  padding-left: 0;
+}
+
+@media (max-width: 559px) {
+  .recruitment-brand__logo-plate {
+    width: 128px;
+  }
+
+  .recruitment-brand__programme {
+    padding-left: 10px;
+    font-size: 0.48rem;
+  }
+
+  .recruitment-footer__identity--type {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .recruitment-footer__wordmark {
+    min-width: 0;
+    padding: 0 0 16px;
+  }
+
+  .recruitment-footer__wordmark::after {
+    top: auto;
+    right: auto;
+    bottom: 0;
+    left: 0;
+    width: 42px;
+    height: 2px;
+    background: var(--ritsumeikan-enji);
+  }
+}
