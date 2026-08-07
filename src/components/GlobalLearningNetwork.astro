@@ -1,307 +1,147 @@
 ---
-import { globalConnections, globalNetworkPrinciples } from '../data/globalNetwork';
+import { evidenceCountries, regularProgrammeEvidence } from '../data/globalNetworkEvidence';
 
-const defaultCountry = 'korea';
-const totalInstitutionExamples = globalConnections.reduce(
-  (total, connection) => total + connection.universities.length,
-  0,
-);
-
-const countryPresentation: Record<string, { flag: string; rotation: number }> = {
-  'united-states': { flag: '🇺🇸', rotation: -38 },
-  canada: { flag: '🇨🇦', rotation: -28 },
-  'united-kingdom': { flag: '🇬🇧', rotation: -8 },
-  finland: { flag: '🇫🇮', rotation: 4 },
-  romania: { flag: '🇷🇴', rotation: 14 },
-  china: { flag: '🇨🇳', rotation: 32 },
-  korea: { flag: '🇰🇷', rotation: 42 },
-  taiwan: { flag: '🇹🇼', rotation: 50 },
-  macau: { flag: '🇲🇴', rotation: 56 },
-  singapore: { flag: '🇸🇬', rotation: 68 },
-  australia: { flag: '🇦🇺', rotation: 94 },
-  indonesia: { flag: '🇮🇩', rotation: 76 },
-  japan: { flag: '🇯🇵', rotation: 46 },
-  uae: { flag: '🇦🇪', rotation: 20 },
-  qatar: { flag: '🇶🇦', rotation: 16 },
-};
-
-const getPresentation = (id: string) => countryPresentation[id] ?? { flag: '•', rotation: 0 };
-const defaultConnection = globalConnections.find((connection) => connection.id === defaultCountry) ?? globalConnections[0];
-const defaultPresentation = getPresentation(defaultConnection.id);
+const defaultCountry = 'united-states';
+const defaultConnection = evidenceCountries.find((country) => country.id === defaultCountry) ?? evidenceCountries[0];
 ---
-<section class="global-network" id="global-network" data-global-network style={`--earth-rotation:${defaultPresentation.rotation}deg;`}>
-  <div class="site-shell global-network__inner">
-    <header class="global-network__intro">
-      <div>
-        <p class="global-network__kicker">GLOBAL LEARNING NETWORK</p>
-        <h2>世界の同世代と、<br />ここでつながる。</h2>
-      </div>
-      <div class="global-network__intro-copy">
-        <p>
-          立命館の短期受入プログラムには、世界各地の大学・高等教育機関から学生が集います。日本語や日本文化を学ぶだけでなく、立命館の学生との国際共修、そして参加者同士の異文化間協働が生まれます。
-        </p>
-        <p>
-          大学間の国際教育連携が、学生一人ひとりの出会いに変わる。立命館で生まれた一つのつながりが、帰国後も世界の別の場所へ続いていきます。
-        </p>
-      </div>
+<section class="network-atlas" id="global-network" data-network-atlas style={`--globe-rotation:${defaultConnection.focusRotation}deg`}>
+  <div class="site-shell network-atlas__inner">
+    <header class="network-atlas__heading">
+      <p>GLOBAL LEARNING NETWORK</p>
+      <h2>世界の同世代と、<br /><em>ここでつながる。</em></h2>
+      <p class="network-atlas__lead">
+        {regularProgrammeEvidence.period}年のRSJP・RWJP系プログラム実績を、国・地域と大学・機関から可視化しました。
+        国・地域を選ぶと、実際の参加実績をご覧いただけます。
+      </p>
     </header>
 
-    <div class="global-network__stage">
-      <div class="global-network__visual" aria-label="立命館を中心とした国際的な学生ネットワークの模式図">
-        <svg class="global-network__globe" viewBox="0 0 1000 620" aria-hidden="true" focusable="false">
+    <div class="network-atlas__layout">
+      <aside class="network-atlas__summary" aria-label="2023年から2026年の参加実績概要">
+        <div class="network-atlas__metric">
+          <span>◎</span><strong>{regularProgrammeEvidence.countryRegionCount}</strong><p>国・地域<small>Countries & Regions</small></p>
+        </div>
+        <div class="network-atlas__metric">
+          <span>▥</span><strong>{regularProgrammeEvidence.institutionCount}</strong><p>大学・機関<small>Institutions</small></p>
+        </div>
+        <div class="network-atlas__metric">
+          <span>○</span><strong>{regularProgrammeEvidence.participants}</strong><p>参加者数<small>Participants</small></p>
+        </div>
+        <p class="network-atlas__scope">集計期間：{regularProgrammeEvidence.period}<br />対象：{regularProgrammeEvidence.scopeJa}</p>
+        <p class="network-atlas__scope-note">※ Custom Programs等の実績は上記集計に含みません。国・地域は大学・機関の所在地で整理しています。</p>
+      </aside>
+
+      <div class="network-atlas__globe-wrap" aria-label="世界と立命館のつながりを表す模式的な地球儀">
+        <svg class="network-atlas__globe" viewBox="0 0 640 640" aria-hidden="true" focusable="false">
           <defs>
-            <radialGradient id="networkGlow" cx="50%" cy="50%" r="58%">
-              <stop offset="0%" stop-color="rgba(151,35,55,0.12)" />
-              <stop offset="72%" stop-color="rgba(151,35,55,0.025)" />
-              <stop offset="100%" stop-color="rgba(151,35,55,0)" />
+            <radialGradient id="atlasOcean" cx="36%" cy="28%" r="72%">
+              <stop offset="0" stop-color="#fffdf9"/><stop offset=".72" stop-color="#f3ede7"/><stop offset="1" stop-color="#e6ddd5"/>
             </radialGradient>
-            <radialGradient id="earthFill" cx="37%" cy="30%" r="72%">
-              <stop offset="0%" stop-color="#f7f3ed" />
-              <stop offset="68%" stop-color="#e8e2d9" />
-              <stop offset="100%" stop-color="#d7cfc5" />
-            </radialGradient>
-            <clipPath id="earthClip">
-              <circle cx="500" cy="310" r="154" />
-            </clipPath>
+            <filter id="atlasShadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#7d6a61" flood-opacity=".14"/></filter>
+            <clipPath id="atlasClip"><circle cx="320" cy="320" r="250"/></clipPath>
           </defs>
-
-          <ellipse cx="500" cy="310" rx="438" ry="252" class="global-network__glow" />
-          <ellipse cx="500" cy="310" rx="420" ry="242" class="global-network__grid global-network__grid--outer" />
-          <ellipse cx="500" cy="310" rx="420" ry="102" class="global-network__grid" />
-          <path d="M80 310 H920" class="global-network__grid" />
-          <path d="M500 68 C360 142 360 478 500 552" class="global-network__grid" />
-          <path d="M500 68 C640 142 640 478 500 552" class="global-network__grid" />
-
-          <g class="global-network__peer-routes">
-            <path d="M110 211 C220 100 340 42 530 43" />
-            <path d="M530 43 C680 50 810 105 890 186" />
-            <path d="M890 186 C938 260 936 360 870 428" />
-            <path d="M870 428 C810 520 700 555 630 546" />
-            <path d="M630 546 C500 570 350 540 260 484" />
-            <path d="M260 484 C150 470 96 420 110 391" />
-            <path d="M110 391 C72 330 78 260 110 211" />
-          </g>
-
-          {globalConnections.map((connection) => (
-            <g class="global-network__route" data-route-country={connection.id}>
-              <path d={connection.routePath} pathLength="100" />
+          <circle cx="320" cy="320" r="250" fill="url(#atlasOcean)" filter="url(#atlasShadow)"/>
+          <g class="network-atlas__globe-surface" clip-path="url(#atlasClip)">
+            <g class="network-atlas__graticule">
+              <ellipse cx="320" cy="320" rx="244" ry="82"/><ellipse cx="320" cy="320" rx="244" ry="160"/>
+              <path d="M320 70c-88 90-88 410 0 500M320 70c88 90 88 410 0 500M70 320h500"/>
             </g>
-          ))}
-
-          <g class="global-network__earth" clip-path="url(#earthClip)">
-            <circle cx="500" cy="310" r="154" class="global-network__earth-base" />
-            <g class="global-network__earth-surface">
-              <ellipse cx="500" cy="310" rx="150" ry="52" class="global-network__earth-grid" />
-              <ellipse cx="500" cy="310" rx="150" ry="104" class="global-network__earth-grid global-network__earth-grid--soft" />
-              <path d="M500 156 C438 214 438 406 500 464" class="global-network__earth-grid" />
-              <path d="M500 156 C562 214 562 406 500 464" class="global-network__earth-grid" />
-              <path d="M405 206 C430 178 478 177 504 194 C525 208 534 230 520 246 C505 264 478 258 464 276 C449 296 415 287 402 263 C391 242 390 222 405 206Z" class="global-network__land" />
-              <path d="M541 190 C577 173 620 192 629 220 C637 245 616 258 603 274 C588 292 592 317 571 329 C548 342 521 327 518 303 C515 280 537 263 534 242 C532 224 520 203 541 190Z" class="global-network__land global-network__land--secondary" />
-              <path d="M580 334 C607 330 634 348 638 371 C642 392 621 410 602 414 C579 419 560 401 563 380 C566 363 562 340 580 334Z" class="global-network__land" />
-              <path d="M436 326 C458 317 479 329 482 347 C485 366 466 380 457 397 C446 417 428 423 416 407 C404 391 419 374 420 355 C421 343 423 331 436 326Z" class="global-network__land global-network__land--secondary" />
+            <g class="network-atlas__land">
+              <path d="M110 185c42-46 92-59 139-36 34 16 39 51 20 78-18 25-54 19-72 45-23 33-70 27-94-8-22-33-18-59 7-79Z"/>
+              <path d="M247 294c31-18 57-3 64 29 6 29-10 55-25 79-16 27-31 67-55 61-25-6-31-42-17-72 11-24 4-78 33-97Z"/>
+              <path d="M344 153c48-29 107-16 131 27 20 35-8 62-13 96-4 30 27 47 13 81-16 40-73 32-93 5-23-32-9-65-34-91-27-28-39-89-4-118Z"/>
+              <path d="M424 353c35-8 78 13 83 49 4 32-29 55-59 60-34 6-59-22-50-53 7-25-7-49 26-56Z"/>
+              <path d="M510 216c25-8 52 1 65 23 12 20 1 44-17 52-24 10-54-4-60-28-5-18-8-40 12-47Z"/>
             </g>
-            <circle cx="500" cy="310" r="153" class="global-network__earth-rim" />
+            <g class="network-atlas__routes">
+              <path d="M135 205Q258 250 350 318"/><path d="M182 157Q286 226 350 318"/><path d="M480 187Q410 246 350 318"/>
+              <path d="M523 259Q430 278 350 318"/><path d="M492 421Q414 365 350 318"/><path d="M261 470Q302 386 350 318"/>
+              <path d="M126 355Q250 344 350 318"/><path d="M550 365Q446 340 350 318"/>
+            </g>
           </g>
-
-          <g class="global-network__earth-focus" aria-hidden="true">
-            <circle cx="584" cy="256" r="17" class="global-network__earth-focus-halo" />
-            <circle cx="584" cy="256" r="5" class="global-network__earth-focus-dot" />
-            <path d="M588 252 C610 236 628 225 650 217" />
-          </g>
+          <circle cx="320" cy="320" r="250" class="network-atlas__rim"/>
+          <g class="network-atlas__hub-mark"><circle cx="350" cy="318" r="24"/><text x="350" y="325" text-anchor="middle">R</text></g>
         </svg>
 
-        <div class="global-network__focus-label" aria-hidden="true">
-          <span data-focus-flag>{defaultPresentation.flag}</span>
-          <div>
-            <small>NOW FOCUSING</small>
-            <strong data-focus-country>{defaultConnection.countryJa}</strong>
-          </div>
+        <div class="network-atlas__focus-card" data-focus-card>
+          <img src={`https://flagcdn.com/w80/${defaultConnection.flagCode}.png`} alt="" width="40" height="30" data-focus-flag />
+          <div><strong data-focus-name>{defaultConnection.countryJa}</strong><span><b data-focus-institutions>{defaultConnection.institutionCount}</b>大学・機関 / <b data-focus-participants>{defaultConnection.participants}</b>名</span></div>
         </div>
-
-        <div class="global-network__hub" aria-label="ネットワークの中心：立命館大学">
-          <span>RITSUMEIKAN</span>
-          <strong>立命館</strong>
-          <small>SHORT-TERM GLOBAL LEARNING</small>
-          <em>KYOTO · OSAKA · SHIGA</em>
-        </div>
-
-        {globalConnections.map((connection) => {
-          const presentation = getPresentation(connection.id);
-          return (
-            <button
-              type="button"
-              class:list={[
-                'global-network__node',
-                connection.id === defaultCountry && 'is-active',
-              ]}
-              style={`--node-x:${connection.position.x}%;--node-y:${connection.position.y}%;`}
-              data-network-country={connection.id}
-              data-earth-rotation={presentation.rotation}
-              data-country-flag={presentation.flag}
-              data-country-label={connection.countryJa}
-              aria-pressed={connection.id === defaultCountry ? 'true' : 'false'}
-              aria-controls={`network-panel-${connection.id}`}
-              aria-label={`${connection.countryJa}：${connection.universities.length}機関の掲載例を見る`}
-            >
-              <span class="global-network__node-code">{connection.code}</span>
-              <span class="global-network__node-flag" aria-hidden="true">{presentation.flag}</span>
-              <strong>{connection.countryJa}</strong>
-              <small>{connection.universities.length} examples</small>
-            </button>
-          );
-        })}
-
-        <p class="global-network__peer-label">STUDENT ↔ STUDENT</p>
+        <div class="network-atlas__ritsumeikan"><span>RITSUMEIKAN</span><strong>立命館</strong><small>SHORT-TERM GLOBAL LEARNING<br />KYOTO · OSAKA · SHIGA</small></div>
       </div>
 
-      <aside class="global-network__detail" aria-live="polite">
-        <p class="global-network__detail-eyebrow">REAL CONNECTIONS · SELECTED EXAMPLES</p>
-
-        <div class="global-network__scale" aria-label="現在掲載しているネットワーク実績例">
-          <div>
-            <strong>{globalConnections.length}</strong>
-            <span>COUNTRIES / REGIONS</span>
-          </div>
-          <div>
-            <strong>{totalInstitutionExamples}</strong>
-            <span>INSTITUTION EXAMPLES</span>
-          </div>
-          <div>
-            <strong>＋</strong>
-            <span>AND MORE</span>
-          </div>
-        </div>
-
-        {globalConnections.map((connection) => {
-          const presentation = getPresentation(connection.id);
-          return (
-            <article
-              id={`network-panel-${connection.id}`}
-              class:list={[
-                'global-network__panel',
-                connection.id === defaultCountry && 'is-active',
-              ]}
-              data-network-panel={connection.id}
-              hidden={connection.id !== defaultCountry}
-            >
-              <div class="global-network__country-heading">
-                <span aria-hidden="true">{presentation.flag}</span>
-                <div>
-                  <p>{connection.countryEn}</p>
-                  <h3>{connection.countryJa}</h3>
-                </div>
-              </div>
-
-              <div class="global-network__universities">
-                <p>EXAMPLE INSTITUTIONS</p>
-                <ul>
-                  {connection.universities.map((university) => (
-                    <li>
-                      <span>{university.shortName ?? university.name}</span>
-                      <strong>{university.name}</strong>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <p class="global-network__summary">{connection.summary}</p>
-
-              <ul class="global-network__themes" aria-label={`${connection.countryJa}との学び・交流のキーワード`}>
-                {connection.themes.map((theme) => <li>{theme}</li>)}
+      <aside class="network-atlas__detail" aria-live="polite">
+        {evidenceCountries.map((country) => (
+          <article class:list={['network-atlas__panel', country.id === defaultCountry && 'is-active']} data-country-panel={country.id} hidden={country.id !== defaultCountry}>
+            <header>
+              <img src={`https://flagcdn.com/w80/${country.flagCode}.png`} alt={`${country.countryJa}の国旗・地域旗`} width="56" height="42" loading="lazy" />
+              <div><h3>{country.countryJa}</h3><p>{country.countryEn}</p></div>
+            </header>
+            <div class="network-atlas__country-stats">
+              <div><strong>{country.participants}</strong><span>名</span><small>参加者数</small></div>
+              <div><strong>{country.institutionCount}</strong><span>大学・機関</span><small>参加実績あり</small></div>
+            </div>
+            <div class="network-atlas__institutions">
+              <div class="network-atlas__list-heading"><strong>参加大学・機関</strong><span>主な実績</span></div>
+              <ul>
+                {country.institutions.map((institution) => (
+                  <li><span>{institution.name}</span><b>{institution.participants}名</b></li>
+                ))}
               </ul>
-            </article>
-          );
-        })}
-
-        <p class="global-network__note">
-          ここに表示している{globalConnections.length}か国・地域、{totalInstitutionExamples}の大学・高等教育機関は短期受入・連携実績の一部です。ほかにも多数の国・地域・教育機関からの参加・連携実績があり、プログラムや年度により参加機関・実施内容は異なります。
-        </p>
+              {country.institutionCount > country.institutions.length && <p>ほか {country.institutionCount - country.institutions.length} 大学・機関</p>}
+            </div>
+          </article>
+        ))}
+        <p class="network-atlas__data-note">実施報告・参加者リストを統合した2023–2026年データに基づきます。人数・機関数はRSJP/RWJP系のみ。Custom Programs等を加えた実際のネットワークはさらに広がります。</p>
       </aside>
     </div>
 
-    <div class="global-network__principles" aria-label="短期受入プログラムが生み出す学びとつながり">
-      {globalNetworkPrinciples.map((principle, index) => (
-        <article>
-          <div>
-            <span>{String(index + 1).padStart(2, '0')}</span>
-            <small>{principle.en}</small>
-          </div>
-          <h3>{principle.label}</h3>
-          <p>{principle.description}</p>
-        </article>
+    <div class="network-atlas__country-rail" aria-label="国・地域を選択">
+      {evidenceCountries.map((country) => (
+        <button type="button" class:list={['network-atlas__country-chip', country.id === defaultCountry && 'is-active']} data-country-select={country.id} data-rotation={country.focusRotation} data-flag={country.flagCode} data-name={country.countryJa} data-participants={country.participants} data-institutions={country.institutionCount} aria-pressed={country.id === defaultCountry ? 'true' : 'false'}>
+          <img src={`https://flagcdn.com/w40/${country.flagCode}.png`} alt="" width="28" height="21" loading="lazy" />
+          <span><strong>{country.countryJa}</strong><small>{country.participants}名 · {country.institutionCount}大学・機関</small></span>
+        </button>
       ))}
     </div>
 
-    <div class="global-network__manifesto">
-      <p>日本語を学ぶ。京都を知る。世界とつながる。</p>
-      <h2>大学と大学の間に、<br />人と人のつながりを。</h2>
-    </div>
+    <div class="network-atlas__closing"><div><span>↗</span><strong>Different universities. One place to meet.</strong></div><p>大学と大学のつながりを、学生一人ひとりの出会いへ。</p></div>
   </div>
 </section>
 
 <script>
-  const network = document.querySelector('[data-global-network]');
-
-  if (network instanceof HTMLElement) {
-    const buttons = Array.from(network.querySelectorAll('[data-network-country]'));
-    const panels = Array.from(network.querySelectorAll('[data-network-panel]'));
-    const routes = Array.from(network.querySelectorAll('[data-route-country]'));
-    const focusFlag = network.querySelector('[data-focus-flag]');
-    const focusCountry = network.querySelector('[data-focus-country]');
-
-    const activateCountry = (countryId: string) => {
-      const activeButton = buttons.find(
-        (button) => button instanceof HTMLButtonElement && button.dataset.networkCountry === countryId,
-      );
-
-      buttons.forEach((button) => {
-        if (!(button instanceof HTMLButtonElement)) return;
-        const active = button.dataset.networkCountry === countryId;
-        button.classList.toggle('is-active', active);
-        button.setAttribute('aria-pressed', active ? 'true' : 'false');
+  const atlas = document.querySelector('[data-network-atlas]');
+  if (atlas instanceof HTMLElement) {
+    const buttons = Array.from(atlas.querySelectorAll('[data-country-select]'));
+    const panels = Array.from(atlas.querySelectorAll('[data-country-panel]'));
+    const focusName = atlas.querySelector('[data-focus-name]');
+    const focusParticipants = atlas.querySelector('[data-focus-participants]');
+    const focusInstitutions = atlas.querySelector('[data-focus-institutions]');
+    const focusFlag = atlas.querySelector('[data-focus-flag]');
+    const activate = (button: HTMLButtonElement) => {
+      const id = button.dataset.countrySelect;
+      if (!id) return;
+      buttons.forEach((item) => {
+        if (!(item instanceof HTMLButtonElement)) return;
+        const active = item === button;
+        item.classList.toggle('is-active', active);
+        item.setAttribute('aria-pressed', active ? 'true' : 'false');
       });
-
       panels.forEach((panel) => {
         if (!(panel instanceof HTMLElement)) return;
-        const active = panel.dataset.networkPanel === countryId;
+        const active = panel.dataset.countryPanel === id;
         panel.hidden = !active;
         panel.classList.toggle('is-active', active);
-        if (active) panel.scrollTop = 0;
       });
-
-      routes.forEach((route) => {
-        if (!(route instanceof SVGGElement)) return;
-        route.classList.toggle('is-active', route.dataset.routeCountry === countryId);
-      });
-
-      if (activeButton instanceof HTMLButtonElement) {
-        const rotation = activeButton.dataset.earthRotation ?? '0';
-        network.style.setProperty('--earth-rotation', `${rotation}deg`);
-        network.classList.remove('is-refocusing');
-        void network.offsetWidth;
-        network.classList.add('is-refocusing');
-
-        if (focusFlag instanceof HTMLElement) {
-          focusFlag.textContent = activeButton.dataset.countryFlag ?? '•';
-        }
-        if (focusCountry instanceof HTMLElement) {
-          focusCountry.textContent = activeButton.dataset.countryLabel ?? '';
-        }
-      }
+      atlas.style.setProperty('--globe-rotation', `${button.dataset.rotation ?? 0}deg`);
+      if (focusName) focusName.textContent = button.dataset.name ?? '';
+      if (focusParticipants) focusParticipants.textContent = button.dataset.participants ?? '';
+      if (focusInstitutions) focusInstitutions.textContent = button.dataset.institutions ?? '';
+      if (focusFlag instanceof HTMLImageElement && button.dataset.flag) focusFlag.src = `https://flagcdn.com/w80/${button.dataset.flag}.png`;
     };
-
-    buttons.forEach((button) => {
-      if (!(button instanceof HTMLButtonElement)) return;
-      const id = button.dataset.networkCountry;
-      if (!id) return;
-
-      button.addEventListener('click', () => activateCountry(id));
-      button.addEventListener('focus', () => activateCountry(id));
-      button.addEventListener('pointerenter', (event) => {
-        if (event.pointerType !== 'touch') activateCountry(id);
-      });
+    buttons.forEach((item) => {
+      if (!(item instanceof HTMLButtonElement)) return;
+      item.addEventListener('click', () => activate(item));
+      item.addEventListener('focus', () => activate(item));
     });
-
-    activateCountry('korea');
   }
 </script>
