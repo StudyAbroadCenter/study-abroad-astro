@@ -9,8 +9,29 @@ const customByCountry: Record<string, string[]> = {
   australia: ['RMIT University'],
   'hong-kong': ['City University of Hong Kong'],
 };
+
+// Only logos verified against the university's own brand/identity site belong here.
+// Unverified institutions deliberately fall back to initials rather than a guessed favicon.
+const verifiedLogos: Record<string, { src: string; alt: string }> = {
+  'Case Western Reserve University': {
+    src: 'https://case.edu/brand/sites/default/files/2023-05/CWRU_Acronym-logo-brand.jpg',
+    alt: 'Case Western Reserve University logo',
+  },
+  'James Madison University': {
+    src: 'https://www.jmu.edu/identity/_files/jmu-logo-rgb-horiz-purple.png',
+    alt: 'James Madison University logo',
+  },
+  'University of Wisconsin - Madison': {
+    src: 'https://brand.wisc.edu/content/uploads/2023/10/crest-only-logo-web-digital-color.png',
+    alt: 'University of Wisconsin–Madison logo',
+  },
+  'University of Wisconsin–Madison': {
+    src: 'https://brand.wisc.edu/content/uploads/2023/10/crest-only-logo-web-digital-color.png',
+    alt: 'University of Wisconsin–Madison logo',
+  },
+};
 ---
-<script is:inline define:vars={{ customByCountry }}>
+<script is:inline define:vars={{ customByCountry, verifiedLogos }}>
   const initials = (name) => name
     .replace(/\([^)]*\)/g, '')
     .split(/[\s,&\-/]+/)
@@ -22,8 +43,27 @@ const customByCountry: Record<string, string[]> = {
   const makeMark = (name) => {
     const mark = document.createElement('span');
     mark.className = 'network-atlas__institution-mark';
-    mark.textContent = initials(name) || '•';
     mark.setAttribute('aria-hidden', 'true');
+
+    const verified = verifiedLogos[name];
+    if (verified) {
+      const image = document.createElement('img');
+      image.src = verified.src;
+      image.alt = '';
+      image.loading = 'lazy';
+      image.decoding = 'async';
+      image.referrerPolicy = 'no-referrer';
+      image.addEventListener('error', () => {
+        image.remove();
+        mark.classList.remove('has-logo');
+        mark.textContent = initials(name) || '•';
+      }, { once: true });
+      mark.classList.add('has-logo');
+      mark.appendChild(image);
+      mark.title = `${name} — official logo verified`;
+    } else {
+      mark.textContent = initials(name) || '•';
+    }
     return mark;
   };
 
@@ -95,7 +135,7 @@ const customByCountry: Record<string, string[]> = {
 
     const note = atlas.querySelector('.network-atlas__data-note');
     if (note instanceof HTMLElement) {
-      note.textContent = '人数・大学/機関数は2023–2026年のRSJP/RWJP系統合データ。CUSTOMは別途、実施報告等で確認できたCustom Program実績で、この522名・114大学/機関の集計には加算していません。';
+      note.textContent = '人数・大学/機関数は2023–2026年のRSJP/RWJP系統合データ。CUSTOMは別途、実施報告等で確認できたCustom Program実績で、この522名・114大学/機関の集計には加算していません。大学ロゴは公式ブランド資料で確認できたものから順次表示しています。';
     }
   }
 </script>
