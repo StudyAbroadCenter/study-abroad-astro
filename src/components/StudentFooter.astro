@@ -2,7 +2,6 @@
 const rawBase = import.meta.env.BASE_URL;
 const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
 const withBase = (path: string) => `${base}${path.replace(/^\//, '')}`;
-const officialLogo = 'https://www.ritsumei.ac.jp/image.jsp?id=228381';
 
 const primaryLinks = [
   { href: '#program-finder', label: 'プログラム' },
@@ -15,9 +14,10 @@ const primaryLinks = [
 <footer class="recruitment-footer">
   <div class="site-shell recruitment-footer__inner">
     <div class="recruitment-footer__top">
-      <div class="recruitment-footer__identity">
-        <a class="recruitment-footer__logo-plate" href={withBase('/ja/')} aria-label="立命館大学 短期受入プログラム 日本語トップ">
-          <img src={officialLogo} alt="RITSUMEIKAN" loading="lazy" decoding="async" />
+      <div class="recruitment-footer__identity recruitment-footer__identity--type">
+        <a class="recruitment-footer__wordmark" href={withBase('/ja/')} aria-label="立命館大学 短期受入プログラム 日本語トップ">
+          <strong>RITSUMEIKAN</strong>
+          <span>UNIVERSITY</span>
         </a>
         <div>
           <p>SHORT-TERM PROGRAMS</p>
