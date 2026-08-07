@@ -41,23 +41,23 @@
   line-height: 1.35;
 }
 
-/* Nine visible country nodes need to read as map markers rather than cards. */
+/* Dense country nodes should read as map markers rather than dashboard cards. */
 .global-network__node {
-  min-width: 108px;
-  padding: 8px 10px 9px;
+  min-width: 90px;
+  padding: 7px 9px 8px;
   background: rgba(18, 20, 23, 0.74);
 }
 
 .global-network__node strong {
-  font-size: 0.75rem;
+  font-size: 0.69rem;
 }
 
 .global-network__node small {
-  font-size: 0.46rem;
+  font-size: 0.43rem;
 }
 
 .global-network__route path {
-  opacity: 0.72;
+  opacity: 0.68;
 }
 
 .global-network__route.is-active path {
@@ -86,32 +86,35 @@
 
 @media (max-width: 759px) {
   .global-network__visual {
-    min-height: min(124vw, 520px);
+    min-height: min(128vw, 540px);
   }
 
+  /* Fifteen nodes fit far better as compact country-code markers on mobile. */
   .global-network__node {
-    width: 68px;
-    min-width: 68px;
-    gap: 1px;
-    border-radius: 10px;
-    padding: 6px 7px 7px;
+    display: grid;
+    width: 38px;
+    min-width: 38px;
+    height: 38px;
+    place-items: center;
+    border-radius: 50%;
+    padding: 0;
     text-align: center;
   }
 
   .global-network__node > span {
-    font-size: 0.5rem;
+    font-size: 0.57rem;
+    line-height: 1;
   }
 
-  .global-network__node strong {
-    overflow: hidden;
-    font-size: 0.61rem;
-    line-height: 1.25;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
+  .global-network__node strong,
   .global-network__node small {
     display: none;
+  }
+
+  .global-network__node:hover,
+  .global-network__node:focus-visible,
+  .global-network__node.is-active {
+    transform: translate(-50%, -50%) translateY(-2px) scale(1.08);
   }
 
   .global-network__scale {
@@ -129,36 +132,45 @@
 
 @media (max-width: 479px) {
   .global-network__visual {
-    min-height: 450px;
+    min-height: 470px;
   }
 
   .global-network__hub {
-    width: 124px;
+    width: 116px;
   }
 
   .global-network__node {
-    width: 58px;
-    min-width: 58px;
-    padding: 5px 5px 6px;
+    width: 34px;
+    min-width: 34px;
+    height: 34px;
   }
 
-  .global-network__node strong {
-    font-size: 0.55rem;
+  .global-network__node > span {
+    font-size: 0.53rem;
   }
 
   .global-network__scale span {
-    font-size: 0.41rem;
-    letter-spacing: 0.06em;
+    font-size: 0.4rem;
+    letter-spacing: 0.055em;
   }
 }
 
 @media (max-width: 359px) {
-  .global-network__node {
-    width: 54px;
-    min-width: 54px;
+  .global-network__visual {
+    min-height: 450px;
   }
 
-  .global-network__node strong {
-    font-size: 0.51rem;
+  .global-network__hub {
+    width: 108px;
+  }
+
+  .global-network__node {
+    width: 31px;
+    min-width: 31px;
+    height: 31px;
+  }
+
+  .global-network__node > span {
+    font-size: 0.49rem;
   }
 }
