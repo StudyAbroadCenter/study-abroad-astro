@@ -43,21 +43,21 @@
 
 /* Dense country nodes should read as map markers rather than dashboard cards. */
 .global-network__node {
-  min-width: 90px;
+  min-width: 88px;
   padding: 7px 9px 8px;
   background: rgba(18, 20, 23, 0.74);
 }
 
 .global-network__node strong {
-  font-size: 0.69rem;
+  font-size: 0.68rem;
 }
 
 .global-network__node small {
-  font-size: 0.43rem;
+  font-size: 0.42rem;
 }
 
 .global-network__route path {
-  opacity: 0.68;
+  opacity: 0.66;
 }
 
 .global-network__route.is-active path {
@@ -81,6 +81,21 @@
   .global-network__panel.is-active {
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
+  }
+}
+
+@media (max-width: 899px) and (min-width: 760px) {
+  .global-network__node {
+    min-width: 72px;
+    padding-inline: 7px;
+  }
+
+  .global-network__node strong {
+    font-size: 0.6rem;
+  }
+
+  .global-network__node small {
+    display: none;
   }
 }
 
