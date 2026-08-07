@@ -10,81 +10,68 @@ const customByCountry: Record<string, string[]> = {
   'hong-kong': ['City University of Hong Kong'],
 };
 
-type VerifiedLogo = {
+type ApprovedLogo = {
   src: string;
   alt: string;
   source: string;
+  permissionNote: string;
 };
 
-// IMPORTANT:
-// Only assets verified on the institution's own official website / brand system are listed here.
-// Universities whose published rules require prior permission for external logo use deliberately
-// remain on the initials fallback until Ritsumeikan has the necessary approval.
-// Never replace this registry with favicons, guessed domains, or third-party logo services.
-const verifiedLogos: Record<string, VerifiedLogo> = {
-  'Case Western Reserve University': {
-    src: 'https://case.edu/brand/sites/default/files/2023-05/CWRU_Acronym-logo-brand.jpg',
-    alt: 'Case Western Reserve University logo',
-    source: 'Case Western Reserve University Brand',
-  },
-  'James Madison University': {
-    src: 'https://www.jmu.edu/identity/_files/jmu-logo-rgb-horiz-purple.png',
-    alt: 'James Madison University logo',
-    source: 'James Madison University Identity',
-  },
-  'University of Wisconsin - Madison': {
-    src: 'https://brand.wisc.edu/content/uploads/2023/10/crest-only-logo-web-digital-color.png',
-    alt: 'University of Wisconsin–Madison logo',
-    source: 'University of Wisconsin–Madison Brand',
-  },
-  'University of Wisconsin–Madison': {
-    src: 'https://brand.wisc.edu/content/uploads/2023/10/crest-only-logo-web-digital-color.png',
-    alt: 'University of Wisconsin–Madison logo',
-    source: 'University of Wisconsin–Madison Brand',
-  },
-  'Gachon University': {
-    src: 'https://www.gachon.ac.kr/sites/kor/images/sub/slogan_3.png',
-    alt: 'Gachon University symbol',
-    source: 'Gachon University official UI',
-  },
-  'Ajou University': {
-    src: 'https://www.ajou.ac.kr/_res/ajou/kr/img/intro/img-logo02.png',
-    alt: 'Ajou University logo type',
-    source: 'Ajou University official UI',
-  },
-  'Monash University': {
-    src: 'https://www.monash.edu/__data/assets/image/0005/1738949/monash-university-stacked-blue.jpg',
-    alt: 'Monash University logo',
-    source: 'Monash University Brand Book',
-  },
-  'University of Waterloo': {
-    src: 'https://uwaterloo.ca/brand/sites/ca.brand/files/styles/body-500px-wide/public/uploads/images/universityofwaterloo_logo_horiz_rgb_1.jpg?itok=1aKXR4xp',
-    alt: 'University of Waterloo logo',
-    source: 'University of Waterloo Brand',
-  },
+// Production rule:
+// Only logos for which Ritsumeikan / the site operator can demonstrate permission for this
+// external web use belong in approvedLogos. Finding an official logo file is NOT sufficient.
+// Until permission is documented, the UI intentionally falls back to neutral initials.
+// Never use favicons, guessed domains, third-party logo services, or AI-redrawn marks.
+const approvedLogos: Record<string, ApprovedLogo> = {
+  // Add an institution only after approval / licence for this external website is documented.
 };
 
-const approvalRequiredInstitutions = new Set([
-  'National University of Singapore',
-  'Nanyang Technological University',
-  'Singapore Management University',
+// Official brand assets or rules were found, but permission for this external Ritsumeikan
+// recruitment/evidence site is required or has not yet been demonstrated. Keep initials.
+const permissionRequiredInstitutions = new Set([
+  'Case Western Reserve University',
+  'James Madison University',
+  'University of Wisconsin - Madison',
+  'University of Wisconsin–Madison',
+  'Western Michigan University',
+  'University of New Mexico',
+  'University of Pittsburgh',
+  'Monash University',
+  'University of Waterloo',
   'University of Melbourne',
   'Australian National University',
   'University of Queensland',
   'RMIT University',
   'University of Sydney',
-  'University of Toronto',
-  'University of Alberta',
+  'National University of Singapore',
+  'Nanyang Technological University',
+  'Singapore Management University',
   'Sookmyung Women\'s University',
-  'Yonsei University',
   'National Taiwan University',
   'University of Helsinki',
   'University of Leeds',
-  'Western Michigan University',
+  'University of Toronto',
+  'University of Alberta',
+]);
+
+// The institution publishes an official UI/logo asset, but public availability alone does not
+// establish third-party usage permission. These also stay on initials until permission is clear.
+const permissionUnconfirmedInstitutions = new Set([
+  'Gachon University',
+  'Ajou University',
+  'Konkuk University',
+  'Daejeon University',
+  'Chung-Ang University',
 ]);
 ---
-<script is:inline define:vars={{ customByCountry, verifiedLogos, approvalRequiredInstitutions: [...approvalRequiredInstitutions] }}>
-  const approvalRequired = new Set(approvalRequiredInstitutions);
+<script is:inline define:vars={{
+  customByCountry,
+  approvedLogos,
+  permissionRequiredInstitutions: [...permissionRequiredInstitutions],
+  permissionUnconfirmedInstitutions: [...permissionUnconfirmedInstitutions],
+}}>
+  const permissionRequired = new Set(permissionRequiredInstitutions);
+  const permissionUnconfirmed = new Set(permissionUnconfirmedInstitutions);
 
   const initials = (name) => name
     .replace(/\([^)]*\)/g, '')
@@ -99,14 +86,13 @@ const approvalRequiredInstitutions = new Set([
     mark.className = 'network-atlas__institution-mark';
     mark.setAttribute('aria-hidden', 'true');
 
-    const verified = verifiedLogos[name];
-    if (verified) {
+    const approved = approvedLogos[name];
+    if (approved) {
       const image = document.createElement('img');
-      image.src = verified.src;
+      image.src = approved.src;
       image.alt = '';
       image.loading = 'lazy';
       image.decoding = 'async';
-      image.referrerPolicy = 'no-referrer';
       image.addEventListener('error', () => {
         image.remove();
         mark.classList.remove('has-logo');
@@ -114,12 +100,17 @@ const approvalRequiredInstitutions = new Set([
       }, { once: true });
       mark.classList.add('has-logo');
       mark.appendChild(image);
-      mark.title = `${name} — official asset verified: ${verified.source}`;
+      mark.title = `${name} — logo use approved for this site`;
     } else {
       mark.textContent = initials(name) || '•';
-      if (approvalRequired.has(name)) {
+      if (permissionRequired.has(name)) {
         mark.classList.add('logo-approval-required');
-        mark.title = `${name} — official logo verified, external-use approval required before publication`;
+        mark.title = `${name} — official logo exists; external-use approval required`;
+      } else if (permissionUnconfirmed.has(name)) {
+        mark.classList.add('logo-permission-unconfirmed');
+        mark.title = `${name} — official asset found; third-party usage permission not yet confirmed`;
+      } else {
+        mark.title = `${name} — initials used until official logo usage rights are confirmed`;
       }
     }
     return mark;
@@ -193,7 +184,7 @@ const approvalRequiredInstitutions = new Set([
 
     const note = atlas.querySelector('.network-atlas__data-note');
     if (note instanceof HTMLElement) {
-      note.textContent = '人数・大学/機関数は2023–2026年のRSJP/RWJP系統合データ。CUSTOMは別途確認したCustom Program実績で、522名・114大学/機関には加算していません。大学ロゴは公式資産を確認し、外部利用条件を満たせるもののみ表示しています。';
+      note.textContent = '人数・大学/機関数は2023–2026年のRSJP/RWJP系統合データ。CUSTOMは別途確認したCustom Program実績で、522名・114大学/機関には加算していません。大学ロゴは、この外部Webサイトでの利用許可を確認できたものだけ表示し、それ以外はイニシャル表示としています。';
     }
   }
 </script>
