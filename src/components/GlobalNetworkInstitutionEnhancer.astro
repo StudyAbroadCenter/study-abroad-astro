@@ -1,13 +1,16 @@
 ---
-import { evidenceCountries } from '../data/globalNetworkEvidence';
-
-const customByCountry = Object.fromEntries(
-  evidenceCountries
-    .filter((country) => 'customPrograms' in country && country.customPrograms?.length)
-    .map((country) => [country.id, [...(country.customPrograms ?? [])]]),
-);
+const customByCountry: Record<string, string[]> = {
+  'united-states': [
+    'Case Western Reserve University',
+    'James Madison University',
+    'Florida International University',
+    'University of North Carolina Asheville',
+  ],
+  australia: ['RMIT University'],
+  'hong-kong': ['City University of Hong Kong'],
+};
 ---
-<script define:vars={{ customByCountry }}>
+<script is:inline define:vars={{ customByCountry }}>
   const initials = (name) => name
     .replace(/\([^)]*\)/g, '')
     .split(/[\s,&\-/]+/)
