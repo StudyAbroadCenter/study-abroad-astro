@@ -1,0 +1,62 @@
+---
+import { impactEvidence } from '../data/impactEvidence';
+import '../styles/impact-evidence.css';
+
+const titleLines = impactEvidence.title.split('\n');
+---
+<section class="impact-evidence" id="impact-evidence" aria-labelledby="impact-evidence-title">
+  <div class="site-shell impact-evidence__intro">
+    <div class="impact-evidence__intro-copy">
+      <p class="impact-evidence__kicker">{impactEvidence.kicker}</p>
+      <h2 id="impact-evidence-title">
+        {titleLines.map((line) => <span>{line}</span>)}
+      </h2>
+    </div>
+    <div class="impact-evidence__lead">
+      <p>{impactEvidence.lead}</p>
+      <small>{impactEvidence.evidenceNote}</small>
+    </div>
+  </div>
+
+  <div class="site-shell impact-evidence__metrics" aria-label="2025 RSJPアンケートから見る学習実感">
+    <div class="impact-evidence__metrics-heading">
+      <span>2025 RSJP</span>
+      <p>参加者アンケートから見る学習実感</p>
+    </div>
+    <div class="impact-evidence__metric-grid">
+      {impactEvidence.metrics.map((metric) => (
+        <article class="impact-metric">
+          <strong>{metric.value}</strong>
+          <h3>{metric.label}</h3>
+          <p>{metric.detail}</p>
+          <small>{metric.source}</small>
+        </article>
+      ))}
+    </div>
+  </div>
+
+  <div class="site-shell impact-evidence__journey" aria-label="成果を捉える5つの視点">
+    {impactEvidence.steps.map((step) => (
+      <article class={`impact-step impact-step--${step.id}`}>
+        <header class="impact-step__header">
+          <span class="impact-step__number">{step.number}</span>
+          <span class="impact-step__label">{step.label}</span>
+        </header>
+        <div class="impact-step__copy">
+          <h3>{step.title}</h3>
+          <p>{step.body}</p>
+        </div>
+        <p class="impact-step__proof">{step.proof}</p>
+      </article>
+    ))}
+  </div>
+
+  <div class="impact-evidence__bridge">
+    <div class="site-shell impact-evidence__bridge-inner">
+      <p class="impact-evidence__bridge-eyebrow">{impactEvidence.bridge.eyebrow}</p>
+      <h2>{impactEvidence.bridge.title}</h2>
+      <p>{impactEvidence.bridge.body}</p>
+      <span class="impact-evidence__quiet-note" aria-hidden="true">楽しいだけで終わらせない。積み重ねは、倍々に。</span>
+    </div>
+  </div>
+</section>
