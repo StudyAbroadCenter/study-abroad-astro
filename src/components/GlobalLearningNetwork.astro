@@ -6,8 +6,30 @@ const totalInstitutionExamples = globalConnections.reduce(
   (total, connection) => total + connection.universities.length,
   0,
 );
+
+const countryPresentation: Record<string, { flag: string; rotation: number }> = {
+  'united-states': { flag: '🇺🇸', rotation: -38 },
+  canada: { flag: '🇨🇦', rotation: -28 },
+  'united-kingdom': { flag: '🇬🇧', rotation: -8 },
+  finland: { flag: '🇫🇮', rotation: 4 },
+  romania: { flag: '🇷🇴', rotation: 14 },
+  china: { flag: '🇨🇳', rotation: 32 },
+  korea: { flag: '🇰🇷', rotation: 42 },
+  taiwan: { flag: '🇹🇼', rotation: 50 },
+  macau: { flag: '🇲🇴', rotation: 56 },
+  singapore: { flag: '🇸🇬', rotation: 68 },
+  australia: { flag: '🇦🇺', rotation: 94 },
+  indonesia: { flag: '🇮🇩', rotation: 76 },
+  japan: { flag: '🇯🇵', rotation: 46 },
+  uae: { flag: '🇦🇪', rotation: 20 },
+  qatar: { flag: '🇶🇦', rotation: 16 },
+};
+
+const getPresentation = (id: string) => countryPresentation[id] ?? { flag: '•', rotation: 0 };
+const defaultConnection = globalConnections.find((connection) => connection.id === defaultCountry) ?? globalConnections[0];
+const defaultPresentation = getPresentation(defaultConnection.id);
 ---
-<section class="global-network" id="global-network" data-global-network>
+<section class="global-network" id="global-network" data-global-network style={`--earth-rotation:${defaultPresentation.rotation}deg;`}>
   <div class="site-shell global-network__inner">
     <header class="global-network__intro">
       <div>
@@ -29,10 +51,18 @@ const totalInstitutionExamples = globalConnections.reduce(
         <svg class="global-network__globe" viewBox="0 0 1000 620" aria-hidden="true" focusable="false">
           <defs>
             <radialGradient id="networkGlow" cx="50%" cy="50%" r="58%">
-              <stop offset="0%" stop-color="rgba(165,31,50,0.13)" />
-              <stop offset="72%" stop-color="rgba(165,31,50,0.025)" />
-              <stop offset="100%" stop-color="rgba(165,31,50,0)" />
+              <stop offset="0%" stop-color="rgba(151,35,55,0.12)" />
+              <stop offset="72%" stop-color="rgba(151,35,55,0.025)" />
+              <stop offset="100%" stop-color="rgba(151,35,55,0)" />
             </radialGradient>
+            <radialGradient id="earthFill" cx="37%" cy="30%" r="72%">
+              <stop offset="0%" stop-color="#f7f3ed" />
+              <stop offset="68%" stop-color="#e8e2d9" />
+              <stop offset="100%" stop-color="#d7cfc5" />
+            </radialGradient>
+            <clipPath id="earthClip">
+              <circle cx="500" cy="310" r="154" />
+            </clipPath>
           </defs>
 
           <ellipse cx="500" cy="310" rx="438" ry="252" class="global-network__glow" />
@@ -41,8 +71,6 @@ const totalInstitutionExamples = globalConnections.reduce(
           <path d="M80 310 H920" class="global-network__grid" />
           <path d="M500 68 C360 142 360 478 500 552" class="global-network__grid" />
           <path d="M500 68 C640 142 640 478 500 552" class="global-network__grid" />
-          <path d="M500 68 C250 168 250 452 500 552" class="global-network__grid global-network__grid--soft" />
-          <path d="M500 68 C750 168 750 452 500 552" class="global-network__grid global-network__grid--soft" />
 
           <g class="global-network__peer-routes">
             <path d="M110 211 C220 100 340 42 530 43" />
@@ -52,9 +80,6 @@ const totalInstitutionExamples = globalConnections.reduce(
             <path d="M630 546 C500 570 350 540 260 484" />
             <path d="M260 484 C150 470 96 420 110 391" />
             <path d="M110 391 C72 330 78 260 110 211" />
-            <path d="M220 87 C430 160 700 310 870 428" />
-            <path d="M380 50 C520 180 720 340 790 508" />
-            <path d="M670 68 C600 220 420 410 260 484" />
           </g>
 
           {globalConnections.map((connection) => (
@@ -63,49 +88,74 @@ const totalInstitutionExamples = globalConnections.reduce(
             </g>
           ))}
 
-          <g class="global-network__decorative-dots">
-            <circle cx="298" cy="128" r="3" />
-            <circle cx="355" cy="482" r="2" />
-            <circle cx="626" cy="112" r="2.5" />
-            <circle cx="858" cy="326" r="2" />
-            <circle cx="244" cy="398" r="2.5" />
-            <circle cx="610" cy="528" r="2" />
-            <circle cx="452" cy="98" r="2" />
-            <circle cx="748" cy="352" r="2.5" />
+          <g class="global-network__earth" clip-path="url(#earthClip)">
+            <circle cx="500" cy="310" r="154" class="global-network__earth-base" />
+            <g class="global-network__earth-surface">
+              <ellipse cx="500" cy="310" rx="150" ry="52" class="global-network__earth-grid" />
+              <ellipse cx="500" cy="310" rx="150" ry="104" class="global-network__earth-grid global-network__earth-grid--soft" />
+              <path d="M500 156 C438 214 438 406 500 464" class="global-network__earth-grid" />
+              <path d="M500 156 C562 214 562 406 500 464" class="global-network__earth-grid" />
+              <path d="M405 206 C430 178 478 177 504 194 C525 208 534 230 520 246 C505 264 478 258 464 276 C449 296 415 287 402 263 C391 242 390 222 405 206Z" class="global-network__land" />
+              <path d="M541 190 C577 173 620 192 629 220 C637 245 616 258 603 274 C588 292 592 317 571 329 C548 342 521 327 518 303 C515 280 537 263 534 242 C532 224 520 203 541 190Z" class="global-network__land global-network__land--secondary" />
+              <path d="M580 334 C607 330 634 348 638 371 C642 392 621 410 602 414 C579 419 560 401 563 380 C566 363 562 340 580 334Z" class="global-network__land" />
+              <path d="M436 326 C458 317 479 329 482 347 C485 366 466 380 457 397 C446 417 428 423 416 407 C404 391 419 374 420 355 C421 343 423 331 436 326Z" class="global-network__land global-network__land--secondary" />
+            </g>
+            <circle cx="500" cy="310" r="153" class="global-network__earth-rim" />
+          </g>
+
+          <g class="global-network__earth-focus" aria-hidden="true">
+            <circle cx="584" cy="256" r="17" class="global-network__earth-focus-halo" />
+            <circle cx="584" cy="256" r="5" class="global-network__earth-focus-dot" />
+            <path d="M588 252 C610 236 628 225 650 217" />
           </g>
         </svg>
 
+        <div class="global-network__focus-label" aria-hidden="true">
+          <span data-focus-flag>{defaultPresentation.flag}</span>
+          <div>
+            <small>NOW FOCUSING</small>
+            <strong data-focus-country>{defaultConnection.countryJa}</strong>
+          </div>
+        </div>
+
         <div class="global-network__hub" aria-label="ネットワークの中心：立命館大学">
           <span>RITSUMEIKAN</span>
-          <strong>RSJP</strong>
-          <small>SHORT-TERM PROGRAMS</small>
+          <strong>立命館</strong>
+          <small>SHORT-TERM GLOBAL LEARNING</small>
           <em>KYOTO · OSAKA · SHIGA</em>
         </div>
 
-        {globalConnections.map((connection) => (
-          <button
-            type="button"
-            class:list={[
-              'global-network__node',
-              connection.id === defaultCountry && 'is-active',
-            ]}
-            style={`--node-x:${connection.position.x}%;--node-y:${connection.position.y}%;`}
-            data-network-country={connection.id}
-            aria-pressed={connection.id === defaultCountry ? 'true' : 'false'}
-            aria-controls={`network-panel-${connection.id}`}
-            aria-label={`${connection.countryJa}：${connection.universities.length}機関の掲載例を見る`}
-          >
-            <span>{connection.code}</span>
-            <strong>{connection.countryJa}</strong>
-            <small>{connection.universities.length} examples</small>
-          </button>
-        ))}
+        {globalConnections.map((connection) => {
+          const presentation = getPresentation(connection.id);
+          return (
+            <button
+              type="button"
+              class:list={[
+                'global-network__node',
+                connection.id === defaultCountry && 'is-active',
+              ]}
+              style={`--node-x:${connection.position.x}%;--node-y:${connection.position.y}%;`}
+              data-network-country={connection.id}
+              data-earth-rotation={presentation.rotation}
+              data-country-flag={presentation.flag}
+              data-country-label={connection.countryJa}
+              aria-pressed={connection.id === defaultCountry ? 'true' : 'false'}
+              aria-controls={`network-panel-${connection.id}`}
+              aria-label={`${connection.countryJa}：${connection.universities.length}機関の掲載例を見る`}
+            >
+              <span class="global-network__node-code">{connection.code}</span>
+              <span class="global-network__node-flag" aria-hidden="true">{presentation.flag}</span>
+              <strong>{connection.countryJa}</strong>
+              <small>{connection.universities.length} examples</small>
+            </button>
+          );
+        })}
 
         <p class="global-network__peer-label">STUDENT ↔ STUDENT</p>
       </div>
 
       <aside class="global-network__detail" aria-live="polite">
-        <p class="global-network__detail-eyebrow">CONNECTION EXAMPLES</p>
+        <p class="global-network__detail-eyebrow">REAL CONNECTIONS · SELECTED EXAMPLES</p>
 
         <div class="global-network__scale" aria-label="現在掲載しているネットワーク実績例">
           <div>
@@ -122,43 +172,46 @@ const totalInstitutionExamples = globalConnections.reduce(
           </div>
         </div>
 
-        {globalConnections.map((connection) => (
-          <article
-            id={`network-panel-${connection.id}`}
-            class:list={[
-              'global-network__panel',
-              connection.id === defaultCountry && 'is-active',
-            ]}
-            data-network-panel={connection.id}
-            hidden={connection.id !== defaultCountry}
-          >
-            <div class="global-network__country-heading">
-              <span>{connection.code}</span>
-              <div>
-                <p>{connection.countryEn}</p>
-                <h3>{connection.countryJa}</h3>
+        {globalConnections.map((connection) => {
+          const presentation = getPresentation(connection.id);
+          return (
+            <article
+              id={`network-panel-${connection.id}`}
+              class:list={[
+                'global-network__panel',
+                connection.id === defaultCountry && 'is-active',
+              ]}
+              data-network-panel={connection.id}
+              hidden={connection.id !== defaultCountry}
+            >
+              <div class="global-network__country-heading">
+                <span aria-hidden="true">{presentation.flag}</span>
+                <div>
+                  <p>{connection.countryEn}</p>
+                  <h3>{connection.countryJa}</h3>
+                </div>
               </div>
-            </div>
 
-            <div class="global-network__universities">
-              <p>EXAMPLE INSTITUTIONS</p>
-              <ul>
-                {connection.universities.map((university) => (
-                  <li>
-                    <span>{university.shortName ?? university.name}</span>
-                    <strong>{university.name}</strong>
-                  </li>
-                ))}
+              <div class="global-network__universities">
+                <p>EXAMPLE INSTITUTIONS</p>
+                <ul>
+                  {connection.universities.map((university) => (
+                    <li>
+                      <span>{university.shortName ?? university.name}</span>
+                      <strong>{university.name}</strong>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <p class="global-network__summary">{connection.summary}</p>
+
+              <ul class="global-network__themes" aria-label={`${connection.countryJa}との学び・交流のキーワード`}>
+                {connection.themes.map((theme) => <li>{theme}</li>)}
               </ul>
-            </div>
-
-            <p class="global-network__summary">{connection.summary}</p>
-
-            <ul class="global-network__themes" aria-label={`${connection.countryJa}との学び・交流のキーワード`}>
-              {connection.themes.map((theme) => <li>{theme}</li>)}
-            </ul>
-          </article>
-        ))}
+            </article>
+          );
+        })}
 
         <p class="global-network__note">
           ここに表示している{globalConnections.length}か国・地域、{totalInstitutionExamples}の大学・高等教育機関は短期受入・連携実績の一部です。ほかにも多数の国・地域・教育機関からの参加・連携実績があり、プログラムや年度により参加機関・実施内容は異なります。
@@ -193,8 +246,14 @@ const totalInstitutionExamples = globalConnections.reduce(
     const buttons = Array.from(network.querySelectorAll('[data-network-country]'));
     const panels = Array.from(network.querySelectorAll('[data-network-panel]'));
     const routes = Array.from(network.querySelectorAll('[data-route-country]'));
+    const focusFlag = network.querySelector('[data-focus-flag]');
+    const focusCountry = network.querySelector('[data-focus-country]');
 
     const activateCountry = (countryId: string) => {
+      const activeButton = buttons.find(
+        (button) => button instanceof HTMLButtonElement && button.dataset.networkCountry === countryId,
+      );
+
       buttons.forEach((button) => {
         if (!(button instanceof HTMLButtonElement)) return;
         const active = button.dataset.networkCountry === countryId;
@@ -214,6 +273,21 @@ const totalInstitutionExamples = globalConnections.reduce(
         if (!(route instanceof SVGGElement)) return;
         route.classList.toggle('is-active', route.dataset.routeCountry === countryId);
       });
+
+      if (activeButton instanceof HTMLButtonElement) {
+        const rotation = activeButton.dataset.earthRotation ?? '0';
+        network.style.setProperty('--earth-rotation', `${rotation}deg`);
+        network.classList.remove('is-refocusing');
+        void network.offsetWidth;
+        network.classList.add('is-refocusing');
+
+        if (focusFlag instanceof HTMLElement) {
+          focusFlag.textContent = activeButton.dataset.countryFlag ?? '•';
+        }
+        if (focusCountry instanceof HTMLElement) {
+          focusCountry.textContent = activeButton.dataset.countryLabel ?? '';
+        }
+      }
     };
 
     buttons.forEach((button) => {
