@@ -2,6 +2,10 @@
 import { globalConnections, globalNetworkPrinciples } from '../data/globalNetwork';
 
 const defaultCountry = 'korea';
+const totalUniversityExamples = globalConnections.reduce(
+  (total, connection) => total + connection.universities.length,
+  0,
+);
 ---
 <section class="global-network" id="global-network" data-global-network>
   <div class="site-shell global-network__inner">
@@ -41,23 +45,19 @@ const defaultCountry = 'korea';
           <path d="M500 68 C750 168 750 452 500 552" class="global-network__grid global-network__grid--soft" />
 
           <g class="global-network__peer-routes">
-            <path d="M180 214 C350 106 620 108 760 190" />
-            <path d="M760 190 C888 270 888 398 782 470" />
-            <path d="M782 470 C560 592 290 520 180 214" />
+            <path d="M132 212 C330 80 540 82 700 167" />
+            <path d="M250 105 C360 62 468 54 560 80" />
+            <path d="M560 80 C720 90 824 150 840 260" />
+            <path d="M700 167 C900 246 900 404 820 490" />
+            <path d="M820 490 C660 575 486 560 380 510" />
+            <path d="M380 510 C280 506 216 470 230 425" />
           </g>
 
-          <g class="global-network__route" data-route-country="united-states">
-            <path d="M500 310 C410 182 302 150 180 214" pathLength="100" />
-            <circle cx="180" cy="214" r="5" />
-          </g>
-          <g class="global-network__route" data-route-country="korea">
-            <path d="M500 310 C610 224 674 196 760 190" pathLength="100" />
-            <circle cx="760" cy="190" r="5" />
-          </g>
-          <g class="global-network__route" data-route-country="australia">
-            <path d="M500 310 C602 428 688 488 782 470" pathLength="100" />
-            <circle cx="782" cy="470" r="5" />
-          </g>
+          {globalConnections.map((connection) => (
+            <g class="global-network__route" data-route-country={connection.id}>
+              <path d={connection.routePath} pathLength="100" />
+            </g>
+          ))}
 
           <g class="global-network__decorative-dots">
             <circle cx="298" cy="128" r="3" />
@@ -66,6 +66,8 @@ const defaultCountry = 'korea';
             <circle cx="858" cy="326" r="2" />
             <circle cx="244" cy="398" r="2.5" />
             <circle cx="610" cy="528" r="2" />
+            <circle cx="452" cy="98" r="2" />
+            <circle cx="748" cy="352" r="2.5" />
           </g>
         </svg>
 
@@ -90,7 +92,7 @@ const defaultCountry = 'korea';
           >
             <span>{connection.code}</span>
             <strong>{connection.countryJa}</strong>
-            <small>{connection.universities.length} universities</small>
+            <small>{connection.universities.length} examples</small>
           </button>
         ))}
 
@@ -99,6 +101,22 @@ const defaultCountry = 'korea';
 
       <aside class="global-network__detail" aria-live="polite">
         <p class="global-network__detail-eyebrow">CONNECTION EXAMPLES</p>
+
+        <div class="global-network__scale" aria-label="現在掲載しているネットワーク実績例">
+          <div>
+            <strong>{globalConnections.length}</strong>
+            <span>COUNTRIES / REGIONS</span>
+          </div>
+          <div>
+            <strong>{totalUniversityExamples}</strong>
+            <span>UNIVERSITY EXAMPLES</span>
+          </div>
+          <div>
+            <strong>＋</strong>
+            <span>AND MORE</span>
+          </div>
+        </div>
+
         {globalConnections.map((connection) => (
           <article
             id={`network-panel-${connection.id}`}
@@ -138,7 +156,7 @@ const defaultCountry = 'korea';
         ))}
 
         <p class="global-network__note">
-          表示している国・大学は、短期受入・連携実績の一部です。プログラムや年度により参加大学・実施内容は異なります。
+          ここに表示している{globalConnections.length}か国・地域、{totalUniversityExamples}大学は短期受入・連携実績の一部です。ほかにも多数の国・地域・大学からの参加・連携実績があり、プログラムや年度により参加大学・実施内容は異なります。
         </p>
       </aside>
     </div>
@@ -184,6 +202,7 @@ const defaultCountry = 'korea';
         const active = panel.dataset.networkPanel === countryId;
         panel.hidden = !active;
         panel.classList.toggle('is-active', active);
+        if (active) panel.scrollTop = 0;
       });
 
       routes.forEach((route) => {
