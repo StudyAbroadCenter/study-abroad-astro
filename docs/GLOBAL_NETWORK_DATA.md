@@ -60,6 +60,10 @@ Create or verify a source-of-truth table with at least:
 
 The live country / region and institution-example figures are calculated from `src/data/globalNetwork.ts`, not manually duplicated in the component. When the source-of-truth table is available, migrate the visible data to that verified historical table and calculate any participant totals from it as well.
 
+## Current review note
+
+The 15-country / region network intentionally leaves room for additional countries and institutions still being compiled. New records should be added to the data file, not hard-coded into the SVG or copy. The map is designed to grow while keeping Ritsumeikan visually central and preserving stable hover / tap behaviour.
+
 ## Editorial principle
 
 The visualisation distinguishes three layers:
