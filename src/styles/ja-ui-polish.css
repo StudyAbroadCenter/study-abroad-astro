@@ -1,9 +1,26 @@
 /* Final polish layered over the PR #27 UI system. */
 
-/* The current public logo preview is a flattened raster with white pixels.
-   On the light header, multiply visually removes that white box without
-   altering the official red artwork. Replace with the approved transparent
-   local asset before production. */
+/*
+ * Header logo strategy for review builds
+ * --------------------------------------
+ * The public Ritsumeikan logo preview is a flattened raster with opaque white
+ * background pixels. CSS blending did not reliably remove that white plate in
+ * Chromium once the translucent/backdrop-filter header created its own visual
+ * surface. Until an internally approved transparent SVG/PNG is supplied, the
+ * professional and brand-safe solution is to give the header the exact same
+ * white surface as the raster background. The white pixels therefore disappear
+ * visually without altering, tracing, recolouring, or rebuilding the mark.
+ *
+ * Once the approved transparent asset is available, this solid-white fallback
+ * can be reconsidered and the translucent treatment can be restored if desired.
+ */
+.recruitment-header,
+.recruitment-header.is-scrolled {
+  background: #fff;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
 .recruitment-brand__logo-plate {
   overflow: visible;
   border-radius: 0;
@@ -11,11 +28,11 @@
 }
 
 .recruitment-brand__logo {
-  mix-blend-mode: multiply;
+  mix-blend-mode: normal;
 }
 
 .recruitment-header.is-scrolled .recruitment-brand__logo {
-  opacity: 0.92;
+  opacity: 0.96;
 }
 
 /* Footer: do not repeat a flattened raster on a dark surface. Use a quiet
