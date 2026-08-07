@@ -1,0 +1,233 @@
+---
+import { globalConnections, globalNetworkPrinciples } from '../data/globalNetwork';
+
+const defaultCountry = 'korea';
+const totalInstitutionExamples = globalConnections.reduce(
+  (total, connection) => total + connection.universities.length,
+  0,
+);
+---
+<section class="global-network" id="global-network" data-global-network>
+  <div class="site-shell global-network__inner">
+    <header class="global-network__intro">
+      <div>
+        <p class="global-network__kicker">GLOBAL LEARNING NETWORK</p>
+        <h2>世界の同世代と、<br />ここでつながる。</h2>
+      </div>
+      <div class="global-network__intro-copy">
+        <p>
+          立命館の短期受入プログラムには、世界各地の大学・高等教育機関から学生が集います。日本語や日本文化を学ぶだけでなく、立命館の学生との国際共修、そして参加者同士の異文化間協働が生まれます。
+        </p>
+        <p>
+          大学間の国際教育連携が、学生一人ひとりの出会いに変わる。立命館で生まれた一つのつながりが、帰国後も世界の別の場所へ続いていきます。
+        </p>
+      </div>
+    </header>
+
+    <div class="global-network__stage">
+      <div class="global-network__visual" aria-label="立命館を中心とした国際的な学生ネットワークの模式図">
+        <svg class="global-network__globe" viewBox="0 0 1000 620" aria-hidden="true" focusable="false">
+          <defs>
+            <radialGradient id="networkGlow" cx="50%" cy="50%" r="58%">
+              <stop offset="0%" stop-color="rgba(165,31,50,0.13)" />
+              <stop offset="72%" stop-color="rgba(165,31,50,0.025)" />
+              <stop offset="100%" stop-color="rgba(165,31,50,0)" />
+            </radialGradient>
+          </defs>
+
+          <ellipse cx="500" cy="310" rx="438" ry="252" class="global-network__glow" />
+          <ellipse cx="500" cy="310" rx="420" ry="242" class="global-network__grid global-network__grid--outer" />
+          <ellipse cx="500" cy="310" rx="420" ry="102" class="global-network__grid" />
+          <path d="M80 310 H920" class="global-network__grid" />
+          <path d="M500 68 C360 142 360 478 500 552" class="global-network__grid" />
+          <path d="M500 68 C640 142 640 478 500 552" class="global-network__grid" />
+          <path d="M500 68 C250 168 250 452 500 552" class="global-network__grid global-network__grid--soft" />
+          <path d="M500 68 C750 168 750 452 500 552" class="global-network__grid global-network__grid--soft" />
+
+          <g class="global-network__peer-routes">
+            <path d="M110 211 C220 100 340 42 530 43" />
+            <path d="M530 43 C680 50 810 105 890 186" />
+            <path d="M890 186 C938 260 936 360 870 428" />
+            <path d="M870 428 C810 520 700 555 630 546" />
+            <path d="M630 546 C500 570 350 540 260 484" />
+            <path d="M260 484 C150 470 96 420 110 391" />
+            <path d="M110 391 C72 330 78 260 110 211" />
+            <path d="M220 87 C430 160 700 310 870 428" />
+            <path d="M380 50 C520 180 720 340 790 508" />
+            <path d="M670 68 C600 220 420 410 260 484" />
+          </g>
+
+          {globalConnections.map((connection) => (
+            <g class="global-network__route" data-route-country={connection.id}>
+              <path d={connection.routePath} pathLength="100" />
+            </g>
+          ))}
+
+          <g class="global-network__decorative-dots">
+            <circle cx="298" cy="128" r="3" />
+            <circle cx="355" cy="482" r="2" />
+            <circle cx="626" cy="112" r="2.5" />
+            <circle cx="858" cy="326" r="2" />
+            <circle cx="244" cy="398" r="2.5" />
+            <circle cx="610" cy="528" r="2" />
+            <circle cx="452" cy="98" r="2" />
+            <circle cx="748" cy="352" r="2.5" />
+          </g>
+        </svg>
+
+        <div class="global-network__hub" aria-label="ネットワークの中心：立命館大学">
+          <span>RITSUMEIKAN</span>
+          <strong>RSJP</strong>
+          <small>SHORT-TERM PROGRAMS</small>
+          <em>KYOTO · OSAKA · SHIGA</em>
+        </div>
+
+        {globalConnections.map((connection) => (
+          <button
+            type="button"
+            class:list={[
+              'global-network__node',
+              connection.id === defaultCountry && 'is-active',
+            ]}
+            style={`--node-x:${connection.position.x}%;--node-y:${connection.position.y}%;`}
+            data-network-country={connection.id}
+            aria-pressed={connection.id === defaultCountry ? 'true' : 'false'}
+            aria-controls={`network-panel-${connection.id}`}
+            aria-label={`${connection.countryJa}：${connection.universities.length}機関の掲載例を見る`}
+          >
+            <span>{connection.code}</span>
+            <strong>{connection.countryJa}</strong>
+            <small>{connection.universities.length} examples</small>
+          </button>
+        ))}
+
+        <p class="global-network__peer-label">STUDENT ↔ STUDENT</p>
+      </div>
+
+      <aside class="global-network__detail" aria-live="polite">
+        <p class="global-network__detail-eyebrow">CONNECTION EXAMPLES</p>
+
+        <div class="global-network__scale" aria-label="現在掲載しているネットワーク実績例">
+          <div>
+            <strong>{globalConnections.length}</strong>
+            <span>COUNTRIES / REGIONS</span>
+          </div>
+          <div>
+            <strong>{totalInstitutionExamples}</strong>
+            <span>INSTITUTION EXAMPLES</span>
+          </div>
+          <div>
+            <strong>＋</strong>
+            <span>AND MORE</span>
+          </div>
+        </div>
+
+        {globalConnections.map((connection) => (
+          <article
+            id={`network-panel-${connection.id}`}
+            class:list={[
+              'global-network__panel',
+              connection.id === defaultCountry && 'is-active',
+            ]}
+            data-network-panel={connection.id}
+            hidden={connection.id !== defaultCountry}
+          >
+            <div class="global-network__country-heading">
+              <span>{connection.code}</span>
+              <div>
+                <p>{connection.countryEn}</p>
+                <h3>{connection.countryJa}</h3>
+              </div>
+            </div>
+
+            <div class="global-network__universities">
+              <p>EXAMPLE INSTITUTIONS</p>
+              <ul>
+                {connection.universities.map((university) => (
+                  <li>
+                    <span>{university.shortName ?? university.name}</span>
+                    <strong>{university.name}</strong>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <p class="global-network__summary">{connection.summary}</p>
+
+            <ul class="global-network__themes" aria-label={`${connection.countryJa}との学び・交流のキーワード`}>
+              {connection.themes.map((theme) => <li>{theme}</li>)}
+            </ul>
+          </article>
+        ))}
+
+        <p class="global-network__note">
+          ここに表示している{globalConnections.length}か国・地域、{totalInstitutionExamples}の大学・高等教育機関は短期受入・連携実績の一部です。ほかにも多数の国・地域・教育機関からの参加・連携実績があり、プログラムや年度により参加機関・実施内容は異なります。
+        </p>
+      </aside>
+    </div>
+
+    <div class="global-network__principles" aria-label="短期受入プログラムが生み出す学びとつながり">
+      {globalNetworkPrinciples.map((principle, index) => (
+        <article>
+          <div>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <small>{principle.en}</small>
+          </div>
+          <h3>{principle.label}</h3>
+          <p>{principle.description}</p>
+        </article>
+      ))}
+    </div>
+
+    <div class="global-network__manifesto">
+      <p>日本語を学ぶ。京都を知る。世界とつながる。</p>
+      <h2>大学と大学の間に、<br />人と人のつながりを。</h2>
+    </div>
+  </div>
+</section>
+
+<script>
+  const network = document.querySelector('[data-global-network]');
+
+  if (network instanceof HTMLElement) {
+    const buttons = Array.from(network.querySelectorAll('[data-network-country]'));
+    const panels = Array.from(network.querySelectorAll('[data-network-panel]'));
+    const routes = Array.from(network.querySelectorAll('[data-route-country]'));
+
+    const activateCountry = (countryId: string) => {
+      buttons.forEach((button) => {
+        if (!(button instanceof HTMLButtonElement)) return;
+        const active = button.dataset.networkCountry === countryId;
+        button.classList.toggle('is-active', active);
+        button.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+
+      panels.forEach((panel) => {
+        if (!(panel instanceof HTMLElement)) return;
+        const active = panel.dataset.networkPanel === countryId;
+        panel.hidden = !active;
+        panel.classList.toggle('is-active', active);
+        if (active) panel.scrollTop = 0;
+      });
+
+      routes.forEach((route) => {
+        if (!(route instanceof SVGGElement)) return;
+        route.classList.toggle('is-active', route.dataset.routeCountry === countryId);
+      });
+    };
+
+    buttons.forEach((button) => {
+      if (!(button instanceof HTMLButtonElement)) return;
+      const id = button.dataset.networkCountry;
+      if (!id) return;
+
+      button.addEventListener('click', () => activateCountry(id));
+      button.addEventListener('focus', () => activateCountry(id));
+      button.addEventListener('pointerenter', (event) => {
+        if (event.pointerType !== 'touch') activateCountry(id);
+      });
+    });
+
+    activateCountry('korea');
+  }
+</script>

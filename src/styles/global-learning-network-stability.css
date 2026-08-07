@@ -1,0 +1,69 @@
+/*
+ * Global Learning Network interaction stability
+ *
+ * Keep the network canvas visually fixed while the selected country's
+ * evidence panel changes length. This becomes increasingly important as
+ * countries gain more university examples.
+ */
+
+@media (min-width: 900px) {
+  .global-network__stage {
+    align-items: start;
+  }
+
+  .global-network__visual {
+    height: 620px;
+    min-height: 620px;
+    align-self: start;
+  }
+
+  .global-network__detail {
+    display: flex;
+    height: 620px;
+    min-height: 620px;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .global-network__panel.is-active {
+    min-height: 0;
+    flex: 1 1 auto;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding-right: 8px;
+    scrollbar-gutter: stable;
+  }
+
+  .global-network__panel.is-active::-webkit-scrollbar {
+    width: 7px;
+  }
+
+  .global-network__panel.is-active::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .global-network__panel.is-active::-webkit-scrollbar-thumb {
+    border: 2px solid transparent;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.18);
+    background-clip: padding-box;
+  }
+
+  .global-network__note {
+    flex: 0 0 auto;
+  }
+}
+
+/* At narrower widths the detail naturally follows the visualization, so
+   content should grow normally instead of becoming an internal scroll area. */
+@media (max-width: 899px) {
+  .global-network__visual {
+    height: auto;
+  }
+
+  .global-network__detail {
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+  }
+}
