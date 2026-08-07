@@ -5,10 +5,12 @@ import ProgramFinder from '../../components/ProgramFinder.astro';
 import ExperiencePillars from '../../components/ExperiencePillars.astro';
 import ParticipantDay from '../../components/ParticipantDay.astro';
 import CampusJourney from '../../components/CampusJourney.astro';
+import SupportPreview from '../../components/SupportPreview.astro';
 import PerformanceStyles from '../../components/PerformanceStyles.astro';
 import '../../styles/ja-visual-refinement.css';
 import '../../styles/ja-typography-polish.css';
 import '../../styles/ja-ui-system.css';
+import '../../styles/ja-ui-polish.css';
 ---
 <StudentRecruitmentLayout
   title="立命館大学 短期受入プログラム"
@@ -19,15 +21,6 @@ import '../../styles/ja-ui-system.css';
   <ExperiencePillars />
   <ParticipantDay />
   <CampusJourney />
+  <SupportPreview />
   <PerformanceStyles />
-
-  <section class="mvp-preview" aria-label="今後追加するコンテンツ">
-    <div class="site-shell mvp-preview__grid mvp-preview__grid--single">
-      <article id="support-preview">
-        <span>NEXT 01</span>
-        <h2>参加前から帰国までの支援</h2>
-        <p>応募、渡航準備、宿泊、保険、緊急時対応まで、安心材料を分かりやすく提示します。</p>
-      </article>
-    </div>
-  </section>
 </StudentRecruitmentLayout>
