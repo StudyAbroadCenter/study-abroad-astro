@@ -1,0 +1,384 @@
+/*
+ * Global Learning Network — living globe refinement
+ *
+ * Keeps the existing evidence architecture and stable two-column layout,
+ * but reduces visual weight and gives country/region selection a lightweight
+ * globe-orientation response without adding a 3D runtime dependency.
+ */
+
+.global-network {
+  background:
+    radial-gradient(circle at 72% 24%, rgba(151, 35, 55, 0.095), transparent 33%),
+    radial-gradient(circle at 18% 74%, rgba(255, 255, 255, 0.055), transparent 28%),
+    linear-gradient(180deg, #24272b 0%, #1d2024 58%, #191c20 100%);
+}
+
+.global-network::before {
+  opacity: 0.52;
+}
+
+.global-network__intro-copy {
+  color: rgba(255, 255, 255, 0.76);
+}
+
+.global-network__stage {
+  border-color: rgba(255, 255, 255, 0.16);
+  background: rgba(250, 248, 244, 0.045);
+  box-shadow: 0 34px 86px rgba(0, 0, 0, 0.18);
+}
+
+.global-network__visual {
+  background:
+    radial-gradient(circle at 50% 48%, rgba(246, 240, 231, 0.13), transparent 33%),
+    radial-gradient(circle at 50% 50%, rgba(151, 35, 55, 0.075), transparent 48%),
+    rgba(255, 255, 255, 0.018);
+}
+
+.global-network__detail {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.045));
+}
+
+.global-network__grid {
+  stroke: rgba(255, 255, 255, 0.105);
+}
+
+.global-network__grid--outer {
+  stroke: rgba(255, 255, 255, 0.17);
+}
+
+.global-network__peer-routes path {
+  stroke: rgba(255, 255, 255, 0.17);
+}
+
+.global-network__route path {
+  stroke: rgba(219, 158, 169, 0.42);
+  opacity: 0.74;
+}
+
+.global-network__route.is-active path {
+  stroke: #e06c7d;
+  filter: drop-shadow(0 0 4px rgba(201, 87, 104, 0.36));
+}
+
+/* The inner globe is intentionally stylised, not a geographic map. */
+.global-network__earth-base {
+  fill: url(#earthFill);
+  opacity: 0.96;
+  filter: drop-shadow(0 22px 42px rgba(0, 0, 0, 0.24));
+}
+
+.global-network__earth-surface {
+  transform: rotate(var(--earth-rotation, 0deg));
+  transform-box: view-box;
+  transform-origin: 500px 310px;
+  transition: transform 780ms cubic-bezier(0.2, 0.75, 0.2, 1);
+}
+
+.global-network__earth-grid {
+  fill: none;
+  stroke: rgba(52, 57, 61, 0.19);
+  stroke-width: 1.2;
+  vector-effect: non-scaling-stroke;
+}
+
+.global-network__earth-grid--soft {
+  stroke: rgba(52, 57, 61, 0.1);
+}
+
+.global-network__land {
+  fill: rgba(122, 112, 102, 0.34);
+  stroke: rgba(80, 73, 67, 0.16);
+  stroke-width: 0.8;
+  vector-effect: non-scaling-stroke;
+}
+
+.global-network__land--secondary {
+  fill: rgba(151, 35, 55, 0.15);
+}
+
+.global-network__earth-rim {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.52);
+  stroke-width: 1.4;
+  vector-effect: non-scaling-stroke;
+}
+
+.global-network__earth-focus path {
+  fill: none;
+  stroke: rgba(201, 87, 104, 0.62);
+  stroke-width: 1.3;
+  stroke-linecap: round;
+}
+
+.global-network__earth-focus-halo {
+  fill: rgba(201, 87, 104, 0.12);
+  stroke: rgba(201, 87, 104, 0.32);
+  transform-origin: 584px 256px;
+}
+
+.global-network__earth-focus-dot {
+  fill: #b51f35;
+  filter: drop-shadow(0 0 5px rgba(181, 31, 53, 0.55));
+}
+
+.global-network.is-refocusing .global-network__earth-focus-halo {
+  animation: globe-focus-pulse 760ms ease-out both;
+}
+
+.global-network__focus-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 4;
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 999px;
+  padding: 7px 12px 7px 8px;
+  background: rgba(36, 39, 43, 0.72);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.14);
+  color: #fff;
+  pointer-events: none;
+  transform: translate(72px, -148px);
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
+}
+
+.global-network__focus-label > span {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.global-network__focus-label > div {
+  display: grid;
+  gap: 1px;
+}
+
+.global-network__focus-label small {
+  color: rgba(255, 255, 255, 0.48);
+  font-family: var(--font-latin);
+  font-size: 0.39rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.global-network__focus-label strong {
+  font-size: 0.68rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.global-network__hub {
+  width: clamp(112px, 14vw, 142px);
+  border-color: rgba(181, 31, 53, 0.28);
+  background: rgba(255, 253, 249, 0.9);
+  box-shadow:
+    0 0 0 10px rgba(255, 255, 255, 0.12),
+    0 12px 40px rgba(45, 39, 35, 0.17);
+}
+
+.global-network__hub span {
+  color: #9b1d31;
+}
+
+.global-network__hub strong {
+  color: #25272a;
+  font-family: var(--font-ja-body);
+  font-size: clamp(1.18rem, 2.8vw, 1.6rem);
+  font-weight: 650;
+  letter-spacing: -0.03em;
+}
+
+.global-network__hub small {
+  max-width: 94px;
+  color: rgba(37, 39, 42, 0.62);
+  font-size: 0.41rem;
+  line-height: 1.35;
+}
+
+.global-network__hub em {
+  margin-top: 8px;
+  color: rgba(37, 39, 42, 0.45);
+  font-size: 0.38rem;
+}
+
+.global-network__node {
+  grid-template-columns: auto auto 1fr;
+  min-width: 90px;
+  gap: 2px 5px;
+  border-color: rgba(255, 255, 255, 0.22);
+  background: rgba(248, 245, 240, 0.11);
+  color: rgba(255, 255, 255, 0.87);
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.08);
+}
+
+.global-network__node-code {
+  grid-column: 1;
+  color: #e5adb6 !important;
+  font-size: 0.48rem !important;
+}
+
+.global-network__node-flag {
+  grid-column: 2;
+  color: inherit !important;
+  font-size: 0.72rem !important;
+  letter-spacing: 0 !important;
+  line-height: 1;
+}
+
+.global-network__node strong {
+  grid-column: 1 / -1;
+}
+
+.global-network__node small {
+  grid-column: 1 / -1;
+  color: rgba(255, 255, 255, 0.48);
+}
+
+.global-network__node:hover,
+.global-network__node:focus-visible,
+.global-network__node.is-active {
+  border-color: rgba(229, 173, 182, 0.72);
+  background: rgba(181, 31, 53, 0.72);
+  box-shadow: 0 13px 34px rgba(0, 0, 0, 0.17);
+}
+
+.global-network__node.is-active .global-network__node-code {
+  color: #fff !important;
+}
+
+.global-network__country-heading > span {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.06);
+  font-size: 1.35rem;
+  letter-spacing: 0;
+}
+
+.global-network__detail-eyebrow,
+.global-network__universities > p,
+.global-network__kicker {
+  color: #e0aab3;
+}
+
+.global-network__scale {
+  border-color: rgba(255, 255, 255, 0.13);
+}
+
+.global-network__scale > div + div {
+  border-left-color: rgba(255, 255, 255, 0.1);
+}
+
+.global-network__scale span,
+.global-network__country-heading p,
+.global-network__note {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.global-network__universities li {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.global-network__universities li strong,
+.global-network__summary {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.global-network__themes li {
+  border-color: rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.035);
+  color: rgba(255, 255, 255, 0.66);
+}
+
+@keyframes globe-focus-pulse {
+  0% { transform: scale(0.6); opacity: 0; }
+  45% { opacity: 1; }
+  100% { transform: scale(1.45); opacity: 0; }
+}
+
+@media (max-width: 899px) {
+  .global-network__focus-label {
+    transform: translate(48px, -122px);
+  }
+}
+
+@media (max-width: 759px) {
+  .global-network__visual {
+    background:
+      radial-gradient(circle at 50% 46%, rgba(246, 240, 231, 0.16), transparent 34%),
+      rgba(255, 255, 255, 0.018);
+  }
+
+  .global-network__node {
+    display: grid;
+    grid-template-columns: 1fr;
+    background: rgba(248, 245, 240, 0.13);
+  }
+
+  .global-network__node-code {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .global-network__node-flag {
+    position: absolute;
+    top: -5px;
+    right: -4px;
+    display: block !important;
+    grid-column: auto;
+    border-radius: 50%;
+    font-size: 0.66rem !important;
+    filter: saturate(0.86);
+  }
+
+  .global-network__hub {
+    width: 104px;
+  }
+
+  .global-network__focus-label {
+    padding: 5px 9px 5px 6px;
+    transform: translate(38px, -105px);
+  }
+
+  .global-network__focus-label small {
+    display: none;
+  }
+
+  .global-network__focus-label strong {
+    font-size: 0.58rem;
+  }
+}
+
+@media (max-width: 479px) {
+  .global-network__hub {
+    width: 96px;
+  }
+
+  .global-network__hub strong {
+    font-size: 1.05rem;
+  }
+
+  .global-network__hub small {
+    max-width: 78px;
+    font-size: 0.34rem;
+  }
+
+  .global-network__focus-label {
+    transform: translate(30px, -96px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .global-network__earth-surface {
+    transition: none;
+  }
+
+  .global-network.is-refocusing .global-network__earth-focus-halo {
+    animation: none;
+  }
+}
