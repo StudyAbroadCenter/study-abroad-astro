@@ -27,15 +27,15 @@ const campuses = campusPlaces.map((place) => {
 <section class="campus-journey" id="campus-journey" aria-labelledby="campus-journey-title" data-campus-journey>
   <div class="site-shell campus-journey__intro">
     <div>
-      <p class="campus-journey__kicker">THREE PLACES. ONE LARGER JAPAN.</p>
+      <p class="campus-journey__kicker">EACH PROGRAMME HAS ITS PLACE</p>
       <h2 id="campus-journey-title">
-        <span>ひとつの日本では、</span>
-        <span>終わらない。</span>
+        <span>学ぶ内容に、</span>
+        <span>ふさわしい場所がある。</span>
       </h2>
     </div>
     <div class="campus-journey__intro-copy">
-      <p>京都の文脈、大阪のエネルギー、滋賀の余白。場所が変われば、見える日本も、学び方も変わります。</p>
-      <small>地域を移動しながら、3つの異なる留学体験をたどってください。</small>
+      <p>日本語と文化を学ぶ京都。データやビジネスを社会につなげる大阪。特定テーマの研究環境となる滋賀。実施場所は、プログラムの教育目的から決まります。</p>
+      <small>参加者が3キャンパスから自由に選択する仕組みではありません。検討中のプログラムと実施場所の関係をご覧ください。</small>
     </div>
   </div>
 
@@ -69,8 +69,8 @@ const campuses = campusPlaces.map((place) => {
       <div class="campus-atlas__grid" aria-hidden="true"></div>
 
       <div class="site-shell campus-atlas__toolbar">
-        <p>JOURNEY <strong data-campus-counter>01 / 03</strong></p>
-        <div class="campus-atlas__tabs" aria-label="地域を選択">
+        <p>PROGRAMME LOCATION <strong data-campus-counter>01 / 03</strong></p>
+        <div class="campus-atlas__tabs" aria-label="キャンパスとプログラムの関係を見る">
           {campuses.map((campus, index) => (
             <button
               type="button"
@@ -155,7 +155,7 @@ const campuses = campusPlaces.map((place) => {
                   {campus.lenses.map((lens) => <li>{lens}</li>)}
                 </ul>
                 <div class="campus-scene__contribution">
-                  <small>WHAT THIS PLACE ADDS</small>
+                  <small>PROGRAMMES AT THIS CAMPUS</small>
                   <strong>{campus.contribution}</strong>
                 </div>
                 <div class="campus-scene__footer">
@@ -172,8 +172,8 @@ const campuses = campusPlaces.map((place) => {
 
   <div class="site-shell campus-journey__outro">
     <div class="campus-journey__outro-copy">
-      <p class="campus-journey__kicker">CHOOSE MORE THAN A PROGRAMME</p>
-      <h2>学ぶ内容だけでなく、過ごす場所も留学をつくる。</h2>
+      <p class="campus-journey__kicker">THE PROGRAMME SHAPES THE PLACE</p>
+      <h2>プログラムが変われば、学ぶ場所も変わる。</h2>
     </div>
     <div class="campus-journey__comparison">
       {campuses.map((campus, index) => (
@@ -184,7 +184,7 @@ const campuses = campusPlaces.map((place) => {
         </div>
       ))}
     </div>
-    <p class="campus-journey__note">実施キャンパスおよび訪問地域は、プログラムによって異なります。掲載写真は過去の実施例またはキャンパスイメージです。</p>
+    <p class="campus-journey__note">実施キャンパス、訪問地域、授業・交流・文化体験の内容はプログラムごとに定めます。Custom Programsの実施場所は教育目的と内容に基づいて提案します。掲載写真は過去の実施例またはキャンパスイメージです。</p>
   </div>
 </section>
 

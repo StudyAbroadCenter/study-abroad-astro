@@ -1,28 +1,69 @@
 ---
 import { programmes } from '../data/programs';
+import '../styles/programme-architecture.css';
 
 const rawBase = import.meta.env.BASE_URL;
 const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
-const image = (path: string) => `${base}images/${path.replace(/^\//, '')}`;
+const optimizedImage = (path: string, width: number) => {
+  const stem = path.replace(/^\//, '').replace(/\.[^.]+$/, '');
+  return `${base}images/optimized/${stem}-${width}.webp`;
+};
+const responsiveCardImages = (path: string) => ({
+  src: optimizedImage(path, 960),
+  srcset: `${optimizedImage(path, 640)} 640w, ${optimizedImage(path, 960)} 960w`,
+});
 const studentProgrammes = programmes.filter((programme) => programme.audience === 'individual');
 const partnerProgramme = programmes.find((programme) => programme.audience === 'partner');
+const customThemes = [
+  'MBA',
+  'Business',
+  'Marketing',
+  'Entrepreneurship',
+  'Data Science',
+  'AI',
+  'Film & Media',
+  'Pop Culture',
+];
 ---
-<section class="programme-finder" id="program-finder" aria-labelledby="finder-title">
+<section class="programme-finder programme-finder--reframed" id="program-finder" aria-labelledby="finder-title">
   <div class="site-shell">
-    <div class="section-intro">
+    <div class="section-intro programme-finder__intro">
       <p class="section-kicker">PROGRAM FINDER</p>
-      <h2 id="finder-title">何を学び、<br />何を持ち帰りたい？</h2>
-      <p>期間だけではなく、参加したい理由から探せます。まずは近いものを選んでください。</p>
+      <h2 id="finder-title">何を学び、<br />誰と出会いたい？</h2>
+      <div class="programme-finder__intro-copy">
+        <p>日本語と日本文化を深く経験する。専門テーマを日本で学ぶ。大学単位で新しいプログラムをつくる。目的から、入口を選べます。</p>
+        <small>あなたは、何が好き？ 日本語。京都。人との出会い。それとも、まだ知らないテーマ。</small>
+      </div>
+    </div>
+
+    <div class="programme-pathways" aria-label="プログラムの3つの入口">
+      <article>
+        <span>01</span>
+        <p>JAPANESE LANGUAGE & CULTURE</p>
+        <h3>日本語・日本文化</h3>
+        <small>RSJP / RSJP Express / RWJP / RWJP Express</small>
+      </article>
+      <article>
+        <span>02</span>
+        <p>THEMATIC STUDY</p>
+        <h3>専門テーマ</h3>
+        <small>RDSP / RBMP</small>
+      </article>
+      <article>
+        <span>03</span>
+        <p>FOR UNIVERSITY PARTNERS</p>
+        <h3>Custom Programs</h3>
+        <small>教育目的からオーダーメード</small>
+      </article>
     </div>
 
     <form class="finder-controls" data-finder-form>
       <fieldset>
-        <legend><span>01</span>興味に近いもの</legend>
-        <div class="finder-options">
+        <legend><span>01</span>学びたい内容</legend>
+        <div class="finder-options finder-options--programme-family">
           <label><input type="radio" name="goal" value="all" checked /><span>すべて見る</span></label>
-          <label><input type="radio" name="goal" value="language" /><span>日本語を学ぶ</span></label>
-          <label><input type="radio" name="goal" value="short" /><span>短期間で体験する</span></label>
-          <label><input type="radio" name="goal" value="specialist" /><span>専門分野を学ぶ</span></label>
+          <label><input type="radio" name="goal" value="japanese-culture" /><span>日本語・日本文化</span></label>
+          <label><input type="radio" name="goal" value="specialist" /><span>専門テーマ</span></label>
         </div>
       </fieldset>
 
@@ -38,51 +79,83 @@ const partnerProgramme = programmes.find((programme) => programme.audience === '
 
     <div class="finder-results-heading">
       <p>個人応募向け <strong data-result-count>{studentProgrammes.length}</strong>件</p>
-      <small>日程・費用・募集状況は各詳細へ。大学単位のご相談は、下のCustom Programsをご覧ください。</small>
+      <small>実施キャンパスはプログラムごとに決まっています。日程・費用・募集状況は詳細ページで案内します。</small>
     </div>
 
     <div class="programme-grid" data-programme-grid>
-      {studentProgrammes.map((programme) => (
-        <article
-          class="programme-card"
-          data-programme-card
-          data-goals={programme.goals.join(' ')}
-          data-season={programme.season}
-        >
-          <div class="programme-card__visual">
-            <img src={image(programme.image)} alt={programme.imageAlt} width="720" height="480" loading="lazy" decoding="async" />
-            <span>{programme.code}</span>
-          </div>
-          <div class="programme-card__body">
-            <div class="programme-card__meta">
-              <span>{programme.seasonLabel}</span>
-              <span>{programme.duration}</span>
+      {studentProgrammes.map((programme) => {
+        const copy = programme.copy.ja;
+        const sources = responsiveCardImages(programme.image);
+        return (
+          <article
+            class={`programme-card programme-card--${programme.goals[0]}`}
+            data-programme-card
+            data-goals={programme.goals.join(' ')}
+            data-season={programme.season}
+          >
+            <div class="programme-card__visual">
+              <img
+                src={sources.src}
+                srcset={sources.srcset}
+                sizes="(min-width: 900px) 380px, (min-width: 560px) 50vw, 100vw"
+                alt={copy.imageAlt}
+                width="960"
+                height="640"
+                loading="lazy"
+                decoding="async"
+              />
+              <span>{programme.code}</span>
+              <small>{copy.familyLabel}</small>
             </div>
-            <h3>{programme.name}</h3>
-            <p>{programme.summary}</p>
-            <button type="button" class="programme-card__link" aria-label={`${programme.name}の詳細は準備中`}>
-              詳細ページは準備中 <span>→</span>
-            </button>
-          </div>
-        </article>
-      ))}
+            <div class="programme-card__body">
+              <div class="programme-card__meta">
+                <span>{copy.seasonLabel}</span>
+                <span>{copy.duration}</span>
+                <span class="programme-card__campus">{copy.campusLabel}</span>
+              </div>
+              <h3>{copy.name}</h3>
+              <p>{copy.summary}</p>
+              {copy.experienceLine && <p class="programme-card__experience">{copy.experienceLine}</p>}
+              <button type="button" class="programme-card__link" aria-label={`${copy.name}の詳細は準備中`}>
+                詳細ページは準備中 <span>→</span>
+              </button>
+            </div>
+          </article>
+        );
+      })}
     </div>
 
     <p class="finder-empty" data-finder-empty hidden>条件に一致するプログラムがありません。季節を「指定なし」に戻してご覧ください。</p>
 
     {partnerProgramme && (
-      <aside class="partner-programme" aria-labelledby="partner-programme-title">
-        <div class="partner-programme__label">FOR UNIVERSITY PARTNERS</div>
+      <aside class="partner-programme partner-programme--expanded" id="custom-programs" aria-labelledby="partner-programme-title">
+        <div class="partner-programme__label">FOR UNIVERSITY PARTNERS · CUSTOM PROGRAMS</div>
         <div class="partner-programme__content">
-          <p class="section-kicker">CUSTOM PROGRAMS</p>
-          <h2 id="partner-programme-title">海外大学担当者の方へ</h2>
-          <p>{partnerProgramme.summary}</p>
-          <ul>
-            <li>人数・期間・授業内容を個別設計</li>
-            <li>学生交流、文化体験、宿泊を組み合わせ</li>
-            <li>将来は概算予算シミュレーターを提供予定</li>
-          </ul>
-          <button type="button" class="action-button action-button--dark">相談ページは次フェーズで公開</button>
+          <div class="partner-programme__lead">
+            <p class="section-kicker">BUILT AROUND YOUR ACADEMIC PURPOSE</p>
+            <h2 id="partner-programme-title">大学の目的から、<br />ひとつのプログラムをつくる。</h2>
+            <p>{partnerProgramme.copy.ja.summary}</p>
+            <p class="partner-programme__promise">テーマを持ってきてください。授業、学生共修、文化体験、訪問、宿泊まで、実現するための全体をこちらで組み立てます。英語による実施にも対応します。</p>
+          </div>
+
+          <div class="partner-programme__process" aria-label="Custom Programsの設計プロセス">
+            <div><span>01</span><strong>LISTEN</strong><p>テーマ、学習成果、期間、人数、ご希望を伺います。</p></div>
+            <div><span>02</span><strong>DESIGN</strong><p>授業、共修、訪問、文化体験を一つの流れに設計します。</p></div>
+            <div><span>03</span><strong>ARRANGE</strong><p>講師、学生、施設、宿泊、移動などを調整・手配します。</p></div>
+            <div><span>04</span><strong>DELIVER</strong><p>大学単位の学びとして、立命館で実施します。</p></div>
+          </div>
+
+          <div class="partner-programme__themes">
+            <p>PAST PROGRAMME THEMES</p>
+            <ul aria-label="過去の実施テーマ例">
+              {customThemes.map((theme) => <li>{theme}</li>)}
+            </ul>
+          </div>
+
+          <div class="partner-programme__footer">
+            <p>実施キャンパスは教育目的と内容に応じて決定します。主に衣笠キャンパスまたは大阪いばらきキャンパスで実施し、一部の特定プログラムはびわこ・くさつキャンパスで実施します。</p>
+            <button type="button" class="action-button action-button--dark">大学担当者向け相談ページは準備中</button>
+          </div>
         </div>
       </aside>
     )}
