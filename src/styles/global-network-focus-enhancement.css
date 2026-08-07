@@ -1,0 +1,95 @@
+.network-atlas__land--realistic > path {
+  transition:
+    fill 320ms ease,
+    opacity 320ms ease,
+    stroke 320ms ease,
+    filter 320ms ease;
+}
+
+.network-atlas[data-active-region] .network-atlas__land--realistic > path {
+  opacity: .55;
+}
+
+.network-atlas__land--realistic > path.is-region-focus {
+  fill: #a51f32;
+  stroke: #8a1728;
+  opacity: .78 !important;
+  filter: drop-shadow(0 2px 5px rgba(165,31,50,.14));
+}
+
+.network-atlas__routes > path {
+  transition:
+    stroke 280ms ease,
+    stroke-width 280ms ease,
+    opacity 280ms ease,
+    filter 280ms ease;
+}
+
+.network-atlas[data-active-region] .network-atlas__routes > path {
+  opacity: .17;
+}
+
+.network-atlas__routes > path.is-route-focus {
+  stroke: #a51f32;
+  stroke-width: 3.2;
+  opacity: .94 !important;
+  filter: drop-shadow(0 0 4px rgba(165,31,50,.26));
+}
+
+/*
+ * The official R / RITSUMEIKAN communication mark is kept intact here.
+ * The public raster is the same temporary review asset used by the site header.
+ * Replace it with an internally approved transparent web asset before launch.
+ */
+.network-atlas__hub-mark {
+  opacity: 0;
+}
+
+.network-atlas__globe-wrap::after {
+  position: absolute;
+  z-index: 3;
+  top: 46%;
+  left: 55.3%;
+  width: 104px;
+  height: 42px;
+  border: 1px solid rgba(165,31,50,.16);
+  border-radius: 8px;
+  background: #fff url('https://www.ritsumei.ac.jp/image.jsp?id=228381') center / 92px auto no-repeat;
+  box-shadow:
+    0 0 0 5px rgba(255,255,255,.72),
+    0 10px 28px rgba(89,60,51,.14);
+  content: '';
+  pointer-events: none;
+  transform: translate(-50%,-50%);
+}
+
+/* Give institution rows a stable logo slot now; only verified official assets
+   should be placed here in the data layer in a later pass. */
+.network-atlas__institutions li {
+  position: relative;
+  padding-left: 0;
+}
+
+@media (max-width: 760px) {
+  .network-atlas__globe-wrap::after {
+    width: 90px;
+    height: 37px;
+    background-size: 80px auto;
+    border-radius: 7px;
+  }
+}
+
+@media (max-width: 440px) {
+  .network-atlas__globe-wrap::after {
+    width: 78px;
+    height: 33px;
+    background-size: 69px auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .network-atlas__land--realistic > path,
+  .network-atlas__routes > path {
+    transition: none;
+  }
+}
