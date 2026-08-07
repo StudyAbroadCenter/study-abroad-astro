@@ -42,6 +42,8 @@ Examples:
 
 Because the source includes colleges and university systems as well as universities, the UI uses **INSTITUTION EXAMPLES** rather than **UNIVERSITY EXAMPLES**.
 
+The number is an **example-institution count for this visualisation**, not yet a certified historical KPI. Before this value is used in formal reporting or an external funding application, reconcile it against the source-of-truth table described below, especially for umbrella systems and constituent colleges.
+
 ## Before public launch
 
 Create or verify a source-of-truth table with at least:
