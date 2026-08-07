@@ -2,7 +2,7 @@
 import { globalConnections, globalNetworkPrinciples } from '../data/globalNetwork';
 
 const defaultCountry = 'korea';
-const totalUniversityExamples = globalConnections.reduce(
+const totalInstitutionExamples = globalConnections.reduce(
   (total, connection) => total + connection.universities.length,
   0,
 );
@@ -16,7 +16,7 @@ const totalUniversityExamples = globalConnections.reduce(
       </div>
       <div class="global-network__intro-copy">
         <p>
-          立命館の短期受入プログラムには、世界各地の大学から学生が集います。日本語や日本文化を学ぶだけでなく、立命館の学生との国際共修、そして参加者同士の異文化間協働が生まれます。
+          立命館の短期受入プログラムには、世界各地の大学・高等教育機関から学生が集います。日本語や日本文化を学ぶだけでなく、立命館の学生との国際共修、そして参加者同士の異文化間協働が生まれます。
         </p>
         <p>
           大学間の国際教育連携が、学生一人ひとりの出会いに変わる。立命館で生まれた一つのつながりが、帰国後も世界の別の場所へ続いていきます。
@@ -45,12 +45,16 @@ const totalUniversityExamples = globalConnections.reduce(
           <path d="M500 68 C750 168 750 452 500 552" class="global-network__grid global-network__grid--soft" />
 
           <g class="global-network__peer-routes">
-            <path d="M132 212 C330 80 540 82 700 167" />
-            <path d="M250 105 C360 62 468 54 560 80" />
-            <path d="M560 80 C720 90 824 150 840 260" />
-            <path d="M700 167 C900 246 900 404 820 490" />
-            <path d="M820 490 C660 575 486 560 380 510" />
-            <path d="M380 510 C280 506 216 470 230 425" />
+            <path d="M110 211 C220 100 340 42 530 43" />
+            <path d="M530 43 C680 50 810 105 890 186" />
+            <path d="M890 186 C938 260 936 360 870 428" />
+            <path d="M870 428 C810 520 700 555 630 546" />
+            <path d="M630 546 C500 570 350 540 260 484" />
+            <path d="M260 484 C150 470 96 420 110 391" />
+            <path d="M110 391 C72 330 78 260 110 211" />
+            <path d="M220 87 C430 160 700 310 870 428" />
+            <path d="M380 50 C520 180 720 340 790 508" />
+            <path d="M670 68 C600 220 420 410 260 484" />
           </g>
 
           {globalConnections.map((connection) => (
@@ -89,6 +93,7 @@ const totalUniversityExamples = globalConnections.reduce(
             data-network-country={connection.id}
             aria-pressed={connection.id === defaultCountry ? 'true' : 'false'}
             aria-controls={`network-panel-${connection.id}`}
+            aria-label={`${connection.countryJa}：${connection.universities.length}機関の掲載例を見る`}
           >
             <span>{connection.code}</span>
             <strong>{connection.countryJa}</strong>
@@ -108,8 +113,8 @@ const totalUniversityExamples = globalConnections.reduce(
             <span>COUNTRIES / REGIONS</span>
           </div>
           <div>
-            <strong>{totalUniversityExamples}</strong>
-            <span>UNIVERSITY EXAMPLES</span>
+            <strong>{totalInstitutionExamples}</strong>
+            <span>INSTITUTION EXAMPLES</span>
           </div>
           <div>
             <strong>＋</strong>
@@ -136,7 +141,7 @@ const totalUniversityExamples = globalConnections.reduce(
             </div>
 
             <div class="global-network__universities">
-              <p>EXAMPLE UNIVERSITIES</p>
+              <p>EXAMPLE INSTITUTIONS</p>
               <ul>
                 {connection.universities.map((university) => (
                   <li>
@@ -156,7 +161,7 @@ const totalUniversityExamples = globalConnections.reduce(
         ))}
 
         <p class="global-network__note">
-          ここに表示している{globalConnections.length}か国・地域、{totalUniversityExamples}大学は短期受入・連携実績の一部です。ほかにも多数の国・地域・大学からの参加・連携実績があり、プログラムや年度により参加大学・実施内容は異なります。
+          ここに表示している{globalConnections.length}か国・地域、{totalInstitutionExamples}の大学・高等教育機関は短期受入・連携実績の一部です。ほかにも多数の国・地域・教育機関からの参加・連携実績があり、プログラムや年度により参加機関・実施内容は異なります。
         </p>
       </aside>
     </div>
