@@ -1,0 +1,164 @@
+/* PR #28 expansion polish: keep a much denser network legible and stable. */
+
+.global-network__scale {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.global-network__scale > div {
+  min-width: 0;
+  padding: 13px 10px 12px 0;
+}
+
+.global-network__scale > div + div {
+  border-left: 1px solid rgba(255, 255, 255, 0.07);
+  padding-left: 12px;
+}
+
+.global-network__scale strong,
+.global-network__scale span {
+  display: block;
+  font-family: var(--font-latin);
+}
+
+.global-network__scale strong {
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 650;
+  letter-spacing: -0.025em;
+  line-height: 1;
+}
+
+.global-network__scale span {
+  margin-top: 6px;
+  color: rgba(255, 255, 255, 0.34);
+  font-size: 0.46rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  line-height: 1.35;
+}
+
+/* Nine visible country nodes need to read as map markers rather than cards. */
+.global-network__node {
+  min-width: 108px;
+  padding: 8px 10px 9px;
+  background: rgba(18, 20, 23, 0.74);
+}
+
+.global-network__node strong {
+  font-size: 0.75rem;
+}
+
+.global-network__node small {
+  font-size: 0.46rem;
+}
+
+.global-network__route path {
+  opacity: 0.72;
+}
+
+.global-network__route.is-active path {
+  opacity: 1;
+}
+
+/* The evidence list can become long; emphasize scanability instead of card weight. */
+.global-network__universities li {
+  padding-block: 9px;
+}
+
+.global-network__universities li strong {
+  font-size: 0.7rem;
+}
+
+.global-network__note {
+  margin-top: 16px;
+}
+
+@media (min-width: 900px) {
+  .global-network__panel.is-active {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
+  }
+}
+
+@media (max-width: 759px) {
+  .global-network__visual {
+    min-height: min(124vw, 520px);
+  }
+
+  .global-network__node {
+    width: 68px;
+    min-width: 68px;
+    gap: 1px;
+    border-radius: 10px;
+    padding: 6px 7px 7px;
+    text-align: center;
+  }
+
+  .global-network__node > span {
+    font-size: 0.5rem;
+  }
+
+  .global-network__node strong {
+    overflow: hidden;
+    font-size: 0.61rem;
+    line-height: 1.25;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .global-network__node small {
+    display: none;
+  }
+
+  .global-network__scale {
+    margin-top: 12px;
+  }
+
+  .global-network__scale > div {
+    padding-block: 11px;
+  }
+
+  .global-network__scale strong {
+    font-size: 1.05rem;
+  }
+}
+
+@media (max-width: 479px) {
+  .global-network__visual {
+    min-height: 450px;
+  }
+
+  .global-network__hub {
+    width: 124px;
+  }
+
+  .global-network__node {
+    width: 58px;
+    min-width: 58px;
+    padding: 5px 5px 6px;
+  }
+
+  .global-network__node strong {
+    font-size: 0.55rem;
+  }
+
+  .global-network__scale span {
+    font-size: 0.41rem;
+    letter-spacing: 0.06em;
+  }
+}
+
+@media (max-width: 359px) {
+  .global-network__node {
+    width: 54px;
+    min-width: 54px;
+  }
+
+  .global-network__node strong {
+    font-size: 0.51rem;
+  }
+}
