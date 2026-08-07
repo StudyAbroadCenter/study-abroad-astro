@@ -1,0 +1,95 @@
+---
+---
+<script>
+  const atlas = document.querySelector('[data-network-atlas]');
+
+  if (atlas instanceof HTMLElement) {
+    const regionByCountry: Record<string, string> = {
+      'united-states': 'north-america',
+      canada: 'north-america',
+      mexico: 'north-america',
+      'south-korea': 'east-asia',
+      china: 'east-asia',
+      taiwan: 'east-asia',
+      'hong-kong': 'east-asia',
+      macau: 'east-asia',
+      japan: 'east-asia',
+      singapore: 'southeast-asia',
+      indonesia: 'southeast-asia',
+      australia: 'oceania',
+      'new-zealand': 'oceania',
+      'united-kingdom': 'europe',
+      spain: 'europe',
+      romania: 'europe',
+      finland: 'europe',
+      germany: 'europe',
+      italy: 'europe',
+      netherlands: 'europe',
+      poland: 'europe',
+      france: 'europe',
+      hungary: 'europe',
+      qatar: 'west-asia',
+      'saudi-arabia': 'west-asia',
+      azerbaijan: 'west-asia',
+      turkmenistan: 'west-asia',
+    };
+
+    const landGroups: Record<string, number[]> = {
+      'north-america': [0, 1, 2],
+      europe: [6, 7, 8, 9],
+      'west-asia': [12],
+      'east-asia': [14, 15, 16],
+      'southeast-asia': [17, 18, 19, 20],
+      oceania: [21, 22, 23],
+    };
+
+    const routeByRegion: Record<string, number> = {
+      'north-america': 0,
+      europe: 2,
+      'west-asia': 3,
+      'east-asia': 4,
+      'southeast-asia': 7,
+      oceania: 5,
+    };
+
+    const landPaths = Array.from(
+      atlas.querySelectorAll('.network-atlas__land--realistic > path'),
+    );
+    const routes = Array.from(atlas.querySelectorAll('.network-atlas__routes > path'));
+    const buttons = Array.from(atlas.querySelectorAll('[data-country-select]'));
+
+    const setFocusRegion = (countryId: string) => {
+      const region = regionByCountry[countryId] ?? '';
+      atlas.dataset.activeRegion = region;
+
+      landPaths.forEach((path) => path.classList.remove('is-region-focus'));
+      routes.forEach((route) => route.classList.remove('is-route-focus'));
+
+      (landGroups[region] ?? []).forEach((index) => {
+        landPaths[index]?.classList.add('is-region-focus');
+      });
+
+      const routeIndex = routeByRegion[region];
+      if (Number.isInteger(routeIndex)) routes[routeIndex]?.classList.add('is-route-focus');
+    };
+
+    buttons.forEach((button) => {
+      if (!(button instanceof HTMLButtonElement)) return;
+      const countryId = button.dataset.countrySelect;
+      if (!countryId) return;
+
+      button.addEventListener('click', () => setFocusRegion(countryId));
+      button.addEventListener('focus', () => setFocusRegion(countryId));
+      button.addEventListener('pointerenter', (event) => {
+        if (event.pointerType !== 'touch') setFocusRegion(countryId);
+      });
+    });
+
+    const selected = buttons.find(
+      (button) => button instanceof HTMLButtonElement && button.getAttribute('aria-pressed') === 'true',
+    );
+    if (selected instanceof HTMLButtonElement && selected.dataset.countrySelect) {
+      setFocusRegion(selected.dataset.countrySelect);
+    }
+  }
+</script>
