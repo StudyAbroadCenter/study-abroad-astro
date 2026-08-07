@@ -20,14 +20,64 @@ type ApprovedLogo = {
 // Production rule:
 // Only logos for which Ritsumeikan / the site operator can demonstrate permission for this
 // external web use belong in approvedLogos. Finding an official logo file is NOT sufficient.
-// Until permission is documented, the UI intentionally falls back to neutral initials.
+// Until permission is documented, the UI intentionally falls back to neutral monograms.
 // Never use favicons, guessed domains, third-party logo services, or AI-redrawn marks.
 const approvedLogos: Record<string, ApprovedLogo> = {
   // Add an institution only after approval / licence for this external website is documented.
 };
 
+// Neutral text monograms are not logos. Explicit entries are used where a familiar abbreviation
+// improves recognition. They do not claim or reproduce an institution's graphic trademark.
+const preferredMonograms: Record<string, string> = {
+  'Case Western Reserve University': 'CWRU',
+  'James Madison University': 'JMU',
+  'Florida International University': 'FIU',
+  'University of North Carolina Asheville': 'UNCA',
+  'College of Staten Island (CUNY)': 'CSI',
+  'Hunter College (CUNY)': 'HC',
+  'Western Michigan University': 'WMU',
+  'University of New Mexico': 'UNM',
+  'University of Pittsburgh': 'PITT',
+  'University of Wisconsin - Madison': 'UW',
+  'University of Wisconsin–Madison': 'UW',
+  'University of Melbourne': 'MELB',
+  'Australian National University': 'ANU',
+  'University of Queensland': 'UQ',
+  'Monash University': 'MON',
+  'University of Sydney': 'USYD',
+  'RMIT University': 'RMIT',
+  'University of Alberta': 'UA',
+  'University of Toronto': 'UofT',
+  'University of Waterloo': 'UW',
+  'Gachon University': 'GU',
+  'Konkuk University': 'KU',
+  'Ajou University': 'AU',
+  'Daejeon University': 'DJU',
+  'Sookmyung Women\'s University': 'SMU',
+  'Chung-Ang University': 'CAU',
+  'Beihang University': 'BUAA',
+  'East China University of Science and Technology': 'ECUST',
+  'Nanjing University': 'NJU',
+  'Shanghai Jiao Tong University': 'SJTU',
+  'National Taiwan University': 'NTU',
+  'National Chengchi University': 'NCCU',
+  'Singapore Management University': 'SMU',
+  'Nanyang Technological University': 'NTU',
+  'National University of Singapore': 'NUS',
+  'University of Leeds': 'LEEDS',
+  'King\'s College London': 'KCL',
+  'Cardiff University': 'CU',
+  'University of Leicester': 'LEIC',
+  'University of Helsinki': 'UH',
+  'University of Auckland': 'UoA',
+  'The Chinese University of Hong Kong': 'CUHK',
+  'City University of Hong Kong': 'CityU',
+  'University of Macau': 'UM',
+  'Qatar University': 'QU',
+};
+
 // Official brand assets or rules were found, but permission for this external Ritsumeikan
-// recruitment/evidence site is required or has not yet been demonstrated. Keep initials.
+// recruitment/evidence site is required or has not yet been demonstrated. Keep monograms.
 const permissionRequiredInstitutions = new Set([
   'Case Western Reserve University',
   'James Madison University',
@@ -55,7 +105,7 @@ const permissionRequiredInstitutions = new Set([
 ]);
 
 // The institution publishes an official UI/logo asset, but public availability alone does not
-// establish third-party usage permission. These also stay on initials until permission is clear.
+// establish third-party usage permission. These also stay on monograms until permission is clear.
 const permissionUnconfirmedInstitutions = new Set([
   'Gachon University',
   'Ajou University',
@@ -67,19 +117,29 @@ const permissionUnconfirmedInstitutions = new Set([
 <script is:inline define:vars={{
   customByCountry,
   approvedLogos,
+  preferredMonograms,
   permissionRequiredInstitutions: [...permissionRequiredInstitutions],
   permissionUnconfirmedInstitutions: [...permissionUnconfirmedInstitutions],
 }}>
   const permissionRequired = new Set(permissionRequiredInstitutions);
   const permissionUnconfirmed = new Set(permissionUnconfirmedInstitutions);
 
-  const initials = (name) => name
+  const fallbackInitials = (name) => name
     .replace(/\([^)]*\)/g, '')
     .split(/[\s,&\-/]+/)
     .filter(Boolean)
     .slice(0, 2)
     .map((part) => part[0]?.toUpperCase() ?? '')
     .join('');
+
+  const monogramFor = (name) => preferredMonograms[name] || fallbackInitials(name) || '•';
+
+  const setMonogram = (mark, name) => {
+    const monogram = monogramFor(name);
+    mark.textContent = monogram;
+    mark.classList.toggle('is-long-monogram', monogram.length >= 4);
+    mark.classList.toggle('is-very-long-monogram', monogram.length >= 5);
+  };
 
   const makeMark = (name) => {
     const mark = document.createElement('span');
@@ -96,13 +156,13 @@ const permissionUnconfirmedInstitutions = new Set([
       image.addEventListener('error', () => {
         image.remove();
         mark.classList.remove('has-logo');
-        mark.textContent = initials(name) || '•';
+        setMonogram(mark, name);
       }, { once: true });
       mark.classList.add('has-logo');
       mark.appendChild(image);
       mark.title = `${name} — logo use approved for this site`;
     } else {
-      mark.textContent = initials(name) || '•';
+      setMonogram(mark, name);
       if (permissionRequired.has(name)) {
         mark.classList.add('logo-approval-required');
         mark.title = `${name} — official logo exists; external-use approval required`;
@@ -110,7 +170,7 @@ const permissionUnconfirmedInstitutions = new Set([
         mark.classList.add('logo-permission-unconfirmed');
         mark.title = `${name} — official asset found; third-party usage permission not yet confirmed`;
       } else {
-        mark.title = `${name} — initials used until official logo usage rights are confirmed`;
+        mark.title = `${name} — neutral monogram used until official logo usage rights are confirmed`;
       }
     }
     return mark;
@@ -184,7 +244,7 @@ const permissionUnconfirmedInstitutions = new Set([
 
     const note = atlas.querySelector('.network-atlas__data-note');
     if (note instanceof HTMLElement) {
-      note.textContent = '人数・大学/機関数は2023–2026年のRSJP/RWJP系統合データ。CUSTOMは別途確認したCustom Program実績で、522名・114大学/機関には加算していません。大学ロゴは、この外部Webサイトでの利用許可を確認できたものだけ表示し、それ以外はイニシャル表示としています。';
+      note.textContent = '人数・大学/機関数は2023–2026年のRSJP/RWJP系統合データ。CUSTOMは別途確認したCustom Program実績で、522名・114大学/機関には加算していません。大学ロゴは、この外部Webサイトでの利用許可を確認できたものだけ表示し、それ以外は中立的な略称・イニシャル表示としています。';
     }
   }
 </script>
