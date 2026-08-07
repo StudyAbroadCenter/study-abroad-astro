@@ -1,187 +1,74 @@
-<script>
-  type InstitutionEntry = { name: string; domain: string };
+---
+import { evidenceCountries } from '../data/globalNetworkEvidence';
 
-  const extraInstitutions: Record<string, InstitutionEntry[]> = {
-    'united-states': [
-      { name: 'James Madison University', domain: 'jmu.edu' },
-      { name: 'Case Western Reserve University', domain: 'case.edu' },
-      { name: 'Rutgers University', domain: 'rutgers.edu' },
-      { name: 'Queens College, CUNY', domain: 'qc.cuny.edu' },
-      { name: 'Queensborough Community College, CUNY', domain: 'qcc.cuny.edu' },
-      { name: 'Lehman College, CUNY', domain: 'lehman.edu' },
-      { name: 'LaGuardia Community College, CUNY', domain: 'laguardia.edu' },
-      { name: 'Borough of Manhattan Community College, CUNY', domain: 'bmcc.cuny.edu' },
-      { name: 'Brooklyn College, CUNY', domain: 'brooklyn.edu' },
-      { name: 'University of North Carolina Asheville', domain: 'unca.edu' },
-      { name: 'University of North Carolina at Greensboro', domain: 'uncg.edu' },
-      { name: 'University of North Carolina Wilmington', domain: 'uncw.edu' },
-      { name: 'Florida International University', domain: 'fiu.edu' },
-      { name: 'University of Oklahoma', domain: 'ou.edu' },
-      { name: 'University of California, Davis', domain: 'ucdavis.edu' },
-      { name: 'University of California, Los Angeles', domain: 'ucla.edu' },
-      { name: 'DePaul University', domain: 'depaul.edu' },
-      { name: 'Georgia College & State University', domain: 'gcsu.edu' },
-      { name: 'University of Michigan', domain: 'umich.edu' },
-      { name: 'Appalachian State University', domain: 'appstate.edu' },
-      { name: 'Princeton University', domain: 'princeton.edu' },
-      { name: 'University of Mississippi', domain: 'olemiss.edu' },
-      { name: 'Skidmore College', domain: 'skidmore.edu' },
-      { name: 'California State University, Bakersfield', domain: 'csub.edu' },
-      { name: 'Duke University', domain: 'duke.edu' },
-      { name: 'Kansas City Art Institute', domain: 'kcai.edu' },
-      { name: 'Montana State University', domain: 'montana.edu' },
-      { name: 'The George Washington University', domain: 'gwu.edu' },
-      { name: 'Montgomery College', domain: 'montgomerycollege.edu' },
-      { name: 'University of Pittsburgh', domain: 'pitt.edu' },
-    ],
-    'south-korea': [
-      { name: 'Yonsei University', domain: 'yonsei.ac.kr' },
-      { name: 'Kyung Hee University', domain: 'khu.ac.kr' },
-      { name: 'Inha University', domain: 'inha.ac.kr' },
-      { name: 'Pusan National University', domain: 'pusan.ac.kr' },
-      { name: 'Korea University', domain: 'korea.ac.kr' },
-    ],
-    australia: [
-      { name: 'University of New South Wales', domain: 'unsw.edu.au' },
-      { name: 'Macquarie University', domain: 'mq.edu.au' },
-      { name: 'University of Adelaide', domain: 'adelaide.edu.au' },
-      { name: 'Queensland University of Technology', domain: 'qut.edu.au' },
-    ],
-    canada: [
-      { name: 'George Brown College', domain: 'georgebrown.ca' },
-      { name: 'University of British Columbia', domain: 'ubc.ca' },
-      { name: 'Simon Fraser University', domain: 'sfu.ca' },
-    ],
-    'united-kingdom': [
-      { name: 'Royal Holloway, University of London', domain: 'royalholloway.ac.uk' },
-      { name: 'SOAS University of London', domain: 'soas.ac.uk' },
-    ],
-    taiwan: [
-      { name: 'National Taiwan Normal University', domain: 'ntnu.edu.tw' },
-    ],
-    singapore: [
-      { name: 'Yale-NUS College', domain: 'yale-nus.edu.sg' },
-    ],
-    indonesia: [
-      { name: 'Universitas Airlangga', domain: 'unair.ac.id' },
-    ],
-    japan: [
-      { name: 'Hiroshima University', domain: 'hiroshima-u.ac.jp' },
-    ],
-  };
-
-  const knownDomains: Record<string, string> = {
-    'College of Staten Island (CUNY)': 'csi.cuny.edu',
-    'Hunter College (CUNY)': 'hunter.cuny.edu',
-    'Western Michigan University': 'wmich.edu',
-    'University of New Mexico': 'unm.edu',
-    'Los Angeles Pierce College': 'lapc.edu',
-    'Illinois College': 'ic.edu',
-    'Gachon University': 'gachon.ac.kr',
-    'Konkuk University': 'konkuk.ac.kr',
-    'Ajou University': 'ajou.ac.kr',
-    'Daejeon University': 'dju.ac.kr',
-    "Sookmyung Women's University": 'sookmyung.ac.kr',
-    'Chung-Ang University': 'cau.ac.kr',
-    'University of Melbourne': 'unimelb.edu.au',
-    'Australian National University': 'anu.edu.au',
-    'University of Queensland': 'uq.edu.au',
-    'Monash University': 'monash.edu',
-    'University of Sydney': 'sydney.edu.au',
-    'RMIT University': 'rmit.edu.au',
-    'University of Alberta': 'ualberta.ca',
-    'University of Toronto': 'utoronto.ca',
-    'University of Waterloo': 'uwaterloo.ca',
-    'Camosun College': 'camosun.ca',
-    'Beihang University': 'buaa.edu.cn',
-    'East China University of Science and Technology': 'ecust.edu.cn',
-    'Nanjing University': 'nju.edu.cn',
-    'Shanghai Jiao Tong University': 'sjtu.edu.cn',
-    'Changshu Institute of Technology': 'cslg.edu.cn',
-    'Hebei University of Engineering': 'hebeu.edu.cn',
-    'National Taiwan University': 'ntu.edu.tw',
-    'National Chengchi University': 'nccu.edu.tw',
-    'Central Taiwan University of Science and Technology': 'ctust.edu.tw',
-    'Feng Chia University': 'fcu.edu.tw',
-    'University of Leeds': 'leeds.ac.uk',
-    "King's College London": 'kcl.ac.uk',
-    'University of Central Lancashire': 'uclan.ac.uk',
-    'Cardiff University': 'cardiff.ac.uk',
-    'University of Leicester': 'le.ac.uk',
-    'University of Auckland': 'auckland.ac.nz',
-    'The Chinese University of Hong Kong': 'cuhk.edu.hk',
-    'University of Macau': 'um.edu.mo',
-    'Singapore Management University': 'smu.edu.sg',
-    'Nanyang Technological University': 'ntu.edu.sg',
-    'National University of Singapore': 'nus.edu.sg',
-    'Qatar University': 'qu.edu.qa',
-    'University of Córdoba': 'uco.es',
-    'Universitas Atma Jaya Yogyakarta': 'uajy.ac.id',
-    'Diponegoro University': 'undip.ac.id',
-    'Baku State University': 'bsu.edu.az',
-    'Babeș-Bolyai University': 'ubbcluj.ro',
-    'University of Helsinki': 'helsinki.fi',
-    'University of Freiburg': 'uni-freiburg.de',
-    "University of Venice Ca' Foscari": 'unive.it',
-    'Radboud University': 'ru.nl',
-    'Ritsumeikan University': 'ritsumei.ac.jp',
-    'Jagiellonian University': 'uj.edu.pl',
-    'Qassim University': 'qu.edu.sa',
-    'ICN Business School': 'icn-artem.com',
-    'ELTE Eötvös Loránd University, Budapest, Hungary': 'elte.hu',
-  };
-
-  const initials = (name: string) => name
+const customByCountry = Object.fromEntries(
+  evidenceCountries
+    .filter((country) => 'customPrograms' in country && country.customPrograms?.length)
+    .map((country) => [country.id, [...(country.customPrograms ?? [])]]),
+);
+---
+<script define:vars={{ customByCountry }}>
+  const initials = (name) => name
     .replace(/\([^)]*\)/g, '')
-    .split(/[\s,&-]+/)
+    .split(/[\s,&\-/]+/)
     .filter(Boolean)
     .slice(0, 2)
     .map((part) => part[0]?.toUpperCase() ?? '')
     .join('');
 
-  const makeLogo = (name: string, domain?: string) => {
-    const holder = document.createElement('span');
-    holder.className = 'network-atlas__institution-logo';
-    const fallback = document.createElement('span');
-    fallback.textContent = initials(name);
-    holder.appendChild(fallback);
-    if (domain) {
-      const image = document.createElement('img');
-      image.src = `https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=64`;
-      image.alt = '';
-      image.loading = 'lazy';
-      image.decoding = 'async';
-      image.addEventListener('error', () => holder.classList.add('is-fallback'), { once: true });
-      holder.prepend(image);
-    } else {
-      holder.classList.add('is-fallback');
-    }
-    return holder;
+  const makeMark = (name) => {
+    const mark = document.createElement('span');
+    mark.className = 'network-atlas__institution-mark';
+    mark.textContent = initials(name) || '•';
+    mark.setAttribute('aria-hidden', 'true');
+    return mark;
   };
 
-  const enhanceRow = (row: HTMLLIElement) => {
-    if (row.querySelector('.network-atlas__institution-logo')) return;
+  const makeCustomBadge = () => {
+    const badge = document.createElement('span');
+    badge.className = 'network-atlas__custom-badge';
+    badge.textContent = 'CUSTOM';
+    badge.title = 'Custom Programの実施実績あり（RSJP/RWJP系の人数集計とは別）';
+    return badge;
+  };
+
+  const enhanceRegularRow = (row, customNames) => {
+    if (!(row instanceof HTMLLIElement) || row.dataset.institutionEnhanced === 'true') return;
     const nameElement = row.querySelector('span');
     const countElement = row.querySelector('b');
     if (!(nameElement instanceof HTMLElement)) return;
+
     const name = nameElement.textContent?.trim() ?? '';
+    row.dataset.institutionEnhanced = 'true';
+    row.prepend(makeMark(name));
     nameElement.classList.add('network-atlas__institution-name');
     countElement?.classList.add('network-atlas__institution-count');
-    row.prepend(makeLogo(name, knownDomains[name]));
+
+    if (customNames.includes(name)) {
+      nameElement.insertAdjacentElement('afterend', makeCustomBadge());
+    }
   };
 
-  const appendExtra = (list: HTMLUListElement, entry: InstitutionEntry) => {
-    const existing = Array.from(list.querySelectorAll('li span')).some((item) => item.textContent?.trim() === entry.name);
-    if (existing) return;
+  const appendCustomOnlyRow = (list, name) => {
+    const exists = Array.from(list.querySelectorAll('li .network-atlas__institution-name, li > span'))
+      .some((item) => item.textContent?.trim() === name);
+    if (exists) return;
+
     const row = document.createElement('li');
-    row.appendChild(makeLogo(entry.name, entry.domain));
-    const name = document.createElement('span');
-    name.className = 'network-atlas__institution-name';
-    name.textContent = entry.name;
-    const status = document.createElement('b');
-    status.className = 'network-atlas__institution-count network-atlas__institution-count--unquantified';
-    status.textContent = '実績あり';
-    row.append(name, status);
+    row.className = 'network-atlas__institution-row--custom-only';
+    row.dataset.institutionEnhanced = 'true';
+    row.appendChild(makeMark(name));
+
+    const nameElement = document.createElement('span');
+    nameElement.className = 'network-atlas__institution-name';
+    nameElement.textContent = name;
+    row.appendChild(nameElement);
+    row.appendChild(makeCustomBadge());
+
+    const spacer = document.createElement('span');
+    spacer.className = 'network-atlas__institution-count network-atlas__institution-count--custom';
+    spacer.textContent = '';
+    row.appendChild(spacer);
     list.appendChild(row);
   };
 
@@ -189,22 +76,23 @@
   if (atlas instanceof HTMLElement) {
     atlas.querySelectorAll('[data-country-panel]').forEach((panel) => {
       if (!(panel instanceof HTMLElement)) return;
+      const countryId = panel.dataset.countryPanel ?? '';
       const list = panel.querySelector('.network-atlas__institutions ul');
       if (!(list instanceof HTMLUListElement)) return;
-      list.querySelectorAll('li').forEach((row) => {
-        if (row instanceof HTMLLIElement) enhanceRow(row);
-      });
-      const countryId = panel.dataset.countryPanel ?? '';
-      (extraInstitutions[countryId] ?? []).forEach((entry) => appendExtra(list, entry));
+
+      const customNames = customByCountry[countryId] ?? [];
+      list.querySelectorAll(':scope > li').forEach((row) => enhanceRegularRow(row, customNames));
+      customNames.forEach((name) => appendCustomOnlyRow(list, name));
+
       const remainder = panel.querySelector('.network-atlas__institutions > p');
-      if (remainder instanceof HTMLElement && (extraInstitutions[countryId]?.length ?? 0) > 0) {
-        remainder.textContent = '上記以外にも参加・連携実績があります。';
+      if (remainder instanceof HTMLElement && countryId === 'china') {
+        remainder.textContent = '原票1件は大学名を要確認のため、一覧では非表示にしています。';
       }
     });
 
     const note = atlas.querySelector('.network-atlas__data-note');
     if (note instanceof HTMLElement) {
-      note.textContent = '人数・機関数は2023–2026年のRSJP/RWJP系実績。大学一覧には、確認済みの短期受入・連携実績例を追加掲載しています。人数内訳を確認できる大学は人数を表示しています。';
+      note.textContent = '人数・大学/機関数は2023–2026年のRSJP/RWJP系統合データ。CUSTOMは別途、実施報告等で確認できたCustom Program実績で、この522名・114大学/機関の集計には加算していません。';
     }
   }
 </script>
