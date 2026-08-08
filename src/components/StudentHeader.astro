@@ -3,6 +3,12 @@ const rawBase = import.meta.env.BASE_URL;
 const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
 const withBase = (path: string) => `${base}${path.replace(/^\//, '')}`;
 
+// Publicly rendered preview of the official horizontal R / RITSUMEIKAN
+// communication mark. The mark itself is not recoloured, cropped or rebuilt.
+// Replace this URL with an internally approved local SVG/transparent PNG before
+// the final public launch when the official asset is supplied by University PR.
+const officialLogo = 'https://www.ritsumei.ac.jp/image.jsp?id=228381';
+
 const links = [
   { href: '#program-finder', label: 'プログラム' },
   { href: '#experience-pillars', label: '学びと体験' },
@@ -14,16 +20,24 @@ const links = [
 <header class="recruitment-header" data-recruitment-header>
   <a class="skip-link" href="#main-content">本文へ移動</a>
   <div class="site-shell recruitment-header__inner">
-    <a class="recruitment-brand" href={withBase('/ja/')} aria-label="立命館大学短期受入プログラム 日本語トップ">
-      <span class="recruitment-brand__mark" aria-hidden="true">R</span>
-      <span class="recruitment-brand__text">
-        <strong>RITSUMEIKAN</strong>
-        <small>SHORT-TERM PROGRAMS</small>
+    <a class="recruitment-brand" href={withBase('/ja/')} aria-label="立命館大学 短期受入プログラム 日本語トップ">
+      <span class="recruitment-brand__logo-plate">
+        <img
+          class="recruitment-brand__logo"
+          src={officialLogo}
+          alt="RITSUMEIKAN"
+          loading="eager"
+          decoding="async"
+          data-official-logo
+        />
+        <span class="recruitment-brand__fallback" aria-hidden="true">RITSUMEIKAN</span>
       </span>
+      <span class="recruitment-brand__programme">SHORT-TERM<br />PROGRAMS</span>
     </a>
 
     <nav class="recruitment-nav recruitment-nav--desktop" aria-label="メインナビゲーション">
-      {links.map((link) => <a href={link.href}>{link.label}</a>)}
+      {links.map((link) => <a href={link.href} data-nav-link>{link.label}</a>)}
+      <span class="recruitment-nav__separator" aria-hidden="true"></span>
       <a class="recruitment-nav__language" href={withBase('/')}>EN</a>
       <a class="recruitment-nav__cta" href="#program-finder">自分に合うプログラム</a>
     </nav>
@@ -33,8 +47,12 @@ const links = [
         <span></span><span></span><span></span>
       </summary>
       <nav aria-label="モバイルナビゲーション">
-        {links.map((link) => <a href={link.href}>{link.label}</a>)}
-        <a href={withBase('/')}>English</a>
+        <p class="recruitment-menu__eyebrow">SHORT-TERM PROGRAMS</p>
+        {links.map((link) => <a href={link.href} data-mobile-nav-link>{link.label}</a>)}
+        <div class="recruitment-menu__utility">
+          <a href={withBase('/')}>English</a>
+          <a href="https://www.ritsumei.ac.jp/" target="_blank" rel="noopener noreferrer">立命館大学公式サイト ↗</a>
+        </div>
         <a class="recruitment-menu__cta" href="#program-finder">自分に合うプログラムを探す</a>
       </nav>
     </details>
@@ -44,13 +62,45 @@ const links = [
 <script>
   const header = document.querySelector('[data-recruitment-header]');
   const menu = document.querySelector('[data-recruitment-menu]');
+  const officialLogo = document.querySelector('[data-official-logo]');
+  const navLinks = Array.from(document.querySelectorAll('[data-nav-link]'));
+  const mobileNavLinks = Array.from(document.querySelectorAll('[data-mobile-nav-link]'));
 
   const updateHeader = () => {
     header?.classList.toggle('is-scrolled', window.scrollY > 24);
   };
 
+  const setCurrentLink = (id: string) => {
+    [...navLinks, ...mobileNavLinks].forEach((link) => {
+      if (!(link instanceof HTMLAnchorElement)) return;
+      const isCurrent = link.getAttribute('href') === `#${id}`;
+      link.classList.toggle('is-current', isCurrent);
+      if (isCurrent) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+  };
+
+  const observedSections = navLinks
+    .map((link) => link instanceof HTMLAnchorElement ? document.querySelector(link.getAttribute('href') ?? '') : null)
+    .filter((section): section is Element => section instanceof Element);
+
+  if ('IntersectionObserver' in window) {
+    const sectionObserver = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (visible?.target.id) setCurrentLink(visible.target.id);
+    }, { rootMargin: '-22% 0px -62% 0px', threshold: [0, 0.08, 0.2] });
+
+    observedSections.forEach((section) => sectionObserver.observe(section));
+  }
+
   updateHeader();
   window.addEventListener('scroll', updateHeader, { passive: true });
+
+  officialLogo?.addEventListener('error', () => {
+    header?.classList.add('has-logo-fallback');
+  }, { once: true });
 
   menu?.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => {

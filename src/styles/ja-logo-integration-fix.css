@@ -1,0 +1,47 @@
+/*
+ * PR #27 logo integration fix
+ *
+ * The public Ritsumeikan logo preview is a flattened raster with white pixels.
+ * Remove the local white plate and visually integrate those pixels into the
+ * translucent header surface for review. Replace this workaround with an
+ * approved transparent SVG/PNG before production launch.
+ */
+
+.recruitment-brand__logo-plate {
+  overflow: visible;
+  border-radius: 0;
+  background: transparent !important;
+}
+
+.recruitment-brand__logo {
+  background: transparent;
+  mix-blend-mode: multiply;
+}
+
+/* Keep the lockup optically aligned after the plate disappears. */
+.recruitment-brand__logo-plate {
+  width: 148px;
+  height: 40px;
+}
+
+.recruitment-header.is-scrolled .recruitment-brand__logo-plate {
+  height: 37px;
+}
+
+@media (max-width: 559px) {
+  .recruitment-brand__logo-plate {
+    width: 134px;
+    height: 37px;
+  }
+
+  .recruitment-header.is-scrolled .recruitment-brand__logo-plate {
+    height: 35px;
+  }
+}
+
+@media (max-width: 359px) {
+  .recruitment-brand__logo-plate {
+    width: 122px;
+    height: 34px;
+  }
+}
