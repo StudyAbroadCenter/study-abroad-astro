@@ -4,74 +4,123 @@ import '../styles/rwjp-flagship.css';
 
 interface Props { programme: ProgrammePageDraft; }
 const { programme } = Astro.props;
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const photo = (stem: string, width = 960) => `${base}images/optimized/${stem}-${width}.webp`;
 ---
 <article class="rwjp-flagship">
   <header class="rwjp-flagship__hero">
     <div class="site-shell rwjp-flagship__hero-grid">
-      <div>
+      <div class="rwjp-flagship__hero-copy">
         <p class="rwjp-flagship__eyebrow">{programme.category} · {programme.code}</p>
-        <h1>日本語を、<br /><em>日本で学ぶ。</em></h1>
-        <p class="rwjp-flagship__lead">{programme.lead}</p>
+        <h1>京都に、<br /><em>5週間住んでみる。</em></h1>
+        <p class="rwjp-flagship__lead">毎朝、日本語をしっかり学ぶ。授業が終われば、そこから先はあなたの時間。RWJPは、日本語の勉強と「京都で暮らす」を一つにする5週間です。</p>
+        <p class="rwjp-flagship__micro">MAIN QUEST: JAPANESE · SIDE QUEST: KYOTO</p>
       </div>
-      <div class="rwjp-flagship__hero-side" aria-label="ページ制作状況">
-        <span>RWJP</span>
-        <p>このページは現在制作中です。日程・費用・応募条件などは、正式に確認できた情報だけを掲載します。</p>
-      </div>
+      <figure class="rwjp-flagship__hero-photo">
+        <img src={photo('IMG_8263')} alt="立命館大学の短期プログラムに参加する学生たちの過去実施イメージ" width="960" height="640" decoding="async" />
+        <figcaption>過去の短期プログラム実施写真。RWJPの掲載写真は確認しながら順次更新します。</figcaption>
+      </figure>
     </div>
   </header>
 
   <nav class="rwjp-flagship__nav" aria-label="RWJPページ内ナビゲーション">
     <div class="site-shell rwjp-flagship__nav-inner">
-      <a href="#experience">RWJPとは</a><a href="#learning">学び</a><a href="#journey">体験</a><a href="#facts">基本情報</a><a href="#apply">応募前に</a>
+      <a href="#five-weeks">5週間</a><a href="#morning">午前の学び</a><a href="#kyoto">京都で暮らす</a><a href="#people">出会う</a><a href="#future">その先</a><a href="#facts">基本情報</a>
     </div>
   </nav>
 
-  <section class="rwjp-flagship__statement" id="experience">
-    <div class="site-shell">
-      <p class="rwjp-flagship__kicker">THE EXPERIENCE</p>
-      <h2>教室だけで終わらない。<br />でも、学びを曖昧にしない。</h2>
-      <div class="rwjp-flagship__statement-copy">
-        <p>{programme.emphasis}</p>
-        <p>このページでは、華やかなイメージだけで参加を促すのではなく、確認できた学習内容と参加条件を示しながら、RWJPで過ごす時間を学生自身が想像できる構成を目指します。</p>
+  <section class="rwjp-flagship__opening" id="five-weeks">
+    <div class="site-shell rwjp-flagship__opening-grid">
+      <div>
+        <p class="rwjp-flagship__kicker">FIVE WEEKS, YOUR STORY</p>
+        <h2>旅行者から、<br />少しずつ京都の住民へ。</h2>
+      </div>
+      <div class="rwjp-flagship__prose">
+        <p>2、3日の観光なら、京都の有名な場所を見ることはできます。でも5週間あれば、毎朝大学へ通い、いつもの道を覚え、よく行く店ができ、街のリズムが少しずつ自分の日常になっていきます。</p>
+        <p>RWJPで主役になるのは、大学でも観光地でもありません。参加するあなたです。用意されたものを見るだけではなく、自分で動き、自分の京都を見つけてください。</p>
       </div>
     </div>
   </section>
 
-  <section class="rwjp-flagship__learning" id="learning">
+  <section class="rwjp-flagship__morning" id="morning">
     <div class="site-shell">
-      <div class="rwjp-flagship__section-head"><p class="rwjp-flagship__kicker">LEARN</p><h2>「何を学べるか」を、最初に。</h2><p>授業構成、学習時間、学習成果、評価方法は、確認済みのシラバス情報に基づいて順次掲載します。</p></div>
-      <div class="rwjp-flagship__cards">
-        <article><span>01</span><h3>Japanese Language</h3><p>日本語学習をプログラムの中心として位置づけます。具体的な授業内容は正式情報の確認後に掲載します。</p></article>
-        <article><span>02</span><h3>Academic Experience</h3><p>学習テーマや授業構成を、学生が参加前に判断できる粒度で示します。</p></article>
-        <article><span>03</span><h3>Learning in Japan</h3><p>日本で学ぶことが授業とどのようにつながるのか。確認できた内容を具体的に紹介します。</p></article>
+      <div class="rwjp-flagship__section-head">
+        <p class="rwjp-flagship__kicker">MORNINGS ARE FOR JAPANESE</p>
+        <h2>午前中は、しっかり勉強する。</h2>
+        <p>RWJPの中心は日本語学習です。毎日午前中に集中して学び、プレゼンテーション、バディとの交流、クイズ、試験にも取り組みます。学習の成果は成績表として確認できます。</p>
+      </div>
+      <div class="rwjp-flagship__study-line" aria-label="RWJPで行う学習活動">
+        <div><span>01</span><strong>LEARN</strong><p>毎朝、日本語を集中して学ぶ。</p></div>
+        <div><span>02</span><strong>USE</strong><p>プレゼンやバディとの交流で使う。</p></div>
+        <div><span>03</span><strong>CHECK</strong><p>クイズや試験で理解を確かめる。</p></div>
+        <div><span>04</span><strong>RECORD</strong><p>学習の成果を成績表で残す。</p></div>
       </div>
     </div>
   </section>
 
-  <section class="rwjp-flagship__journey" id="journey">
-    <div class="site-shell rwjp-flagship__journey-grid">
-      <div><p class="rwjp-flagship__kicker">YOUR TIME HERE</p><h2>参加した自分を、想像できるページへ。</h2></div>
-      <div class="rwjp-flagship__steps">
-        <div><span>01</span><h3>Arrive</h3><p>到着前後に必要な情報は、確認できたものから明確に案内します。</p></div>
-        <div><span>02</span><h3>Learn</h3><p>授業と学習経験を、RWJPの中心として伝えます。</p></div>
-        <div><span>03</span><h3>Experience</h3><p>交流や学外での経験は、実施が確認された内容だけを紹介します。</p></div>
-        <div><span>04</span><h3>Take it home</h3><p>プログラムを通して何を持ち帰れるのかは、学習成果の正式情報に基づいて示します。</p></div>
+  <section class="rwjp-flagship__switch">
+    <div class="site-shell rwjp-flagship__switch-grid">
+      <p class="rwjp-flagship__switch-time">12:00<span>頃から</span></p>
+      <div>
+        <p class="rwjp-flagship__kicker">AFTER CLASS, THE CITY IS YOURS</p>
+        <h2>授業が終わったら、<br />街へ出よう。</h2>
+        <p>自由時間は、自分の時間です。世界遺産へ行く。アニメやポップカルチャーを探す。歴史のある路地を歩く。カフェで日本語を使ってみる。予定を詰めてもいいし、鴨川で何もしない午後があってもいい。</p>
+        <small>SIDE QUESTS WELCOME.</small>
       </div>
+    </div>
+  </section>
+
+  <section class="rwjp-flagship__kyoto" id="kyoto">
+    <div class="site-shell">
+      <div class="rwjp-flagship__kyoto-intro">
+        <p class="rwjp-flagship__kicker">KYOTO IS THE OTHER CLASSROOM</p>
+        <h2>YouTubeでは、<br />分からない京都へ。</h2>
+        <p>京都には寺社仏閣と長い歴史があり、その一方でアニメ、ゲーム、ポップカルチャーなど新しい文化もあります。観光都市であり、大学の街でもある。大きすぎず、小さすぎない。学びに集中しながら、毎日違う発見ができる街です。</p>
+      </div>
+      <div class="rwjp-flagship__photo-story">
+        <figure class="rwjp-flagship__photo-story-main"><img src={photo('IMG_1588')} alt="京都で過ごす短期プログラム参加者の過去実施イメージ" width="960" height="640" loading="lazy" decoding="async" /><figcaption>京都は「見る場所」だけではなく、5週間を過ごす生活の場所。</figcaption></figure>
+        <div class="rwjp-flagship__kyoto-notes">
+          <p><strong>OLD / NEW</strong><span>寺社、歴史、伝統。そして現代のアニメやポップカルチャー。</span></p>
+          <p><strong>FAMOUS / EVERYDAY</strong><span>世界遺産の隣に、いつものコンビニとバス停がある。</span></p>
+          <p><strong>WATCH / FIND</strong><span>検索して終わらない。自分の足で、自分の「推しの景色」を見つける。</span></p>
+        </div>
+      </div>
+      <p class="rwjp-flagship__hidden-line">京都、解像度高め。</p>
+    </div>
+  </section>
+
+  <section class="rwjp-flagship__people" id="people">
+    <div class="site-shell rwjp-flagship__people-grid">
+      <div><p class="rwjp-flagship__kicker">PEOPLE CHANGE THE EXPERIENCE</p><h2>新しい街には、<br />新しい出会いがある。</h2></div>
+      <div class="rwjp-flagship__people-copy">
+        <p>RWJPでは、世界から集まる参加者と一緒に日本語を学びます。そして、立命館の学生とのバディ交流があります。日本を知るだけではなく、同じ5週間を過ごす人たちとの出会いも、このプログラムの一部です。</p>
+        <p>誰と話すか。どこへ行くか。授業のあと何をするか。全部を大学が決めるわけではありません。きっかけは用意します。その先をつくるのは、あなたです。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="rwjp-flagship__future" id="future">
+    <div class="site-shell rwjp-flagship__future-inner">
+      <p class="rwjp-flagship__kicker">WHAT IF FIVE WEEKS IS ONLY THE BEGINNING?</p>
+      <h2>5週間が、<br />始まりになるかもしれない。</h2>
+      <p>日本語を学び、京都で暮らして、「もっと日本で学びたい」と思ったら、その先を考えることができます。長期留学、さらに深い日本語学習、そして将来の大学院進学。RWJPは進学を保証するプログラムではありません。でも、日本で学ぶ未来を自分で考えるきっかけにはなります。</p>
+      <p class="rwjp-flagship__future-line">その最初の5週間を、立命館で。</p>
     </div>
   </section>
 
   <section class="rwjp-flagship__facts" id="facts">
     <div class="site-shell">
-      <p class="rwjp-flagship__kicker">KEY FACTS</p><h2>決めるための情報は、隠さない。</h2>
-      <p class="rwjp-flagship__facts-intro">日程、期間、キャンパス、参加費、宿泊、応募条件、募集期間、募集状況は、推測で埋めません。各Authorityで確認できた情報から公開します。</p>
-      <dl><div><dt>実施日程</dt><dd>確認中</dd></div><div><dt>期間</dt><dd>確認中</dd></div><div><dt>キャンパス</dt><dd>確認中</dd></div><div><dt>参加費</dt><dd>確認中</dd></div><div><dt>宿泊</dt><dd>確認中</dd></div><div><dt>応募条件</dt><dd>確認中</dd></div><div><dt>募集期間</dt><dd>確認中</dd></div><div><dt>募集状況</dt><dd>確認中</dd></div></dl>
+      <p class="rwjp-flagship__kicker">THE DETAILS</p><h2>参加したくなったら、<br />次は現実を確認する。</h2>
+      <p class="rwjp-flagship__facts-intro">5週間という期間と上記の学習活動以外の募集情報は、正式なAuthorityで確認してから掲載します。日程、費用、宿泊、応募条件などを推測で埋めることはしません。</p>
+      <dl><div><dt>期間</dt><dd>5週間</dd></div><div><dt>日本語学習</dt><dd>毎日午前中</dd></div><div><dt>学習活動</dt><dd>プレゼンテーション／バディ交流／クイズ／試験</dd></div><div><dt>学習記録</dt><dd>成績表を発行</dd></div><div><dt>実施日程</dt><dd>確認中</dd></div><div><dt>キャンパス</dt><dd>確認中</dd></div><div><dt>参加費</dt><dd>確認中</dd></div><div><dt>宿泊</dt><dd>確認中</dd></div><div><dt>応募条件</dt><dd>確認中</dd></div><div><dt>募集状況</dt><dd>確認中</dd></div></dl>
     </div>
   </section>
 
   <section class="rwjp-flagship__apply" id="apply">
     <div class="site-shell rwjp-flagship__apply-grid">
-      <div><p class="rwjp-flagship__kicker">BEFORE YOU APPLY</p><h2>ワクワクしたまま、きちんと判断する。</h2></div>
-      <div><p>応募資格、費用、宿泊、キャンセル条件、必要書類など、参加判断に重要な条件を応募後に初めて知ることがないページを目指します。</p><p class="rwjp-flagship__status">現在はページ制作・情報確認中です。募集状況と応募導線は、確認済みの正式情報に基づいて掲載します。</p></div>
+      <div><p class="rwjp-flagship__kicker">YOU ARE THE MAIN CHARACTER</p><h2>用意された5週間を、<br />受け取るだけじゃない。</h2></div>
+      <div><p>毎朝の授業はしっかり取り組む。そのあと、京都で何を見るか、誰と話すか、何を好きになるかは自分で決める。学習と自由、その両方があるからRWJPです。</p><p class="rwjp-flagship__status">現在はページ制作・情報確認中です。募集状況と応募導線は、確認済みの正式情報に基づいて掲載します。</p></div>
     </div>
   </section>
 </article>
