@@ -72,19 +72,22 @@ Content and programme facts should still be separated sufficiently to make later
 
 ## 2026-08-08 — Prefer Astro, TypeScript, GitHub, and Vercel for the current implementation
 
-**Status:** Accepted
+**Status:** Superseded
 
 **Context**  
-The current project direction uses a lightweight static-first architecture suited to a recruitment website.
+The early project direction assumed a lightweight static-first architecture and Vercel deployment.
 
 **Decision**  
 Prefer Astro + TypeScript with GitHub and Vercel for the current implementation.
 
 **Reasoning**  
-The stack supports static performance, manageable complexity, and incremental development.
+This reflected the intended direction before the repository deployment configuration was inspected during PR review.
 
 **Consequences**  
-Do not migrate framework solely for novelty. A future change requires a new decision based on demonstrated product or operational need.
+This decision is retained as history but is no longer the current deployment direction.
+
+**Supersedes / Superseded by**  
+Superseded by `2026-08-08 — Use the existing GitHub Pages deployment for the current implementation` below.
 
 ---
 
@@ -133,3 +136,30 @@ Current offering facts must be traceable to their domain source. Previous-year v
 
 **Supersedes / Superseded by**  
 Clarifies and strengthens the Source-of-Truth rules in the original handbook adoption decision.
+
+---
+
+## 2026-08-08 — Use the existing GitHub Pages deployment for the current implementation
+
+**Status:** Accepted
+
+**Context**  
+Repository inspection confirms that the implemented deployment pipeline is GitHub Pages through `.github/workflows/deploy-pages.yml`, with operator guidance in `README-GITHUB-PAGES.md`. No approved Vercel deployment configuration exists in the repository.
+
+**Decision**  
+Treat Astro + TypeScript + GitHub + GitHub Pages as the current implemented technical/deployment direction. Continue using the existing GitHub Pages workflow unless a later approved migration changes the deployment platform.
+
+**Reasoning**  
+Technical documentation must describe repository reality rather than an intended or assumed platform. This prevents agents from bypassing the working deployment pipeline or creating a second deployment Source of Truth.
+
+**Alternatives considered**  
+- document Vercel as a parallel deployment target,
+- migrate to Vercel immediately.
+
+Both were rejected because no approved migration or repository configuration currently supports them.
+
+**Consequences**  
+Technical specifications and root guidance should refer to GitHub Pages. A future move to Vercel or another host requires an explicit decision and corresponding repository changes.
+
+**Supersedes / Superseded by**  
+Supersedes the earlier same-day Vercel preference decision.
