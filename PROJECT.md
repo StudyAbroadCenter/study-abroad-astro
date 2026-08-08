@@ -69,16 +69,20 @@ Do not hide limitations, restrictions, costs, or conditions.
 
 ## Technology Direction
 
-Current preferred direction:
+Current implemented direction:
 
 - Astro
 - TypeScript
 - GitHub
-- Vercel
+- GitHub Pages
+
+The repository's actual configuration is authoritative for current implementation and deployment details.
 
 Use the existing styling approach in the repository.
 
 Do not introduce a CSS framework or replace the styling system without a documented project-level reason.
+
+Do not introduce or assume a different hosting/deployment platform without an explicit project decision and corresponding repository changes.
 
 ## Decision Priority
 
