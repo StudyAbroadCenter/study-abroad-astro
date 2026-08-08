@@ -61,56 +61,77 @@ const asset = (name: string) => `${base}images/programs/rwjp/${name}`;
       </aside>
 
       <div class="rwjp-day__scenes">
-        <article class="rwjp-day__scene" data-day-scene>
-          <p class="rwjp-day__time">MORNING · COMMUTE</p>
-          <h3>宿題をバッグに入れて、大学へ急ぐ。</h3>
-          <p class="rwjp-day__voice">昨日覚えた言葉を、今日は一度使ってみたい。バスの表示も、街の看板も、前より少し読める気がする。教室に着いたら、クラスメイトに昨日何をしたか話してみよう。</p>
-          <span class="rwjp-day__aside">THE COMMUTE COUNTS, TOO.</span>
+        <article class="rwjp-day__scene rwjp-day__scene--commute" data-day-scene>
+          <div class="rwjp-day__scene-copy">
+            <p class="rwjp-day__time">MORNING · COMMUTE</p>
+            <h3>宿題をバッグに入れて、大学へ急ぐ。</h3>
+            <p class="rwjp-day__voice">昨日覚えた言葉を、今日は一度使ってみたい。バスの表示も、街の看板も、前より少し読める気がする。教室に着いたら、クラスメイトに昨日何をしたか話してみよう。</p>
+            <span class="rwjp-day__aside">THE COMMUTE COUNTS, TOO.</span>
+          </div>
+          <figure class="rwjp-day__scene-media"><img src={asset('rwjp-winter-life.webp')} alt="RWJP期間中の冬の京都での生活イメージ" loading="lazy" decoding="async" /></figure>
         </article>
 
-        <article class="rwjp-day__scene" data-day-scene>
-          <p class="rwjp-day__time">MORNING · JAPANESE</p>
-          <h3>今日も、日本語モード。</h3>
-          <p class="rwjp-day__voice">まだ分からないことは多い。でも、昨日より聞き取れる言葉がある。クラスでは日本語に集中する。間違えてもいいから、まず声に出してみよう。</p>
-          <p class="rwjp-day__fact">RWJPでは日本語学習を中心に、プレゼンテーション、クイズ、試験などにも取り組みます。</p>
-          <span class="rwjp-day__aside">LEARN → USE → CHECK → TRY AGAIN.</span>
+        <article class="rwjp-day__scene rwjp-day__scene--japanese rwjp-day__scene--reverse" data-day-scene>
+          <div class="rwjp-day__scene-copy">
+            <p class="rwjp-day__time">MORNING · JAPANESE</p>
+            <h3>今日も、日本語モード。</h3>
+            <p class="rwjp-day__voice">まだ分からないことは多い。でも、昨日より聞き取れる言葉がある。クラスでは日本語に集中する。間違えてもいいから、まず声に出してみよう。</p>
+            <p class="rwjp-day__fact">RWJPでは日本語学習を中心に、プレゼンテーション、クイズ、試験などにも取り組みます。</p>
+            <span class="rwjp-day__aside">LEARN → USE → CHECK → TRY AGAIN.</span>
+          </div>
+          <figure class="rwjp-day__scene-media"><img src={asset('rwjp-japanese-class.webp')} alt="日本語授業に集中する学生たち" loading="lazy" decoding="async" /></figure>
         </article>
 
         <article class="rwjp-day__scene rwjp-day__scene--lunch" data-day-scene>
-          <p class="rwjp-day__time">LUNCH · RESET</p>
-          <h3>待ってました。ランチタイム。</h3>
-          <p class="rwjp-day__voice">新しく知り合ったクラスメイトと学食へ。昨日はラーメンだった。今日は何にしよう。メニューを見て、注文して、一緒に食べる。それだけなのに、ちょっと「日本で暮らしてる」感じがする。</p>
-          <span class="rwjp-day__aside">TODAY'S SIDE QUEST: WHAT'S FOR LUNCH?</span>
+          <div class="rwjp-day__scene-copy">
+            <p class="rwjp-day__time">LUNCH · RESET</p>
+            <h3>待ってました。ランチタイム。</h3>
+            <p class="rwjp-day__voice">新しく知り合ったクラスメイトと学食へ。昨日はラーメンだった。今日は何にしよう。メニューを見て、注文して、一緒に食べる。それだけなのに、ちょっと「日本で暮らしてる」感じがする。</p>
+            <span class="rwjp-day__aside">TODAY'S SIDE QUEST: WHAT'S FOR LUNCH?</span>
+          </div>
+          <figure class="rwjp-day__scene-media"><img src={asset('rwjp-student-interaction.webp')} alt="参加者同士で過ごす時間のイメージ" loading="lazy" decoding="async" /></figure>
         </article>
 
-        <article class="rwjp-day__scene" data-day-scene>
-          <p class="rwjp-day__time">AFTERNOON · BUDDY</p>
-          <h3>「ここ、ちょっと教えて。」が言えた。</h3>
-          <p class="rwjp-day__voice">昨日の授業で分からなかったところを、バディに聞いてみる。教室で習った言葉を、教室の外で使う。通じた。もう一回、別の言い方でも話してみたい。</p>
-          <p class="rwjp-day__fact">バディとの交流は、日本語を実際に使い、立命館の学生と出会う機会の一つです。</p>
-          <span class="rwjp-day__aside">ASK. LISTEN. TRY IT YOURSELF.</span>
+        <article class="rwjp-day__scene rwjp-day__scene--buddy rwjp-day__scene--reverse" data-day-scene>
+          <div class="rwjp-day__scene-copy">
+            <p class="rwjp-day__time">AFTERNOON · BUDDY</p>
+            <h3>「ここ、ちょっと教えて。」が言えた。</h3>
+            <p class="rwjp-day__voice">昨日の授業で分からなかったところを、バディに聞いてみる。教室で習った言葉を、教室の外で使う。通じた。もう一回、別の言い方でも話してみたい。</p>
+            <p class="rwjp-day__fact">バディとの交流は、日本語を実際に使い、立命館の学生と出会う機会の一つです。</p>
+            <span class="rwjp-day__aside">ASK. LISTEN. TRY IT YOURSELF.</span>
+          </div>
+          <figure class="rwjp-day__scene-media"><img src={asset('rwjp-learning-evidence.webp')} alt="授業で学んだ内容を振り返る学習のイメージ" loading="lazy" decoding="async" /></figure>
         </article>
 
         <article class="rwjp-day__scene rwjp-day__scene--culture" data-day-scene>
-          <p class="rwjp-day__time">AFTERNOON · CULTURE</p>
-          <h3>見るだけじゃなく、自分でやってみる。</h3>
-          <p class="rwjp-day__voice">今日は文化体験の日。日本に来る前から知っていた文化でも、実際に手を動かすと全然違う。立命館の学生と話しながら体験しているうちに、また新しい知り合いが増えた。</p>
-          <p class="rwjp-day__fact">文化体験や学生との交流は実施内容・日程により異なります。</p>
-          <span class="rwjp-day__aside">DON'T JUST WATCH. JOIN IN.</span>
+          <div class="rwjp-day__scene-copy">
+            <p class="rwjp-day__time">AFTERNOON · CULTURE</p>
+            <h3>見るだけじゃなく、自分でやってみる。</h3>
+            <p class="rwjp-day__voice">今日は文化体験の日。日本に来る前から知っていた文化でも、実際に手を動かすと全然違う。立命館の学生と話しながら体験しているうちに、また新しい知り合いが増えた。</p>
+            <p class="rwjp-day__fact">文化体験や学生との交流は実施内容・日程により異なります。</p>
+            <span class="rwjp-day__aside">DON'T JUST WATCH. JOIN IN.</span>
+          </div>
+          <figure class="rwjp-day__scene-media"><img src={asset('rwjp-cultural-experience.webp')} alt="日本文化を体験する参加者" loading="lazy" decoding="async" /></figure>
         </article>
 
-        <article class="rwjp-day__scene" data-day-scene>
-          <p class="rwjp-day__time">LATE AFTERNOON · KYOTO</p>
-          <h3>昨日と違う道を、一本だけ。</h3>
-          <p class="rwjp-day__voice">今日は少しだけ遠回りして帰ろう。大通りを曲がると、知らなかった店や小さな路地がある。バディや友達と一緒の日もあれば、一人の日もある。自分だけの京都が少しずつ増えていく。</p>
-          <span class="rwjp-day__aside">GET OUT. FIND OUT.</span>
+        <article class="rwjp-day__scene rwjp-day__scene--kyoto rwjp-day__scene--reverse" data-day-scene>
+          <div class="rwjp-day__scene-copy">
+            <p class="rwjp-day__time">LATE AFTERNOON · KYOTO</p>
+            <h3>昨日と違う道を、一本だけ。</h3>
+            <p class="rwjp-day__voice">今日は少しだけ遠回りして帰ろう。大通りを曲がると、知らなかった店や小さな路地がある。バディや友達と一緒の日もあれば、一人の日もある。自分だけの京都が少しずつ増えていく。</p>
+            <span class="rwjp-day__aside">GET OUT. FIND OUT.</span>
+          </div>
+          <figure class="rwjp-day__scene-media"><img src={asset('rwjp-kyoto-winter.webp')} alt="冬の京都を歩く時間のイメージ" loading="lazy" decoding="async" /></figure>
         </article>
 
         <article class="rwjp-day__scene rwjp-day__scene--night" data-day-scene>
-          <p class="rwjp-day__time">NIGHT · RESET</p>
-          <h3>宿題をして、今日を終える。</h3>
-          <p class="rwjp-day__voice">京都に来る前に想像していたより、毎日は忙しい。でも、新しい言葉、新しい場所、新しい人が少しずつ増えている。最初は一人で来るのが不安だった。でも、来てよかった。明日は何を覚えて、どこで使ってみよう。</p>
-          <span class="rwjp-day__aside">SAME CITY. NEW YOU, LITTLE BY LITTLE.</span>
+          <div class="rwjp-day__scene-copy">
+            <p class="rwjp-day__time">NIGHT · RESET</p>
+            <h3>宿題をして、今日を終える。</h3>
+            <p class="rwjp-day__voice">京都に来る前に想像していたより、毎日は忙しい。でも、新しい言葉、新しい場所、新しい人が少しずつ増えている。最初は一人で来るのが不安だった。でも、来てよかった。明日は何を覚えて、どこで使ってみよう。</p>
+            <span class="rwjp-day__aside">SAME CITY. NEW YOU, LITTLE BY LITTLE.</span>
+          </div>
+          <figure class="rwjp-day__scene-media"><img src={asset('rwjp-presentation.webp')} alt="一日の学びを振り返る学習活動のイメージ" loading="lazy" decoding="async" /></figure>
         </article>
       </div>
     </div>
