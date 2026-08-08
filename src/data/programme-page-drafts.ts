@@ -7,6 +7,8 @@
 //   eligibility, status, or application facts from the prototype registry.
 // - Add decision-critical facts only after verification under
 //   docs/handbook/21_CROSS_SPEC_GOVERNANCE.md.
+// - RBMP's Business Management positioning is currently treated as a provisional
+//   project direction in this draft UI; operational details remain unverified.
 
 export type ProgrammePageId = 'rwjp' | 'rwjp-express' | 'rdsp' | 'rbmp';
 
