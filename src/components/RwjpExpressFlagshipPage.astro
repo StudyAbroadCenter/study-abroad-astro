@@ -1,0 +1,40 @@
+---
+import type { ProgrammePageDraft } from '../data/programme-page-drafts';
+import '../styles/rwjp-express-flagship.css';
+
+interface Props { programme: ProgrammePageDraft; }
+const { programme } = Astro.props;
+---
+<article class="rwjpx">
+  <header class="rwjpx__hero">
+    <div class="site-shell rwjpx__hero-inner">
+      <div class="rwjpx__hero-copy">
+        <p class="rwjpx__eyebrow">{programme.category} · {programme.code}</p>
+        <h1><span>2週間。</span><strong>だから、行ける。</strong></h1>
+        <p class="rwjpx__lead">長期の留学はまだ難しい。でも、日本で日本語を学んでみたい。RWJP Expressは、忙しい学生が最初の一歩を踏み出しやすい、短く濃い日本語プログラムです。</p>
+        <p class="rwjpx__micro">SHORT STAY · SERIOUS STUDY · YOUR FIRST STEP</p>
+      </div>
+      <div class="rwjpx__pulse" aria-hidden="true"><span>TWO</span><span>WEEKS</span></div>
+    </div>
+  </header>
+
+  <nav class="rwjpx__nav" aria-label="RWJP Expressページ内ナビゲーション"><div class="site-shell rwjpx__nav-inner"><a href="#why-short">2週間の価値</a><a href="#study">学ぶ</a><a href="#solo">一人参加</a><a href="#weekend">週末</a><a href="#next">その先</a><a href="#facts">基本情報</a></div></nav>
+
+  <section class="rwjpx__why" id="why-short"><div class="site-shell rwjpx__split"><div><p class="rwjpx__kicker">WHY EXPRESS?</p><h2>長くなくていい。まず、来てみる。</h2></div><div class="rwjpx__copy"><p>授業やアルバイト、就職活動、ほかの予定があって、長期留学の時間を取りにくい学生もいます。2週間なら、日本で学ぶ経験を現実的な選択肢として考えやすくなります。</p><p>「いつか日本へ」ではなく、「この休みに行ってみる」。RWJP Expressは、その一歩を小さくするための選択肢です。</p></div></div>
+    <div class="site-shell rwjpx__three"><article><span>SHORT</span><h3>予定に入れやすい。</h3><p>長期滞在が難しい学生にも検討しやすい2週間。</p></article><article><span>SERIOUS</span><h3>短くても、学ぶ。</h3><p>日本語学習を中心に据え、限られた期間をしっかり使う。</p></article><article><span>SOLO</span><h3>一人でも参加できる。</h3><p>同行者がいなくても参加できる。最初の一歩は一人でもいい。</p></article></div>
+  </section>
+
+  <section class="rwjpx__study" id="study"><div class="site-shell rwjpx__study-grid"><div class="rwjpx__study-number" aria-hidden="true">02</div><div><p class="rwjpx__kicker">SHORT ≠ LIGHT</p><h2>2週間でも、日本語に向き合う時間はしっかり。</h2><p>Expressは「観光のついで」ではありません。日本語を学ぶことが中心です。短いからこそ、授業で学ぶ時間と、授業外で日本語に触れる時間を意識して使う。</p><p class="rwjpx__note">授業時間、評価方法、具体的な学習活動は、正式な実施内容を確認した項目から掲載します。</p></div></div></section>
+
+  <section class="rwjpx__tempo" aria-label="RWJP Expressの2週間の考え方"><div class="site-shell rwjpx__tempo-grid"><div><span>COME</span><p>京都に来る。</p></div><i>→</i><div><span>LEARN</span><p>日本語を学ぶ。</p></div><i>→</i><div><span>TRY</span><p>外で使ってみる。</p></div><i>→</i><div><span>DECIDE</span><p>次を考える。</p></div></div></section>
+
+  <section class="rwjpx__solo" id="solo"><div class="site-shell rwjpx__split rwjpx__split--reverse"><div><p class="rwjpx__kicker">COME AS YOU ARE</p><h2>一人で来てもいい。</h2></div><div class="rwjpx__copy"><p>「知り合いがいないけれど参加していいのかな」と迷う必要はありません。RWJP Expressは一人でも参加できます。</p><p>誰かと一緒だから参加するのではなく、自分が行きたいから行く。短い2週間は、そんな挑戦を始める期間にもできます。</p></div></div></section>
+
+  <section class="rwjpx__weekend" id="weekend"><div class="site-shell rwjpx__weekend-inner"><p class="rwjpx__kicker">ONE WEEKEND. YOUR CHOICE.</p><h2>週末がひとつある。</h2><p>2週間の中には週末があります。京都でゆっくり過ごすのもいい。自分で計画して、近郊へ短い外出や旅行を考えることもできます。</p><p class="rwjpx__weekend-small">実際に外出・旅行を計画する場合は、プログラム日程、自身の予定、交通事情などを確認してください。特定の旅行や行程をプログラムとして保証するものではありません。</p><div class="rwjpx__weekend-options" aria-hidden="true"><span>KYOTO</span><span>REST</span><span>EXPLORE</span><span>YOUR PLAN</span></div></div></section>
+
+  <section class="rwjpx__next" id="next"><div class="site-shell rwjpx__next-inner"><p class="rwjpx__kicker">TRY JAPAN FIRST</p><h2>2週間で、全部は分からない。だからいい。</h2><p>日本で学ぶことが自分に合うか。もっと日本語を学びたいか。次はもう少し長く滞在してみたいか。短期だからこそ、まず経験してから次を考えられます。</p><div class="rwjpx__next-path"><span>RWJP EXPRESS</span><i>→</i><span>WHAT DID YOU FIND?</span><i>→</i><span>WHAT NEXT?</span></div><p class="rwjpx__closing">新しい自分を保証することはできない。でも、新しい選択肢に出会う機会にはできる。</p></div></section>
+
+  <section class="rwjpx__facts" id="facts"><div class="site-shell"><p class="rwjpx__kicker">THE DETAILS</p><h2>参加したくなったら、条件を確認する。</h2><p class="rwjpx__facts-intro">以下は、現時点で確認している範囲だけを表示します。日程、費用、宿泊、応募条件、募集期間などは正式情報を確認後に追加します。</p><dl><div><dt>期間</dt><dd>2週間</dd></div><div><dt>中心となる学び</dt><dd>日本語学習</dd></div><div><dt>一人参加</dt><dd>可能</dd></div><div><dt>週末</dt><dd>期間中に1回</dd></div><div><dt>実施日程</dt><dd>確認中</dd></div><div><dt>参加費</dt><dd>確認中</dd></div><div><dt>宿泊</dt><dd>確認中</dd></div><div><dt>応募条件</dt><dd>確認中</dd></div><div><dt>募集状況</dt><dd>確認中</dd></div></dl></div></section>
+
+  <section class="rwjpx__apply"><div class="site-shell rwjpx__apply-grid"><div><p class="rwjpx__kicker">TWO WEEKS CAN FIT.</p><h2>「時間がない」を、行かない理由にしない。</h2></div><div><p>長期留学の前に。初めての日本留学に。まず一人で挑戦してみたいときに。2週間だから選べるRWJP Expressがあります。</p><p class="rwjpx__status">現在はページ制作・情報確認中です。募集状況と応募導線は、確認済みの正式情報に基づいて掲載します。</p></div></div></section>
+</article>
