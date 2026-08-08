@@ -48,10 +48,10 @@ export const programmePageDrafts: ProgrammePageDraft[] = [
   {
     id: 'rbmp',
     code: 'RBMP',
-    category: 'Business Management',
+    category: 'Business Management（企画中）',
     title: 'RBMP',
-    lead: 'Business Managementに特化した新しい短期受入プログラムです。',
-    emphasis: '新規プログラムだからこそ、確認済みの学習内容と参加価値を具体的に示します。',
+    lead: 'Business Managementを中心に企画している新規短期受入プログラムです。詳細は確認中です。',
+    emphasis: '企画内容が確認できた項目から、学習内容と参加価値を具体的に示していきます。',
     isNewProgramme: true,
   },
 ];
