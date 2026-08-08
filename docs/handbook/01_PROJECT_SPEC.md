@@ -159,16 +159,20 @@ Do not use page views alone as success.
 
 ## Technology Direction
 
-Preferred current architecture:
+Current implemented architecture:
 
 - Astro,
 - TypeScript,
 - GitHub,
-- Vercel.
+- GitHub Pages.
+
+The repository's actual configuration remains authoritative for implementation and deployment details.
 
 Use the repository's existing styling system.
 
-Technology may evolve; the product principles should not depend on one framework.
+Technology may evolve; the product principles should not depend on one framework or hosting provider.
+
+A deployment-platform change requires an explicit decision and corresponding repository configuration change.
 
 ## Decision Priority
 
