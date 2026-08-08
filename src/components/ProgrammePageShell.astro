@@ -1,0 +1,97 @@
+---
+import type { ProgrammePageDraft } from '../data/programme-page-drafts';
+import '../styles/programme-page.css';
+
+interface Props {
+  programme: ProgrammePageDraft;
+}
+
+const { programme } = Astro.props;
+---
+<article class="programme-page">
+  <header class="programme-page__hero">
+    <div class="site-shell programme-page__hero-inner">
+      <div class="programme-page__hero-copy">
+        <p class="programme-page__eyebrow">{programme.category}</p>
+        <p class="programme-page__code">{programme.code}</p>
+        <h1>{programme.title}</h1>
+        <p class="programme-page__lead">{programme.lead}</p>
+        {programme.isNewProgramme && <p class="programme-page__new">新規企画</p>}
+      </div>
+      <aside class="programme-page__draft-note" aria-label="ページ制作状況">
+        <strong>Programme page in development</strong>
+        <p>現在、日程・費用・募集条件などの正式情報を確認しながら制作しています。未確認情報は掲載していません。</p>
+      </aside>
+    </div>
+  </header>
+
+  <nav class="programme-page__jump" aria-label="ページ内ナビゲーション">
+    <div class="site-shell programme-page__jump-inner">
+      <a href="#programme-purpose">このプログラムについて</a>
+      <a href="#academic-experience">学び</a>
+      <a href="#key-facts">基本情報</a>
+      <a href="#before-you-apply">応募前に</a>
+    </div>
+  </nav>
+
+  <section class="programme-page__section" id="programme-purpose" aria-labelledby="programme-purpose-title">
+    <div class="site-shell programme-page__split">
+      <div>
+        <p class="section-kicker">WHY THIS PROGRAMME</p>
+        <h2 id="programme-purpose-title">何を学ぶプログラムなのか。</h2>
+      </div>
+      <div class="programme-page__body-copy">
+        <p>{programme.emphasis}</p>
+        <p>募集ページでは、魅力を先に大きく見せるのではなく、実際の学習内容・経験・条件を確認したうえで、学生が自分に合うか判断できる情報を組み立てます。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="programme-page__section programme-page__section--soft" id="academic-experience" aria-labelledby="academic-experience-title">
+    <div class="site-shell">
+      <div class="programme-page__section-heading">
+        <p class="section-kicker">ACADEMIC EXPERIENCE</p>
+        <h2 id="academic-experience-title">学ぶ内容を、具体的に。</h2>
+        <p>授業内容、学習時間、学習成果、評価方法などは、確認済みのシラバス情報に基づいて掲載します。</p>
+      </div>
+      <div class="programme-page__pending-grid" aria-label="今後確認して掲載する学術情報">
+        <div><span>01</span><strong>学習テーマ</strong><p>正式内容を確認後に掲載</p></div>
+        <div><span>02</span><strong>授業構成</strong><p>正式内容を確認後に掲載</p></div>
+        <div><span>03</span><strong>学習成果</strong><p>正式内容を確認後に掲載</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="programme-page__section" id="key-facts" aria-labelledby="key-facts-title">
+    <div class="site-shell">
+      <div class="programme-page__section-heading programme-page__section-heading--compact">
+        <p class="section-kicker">KEY FACTS</p>
+        <h2 id="key-facts-title">応募判断に必要な基本情報</h2>
+        <p>以下は空欄を推測で埋めず、各Authorityで確認できたものから順に公開します。</p>
+      </div>
+      <dl class="programme-page__facts">
+        <div><dt>実施日程</dt><dd>確認中</dd></div>
+        <div><dt>期間</dt><dd>確認中</dd></div>
+        <div><dt>キャンパス</dt><dd>確認中</dd></div>
+        <div><dt>参加費</dt><dd>確認中</dd></div>
+        <div><dt>宿泊</dt><dd>確認中</dd></div>
+        <div><dt>応募条件</dt><dd>確認中</dd></div>
+        <div><dt>募集期間</dt><dd>確認中</dd></div>
+        <div><dt>募集状況</dt><dd>確認中</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="programme-page__section programme-page__section--dark" id="before-you-apply" aria-labelledby="before-you-apply-title">
+    <div class="site-shell programme-page__split">
+      <div>
+        <p class="section-kicker">BEFORE YOU APPLY</p>
+        <h2 id="before-you-apply-title">知らずに応募することをなくす。</h2>
+      </div>
+      <div class="programme-page__body-copy">
+        <p>応募資格、費用、宿泊、キャンセル条件、必要書類など、応募後に初めて分かる重要条件を作らないことを基本にします。</p>
+        <p class="programme-page__status">現在はページ制作・情報確認中です。募集状況と応募導線は、確認済みの正式情報に基づいて掲載します。</p>
+      </div>
+    </div>
+  </section>
+</article>

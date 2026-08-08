@@ -6,9 +6,10 @@ import '../styles/mvp-refinement.css';
 interface Props {
   title: string;
   description: string;
+  robots?: string;
 }
 
-const { title, description } = Astro.props;
+const { title, description, robots = 'index,follow' } = Astro.props;
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astro.url;
 ---
 <!doctype html>
@@ -17,6 +18,7 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astro.u
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <meta name="robots" content={robots} />
     <link rel="canonical" href={canonical} />
     <meta name="theme-color" content="#17191d" />
     <meta property="og:type" content="website" />
