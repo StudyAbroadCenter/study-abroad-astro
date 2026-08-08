@@ -4,6 +4,9 @@ import '../styles/rwjp-express-flagship.css';
 
 interface Props { programme: ProgrammePageDraft; }
 const { programme } = Astro.props;
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const sample = (name: string) => `${base}images/programs/rwjp/${name}`;
 ---
 <article class="rwjpx">
   <header class="rwjpx__hero">
@@ -11,30 +14,39 @@ const { programme } = Astro.props;
       <div class="rwjpx__hero-copy">
         <p class="rwjpx__eyebrow">{programme.category} · {programme.code}</p>
         <h1><span>2週間。</span><strong>だから、行ける。</strong></h1>
-        <p class="rwjpx__lead">長期留学を決めるほど構えなくていい。日本語を学ぶ。文化に触れる。街へ出る。まず日本でやってみる。RWJP Expressは、忙しい学生のための短く濃い入口です。</p>
+        <p class="rwjpx__lead">長期留学を決めるほど構えなくていい。日本語を学ぶ。文化に触れる。人と出会う。街へ出る。まず日本でやってみる。RWJP Expressは、忙しい学生のための短く濃い入口です。</p>
         <p class="rwjpx__micro">PACK LIGHT · COME SOLO · START NOW</p>
       </div>
-      <div class="rwjpx__pulse" aria-hidden="true"><span>02</span><span>WEEKS</span></div>
+      <div class="rwjpx__hero-visual" aria-label="RWJP Expressの体験イメージ">
+        <figure class="rwjpx__snap rwjpx__snap--a"><img src={sample('rwjp-japanese-class.webp')} alt="日本語を学ぶ学生のイメージ" decoding="async" /><figcaption>LEARN</figcaption></figure>
+        <figure class="rwjpx__snap rwjpx__snap--b"><img src={sample('rwjp-cultural-experience.webp')} alt="文化体験のイメージ" decoding="async" /><figcaption>TRY</figcaption></figure>
+        <figure class="rwjpx__snap rwjpx__snap--c"><img src={sample('rwjp-kyoto-winter.webp')} alt="京都で過ごす時間のイメージ" decoding="async" /><figcaption>EXPLORE</figcaption></figure>
+        <span class="rwjpx__mock-label">TEMPORARY VISUAL MOCK</span>
+      </div>
     </div>
   </header>
 
-  <nav class="rwjpx__nav" aria-label="RWJP Expressページ内ナビゲーション"><div class="site-shell rwjpx__nav-inner"><a href="#why-short">2週間の価値</a><a href="#experience">体験する</a><a href="#solo">一人参加</a><a href="#weekend">週末</a><a href="#next">その先</a><a href="#facts">基本情報</a></div></nav>
+  <nav class="rwjpx__nav" aria-label="RWJP Expressページ内ナビゲーション"><div class="site-shell rwjpx__nav-inner"><a href="#why-short">2週間の価値</a><a href="#experience">体験する</a><a href="#restart">日本語</a><a href="#solo">一人参加</a><a href="#weekend">週末</a><a href="#supporters">保護者の方へ</a><a href="#next">その先</a><a href="#facts">基本情報</a></div></nav>
 
   <section class="rwjpx__why" id="why-short"><div class="site-shell rwjpx__split"><div><p class="rwjpx__kicker">WHY EXPRESS?</p><h2>悩む時間より、行く時間。</h2></div><div class="rwjpx__copy"><p>5週間には5週間の良さがある。でも、今の自分に必要なのは2週間かもしれない。授業、アルバイト、就職活動。予定が多くても、短い期間なら日本で学ぶ経験を選択肢に入れやすい。</p><p>滞在が短ければ、長期留学に比べて時間や滞在に伴う負担も抑えやすい。荷物も計画も、少し軽くして来られます。</p><p class="rwjpx__wink">「いつか行きたい」は、そろそろ「行ってみた」にしませんか。</p></div></div>
     <div class="site-shell rwjpx__three"><article><span>SHORT</span><h3>予定に入れやすい。</h3><p>長期滞在が難しい学生にも検討しやすい2週間。</p></article><article><span>SERIOUS</span><h3>短い。でも、薄くない。</h3><p>日本語を中心に、限られた時間を学びと体験に使う。</p></article><article><span>SOLO</span><h3>一人でも、行ける。</h3><p>同行者を待たなくていい。自分のタイミングで一歩を出す。</p></article></div>
   </section>
 
-  <section class="rwjpx__experience" id="experience"><div class="site-shell"><p class="rwjpx__kicker">TWO WEEKS. MANY DOORS.</p><h2>短くするのは、期間。<br />可能性じゃない。</h2><div class="rwjpx__experience-grid"><article><b>01</b><h3>日本語</h3><p>教室で学ぶ。外に出たら、目に入る日本語も学びになる。</p></article><article><b>02</b><h3>文化</h3><p>知識として見るだけでなく、日本にいるからこそ触れられるものへ。</p></article><article><b>03</b><h3>人</h3><p>大学という環境には、人と学ぶきっかけがある。受け身で待たず、自分から声をかけてみる。</p></article><article><b>04</b><h3>街</h3><p>キャンパスの外も学びの場所。歩く、見る、聞く、試す。</p></article></div><p class="rwjpx__note">文化体験、学生との共修、具体的な授業時間・活動内容は、正式な実施内容を確認した項目から掲載します。</p></div></section>
+  <section class="rwjpx__experience" id="experience"><div class="site-shell"><p class="rwjpx__kicker">TWO WEEKS. MANY DOORS.</p><h2>短くするのは、期間。<br />可能性じゃない。</h2><div class="rwjpx__experience-layout"><div class="rwjpx__experience-grid"><article><b>01</b><h3>日本語</h3><p>教室で学ぶ。外に出たら、目に入る日本語も学びになる。</p></article><article><b>02</b><h3>文化</h3><p>知識として見るだけでなく、日本にいるからこそ触れられるものへ。</p></article><article><b>03</b><h3>人</h3><p>大学という環境には、人と学ぶきっかけがある。受け身で待たず、自分から声をかけてみる。</p></article><article><b>04</b><h3>街</h3><p>キャンパスの外も学びの場所。歩く、見る、聞く、試す。</p></article></div><div class="rwjpx__visual-stack"><figure><img src={sample('rwjp-student-interaction.webp')} alt="学生同士が交流するイメージ" loading="lazy" decoding="async" /><figcaption>人と学ぶ。</figcaption></figure><figure><img src={sample('rwjp-cultural-activity.webp')} alt="文化活動のイメージ" loading="lazy" decoding="async" /><figcaption>見るだけで終わらない。</figcaption></figure></div></div><p class="rwjpx__note">写真はレイアウト確認用の仮素材です。文化体験、学生との共修、具体的な授業時間・活動内容は、正式な実施内容を確認した項目から掲載します。</p></div></section>
+
+  <section class="rwjpx__restart" id="restart"><div class="site-shell rwjpx__restart-grid"><figure class="rwjpx__restart-photo"><img src={sample('rwjp-learning-evidence.webp')} alt="日本語学習を振り返るイメージ" loading="lazy" decoding="async" /><figcaption>仮イメージ：学習をもう一度動かす。</figcaption></figure><div><p class="rwjpx__kicker">RESTART YOUR JAPANESE</p><h2>2週間を、日本語学習の起爆剤に。</h2><p>これまで学んできた日本語を、教室の外まで持ち出してみる。知っている単語が街で聞こえる。習った表現を使ってみる。分からなかったことを、もう一度調べる。</p><p>学ぶ機会は用意される。でも、どこまで使うかは本人次第です。短いからこそ、受け身で待つより、自分から試した人ほど2週間を濃くできます。</p><div class="rwjpx__restart-line"><span>REMEMBER</span><i>→</i><span>USE</span><i>→</i><span>NOTICE</span><i>→</i><span>TRY AGAIN</span></div></div></div></section>
 
   <section class="rwjpx__tempo" aria-label="RWJP Expressの2週間の考え方"><div class="site-shell rwjpx__tempo-grid"><div><span>COME</span><p>来る。</p></div><i>→</i><div><span>LEARN</span><p>学ぶ。</p></div><i>→</i><div><span>MOVE</span><p>街へ出る。</p></div><i>→</i><div><span>TRY</span><p>やってみる。</p></div><i>→</i><div><span>NEXT?</span><p>次を考える。</p></div></div></section>
 
-  <section class="rwjpx__solo" id="solo"><div class="site-shell rwjpx__split rwjpx__split--reverse"><div><p class="rwjpx__kicker">COME AS YOU ARE</p><h2>一人で来てもいい。</h2></div><div class="rwjpx__copy"><p>「一緒に行く人がいない」は、行かない理由にしなくていい。RWJP Expressは一人でも参加できます。</p><p>誰かが誘ってくれるのを待つより、自分が行きたいなら自分から。2週間なら、その挑戦も少し軽くできます。</p><p class="rwjpx__wink">かわいいだけじゃだめですか。——もちろん、かわいくてもいい。でも、行動できたらもっといい。</p></div></div></section>
+  <section class="rwjpx__solo" id="solo"><div class="site-shell rwjpx__solo-layout"><div class="rwjpx__split rwjpx__split--reverse"><div><p class="rwjpx__kicker">COME AS YOU ARE</p><h2>一人で来てもいい。</h2></div><div class="rwjpx__copy"><p>「一緒に行く人がいない」は、行かない理由にしなくていい。RWJP Expressは一人でも参加できます。</p><p>誰かが誘ってくれるのを待つより、自分が行きたいなら自分から。2週間なら、その挑戦も少し軽くできます。</p><p class="rwjpx__wink">かわいいだけじゃだめですか。——もちろん、かわいくてもいい。でも、行動できたらもっといい。</p></div></div><figure class="rwjpx__solo-photo"><img src={sample('rwjp-presentation.webp')} alt="一人でも学びに参加するイメージ" loading="lazy" decoding="async" /><figcaption>ひとりで来ても、学びはひとりだけでは終わらない。</figcaption></figure></div></section>
 
-  <section class="rwjpx__weekend" id="weekend"><div class="site-shell rwjpx__weekend-inner"><p class="rwjpx__kicker">ONE WEEKEND. MORE THAN ONE WAY.</p><h2>工夫すれば、2週間にも余白はある。</h2><p>期間中には週末がひとつあります。京都でゆっくりする。街を歩く。自分で計画して近郊への短い外出を考える。短いから何もできない、とは限りません。</p><p>時間は「ある・ない」だけではなく、どう使うか。授業の外にも、日本を体験する機会は見つけられます。</p><p class="rwjpx__weekend-small">外出・旅行を計画する場合は、正式なプログラム日程、自身の予定、交通事情などを確認してください。特定の旅行や行程を保証するものではありません。</p><div class="rwjpx__weekend-options" aria-hidden="true"><span>KYOTO</span><span>WALK</span><span>REST</span><span>EXPLORE</span><span>YOUR PLAN</span></div></div></section>
+  <section class="rwjpx__weekend" id="weekend"><div class="site-shell rwjpx__weekend-layout"><div class="rwjpx__weekend-inner"><p class="rwjpx__kicker">ONE WEEKEND. MORE THAN ONE WAY.</p><h2>工夫すれば、2週間にも余白はある。</h2><p>期間中には週末がひとつあります。京都でゆっくりする。街を歩く。自分で計画して近郊への短い外出を考える。短いから何もできない、とは限りません。</p><p>時間は「ある・ない」だけではなく、どう使うか。授業の外にも、日本を体験する機会は見つけられます。</p><p class="rwjpx__weekend-small">外出・旅行を計画する場合は、正式なプログラム日程、自身の予定、交通事情などを確認してください。特定の旅行や行程を保証するものではありません。</p><div class="rwjpx__weekend-options" aria-hidden="true"><span>KYOTO</span><span>WALK</span><span>REST</span><span>EXPLORE</span><span>YOUR PLAN</span></div></div><figure class="rwjpx__weekend-photo"><img src={sample('rwjp-kyoto-winter.webp')} alt="授業外に京都を歩くイメージ" loading="lazy" decoding="async" /><figcaption>ONE FREE DAY CAN FEEL BIG.</figcaption></figure></div></section>
+
+  <section class="rwjpx__supporters" id="supporters"><div class="site-shell"><div class="rwjpx__supporters-head"><p class="rwjpx__kicker">FOR PARENTS & SUPPORTERS</p><h2>「行きたい」だけでなく、<br />「行かせたい」にも答える。</h2><p>留学は時間と費用を使う選択です。だから、楽しそうだけでは足りません。何を学ぶのか。どんな環境で過ごすのか。どんなサポートがあるのか。参加前に確認できるページにします。</p></div><div class="rwjpx__supporters-grid"><article><span>STUDY</span><h3>勉強する時間がある。</h3><p>日本語学習が中心であることを、授業時間・内容・評価などの正式情報とともに見せます。</p></article><article><span>SUPPORT</span><h3>安心材料を、事実で示す。</h3><p>緊急時対応、保険、宿泊、連絡体制などは、確認済みの制度だけを分かりやすく掲載します。</p></article><article><span>GROWTH</span><h3>視野を広げる機会に。</h3><p>語学だけでなく、異なる環境で自分から行動し、人や文化に触れる経験をつくります。</p></article><article><span>NEXT</span><h3>次の学びや進路を考える。</h3><p>就職上の成果を保証するものではありません。ただ、海外経験や日本語学習を今後どう続けるかを考える材料にはできます。</p></article></div><p class="rwjpx__supporters-note">安全性やサポート内容は印象だけで表現せず、正式な制度・連絡体制・保険・宿泊条件が確認できた段階で具体化します。</p></div></section>
 
   <section class="rwjpx__next" id="next"><div class="site-shell rwjpx__next-inner"><p class="rwjpx__kicker">DON'T JUST WATCH.</p><h2>迷ったら、一歩。</h2><p>2週間で人生が変わる、と約束はできません。でも、知らなかった場所へ行き、違う言葉を使い、違う人や考え方に出会えば、次の選択が変わるきっかけにはなるかもしれません。</p><p>世界が急に大きくなるのではなく、自分が見える範囲を少し広げに行く。RWJP Expressは、そのための小さくて現実的な一歩です。</p><div class="rwjpx__next-path"><span>DON'T WAIT</span><i>→</i><span>SHOW UP</span><i>→</i><span>TRY SOMETHING</span><i>→</i><span>SEE WHAT CHANGES</span></div><p class="rwjpx__closing">やるか、やらないか。迷っているなら——まず、やってみる。</p></div></section>
 
-  <section class="rwjpx__facts" id="facts"><div class="site-shell"><p class="rwjpx__kicker">THE DETAILS</p><h2>軽く決める。でも、条件はちゃんと見る。</h2><p class="rwjpx__facts-intro">ここは募集要項の正確さを優先します。日程、費用、授業時間、文化体験、共修、年齢・在籍形態を含む応募資格、定員、宿泊、募集期間は、正式情報を確認したものから掲載します。</p><dl><div><dt>期間</dt><dd>2週間</dd></div><div><dt>中心となる学び</dt><dd>日本語学習</dd></div><div><dt>一人参加</dt><dd>可能</dd></div><div><dt>週末</dt><dd>期間中に1回</dd></div><div><dt>実施日程</dt><dd>確認中</dd></div><div><dt>参加費</dt><dd>確認中</dd></div><div><dt>授業・活動</dt><dd>確認中</dd></div><div><dt>応募資格</dt><dd>確認中</dd></div><div><dt>定員・募集状況</dt><dd>確認中</dd></div></dl></div></section>
+  <section class="rwjpx__facts" id="facts"><div class="site-shell"><p class="rwjpx__kicker">THE DETAILS</p><h2>軽く決める。でも、条件はちゃんと見る。</h2><p class="rwjpx__facts-intro">ここは募集要項の正確さを優先します。日程、費用、授業時間、文化体験、共修、応募資格、定員、宿泊、募集期間、サポート体制は、正式情報を確認したものから掲載します。</p><dl><div><dt>期間</dt><dd>2週間</dd></div><div><dt>中心となる学び</dt><dd>日本語学習</dd></div><div><dt>一人参加</dt><dd>可能</dd></div><div><dt>週末</dt><dd>期間中に1回</dd></div><div><dt>実施日程</dt><dd>確認中</dd></div><div><dt>参加費</dt><dd>確認中</dd></div><div><dt>授業・活動</dt><dd>確認中</dd></div><div><dt>応募資格</dt><dd>確認中</dd></div><div><dt>定員・募集状況</dt><dd>確認中</dd></div><div><dt>サポート</dt><dd>確認中</dd></div></dl></div></section>
 
-  <section class="rwjpx__apply"><div class="site-shell rwjpx__apply-grid"><div><p class="rwjpx__kicker">TWO WEEKS CAN FIT.</p><h2>「そのうち」を、今回に。</h2></div><div><p>長期留学の前に。初めての日本留学に。まず一人で挑戦してみたいときに。完璧に準備できる日を待たなくてもいい。</p><p class="rwjpx__status">募集開始後は、正式な定員・応募条件・締切をここに掲載します。参加を考えている人が判断しやすい応募導線にします。</p></div></div></section>
+  <section class="rwjpx__apply"><div class="site-shell rwjpx__apply-grid"><div><p class="rwjpx__kicker">TWO WEEKS CAN FIT.</p><h2>「そのうち」を、今回に。</h2></div><div><p>長期留学の前に。初めての日本留学に。まず一人で挑戦してみたいときに。完璧に準備できる日を待たなくてもいい。</p><p class="rwjpx__status">募集開始後は、正式な定員・応募条件・締切をここに掲載します。参加を考えている人と、支援する家族の双方が判断しやすい応募導線にします。</p></div></div></section>
 </article>
