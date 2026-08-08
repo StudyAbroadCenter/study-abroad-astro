@@ -1,8 +1,27 @@
+// Current student-facing programme registry for the static MVP.
+//
+// IMPORTANT: the values currently present in this registry remain prototype/unverified
+// content unless and until they are verified against the authoritative fact domain.
+// Do not treat rendering on the Japanese recruitment page as verification.
+//
+// Governance:
+// - This file is the current implementation registry for student-facing programme
+//   surfaces; it is not an institutional Source of Truth.
+// - Authority remains with the fact domains defined in docs/handbook/21_CROSS_SPEC_GOVERNANCE.md.
+// - Do not infer, promote, or relabel prototype values as confirmed facts.
+// - Do not add missing dates, fees, application status, eligibility, accommodation,
+//   or other offering-specific facts without authoritative verification.
+// - Legacy hard-coded page data and src/content/programs prototype records are not
+//   alternative authorities for resolving conflicts.
+//
+// Keep this registry intentionally small until current facts are verified.
+
 export type ProgrammeGoal = 'japanese-culture' | 'specialist' | 'partner';
 export type ProgrammeSeason = 'summer' | 'winter' | 'flexible';
 export type ProgrammeCampus = 'kinugasa' | 'oic' | 'programme-dependent';
 export type ProgrammeAudience = 'individual' | 'partner';
 
+/** Locale-authored presentation copy. These strings do not override structured facts. */
 export interface ProgrammeCopy {
   name: string;
   seasonLabel: string;
@@ -14,6 +33,11 @@ export interface ProgrammeCopy {
   experienceLine?: string;
 }
 
+/**
+ * Programme-level data used by the current student-facing MVP.
+ * Existing values remain prototype/unverified until explicitly verified.
+ * Offering-level fields should be added only when their current values are verified.
+ */
 export interface Programme {
   id: string;
   code: string;
