@@ -2,6 +2,7 @@
 import StudentRecruitmentLayout from '../../../components/StudentRecruitmentLayout.astro';
 import ProgrammePageShell from '../../../components/ProgrammePageShell.astro';
 import RwjpFlagshipPage from '../../../components/RwjpFlagshipPage.astro';
+import RwjpExpressFlagshipPage from '../../../components/RwjpExpressFlagshipPage.astro';
 import { programmePageDrafts, type ProgrammePageDraft } from '../../../data/programme-page-drafts';
 import '../../../styles/rwjp-cinematic-hero.css';
 
@@ -21,5 +22,5 @@ const title = `${programme.title} | 立命館大学 短期受入プログラム`
 const description = `${programme.title}のプログラムページを制作中です。確認済みの情報から順に掲載します。`;
 ---
 <StudentRecruitmentLayout title={title} description={description} robots="noindex,nofollow">
-  {programme.id === 'rwjp' ? <RwjpFlagshipPage programme={programme} /> : <ProgrammePageShell programme={programme} />}
+  {programme.id === 'rwjp' ? <RwjpFlagshipPage programme={programme} /> : programme.id === 'rwjp-express' ? <RwjpExpressFlagshipPage programme={programme} /> : <ProgrammePageShell programme={programme} />}
 </StudentRecruitmentLayout>
