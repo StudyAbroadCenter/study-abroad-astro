@@ -2,28 +2,60 @@
 
 # RSJP Experience System — Before You Apply Specification
 
-**Version:** 2.0  
+**Version:** 2.1  
 **Status:** Formal handbook specification
 
 ## Cross-Spec Governance
 
 This specification governs the **Application Domain** for current application rules and process.
 
-Shared programme facts such as dates and programme fee must remain aligned with the Programme Offering Domain. Academic, accommodation, and safety facts defer to their respective authoritative domains.
+It is authoritative, when supported by the current approved application source, for:
 
-Apply `21_CROSS_SPEC_GOVERNANCE.md`. A detected factual conflict is a publication blocker.
+- applicant types,
+- application eligibility rules,
+- required application documents,
+- application opening date,
+- application closing date/deadline,
+- application period,
+- application workflow,
+- selection model,
+- payment timing/process,
+- cancellation/refund rules,
+- application-system behaviour.
+
+Shared programme facts such as programme dates and programme fee remain owned by the Programme Offering Domain. Academic, accommodation, safety, and pre-arrival facts defer to their respective authoritative domains.
+
+Apply `21_CROSS_SPEC_GOVERNANCE.md`.
+
+A detected factual conflict is a publication blocker.
 
 ### Canonical Fact Certainty
 
-Use `Confirmed`, `Provisional`, `Unknown`, and `Not Applicable`. Use `Subject to change` only for a real provisional plan.
+Use:
+
+- `Confirmed`
+- `Provisional`
+- `Unknown`
+- `Not Applicable`
+
+Use `Subject to change` only for a real provisional plan, not for an unknown fact.
 
 ## 1. Purpose
 
-The Before You Apply experience should help a prospective student understand exactly what must be known and prepared before submitting an application.
+The Before You Apply experience should help prospective students understand exactly what they must know and prepare before submitting an application.
 
 Its purpose is not to push users into applying quickly.
 
-Students should be able to confirm suitability, eligibility, timing, required documents, cost/payment, cancellation/refund, accommodation conditions, academic/language requirements, and what happens after submission.
+Students should be able to confirm:
+
+1. whether they can apply,
+2. when they can apply,
+3. what they must prepare,
+4. what the programme costs,
+5. what payment/cancellation conditions apply,
+6. what accommodation conditions matter,
+7. what academic/language preparation is required,
+8. what happens after submission.
 
 **No surprises after application.**
 
@@ -32,7 +64,9 @@ Students should be able to confirm suitability, eligibility, timing, required do
 Never invent or infer:
 
 - eligibility,
+- applicant type,
 - required documents,
+- application opening/closing dates,
 - deadlines,
 - final fees,
 - accommodation guarantees,
@@ -87,15 +121,19 @@ Possible verified dimensions may include:
 
 Only publish formally approved requirements.
 
-## 6. Required / Recommended / Preferred
+## 6. Required / Recommended / Optional
 
-Distinguish:
+Use the canonical vocabulary consistently:
 
 - **Required** — must be satisfied.
-- **Recommended** — helpful but not mandatory.
-- **Preferred** — used only where the programme formally recognises such a category.
+- **Recommended** — strongly advised/helpful but not mandatory.
+- **Optional** — may be chosen and is not required.
 
-Do not visually make recommendations appear compulsory.
+`Preferred` is **not** a canonical eligibility state.
+
+If the programme formally gives preference to a factor during selection, describe that fact under **Selection Criteria**. Do not encode it as an eligibility category.
+
+Do not visually make recommended or optional items appear compulsory.
 
 ## 7. Applicant Types
 
@@ -110,25 +148,35 @@ Do not imply every programme accepts every applicant type.
 
 ## 8. Partner Nomination
 
-If nomination is required, explain whether application starts through the home university, whether direct application is unavailable, whether nomination precedes the student form, and whether deadlines differ.
+If nomination is required, explain:
+
+- whether the student applies through the home university,
+- whether direct application is unavailable,
+- whether nomination precedes the student form,
+- whether nomination has its own deadline.
 
 Do not imply nomination guarantees acceptance unless it does.
 
 ## 9. Independent Applicants
 
-If independent application is accepted, state it clearly. If not, do not expose a misleading direct application path.
+If independent application is accepted, state it clearly.
 
-Disclose material differences in accommodation/support before application.
+If not, do not expose a misleading direct application path.
+
+Disclose material differences in accommodation or support before application.
 
 ## 10. Enrolment / Age / Academic Standing
 
 Use the exact approved rule.
 
-Do not replace a specific university-enrolment requirement with vague `college student` wording.
+Do not:
 
-Do not infer age limits from typical participants. If minors are accepted, accommodation, consent, and safety rules must be formally defined.
+- replace a specific university-enrolment requirement with vague wording,
+- infer age limits from typical participants,
+- invent GPA equivalencies,
+- invent an interpretation of `good academic standing`.
 
-Do not invent GPA equivalencies or vague academic-standing interpretations.
+If minors are accepted, accommodation, consent, and safety arrangements must be formally defined.
 
 ## 11. Language Requirements
 
@@ -136,37 +184,64 @@ State real Japanese/English requirements.
 
 Do not invent JLPT, CEFR, ACTFL, TOEFL, IELTS, or other equivalencies unless formally supported.
 
-Examples may include no prior Japanese required, hiragana/katakana required, prior study required, or placement required—but only if true for the programme.
+Possible requirements may include no prior Japanese, hiragana/katakana preparation, prior study, or placement—but only when true for the current programme.
 
 ## 12. Physical / Participation Requirements
 
 Where meaningful walking, field activity, workshops, or other participation requirements affect suitability, communicate them before application.
 
-Do not make medical judgements. Provide a confidential route for individual needs.
+Do not make medical judgements.
+
+Provide a confidential route for individual needs where appropriate.
 
 ## 13. Application Period
 
-Where confirmed, show opening date, closing date, year, and time zone when exact deadline time matters.
+The **Application Domain owns the entire application period**, including opening and closing dates.
+
+Where confirmed, show:
+
+- opening date,
+- closing date/deadline,
+- year,
+- time zone when exact deadline time matters.
+
+Programme pages, comparison views, FAQ, and shared programme data may display these values, but they must derive them from the Application Domain source.
 
 Do not use ambiguous dates.
 
-Do not expose active `Apply Now` before the application is actually open unless the destination is clearly an approved interest/pre-application mechanism.
+Do not expose an active `Apply Now` CTA before the application is actually open unless the destination is clearly an approved interest/pre-application mechanism.
 
 ## 14. Deadline / Rolling Applications / Capacity
 
-Do not imply late application is accepted, use `rolling admission`, claim first-come/first-served, or show remaining-seat urgency unless the operational model genuinely supports those claims.
+Do not:
 
-Do not invent capacity or `Only a few places left` messaging.
+- imply late applications are accepted unless formally allowed,
+- use `rolling admission` unless review is genuinely rolling,
+- claim first-come/first-served without a real rule,
+- show remaining-seat urgency without verified current data,
+- invent capacity.
 
 ## 15. Required Documents
 
-List only documents actually required, such as application form, passport copy, enrolment certificate, transcript, photo, essay, language information, recommendation, or insurance evidence.
+List only documents actually required.
 
-Where relevant explain format, language, file type, size limit, issue-date validity, and official/unofficial status—but only from actual requirements/system constraints.
+Possible items may include:
+
+- application form,
+- passport copy,
+- enrolment certificate,
+- transcript,
+- photo,
+- essay/statement,
+- language information,
+- recommendation,
+- insurance evidence.
+
+Where relevant explain format, language, file type, size limit, issue-date validity, and official/unofficial status—but only from actual requirements or system constraints.
 
 ## 16. Passport and Name
 
-Explain passport-copy/validity/update rules only where verified.
+Explain passport-copy, validity, or update rules only when verified.
 
 Immigration/travel validity requirements must use authoritative current guidance.
 
@@ -174,57 +249,90 @@ Where relevant ask applicants to use the name format required by the application
 
 ## 17. Photo / Transcript / Enrolment Certificate
 
-State only real requirements for photo format/recency, transcript official/unofficial status/language, and acceptable enrolment evidence.
+State only real requirements.
 
-Do not import immigration-photo rules or sealed-original requirements unless they actually apply.
+Do not import immigration-photo rules, sealed-original requirements, or document-validity periods unless they actually apply.
 
 ## 18. Essay / Statement and AI Use
 
-If an essay is required, explain the real topic/purpose, language, and length/limit.
+If an essay/statement is required, explain the real topic/purpose, language, and length/limit.
 
-If generative AI is restricted or permitted, publish the approved rule only. Do not create a blanket AI rule by assumption.
+If generative AI use is permitted, restricted, or prohibited, publish the approved rule only.
+
+Do not invent a blanket AI policy.
 
 ## 19. Recommendation Letters
 
-Require them only when formally part of the application. Explain eligible referee, method, and deadline where defined.
+Require recommendation letters only when formally part of the application.
 
-Do not imply prestigious referees improve acceptance unless actual selection rules say so.
+Explain eligible referee, method, and deadline where defined.
+
+Do not imply prestigious referees improve acceptance unless the real selection rules say so.
 
 ## 20. Application Form / Data Minimisation
 
-Collect only information required for eligibility, review, administration, support planning, or legally required processing.
+Collect only information required for:
 
-Do not collect information merely because it might be interesting later.
+- eligibility,
+- review,
+- administration,
+- support planning,
+- legally required processing.
 
-Sensitive information should be collected only when operationally necessary, through an appropriate confidential process.
+Do not collect information merely because it may be interesting later.
+
+Sensitive information should be collected only when operationally necessary through an appropriate confidential process.
 
 ## 21. Privacy
 
-Use the approved privacy notice/process where required. Do not invent privacy language.
+Use the approved privacy notice/process where required.
+
+Do not invent privacy language.
 
 ## 22. Application Review Model
 
-Where useful, explain the real model: eligibility check, nomination-based review, academic review, selection process, or another approved model.
+Where useful, explain the real model, for example:
+
+- eligibility check,
+- nomination-based review,
+- academic review,
+- selection process.
 
 Do not use `competitive selection` unless it genuinely exists.
 
 ## 23. Selection Criteria
 
-Publish only criteria actually used. Do not invent weights or scoring.
+Publish only criteria actually used.
 
-Possible real criteria may include eligibility, academic preparation, statement quality, language readiness, programme fit, or nomination.
+Do not invent weights or scoring.
+
+If the programme formally prefers a particular characteristic during selection, this is where it belongs—not under eligibility status.
+
+Possible real criteria may include:
+
+- eligibility,
+- academic preparation,
+- statement quality,
+- language readiness,
+- programme fit,
+- nomination.
 
 ## 24. First-Come / Complete Application
 
 Use `first-come, first-served` only if completed-application order genuinely determines acceptance.
 
-Where relevant define what makes an application complete: form, documents, nomination, or payment if applicable.
+Where relevant define what makes an application complete, such as:
+
+- submitted form,
+- all required documents,
+- nomination,
+- payment if payment is genuinely part of completion.
 
 A submitted form alone is not necessarily a complete application.
 
 ## 25. Missing Documents
 
-Explain the real incomplete-application process if one exists: contact, correction deadline, no review, rejection, etc.
+Explain the real incomplete-application process if one exists.
 
 Do not promise repeated reminders unless they are operationally provided.
 
@@ -232,11 +340,13 @@ Do not promise repeated reminders unless they are operationally provided.
 
 State automatic/manual receipt confirmation only if reliable.
 
-Do not promise `within two weeks` or another result timeframe unless operationally confirmed.
+Do not promise a result timeframe such as `within two weeks` unless operationally confirmed.
 
 ## 27. Decision States
 
-Distinguish clearly:
+Use only states that actually exist.
+
+Possible states include:
 
 - Application received
 - Eligibility confirmed
@@ -246,143 +356,191 @@ Distinguish clearly:
 - Rejected
 - Cancelled
 
-Use only states that actually exist.
+Conditional acceptance must state remaining conditions.
 
-Conditional acceptance must state remaining conditions. Do not mention a waitlist unless one exists or promise waitlist movement.
+Do not mention a waitlist unless one exists or promise waitlist movement.
 
-## 28. Rejection
+## 28. Fees
 
-Use respectful, accurate language. Do not invent reasons or imply detailed reasons will be provided if they will not.
+### Application fee
 
-## 29. Application Fee / Programme Fee
+If one exists, state:
 
-If an application fee exists, state amount, currency, timing, and refundability.
+- amount,
+- currency,
+- timing,
+- refundability.
 
-Programme fee must be authoritative and easy to find, including currency, major inclusions/exclusions, and payment deadline where known.
+### Programme fee
+
+The authoritative programme fee belongs to the Programme Offering Domain and must remain consistent here.
+
+Show currency, major inclusions/exclusions, and payment deadline where known.
 
 Do not make students reconstruct essential cost across pages.
 
-## 30. Accommodation Cost
+### Accommodation cost
 
-If accommodation cost is separate, distinguish it clearly from programme fee. Follow `15_ACCOMMODATION_SPEC.md`.
+If separate, distinguish it clearly and follow `15_ACCOMMODATION_SPEC.md`.
 
-Do not visually advertise a lower programme fee while hiding a required accommodation cost.
+Do not visually advertise a lower programme fee while hiding required accommodation cost.
 
-## 31. Deposit
+## 29. Deposit
 
-If a deposit exists, state amount, purpose, due date, refundability, and whether it is applied to programme fee.
+If a deposit exists, state:
+
+- amount,
+- purpose,
+- due date,
+- refundability,
+- whether it is applied to the programme fee.
 
 Do not invent a deposit or call another fee a deposit.
 
-## 32. Payment Method / Currency / Fees
+## 30. Payment Method / Currency / Fees
 
 List only real payment methods and systems.
 
 Do not promise card acceptance without actual support.
 
-State authoritative payment currency. Foreign-currency displays are derived and may depend on the payment provider.
+State authoritative payment currency.
 
-Only distinguish sending/intermediary/receiving/service fees when the actual payment model requires it.
+Foreign-currency displays are derived/non-authoritative unless explicitly governed otherwise.
 
-## 33. Payment Deadline / Failure to Pay
+Only describe transaction fee categories when the actual payment model requires it.
 
-State the real deadline. Do not imply payment is due before acceptance unless it actually is.
+## 31. Payment Deadline / Failure to Pay
+
+State the real deadline.
+
+Do not imply payment is due before acceptance unless it actually is.
 
 If non-payment results in cancellation/loss of place, state only the formally approved rule.
 
-## 34. Applicant Cancellation and Refunds
+## 32. Applicant Cancellation and Refunds
 
 Where practical, make cancellation rules available before payment.
 
-Explain how to cancel, relevant deadlines, refund basis, non-refundable amounts, accommodation effects, and payment-related deductions where confirmed.
+Explain:
+
+- how to cancel,
+- relevant deadlines,
+- refund basis,
+- non-refundable amounts,
+- accommodation effects,
+- payment-related deductions where confirmed.
 
 Do not paraphrase refund policy loosely or infer it from previous years.
 
-## 35. Programme Cancellation / Minimum Enrolment
+## 33. Programme Cancellation / Minimum Enrolment
 
-If minimum enrolment or another programme-cancellation condition exists, state the approved condition, notification model, and refund treatment where applicable.
+If minimum enrolment or another cancellation condition exists, state only the approved condition, notification model, and refund treatment.
 
 Do not promise programme operation before the formal confirmation point.
 
-## 36. Programme Changes
+## 34. Programme Changes
 
-Explain material flexibility honestly. Do not use blanket `subject to change` wording to excuse a materially different programme from what was advertised.
+Explain material flexibility honestly.
 
-## 37. Visa / Immigration
+Do not use blanket `subject to change` wording to excuse a materially different programme from what was advertised.
+
+## 35. Visa / Immigration
 
 Visa information is high-risk and time-sensitive.
 
 Do not give legal/immigration advice from memory.
 
-Use current authoritative government guidance, distinguish nationality/status differences, and avoid guarantees.
+Use current authoritative government guidance, distinguish nationality/status differences where needed, and avoid guarantees.
 
-Do not say `You do not need a visa` unless verified for the actual context.
+Do not say `You do not need a visa` unless verified for the actual applicant context.
 
-## 38. Programme Visa Support
+## 36. Programme Visa Support
 
 If the programme provides acceptance letters, confirmations, or other support documents, state exactly what it provides.
 
-Do not say the programme `arranges the visa` unless literally true. Never guarantee approval.
+Do not say the programme `arranges the visa` unless literally true.
 
-Students remain responsible for applicable entry/immigration requirements unless a formal process assigns a specific institutional responsibility.
+Never guarantee approval.
 
-## 39. Insurance
+## 37. Insurance
 
-If insurance is mandatory, explain when proof is required and who arranges it. Follow `16_SAFETY_SUPPORT_SPEC.md`.
+If insurance is mandatory, explain when proof is required and who arranges it.
 
-Do not require proof earlier than the actual process or imply coverage beyond the policy.
+Follow `16_SAFETY_SUPPORT_SPEC.md`.
 
-## 40. Accommodation Before Application
+Do not imply coverage beyond the policy.
 
-Disclose material accommodation conditions early, including provided/self-arranged status, group-specific conditions, room sharing, or any real fee consequence of self-arrangement.
+## 38. Accommodation Before Application
 
-Do not wait until after acceptance to disclose a major sharing or accommodation requirement.
+Disclose material accommodation conditions early, including:
 
-## 41. Individual Accommodation / Participation Needs
+- provided/self-arranged status,
+- group-specific conditions,
+- room sharing,
+- real fee consequences of self-arrangement.
 
-Provide an appropriate confidential route. Do not guarantee an arrangement before feasibility is confirmed.
+Do not wait until after acceptance to disclose a major accommodation requirement.
 
-## 42. Academic Commitment
+## 39. Academic Commitment
 
 Before application, students should understand relevant attendance, participation, class load, assessment, and homework expectations.
 
 Link to `13_SYLLABUS_SPEC.md`-compliant academic information.
 
-## 43. Programme Activity Status
+## 40. Programme Activity Status
 
-Make clear which activities are mandatory, academic, optional, or social. Do not market an optional activity as a guaranteed required programme component.
+Make clear which activities are:
 
-## 44. Conduct and Student Responsibilities
+- required,
+- academic,
+- optional,
+- social.
 
-Material conduct conditions should be accessible before application/acceptance where practical.
+Do not market an optional activity as a guaranteed required programme component.
 
-Students may be responsible for accurate information, deadlines, travel documents, fees, programme communication, academic/accommodation rules, and required insurance.
+## 41. Student Responsibilities
+
+Material responsibilities may include:
+
+- providing accurate information,
+- meeting deadlines,
+- arranging travel documents,
+- paying fees,
+- reading programme communication,
+- following academic/accommodation rules,
+- maintaining required insurance.
 
 Use clear, non-punitive language.
 
-## 45. Changes After Application
+## 42. Changes After Application
 
-Tell applicants how to report changes to passport, contact details, enrolment status, travel status, or relevant support needs only where programme operations need those updates.
+Explain how applicants should report changes that matter operationally, such as passport, contact details, enrolment status, travel status, or relevant support needs.
 
-## 46. Withdrawal / Deferral / Transfer
+Do not collect updates the programme does not need.
+
+## 43. Withdrawal / Deferral / Transfer
 
 Explain actual rules before and after acceptance.
 
-Do not imply deferral, transfer to another programme, or duplicate-application handling exists unless a formal process supports it.
+Do not imply deferral or transfer exists unless a formal process supports it.
 
-## 47. Contact Before Applying
+## 44. Contact Before Applying
 
-Provide one clear route for unresolved pre-application questions. Avoid exposing a list of internal university departments.
+Provide one clear route for unresolved pre-application questions.
 
-## 48. FAQ
+Avoid exposing a list of internal departments.
+
+## 45. FAQ
 
 Useful questions may include eligibility, direct application, Japanese preparation, documents, deadline, accommodation, payment, cancellation/refund, visa, passport renewal, and what happens after submission.
 
 Answer only with verified programme-specific information and follow `20_FAQ_SPEC.md`.
 
-## 49. CTA Strategy and Status
+## 46. CTA Strategy and Status
 
-CTA text must match real status and destination:
+CTA text must match real status and destination.
+
+Possible actions:
 
 - `Check Eligibility`
 - `Prepare Your Documents`
@@ -392,23 +550,31 @@ CTA text must match real status and destination:
 
 Do not use `Apply Now` when the application is not open or when the button leads only to information.
 
-Underlying status uses `Coming Soon`, `Open`, `Closed`, `Full`, `Cancelled`.
+Underlying status uses:
 
-## 50. Mobile UX / Checklists / Forms
+- `Coming Soon`
+- `Open`
+- `Closed`
+- `Full`
+- `Cancelled`
 
-At 390px make eligibility, deadline, documents, fee, application status, and primary CTA easy to find. At 320px remain readable/actionable.
+## 47. Mobile UX / Checklists / Forms
+
+At 390px make eligibility, deadline, documents, fee, application status, and primary CTA easy to find.
+
+At 320px remain readable/actionable.
 
 Checklists may help with eligibility/documents/payment/submission readiness but must not oversimplify nuanced conditions.
 
 If the site owns forms, use accessible labels, keyboard support, visible validation, and actionable errors.
 
-## 51. External Application Systems
+## 48. External Application Systems
 
-If application is hosted externally, explain verified preparation, account requirements, save/return behaviour, and whether the user leaves the site where useful.
+If application is hosted externally, explain only verified behaviour, including preparation, account requirements, save/return behaviour, and whether the user leaves the site where useful.
 
 Do not invent external-system behaviour or availability.
 
-## 52. After Submission
+## 49. After Submission
 
 Where known, explain the actual sequence, for example:
 
@@ -421,25 +587,58 @@ Where known, explain the actual sequence, for example:
 
 Use stages rather than invented dates when exact timing is unknown.
 
-## 53. Multilingual Consistency
+## 50. Multilingual Consistency
 
-Language versions may vary in explanation but must not differ in eligibility, deadlines, fee, documents, refunds, accommodation conditions, selection, or payment.
+Language versions may vary in explanation but must not differ in:
 
-## 54. Source of Truth and Verification
+- eligibility,
+- application period/deadline,
+- fee,
+- documents,
+- refunds,
+- accommodation conditions,
+- selection,
+- payment.
 
-Application information should trace to approved current application guidelines/policies, programme decisions, payment policy, accommodation arrangement, and live approved application-system configuration as appropriate.
+## 51. Source of Truth and Verification
+
+Application information should trace to the current approved Application Domain source, such as:
+
+- approved application guideline/policy,
+- approved application decision,
+- current application-system configuration.
+
+Shared structured data may store application dates for reuse, but it remains a representation of the Application Domain fact—not a second authority.
 
 Do not treat old website copy as authority when newer approved information exists.
 
-Where practical track owner, source, last verified date, offering, publication state, and application-system status.
+Where practical track:
 
-## 55. Previous-Year Reuse
+- owner,
+- source,
+- last verified date,
+- offering,
+- publication state,
+- application-system status.
 
-Re-verify application dates, fee, refund, documents, eligibility, accommodation, payment, application system, selection, and result timing.
+## 52. Previous-Year Reuse
+
+Re-verify:
+
+- application opening/closing dates,
+- fee references,
+- refund rules,
+- documents,
+- eligibility,
+- accommodation conditions,
+- payment,
+- application system,
+- selection,
+- result timing.
 
 Previous-year application guidance is reference only.
 
-## 56. Publication Lifecycle
+## 53. Publication Lifecycle
 
 Use:
 
@@ -458,40 +657,72 @@ Possible blocking review flags:
 
 Do not publish application guidance until the current application path and decision-critical facts are verified.
 
-## 57. Change Control
+## 54. Change Control
 
-Material changes include deadline, eligibility, fee, refund, accommodation conditions, document requirements, payment method, application-system URL/process, and selection model.
+Material changes include:
 
-Review Programme Page, Comparison, FAQ, payment information, and pre-arrival guidance where affected.
+- application opening/closing dates,
+- eligibility,
+- fee reference,
+- refund,
+- accommodation conditions,
+- document requirements,
+- payment method,
+- application-system URL/process,
+- selection model.
 
-## 58. Quality Review Checklist
+Review dependent views according to `21_CROSS_SPEC_GOVERNANCE.md`.
+
+## 55. Quality Review Checklist
 
 ### Truth
-- eligibility, dates, documents, fees, refunds, accommodation, and current-year applicability are verified.
+- Are eligibility, application period, documents, fee references, refunds, accommodation conditions, and current-year applicability verified?
+- Is `Preferred` absent as an eligibility status?
 
 ### Applicant Decision
-- students can tell whether they can apply, deadline, cost, accommodation, academic commitment, and what happens next.
+- Can students tell whether they can apply, when to apply, what it costs, accommodation implications, academic commitment, and what happens next?
 
 ### Application Process
-- CTA/current system work; applicant/nomination logic and completion state are accurate.
+- Does the CTA lead to the correct current system?
+- Is the application system actually open?
+- Are applicant/nomination logic and completion state accurate?
 
 ### Payment
-- timing, currency, deposits, transaction-fee wording, cancellation/refund implications are exact.
+- Are timing, currency, deposits, transaction-fee wording, cancellation/refund implications exact?
 
 ### Immigration / Safety
-- visa information uses authoritative current sources; visa outcome is not guaranteed; insurance/support needs are correctly handled.
+- Does visa information use authoritative current sources?
+- Is visa outcome not guaranteed?
+- Are insurance/support needs correctly handled?
 
 ### UX / Accessibility
-- required vs recommended is clear; mobile works; forms/errors are usable and accessible.
+- Are Required / Recommended / Optional used consistently?
+- Does mobile work?
+- Are forms/errors usable and accessible?
 
 ### Governance
-- owner/source/verification/current offering/publication status are known where required.
+- Is the Application Domain the single owner of opening/closing dates?
+- Are owner/source/verification/current offering/publication status known where required?
 
-## 59. Definition of Done
+## 56. Definition of Done
 
-Before You Apply is complete when eligibility, timing, documents, fee/payment, refund/cancellation, accommodation conditions, academic requirements, immigration boundaries, current CTA/system state, applicant types, post-submission steps, mobile UX, accessibility, and current-offering verification are clear and consistent.
+Before You Apply is complete when:
 
-## 60. Final Standard
+- eligibility is clear,
+- the Application Domain owns one authoritative opening/closing period,
+- required documents are clear,
+- fee/payment expectations are clear,
+- cancellation/refund rules are accurate,
+- accommodation conditions are visible,
+- academic requirements are understandable,
+- visa information does not overreach,
+- CTA matches actual application status,
+- applicant types are handled correctly,
+- next steps are clear,
+- canonical terminology is used,
+- no unverified information is presented as fact.
+
+## 57. Final Standard
 
 A student should be able to say:
 
