@@ -3,6 +3,7 @@ import StudentRecruitmentLayout from '../../../components/StudentRecruitmentLayo
 import ProgrammePageShell from '../../../components/ProgrammePageShell.astro';
 import RwjpFlagshipPage from '../../../components/RwjpFlagshipPage.astro';
 import { programmePageDrafts, type ProgrammePageDraft } from '../../../data/programme-page-drafts';
+import '../../../styles/rwjp-cinematic-hero.css';
 
 export function getStaticPaths() {
   return programmePageDrafts.map((programme) => ({
