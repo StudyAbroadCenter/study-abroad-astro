@@ -2,16 +2,16 @@
 
 # RSJP Experience System — Technical Direction
 
-## Current Preferred Stack
+## Current Implemented Stack
 
 - Astro
 - TypeScript
 - GitHub
-- Vercel
+- GitHub Pages
 
-The repository's actual configuration is the source of truth.
+The repository's actual configuration is the source of truth for the current implementation and deployment state.
 
-Do not invent packages, commands, adapters, or integrations that are not present.
+Do not invent packages, commands, adapters, hosting targets, or integrations that are not present.
 
 ## Engineering Goal
 
@@ -152,9 +152,18 @@ Do not invent commands.
 
 Where automated coverage is limited, verify critical paths manually and document risk.
 
-## CI/CD
+## CI/CD and Deployment
 
-Use existing GitHub/Vercel workflow as the source of truth.
+Use the repository's existing GitHub Pages pipeline as the current deployment source of truth.
+
+Current deployment authority:
+
+- `.github/workflows/deploy-pages.yml`
+- `README-GITHUB-PAGES.md` for operator-facing setup/context
+
+The current workflow builds the Astro site and deploys the `dist` artifact to GitHub Pages after changes are merged into `main`.
+
+Do not introduce, document, or assume a Vercel deployment path unless a later approved decision explicitly migrates deployment and the repository configuration is changed accordingly.
 
 Do not introduce complex pipelines without operational need.
 
