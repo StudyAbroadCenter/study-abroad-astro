@@ -1,6 +1,7 @@
 ---
 import type { ProgrammePageDraft } from '../data/programme-page-drafts';
 import '../styles/rwjp-flagship.css';
+import '../styles/rwjp-day-story.css';
 
 interface Props { programme: ProgrammePageDraft; }
 const { programme } = Astro.props;
@@ -24,9 +25,77 @@ const asset = (name: string) => `${base}images/programs/rwjp/${name}`;
     </div>
   </header>
 
-  <nav class="rwjp-flagship__nav" aria-label="RWJPページ内ナビゲーション"><div class="site-shell rwjp-flagship__nav-inner"><a href="#five-weeks">5週間</a><a href="#morning">学ぶ</a><a href="#kyoto">暮らす</a><a href="#discover">発見する</a><a href="#people">出会う</a><a href="#future">その先</a><a href="#facts">基本情報</a></div></nav>
+  <nav class="rwjp-flagship__nav" aria-label="RWJPページ内ナビゲーション"><div class="site-shell rwjp-flagship__nav-inner"><a href="#five-weeks">5週間</a><a href="#day">ある一日</a><a href="#morning">学ぶ</a><a href="#kyoto">暮らす</a><a href="#discover">発見する</a><a href="#people">出会う</a><a href="#future">その先</a><a href="#facts">基本情報</a></div></nav>
 
   <section class="rwjp-flagship__opening" id="five-weeks"><div class="site-shell rwjp-flagship__opening-grid"><div><p class="rwjp-flagship__kicker">FIVE WEEKS, YOUR STORY</p><h2>旅行者から、<br />少しずつ京都の住民へ。</h2></div><div class="rwjp-flagship__prose"><p>短い観光では見えにくい京都があります。5週間、大学へ通い、同じ道を歩き、自分の生活圏をつくる。RWJPでは、京都を「訪れる場所」だけではなく、学びながら暮らす場所として経験します。</p><p>主役は参加するあなたです。用意されたものを見るだけではなく、自分で動き、自分の京都を見つける。そのための時間が5週間あります。</p></div></div></section>
+
+  <section class="rwjp-day" id="day" aria-labelledby="rwjp-day-title">
+    <div class="site-shell rwjp-day__intro">
+      <p class="rwjp-flagship__kicker">ONE DAY. MANY SMALL ADVENTURES.</p>
+      <h2 id="rwjp-day-title">京都で暮らす一日は、授業だけでは終わらない。</h2>
+      <p>朝、大学へ向かうところから一日が始まります。日本語を学び、友達と食べ、立命館の学生と交流し、自分で京都へ出て、夜はまた明日に備える。そうした毎日の積み重ねが「旅行」から「生活」へ変わっていきます。</p>
+      <p class="rwjp-day__note">以下は、RWJPで確認している学習・交流・文化体験・自由時間の要素をもとにした<strong>一日のイメージ</strong>です。実際の時間割、昼食、文化体験、バディ活動の内容や順序は日によって異なります。</p>
+    </div>
+
+    <div class="site-shell rwjp-day__layout" data-rwjp-day>
+      <aside class="rwjp-day__rail" aria-hidden="true">
+        <span class="rwjp-day__rail-label">TODAY</span>
+        <div class="rwjp-day__track"><span class="rwjp-day__progress" data-day-progress></span><span class="rwjp-day__traveller" data-day-traveller>●</span></div>
+        <span class="rwjp-day__rail-label">TOMORROW</span>
+      </aside>
+
+      <div class="rwjp-day__scenes">
+        <article class="rwjp-day__scene" data-day-scene>
+          <p class="rwjp-day__time">MORNING · COMMUTE</p>
+          <h3>宿題を持って、大学へ。</h3>
+          <p>昨日覚えた言葉を思い出しながら通学する。バスや街の表示を読むことも、日本語に触れる時間です。教室では「昨日、何をした？」という会話から、新しい一日が始まるかもしれません。</p>
+          <span class="rwjp-day__aside">THE COMMUTE COUNTS, TOO.</span>
+        </article>
+
+        <article class="rwjp-day__scene" data-day-scene>
+          <p class="rwjp-day__time">MORNING · JAPANESE</p>
+          <h3>今日も、日本語に集中する。</h3>
+          <p>日本語は習熟度に応じたクラスで学びます。授業、プレゼンテーション、クイズや試験。分からなかったことは、その日のうちに一つずつ確かめる。5週間の中心にあるのは、しっかり学ぶ時間です。</p>
+          <span class="rwjp-day__aside">LEARN → USE → CHECK → TRY AGAIN.</span>
+        </article>
+
+        <article class="rwjp-day__scene rwjp-day__scene--lunch" data-day-scene>
+          <p class="rwjp-day__time">LUNCH · RESET</p>
+          <h3>待ってました。ランチタイム。</h3>
+          <p>新しく友達になったクラスメイトと学食へ。昨日はラーメン。今日は何にしよう。メニューを選び、注文し、一緒に食べる。そんな何気ない時間にも、日本で暮らしている実感があります。</p>
+          <span class="rwjp-day__aside">TODAY'S SIDE QUEST: WHAT'S FOR LUNCH?</span>
+        </article>
+
+        <article class="rwjp-day__scene" data-day-scene>
+          <p class="rwjp-day__time">AFTERNOON · BUDDY</p>
+          <h3>分からないところ、ちょっと教えて。</h3>
+          <p>バディとの交流は、授業で習った日本語を実際に使うきっかけになります。図書館で参考書を探したり、授業で気になった表現を聞いたり。教室とは違う会話だからこそ、試してみたい言葉が増えていきます。</p>
+          <span class="rwjp-day__aside">ASK. LISTEN. TRY IT YOURSELF.</span>
+        </article>
+
+        <article class="rwjp-day__scene rwjp-day__scene--culture" data-day-scene>
+          <p class="rwjp-day__time">AFTERNOON · CULTURE</p>
+          <h3>今日は、立命館の学生と文化体験。</h3>
+          <p>文化体験や学生との共修がある日もあります。たとえば、実際に手を動かし、学生と話しながら日本文化に触れる。見るだけでは分からないことが、体験すると急に自分のものになります。</p>
+          <span class="rwjp-day__aside">DON'T JUST WATCH. JOIN IN.</span>
+        </article>
+
+        <article class="rwjp-day__scene" data-day-scene>
+          <p class="rwjp-day__time">LATE AFTERNOON · KYOTO</p>
+          <h3>少しだけ、昨日と違う道へ。</h3>
+          <p>授業や活動が終われば、自分の時間。昨日行かなかったエリアを歩いてみる。バディや友達と一緒でも、一人でもいい。大通りから一本入った路地で、自分だけの京都を見つけるかもしれません。</p>
+          <span class="rwjp-day__aside">GET OUT. FIND OUT.</span>
+        </article>
+
+        <article class="rwjp-day__scene rwjp-day__scene--night" data-day-scene>
+          <p class="rwjp-day__time">NIGHT · RESET</p>
+          <h3>宿題をして、明日の自分へ。</h3>
+          <p>一日を終えて、学んだ言葉を復習する。最初は不安だった生活も、少しずつ自分の日常になっていく。明日は何を習うだろう。どこで使えるだろう。5週間は、そんな小さな挑戦の連続です。</p>
+          <span class="rwjp-day__aside">SAME CITY. NEW YOU, LITTLE BY LITTLE.</span>
+        </article>
+      </div>
+    </div>
+  </section>
 
   <section class="rwjp-flagship__morning" id="morning"><div class="site-shell"><div class="rwjp-flagship__section-head"><p class="rwjp-flagship__kicker">STUDY HARD</p><h2>午前中は、<br />日本語に向き合う。</h2><p>RWJPの中心は日本語学習です。毎日午前中に集中して学び、プレゼンテーション、バディとの交流、クイズ、試験にも取り組みます。学習の成果は成績表として確認できます。京都で暮らす5週間だからこそ、学びの軸は曖昧にしません。</p></div><div class="rwjp-flagship__study-line" aria-label="RWJPで行う学習活動"><div><span>01</span><strong>LEARN</strong><p>毎朝、日本語を集中して学ぶ。</p></div><div><span>02</span><strong>USE</strong><p>プレゼンやバディとの交流で使う。</p></div><div><span>03</span><strong>CHECK</strong><p>クイズや試験で理解を確かめる。</p></div><div><span>04</span><strong>RECORD</strong><p>学習の成果を成績表で残す。</p></div></div><div class="rwjp-flagship__photo-grid rwjp-flagship__photo-grid--dark"><figure><img class="crop-class" src={asset('rwjp-japanese-class.webp')} alt="日本語授業を受ける学生たち" loading="lazy" decoding="async" /><figcaption><strong>FOCUS</strong> 教室で日本語に集中する。</figcaption></figure><figure><img class="crop-presentation" src={asset('rwjp-presentation.webp')} alt="授業でプレゼンテーションを行う学生" loading="lazy" decoding="async" /><figcaption><strong>OUTPUT</strong> 学んだことを、自分の言葉で伝える。</figcaption></figure><figure><img class="crop-evidence" src={asset('rwjp-learning-evidence.webp')} alt="日本語授業で使われる黒板と学習内容" loading="lazy" decoding="async" /><figcaption><strong>PROOF</strong> 学習内容を積み上げ、理解を確かめる。</figcaption></figure></div><p class="rwjp-flagship__audience-note"><strong>FOR PARTNER UNIVERSITIES</strong> 日本語学習、発表、評価、学習記録を伴う教育プログラムとして、学びの過程が見える構成にしています。</p></div></section>
 
@@ -44,3 +113,37 @@ const asset = (name: string) => `${base}images/programs/rwjp/${name}`;
 
   <section class="rwjp-flagship__apply" id="apply"><div class="site-shell rwjp-flagship__apply-grid"><div><p class="rwjp-flagship__kicker">VISIT KYOTO? NOT THIS TIME.</p><h2>今回は、<br />京都に住んでみる。</h2></div><div><p>午前中はしっかり学ぶ。そのあと、自分で街へ出る。人と出会う。自分の京都を見つける。RWJPは、用意された5週間を受け取るだけのプログラムではありません。</p><p class="rwjp-flagship__closing">YOU ARE THE MAIN CHARACTER.</p><p class="rwjp-flagship__status">現在はページ制作・情報確認中です。募集状況と応募導線は、確認済みの正式情報に基づいて掲載します。</p></div></div></section>
 </article>
+
+<script>
+  const root = document.querySelector('[data-rwjp-day]');
+  if (root) {
+    const scenes = Array.from(root.querySelectorAll('[data-day-scene]'));
+    const progress = root.querySelector('[data-day-progress]');
+    const traveller = root.querySelector('[data-day-traveller]');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const setProgress = () => {
+      const rect = root.getBoundingClientRect();
+      const viewportMid = window.innerHeight * 0.5;
+      const total = Math.max(rect.height - window.innerHeight * 0.35, 1);
+      const travelled = Math.min(Math.max(viewportMid - rect.top, 0), total);
+      const pct = Math.min(Math.max(travelled / total, 0), 1) * 100;
+      if (progress instanceof HTMLElement) progress.style.height = `${pct}%`;
+      if (traveller instanceof HTMLElement) traveller.style.top = `${pct}%`;
+    };
+
+    if (reducedMotion) {
+      scenes.forEach((scene) => scene.classList.add('is-visible'));
+    } else {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add('is-visible');
+        });
+      }, { threshold: 0.28 });
+      scenes.forEach((scene) => observer.observe(scene));
+      window.addEventListener('scroll', setProgress, { passive: true });
+      window.addEventListener('resize', setProgress);
+      setProgress();
+    }
+  }
+</script>
