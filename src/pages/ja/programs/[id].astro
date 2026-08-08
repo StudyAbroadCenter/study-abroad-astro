@@ -1,0 +1,23 @@
+---
+import StudentRecruitmentLayout from '../../../components/StudentRecruitmentLayout.astro';
+import ProgrammePageShell from '../../../components/ProgrammePageShell.astro';
+import { programmePageDrafts, type ProgrammePageDraft } from '../../../data/programme-page-drafts';
+
+export function getStaticPaths() {
+  return programmePageDrafts.map((programme) => ({
+    params: { id: programme.id },
+    props: { programme },
+  }));
+}
+
+interface Props {
+  programme: ProgrammePageDraft;
+}
+
+const { programme } = Astro.props;
+const title = `${programme.title} | 立命館大学 短期受入プログラム`;
+const description = `${programme.title}のプログラムページを制作中です。確認済みの情報から順に掲載します。`;
+---
+<StudentRecruitmentLayout title={title} description={description} robots="noindex,nofollow">
+  <ProgrammePageShell programme={programme} />
+</StudentRecruitmentLayout>
