@@ -2,13 +2,13 @@
 
 # RSJP Experience System — Cross-Spec Governance
 
-**Version:** 1.0  
+**Version:** 1.1  
 **Status:** Formal handbook specification  
 **Applies to:** `12_PROGRAMME_PAGE_SPEC.md` through `20_FAQ_SPEC.md`
 
 ## 1. Purpose
 
-This specification defines the shared governance rules for programme-facing content.
+This specification defines shared governance for programme-facing content.
 
 It exists to prevent:
 
@@ -16,33 +16,32 @@ It exists to prevent:
 - duplicated authorities,
 - terminology drift,
 - stale previous-year information,
-- different publication workflows for each content type,
 - derivative pages becoming accidental Sources of Truth,
+- AI choosing between conflicting values,
 - unverified external information being treated as stable programme fact.
 
 **One fact. One authoritative domain. Many consistent views.**
 
 ## 2. Truth Is a System Property
 
-Accuracy is not achieved merely by careful copywriting.
+Accuracy requires more than careful copywriting.
 
-For decision-critical information, the system should know:
+For every decision-critical changing fact, the system should know where practical:
 
-- what the fact is,
-- which programme/offering it belongs to,
-- which domain owns it,
-- what source supports it,
-- whether it is confirmed,
-- when it was last verified where practical,
-- which views display it.
+- the fact/value,
+- programme/offering identity,
+- authoritative domain,
+- supporting source,
+- certainty state,
+- responsible owner,
+- last verification date,
+- dependent views.
 
 A polished page is not reliable when these relationships are unclear.
 
-## 3. Authority Is Defined by Fact Domain
+## 3. Authoritative Domains
 
-There is no single universal document that is authoritative for every type of fact.
-
-Each changing fact belongs to one **authoritative domain**.
+There is no single universal document that owns every fact. Each fact type belongs to one authoritative domain.
 
 ### 3.1 Programme Offering Domain
 
@@ -55,12 +54,14 @@ Authoritative for approved offering-level facts such as:
 - duration,
 - programme fee,
 - capacity where approved,
-- application period where approved.
+- campus/location where approved.
 
 Preferred authority:
 
-- current approved offering record/decision,
+- current approved offering record or programme decision,
 - represented in shared structured programme data.
+
+**The application opening/closing period does not belong to this domain. It belongs to the Application Domain.**
 
 ### 3.2 Academic Domain
 
@@ -81,9 +82,9 @@ Authoritative for:
 Preferred authority:
 
 - current approved syllabus,
-- academic owner/approved academic source.
+- approved academic owner/source.
 
-`13_SYLLABUS_SPEC.md` governs presentation and academic integrity.
+`13_SYLLABUS_SPEC.md` governs this domain.
 
 ### 3.3 Student Interaction Domain
 
@@ -111,7 +112,7 @@ Authoritative for:
 - property/type,
 - room type,
 - occupancy,
-- provision/guarantee condition,
+- guarantee/condition,
 - facilities,
 - accommodation cost,
 - accommodation-specific rules,
@@ -135,7 +136,7 @@ Authoritative for:
 - emergency responsibility,
 - insurance process,
 - programme safety procedures,
-- student-relevant escalation/support boundaries.
+- student-relevant support boundaries.
 
 Preferred authority:
 
@@ -152,8 +153,10 @@ Authoritative for:
 - applicant types,
 - application eligibility rules,
 - required application documents,
+- **application opening date**, 
+- **application closing date/deadline**, 
+- **application period**, 
 - application workflow,
-- application deadline,
 - selection model,
 - payment timing/process,
 - cancellation/refund rules,
@@ -163,9 +166,11 @@ Preferred authority:
 
 - approved current application guideline/policy,
 - current approved application-system configuration,
-- current offering data for shared programme facts.
+- current approved application decision/owner.
 
 `18_BEFORE_YOU_APPLY_SPEC.md` governs this domain.
+
+Programme pages and shared programme data may display the application period, but they do not own it.
 
 ### 3.7 Pre-Arrival Operations Domain
 
@@ -185,37 +190,37 @@ Preferred authority:
 
 `19_BEFORE_YOU_ARRIVE_SPEC.md` governs this domain.
 
-## 4. Derivative Views Are Not Authorities
+## 4. Derivative Views
 
-The following are primarily **derivative views**:
+The following are primarily derivative views:
 
 - `12_PROGRAMME_PAGE_SPEC.md`
 - `17_PROGRAMME_COMPARISON_SPEC.md`
 - `20_FAQ_SPEC.md`
 
-They may present facts from authoritative domains, but must not independently redefine them.
+They may present facts from authoritative domains but may not independently redefine those facts.
 
 If a derivative view conflicts with an authoritative domain:
 
 1. do not choose whichever value appears newer,
-2. do not silently fix only the derivative page,
-3. stop publication/update,
-4. resolve the authoritative fact with the real owner/source,
+2. do not fix only the derivative page,
+3. block publication/update,
+4. resolve the fact with the real authoritative source/owner,
 5. correct shared structured data where applicable,
-6. propagate the resolved fact to all dependent views.
+6. propagate the resolved value to dependent views.
 
 ## 5. Source Precedence
 
-When evidence conflicts, apply this precedence logic.
+When evidence conflicts, use this logic.
 
-### Tier 1 — Current Approved Offering-Specific Authority
+### Tier 1 — Current Approved Domain Authority
 
 Examples:
 
 - approved programme decision,
 - approved current syllabus,
 - current accommodation booking/provider confirmation,
-- approved payment/refund rule,
+- approved application/payment/refund rule,
 - current operational safety procedure.
 
 ### Tier 2 — Current Authoritative External Source
@@ -231,85 +236,57 @@ Examples:
 
 ### Tier 3 — Shared Structured Data
 
-Shared programme data should represent approved facts and power multiple views.
+Shared data should represent approved facts and power multiple views.
 
-If shared data conflicts with Tier 1 or Tier 2, shared data must be corrected.
+If it conflicts with Tier 1 or Tier 2, shared data must be corrected.
 
 ### Tier 4 — Published Page Copy
 
-Published web copy records what was communicated, but it is not the authority for a conflicting fact.
+Published copy records what was communicated. It is not authority for a conflicting fact.
 
 ### Tier 5 — Previous-Year Material / Staff Memory
 
-Reference only.
-
-Never authoritative for a current offering without re-verification.
+Reference only. Never authoritative for a current offering without re-verification.
 
 ## 6. Conflict Rule
 
 **A detected factual conflict is a publication blocker.**
 
-Do not resolve a conflict by:
+Do not resolve conflicts by:
 
 - guessing,
 - averaging,
 - choosing the convenient value,
-- choosing the value that sounds plausible,
+- choosing the plausible value,
 - automatically choosing the newest-looking value,
 - copying last year,
 - asking AI to decide what must be true.
 
-Record/raise the conflict and resolve it with the responsible authoritative source/owner.
+Resolve the conflict with the responsible authoritative source/owner.
 
-## 7. Canonical Fact Certainty States
+## 7. Canonical Fact Certainty
 
-Fact certainty is separate from page/content workflow.
+Fact certainty is separate from content workflow.
 
 Use:
 
-### `Confirmed`
-Supported by the current authoritative source/domain.
+- `Confirmed` — supported by the current authoritative source.
+- `Provisional` — a real current plan exists but is not final.
+- `Unknown` — the current value is not known or verified.
+- `Not Applicable` — the concept genuinely does not apply.
 
-### `Provisional`
-A real current plan/value exists but is not final.
+Do not confuse `Unknown` and `Not Applicable`.
 
-If shown publicly, its provisional nature must be clear where material.
+### Public wording
 
-### `Unknown`
-The current value is not known or has not been verified.
+- `To be confirmed` — a real decision is pending.
+- `Subject to change` — a current real plan exists but may legitimately change.
+- `Not available yet` — information is genuinely expected later.
+- `Not applicable` — the concept does not apply.
 
-Do not display a placeholder value.
+Do not use fake dates, zero values, previous-year values, blanks that resemble errors, or invented estimates.
 
-### `Not Applicable`
-The concept genuinely does not apply to the offering.
-
-Do not confuse `Unknown` with `Not Applicable`.
-
-## 8. Public Wording for Unconfirmed Facts
-
-### `To be confirmed`
-Use when a real decision is genuinely pending.
-
-### `Subject to change`
-Use only when a current real plan exists but may legitimately change.
-
-It is not a synonym for `Unknown`.
-
-### `Not available yet`
-Use only when the information is genuinely expected later.
-
-### `Not applicable`
-Use when the concept does not apply.
-
-Do not use:
-
-- `0`,
-- fake dates,
-- blanks that resemble errors,
-- previous-year values,
-- invented estimates.
-
-## 9. Canonical Content Lifecycle
+## 8. Canonical Content Lifecycle
 
 Use one lifecycle across Specs 12–20:
 
@@ -320,13 +297,7 @@ Use one lifecycle across Specs 12–20:
 5. `Published`
 6. `Archived`
 
-These are **content lifecycle states**.
-
-Do not create independent lifecycle vocabularies for individual domains.
-
-## 10. Canonical Review Flags
-
-Domain-specific checks are **review flags**, not new lifecycle states.
+Domain-specific checks are review flags, not alternative lifecycle states.
 
 Possible flags include:
 
@@ -339,13 +310,11 @@ Possible flags include:
 - `External Source Recheck Required`
 - `Translation Review Required`
 
-Multiple flags may apply simultaneously.
-
 A blocking flag must be resolved before `Ready for Publication`.
 
-## 11. Programme / Application Status Vocabulary
+## 9. Canonical Programme/Application Status
 
-Use one underlying status vocabulary across public views:
+Use one underlying status vocabulary:
 
 - `Coming Soon`
 - `Open`
@@ -353,174 +322,108 @@ Use one underlying status vocabulary across public views:
 - `Full`
 - `Cancelled`
 
-Display labels may be localised naturally, but the underlying value must remain consistent.
+Display labels may be localised, but the underlying value must stay consistent.
 
-`Open` must not be inferred merely from the current date unless an approved business rule explicitly defines this and the application path is actually available.
+`Open` must not be inferred merely from the current date unless an approved rule explicitly defines that behaviour and the real application path is available.
 
-## 12. Guarantee Vocabulary
+## 10. Guarantee Vocabulary
 
-Use guarantee language only when operationally defensible.
+Use only when operationally defensible:
 
-### `Guaranteed`
-The programme commits to the stated provision for eligible participants under the defined offering conditions.
-
-### `Conditional`
-Provision depends on an explicitly defined condition.
-
-### `Optional`
-May be selected/available but is not required.
-
-### `Not Provided`
-The programme does not provide it.
-
-### `Unknown`
-Current provision has not been verified.
+- `Guaranteed`
+- `Conditional`
+- `Optional`
+- `Not Provided`
+- `Unknown`
 
 `Subject to availability` is a condition, not a standalone guarantee state.
 
-Never use `Guaranteed` for outcomes outside programme control, including friendship, visa approval, external credit recognition, medical outcome, transport performance, or insurance claim outcome.
+Never guarantee outcomes outside programme control, including friendship, visa approval, external credit recognition, medical outcome, transport performance, or insurance claim outcome.
 
-## 13. Required / Recommended / Optional
+## 11. Required / Recommended / Optional
 
 Use consistently:
 
-### `Required`
-Must be completed/satisfied.
+- `Required` — must be completed or satisfied.
+- `Recommended` — strongly advised but not mandatory.
+- `Optional` — may be chosen and is not required.
 
-### `Recommended`
-Strongly advised but not mandatory.
+`Preferred` is not a canonical eligibility state. If a formal selection preference exists, describe it as a selection criterion in the Application Domain rather than as an eligibility category.
 
-### `Optional`
-May be chosen and is not required.
+## 12. Current Offering Identity
 
-Do not make recommended items appear mandatory through visual treatment.
+Every changing fact must be attributable to the relevant current offering.
 
-## 14. Current Offering Identity
-
-Every changing fact must be attributable to an offering.
-
-Internally distinguish at minimum:
+Distinguish:
 
 - stable Programme identity,
 - current Offering/year/term.
 
-Offering-specific facts include dates, fees, status, capacity, application period, accommodation, interaction plan, schedule, and current operational contacts where applicable.
+Never silently mix facts from different years or terms.
 
-Never silently merge facts from different years/terms.
-
-## 15. Previous-Year Rule
+## 13. Previous-Year Rule
 
 Previous-year content is reference material only.
 
 It may accelerate drafting but may not establish a current fact.
 
-Re-verification is required even when:
+Re-verification is required even when staff expect no change or a value historically remained the same.
 
-- the value has historically remained unchanged,
-- the same provider is expected,
-- staff expect no change,
-- the programme name is unchanged.
+**Probably the same is not a current fact.**
 
-`Probably the same` is not a current fact.
+## 14. Shared Structured Data
 
-## 16. Shared Data Rule
-
-Where a fact appears in multiple public views, store/derive it from a shared structured source where practical.
+Where a fact appears in multiple views, store/derive it from a shared structured source where practical.
 
 High-priority shared facts include:
 
 - programme name,
 - offering,
-- dates,
+- programme dates,
 - duration,
 - fee,
-- application period,
 - programme status,
 - location,
+- application period,
 - major eligibility facts,
 - application URL/state.
 
-Do not centralise editorial prose merely because structured facts are centralised.
+Shared storage does not transfer authority. For example, an application period stored in shared programme data is still owned by the Application Domain.
 
-## 17. Structured Facts vs Domain Rules vs Editorial Copy
+## 15. Structured Facts, Rules, Copy, and Derived Values
 
 Separate:
 
-### Structured Facts
-Values that should remain identical across views.
+- **Structured facts** — values that should remain identical across views.
+- **Domain rules** — policies/conditions controlled by the responsible domain.
+- **Editorial copy** — student-facing explanation that may vary while preserving facts.
+- **Derived values** — calculated/formatted values produced from authoritative facts.
 
-### Domain Rules
-Policies/conditions controlled by the responsible domain.
+A derived value must use one defined rule. If it requires assumptions, do not derive it.
 
-### Editorial Explanation
-Student-facing language that may vary by page/language while preserving facts.
+## 16. Currency, Dates, and Academic Time
 
-### Derived Values
-Calculated/formatted values produced from authoritative facts.
+Preserve authoritative fee amount and currency. Foreign-currency conversions are derived and non-authoritative.
 
-Do not manually re-enter derived values where they can be produced reliably from source data.
+Use an unambiguous date style for international audiences. Specify time zone when exact deadline timing matters.
 
-## 18. Derived Values
+For academic load distinguish sessions, minutes per session, total instructional minutes, and clock hours where useful.
 
-Derived values must have one defined calculation/formatting rule.
+## 17. Volatile External Facts
 
-Examples:
-
-- formatted duration,
-- total contact hours,
-- status label,
-- fee display,
-- date range.
-
-If a value cannot be derived without assumptions, do not derive it.
-
-## 19. Currency
-
-Preserve authoritative amount and currency.
-
-Foreign-currency conversions are derived and non-authoritative.
-
-Do not freeze approximate conversions into permanent copy unless intentionally maintained and clearly labelled.
-
-## 20. Dates and Time Zones
-
-Use one approved date style per language/site context.
-
-For international deadlines/meetings, specify the time zone when exact timing matters.
-
-Avoid ambiguous numeric-only dates for international audiences.
-
-## 21. Academic Time
-
-Where instructional load is shown, distinguish:
-
-- number of sessions,
-- minutes per session,
-- total instructional minutes,
-- clock hours where useful.
-
-Do not treat a class period as 60 minutes unless it actually is.
-
-## 22. External Volatile Facts
-
-Some facts are controlled outside the programme and can change quickly:
+Examples include:
 
 - visa/entry requirements,
 - transport routes,
 - weather forecasts,
 - government rules,
-- insurer policy details.
+- insurer-controlled policy details.
 
-For such facts:
+Use a current authoritative external source, recheck when stakes are high, and avoid freezing unstable details into evergreen copy when linking to the authority is safer.
 
-1. use a current authoritative external source,
-2. record/recheck verification date where operationally useful,
-3. avoid freezing unstable detail into evergreen copy when linking to the authority is safer,
-4. recheck before high-stakes use.
+## 18. Current Operational Facts
 
-## 23. Current Operational Facts
-
-Programme-controlled facts can also change quickly, including:
+Programme-controlled facts may also change quickly, including:
 
 - emergency contact,
 - check-in process,
@@ -530,87 +433,51 @@ Programme-controlled facts can also change quickly, including:
 
 These require current-offering verification and change propagation.
 
-## 24. Cross-Spec Authority Matrix
+## 19. Cross-Spec Authority Matrix
 
 | Fact / Topic | Primary Authority | Main Presentation Specs |
 |---|---|---|
 | Programme identity/status/dates/duration/fee | Programme Offering Domain | 12, 17, 18 |
+| Application period/deadline/eligibility/payment/refund | Application Domain / 18 | 12, 17, 18, 20 |
 | Academic content/contact hours/assessment | Academic Domain / 13 | 12, 13, 17, 18, 20 |
 | Student interaction | Student Interaction Domain / 14 | 12, 14, 17, 20 |
 | Accommodation | Accommodation Domain / 15 | 12, 15, 17, 18, 19, 20 |
 | Safety/support/insurance process | Safety & Support Domain / 16 | 12, 16, 18, 19, 20 |
-| Application/eligibility/payment/refund | Application Domain / 18 | 12, 17, 18, 20 |
 | Arrival/check-in/first-day operations | Pre-Arrival Operations Domain / 19 | 19, 20 |
 | Comparison | Derivative / 17 | 17 |
 | FAQ | Derivative / 20 | 20 |
 
 A presentation specification never overrides its primary authority.
 
-## 25. Change Propagation Matrix
+## 20. Change Propagation
 
 ### Programme dates/status/fee changed
-Review:
+Review 12, 17, 18, 19 where affected, and 20.
 
-- 12 Programme Page
-- 17 Comparison
-- 18 Before You Apply
-- 19 Before You Arrive where affected
-- 20 FAQ
+### Application period/deadline/eligibility/payment/refund changed
+Review 18, 12, 17, 20, and 19 where accepted-student instructions are affected.
 
 ### Academic fact changed
-Review:
-
-- 13 Syllabus
-- 12 Programme Page
-- 17 Comparison
-- 18 Before You Apply
-- 20 FAQ
+Review 13, 12, 17, 18, and 20.
 
 ### Student Interaction changed
-Review:
-
-- 14 Student Interaction
-- 12 Programme Page
-- 17 Comparison
-- 20 FAQ
+Review 14, 12, 17, and 20.
 
 ### Accommodation changed
-Review:
-
-- 15 Accommodation
-- 12 Programme Page
-- 17 Comparison
-- 18 Before You Apply
-- 19 Before You Arrive
-- 20 FAQ
+Review 15, 12, 17, 18, 19, and 20.
 
 ### Safety / Support changed
-Review:
+Review 16, 12, 18, 19, and 20.
 
-- 16 Safety & Support
-- 12 Programme Page
-- 18 Before You Apply
-- 19 Before You Arrive
-- 20 FAQ
-
-### Application rule changed
-Review:
-
-- 18 Before You Apply
-- 12 Programme Page
-- 17 Comparison
-- 20 FAQ
-- 19 Before You Arrive if accepted-student instructions are affected
-
-## 26. Contradiction Audit
+## 21. Contradiction Audit
 
 Before a major offering is published, check at minimum:
 
-- dates,
+- programme dates,
 - duration,
 - programme fee,
 - application status,
-- application deadline,
+- application opening/closing dates,
 - eligibility,
 - language requirements,
 - accommodation,
@@ -620,102 +487,92 @@ Before a major offering is published, check at minimum:
 
 A contradiction must be resolved upstream before publication.
 
-## 27. CTA Governance
+## 22. CTA Governance
 
-CTA is derived from real programme/application status and verified application-system state.
+CTA behaviour derives from real programme/application status and verified application-system state.
 
-### Coming Soon
-No active application CTA unless an approved pre-application/interest mechanism is explicitly labelled as such.
-
-### Open
-Application CTA may be active only when the real application route is available.
-
-### Closed
-No active application CTA.
-
-### Full
-No active application CTA unless a genuine approved waitlist route exists.
-
-### Cancelled
-No application CTA.
+- `Coming Soon` — no active application CTA unless a real pre-application mechanism is explicitly labelled.
+- `Open` — application CTA only when the real application route is available.
+- `Closed` — no active application CTA.
+- `Full` — no active application CTA unless a real approved waitlist exists.
+- `Cancelled` — no application CTA.
 
 CTA wording is not an independent marketing fact.
 
-## 28. URL / External System Governance
+## 23. Critical URLs and External Systems
 
-Critical links must be verified where they affect application, payment, insurance, official government guidance, or arrival operations.
+Verify links that affect application, payment, insurance, government guidance, or arrival operations.
 
-A working URL can still point to the wrong year/process. Do not treat HTTP success as factual validity.
+A URL returning successfully can still point to the wrong year or process.
 
-## 29. Public vs Internal Information
+## 24. Public vs Internal Information
+
+Public pages show what students need.
+
+Internal records may hold owners, sources, approvals, review flags, contact verification, and escalation procedures.
 
 Truth requires traceability, not public disclosure of every internal detail.
 
-Public pages show what students need. Internal records may hold owner, source, approvals, review flags, internal contacts, and escalation procedures.
+## 25. Ownership
 
-## 30. Ownership
+Every authoritative domain should have a real responsible role/process.
 
-Every authoritative fact domain should have a real responsible role/process.
+This specification does not invent job titles or named owners.
 
-This document does not invent job titles or named owners.
+If ownership of a decision-critical fact is unknown, resolve that governance gap before strong public claims are made.
 
-If a decision-critical fact has no known owner/source, that is a governance problem and may block publication.
-
-## 31. AI Rule
+## 26. AI Rule
 
 AI may:
 
 - reorganise verified information,
 - identify conflicts,
-- identify missing facts,
 - propose clearer wording,
 - generate implementation structure,
-- flag stale/duplicated values.
+- flag missing data.
 
 AI must not:
 
-- decide which conflicting fact is true without authoritative evidence,
+- choose which conflicting fact is true,
 - infer an unverified current value,
-- convert last year's value into this year's fact,
+- turn last year's value into this year's fact,
 - fabricate a missing policy,
-- invent an external rule,
-- turn a plausible assumption into public content.
+- invent an external rule.
 
-When authoritative evidence is missing, AI should expose the gap.
+When authoritative evidence is missing, expose the gap.
 
-## 32. Minimum Verification Record
+## 27. Minimum Verification Record
 
 For decision-critical facts, record where practical:
 
 - fact/value,
 - programme/offering,
-- authoritative domain,
+- domain,
 - source,
 - certainty state,
 - owner,
 - last verified date,
 - affected views.
 
-Implementation may use a data file, future CMS, internal register, or another approved mechanism.
+The implementation may later use data files, a CMS, or another approved mechanism. Governance matters more than the tool.
 
-The governance requirement matters more than the tool.
-
-## 33. Definition of Done
+## 28. Definition of Done
 
 Cross-spec governance is functioning when:
 
-- each decision-critical fact has one authoritative domain,
-- derivative views do not redefine facts,
-- one lifecycle vocabulary is used,
+- every decision-critical fact has one authoritative domain,
+- derivative pages do not redefine facts,
+- application opening/closing dates have one owner,
+- canonical terminology is used,
 - fact certainty is separate from workflow,
-- previous-year values are not treated as current without verification,
+- previous-year values are never treated as current without verification,
 - conflicts block publication,
-- material changes trigger dependent-view review,
-- volatile external facts are rechecked appropriately,
-- repeated structured facts come from shared data where practical,
-- AI exposes uncertainty instead of filling it.
+- material changes propagate to dependent views,
+- volatile external facts are rechecked,
+- shared structured data powers repeated facts where practical,
+- AI exposes uncertainty rather than filling it.
 
-## 34. Final Standard
+## 29. Final Standard
 
 A student should never need to wonder which page is correct.
 
