@@ -1,8 +1,22 @@
+// Current student-facing programme registry for the static MVP.
+//
+// Governance:
+// - This file stores approved programme facts for current student-facing surfaces;
+//   it does not make those facts authoritative by itself.
+// - Authority remains with the fact domains defined in docs/handbook/21_CROSS_SPEC_GOVERNANCE.md.
+// - Do not infer missing dates, fees, application status, eligibility, accommodation,
+//   or other offering-specific facts here.
+// - Legacy hard-coded page data and src/content/programs prototype records are not
+//   alternative authorities for current programme facts.
+//
+// Keep this registry intentionally small until offering-specific facts are verified.
+
 export type ProgrammeGoal = 'japanese-culture' | 'specialist' | 'partner';
 export type ProgrammeSeason = 'summer' | 'winter' | 'flexible';
 export type ProgrammeCampus = 'kinugasa' | 'oic' | 'programme-dependent';
 export type ProgrammeAudience = 'individual' | 'partner';
 
+/** Locale-authored presentation copy. These strings do not override structured facts. */
 export interface ProgrammeCopy {
   name: string;
   seasonLabel: string;
@@ -14,6 +28,10 @@ export interface ProgrammeCopy {
   experienceLine?: string;
 }
 
+/**
+ * Stable programme-level data used by the current student-facing MVP.
+ * Offering-level fields should be added only when their current values are verified.
+ */
 export interface Programme {
   id: string;
   code: string;
