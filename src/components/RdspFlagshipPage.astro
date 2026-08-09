@@ -5,11 +5,11 @@ interface Props { programme: ProgrammePageDraft; }
 const { programme } = Astro.props;
 
 const instructors = [
-  { initials: 'AK', name: 'Atsushi Kakogawa', role: 'Associate Professor · Department of Robotics', focus: 'Field and service robotics, including infrastructure inspection and environmental exploration.' },
-  { initials: 'VH', name: 'Valentinus Roby Hananto', role: 'Lecturer · College of Information Science and Engineering', focus: 'Data science, machine learning and business intelligence with a practical focus on real-world systems.' },
-  { initials: 'VK', name: 'Victor Kryssanov', role: 'Professor · College of Information Science and Engineering', focus: 'Statistical simulation and modeling, Green AI, smart buildings, smart agriculture and manufacturing.' },
-  { initials: 'MK', name: 'Mate Kovacs', role: 'Assistant Professor · College of Information Science and Engineering', focus: 'Natural language processing, language modeling, and large-scale text and social data analysis.' },
-  { initials: 'SS', name: 'Shady Salama', role: 'Assistant Professor · College of Information Science and Engineering', focus: 'Artificial intelligence, optimization, simulation modeling, evolutionary algorithms and intelligent manufacturing.' },
+  { initials: 'AK', name: 'Atsushi Kakogawa', role: 'Associate Professor · Department of Robotics', focus: 'Field and service robotics, including infrastructure inspection and environmental exploration.', portrait: '' },
+  { initials: 'VH', name: 'Valentinus Roby Hananto', role: 'Lecturer · College of Information Science and Engineering', focus: 'Data science, machine learning and business intelligence with a practical focus on real-world systems.', portrait: '' },
+  { initials: 'VK', name: 'Victor Kryssanov', role: 'Professor · College of Information Science and Engineering', focus: 'Statistical simulation and modeling, Green AI, smart buildings, smart agriculture and manufacturing.', portrait: '' },
+  { initials: 'MK', name: 'Mate Kovacs', role: 'Assistant Professor · College of Information Science and Engineering', focus: 'Natural language processing, language modeling, and large-scale text and social data analysis.', portrait: '' },
+  { initials: 'SS', name: 'Shady Salama', role: 'Assistant Professor · College of Information Science and Engineering', focus: 'Artificial intelligence, optimization, simulation modeling, evolutionary algorithms and intelligent manufacturing.', portrait: '' },
 ];
 ---
 <article class="rdsp">
@@ -24,8 +24,20 @@ const instructors = [
       </div>
       <div class="rdsp__viz" aria-hidden="true">
         <div class="rdsp__orbit rdsp__orbit--one"></div><div class="rdsp__orbit rdsp__orbit--two"></div>
-        <span class="rdsp__node n1">AI</span><span class="rdsp__node n2">NLP</span><span class="rdsp__node n3">?</span><span class="rdsp__node n4">ROBOTICS</span><span class="rdsp__node n5">→</span>
-        <div class="rdsp__screen"><div class="rdsp__screen-top"><i></i><i></i><i></i><b>rdsp / explore</b></div><div class="rdsp__bars"><span style="--h:32%"></span><span style="--h:57%"></span><span style="--h:44%"></span><span style="--h:82%"></span><span style="--h:68%"></span><span style="--h:91%"></span></div><code>question → data → pattern → insight</code></div>
+        <span class="rdsp__node n1">AI</span><span class="rdsp__node n2">NLP</span><span class="rdsp__node n3">ML</span><span class="rdsp__node n4">ROBOTICS</span><span class="rdsp__node n5">→</span>
+        <div class="rdsp__screen rdsp__ai-screen">
+          <div class="rdsp__screen-top"><i></i><i></i><i></i><b>rdsp / ai-lab / concept</b></div>
+          <div class="rdsp__ai-head"><span>MODEL SIGNALS</span><small>CONCEPT VISUAL</small></div>
+          <div class="rdsp__ai-bars">
+            <div><b>AI</b><span><i style="--w:92%"></i></span><em>0.92</em></div>
+            <div><b>DATA</b><span><i style="--w:84%"></i></span><em>0.84</em></div>
+            <div><b>NLP</b><span><i style="--w:73%"></i></span><em>0.73</em></div>
+            <div><b>VISION</b><span><i style="--w:66%"></i></span><em>0.66</em></div>
+            <div><b>ROBOTICS</b><span><i style="--w:88%"></i></span><em>0.88</em></div>
+          </div>
+          <div class="rdsp__ai-flow"><span>INPUT</span><i>→</i><span>MODEL</span><i>→</i><span>PATTERN</span><i>→</i><span>DECISION?</span></div>
+          <code>ask → train → test → question again</code>
+        </div>
       </div>
     </div>
   </header>
@@ -40,7 +52,7 @@ const instructors = [
 
   <section class="rdsp__pipeline"><div class="site-shell"><p class="rdsp__kicker">FROM QUESTION TO INSIGHT</p><h2>先端技術の名前より、考え方を持ち帰る。</h2><div class="rdsp__steps"><article><b>01</b><span>QUESTION</span><h3>何を知りたい？</h3><p>技術の前に、解きたい問題や問いがある。</p></article><i>→</i><article><b>02</b><span>DATA</span><h3>何が材料になる？</h3><p>数字、文章、画像、センサー。データの形も一つではない。</p></article><i>→</i><article><b>03</b><span>MODEL</span><h3>どう考える？</h3><p>比較、モデル化、シミュレーション。見方を変える。</p></article><i>→</i><article><b>04</b><span>IMPACT</span><h3>どこで使える？</h3><p>街、産業、環境、言語。技術と社会をつなげる。</p></article></div></div></section>
 
-  <section class="rdsp__faculty" id="faculty"><div class="site-shell"><p class="rdsp__kicker">MEET YOUR INSTRUCTORS</p><h2>テーマではなく、人から学ぶ。</h2><p class="rdsp__faculty-lead">ロボティクス、AI、NLP、Green AI、Machine Learningなど、異なる専門領域を持つ教員がRDSPを構成します。</p><div class="rdsp__faculty-grid">{instructors.map((person) => <article><div class="rdsp__avatar" aria-hidden="true">{person.initials}</div><div><h3>{person.name}</h3><small>{person.role}</small><p>{person.focus}</p></div></article>)}</div></div></section>
+  <section class="rdsp__faculty" id="faculty"><div class="site-shell"><p class="rdsp__kicker">MEET YOUR INSTRUCTORS</p><h2>テーマではなく、人から学ぶ。</h2><p class="rdsp__faculty-lead">ロボティクス、AI、NLP、Green AI、Machine Learningなど、異なる専門領域を持つ教員がRDSPを構成します。顔写真は正式素材を受領後、このカードに差し替えます。</p><div class="rdsp__faculty-grid">{instructors.map((person) => <article><div class="rdsp__portrait-wrap">{person.portrait ? <img src={person.portrait} alt={`${person.name} portrait`} loading="lazy" /> : <div class="rdsp__avatar" aria-hidden="true"><span>{person.initials}</span><small>PHOTO</small></div>}</div><div><h3>{person.name}</h3><small>{person.role}</small><p>{person.focus}</p></div></article>)}</div></div></section>
 
   <section class="rdsp__lab"><div class="site-shell rdsp__lab-grid"><div class="rdsp__dashboard"><div class="rdsp__dash-head"><span>DATA LAB</span><small>CONCEPT VISUAL / DEMO</small></div><div class="rdsp__chart"><svg viewBox="0 0 600 240" role="img" aria-label="データ可視化のイメージ"><polyline points="0,190 70,160 130,174 200,110 270,128 340,72 410,98 485,42 600,60" fill="none" stroke="currentColor" stroke-width="3"/><g><circle cx="70" cy="160" r="6"/><circle cx="200" cy="110" r="6"/><circle cx="340" cy="72" r="6"/><circle cx="485" cy="42" r="6"/></g></svg></div><div class="rdsp__metrics"><div><small>OBSERVE</small><strong>look</strong></div><div><small>CONNECT</small><strong>think</strong></div><div><small>QUESTION</small><strong>why?</strong></div></div></div><div><p class="rdsp__kicker">MORE THAN BUZZWORDS</p><h2>AIを「知っている」から、「考えられる」へ。</h2><p>講義テーマは幅広くても、その背景にはデータ、モデル、社会への応用という共通項があります。短いプログラムだからこそ、複数分野を横断して俯瞰することに価値があります。</p><p>左のダッシュボードはデータサイエンスの考え方を視覚化したコンセプト表示で、実際の授業画面を示すものではありません。</p></div></div></section>
 
