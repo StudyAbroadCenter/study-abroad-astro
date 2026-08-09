@@ -1,0 +1,21 @@
+.rdsp__ai-screen{padding:1rem 1.1rem 1.2rem;background:linear-gradient(150deg,rgba(255,255,255,.92),rgba(239,248,255,.82));box-shadow:0 30px 80px rgba(8,55,105,.16)}
+.rdsp__ai-head{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin:1rem .35rem .8rem;font:800 .65rem ui-monospace,monospace;color:#155eef;letter-spacing:.08em}
+.rdsp__ai-head small{font:700 .56rem ui-monospace,monospace;color:#566978;letter-spacing:.04em}
+.rdsp__ai-bars{display:grid;gap:.66rem;padding:.35rem}
+.rdsp__ai-bars>div{display:grid;grid-template-columns:4.8rem 1fr 2.2rem;gap:.65rem;align-items:center;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.rdsp__ai-bars b{font-size:.61rem;color:#40596c;letter-spacing:.04em}
+.rdsp__ai-bars span{position:relative;height:.55rem;overflow:hidden;border-radius:999px;background:#dbe7f1}
+.rdsp__ai-bars span i{position:absolute;inset:0 auto 0 0;width:var(--w);border-radius:inherit;background:linear-gradient(90deg,#16b8c8,#155eef);transform-origin:left;animation:rdspAiSignal 2.8s ease-in-out infinite alternate}
+.rdsp__ai-bars em{font:700 .57rem ui-monospace,monospace;color:#526b7c;font-style:normal;text-align:right}
+.rdsp__ai-flow{display:flex;align-items:center;justify-content:center;gap:.45rem;margin:1.15rem .25rem .2rem;padding:.75rem .45rem;border-top:1px solid #dce5ee;border-bottom:1px solid #dce5ee;font:800 .55rem ui-monospace,monospace;color:#155eef;letter-spacing:.05em;white-space:nowrap}
+.rdsp__ai-flow i{font-style:normal;color:#7b91a2}
+.rdsp__ai-screen code{margin:.85rem .35rem 0;font-size:.61rem;color:#526b7c}
+.rdsp__portrait-wrap{width:5.2rem;aspect-ratio:4/5;overflow:hidden;border-radius:.8rem;background:#edf4f8}
+.rdsp__portrait-wrap img{display:block;width:100%;height:100%;object-fit:cover}
+.rdsp__avatar{width:100%;height:100%;border-radius:.8rem;display:grid;place-content:center;gap:.3rem;text-align:center;background:linear-gradient(145deg,#155eef,#16b8c8);color:#fff}
+.rdsp__avatar span{font:900 1rem ui-monospace,monospace}
+.rdsp__avatar small{margin:0!important;color:rgba(255,255,255,.78)!important;font:700 .48rem ui-monospace,monospace!important;letter-spacing:.12em}
+.rdsp__faculty-grid article{grid-template-columns:5.2rem 1fr}
+@keyframes rdspAiSignal{from{transform:scaleX(.88);opacity:.78}to{transform:scaleX(1);opacity:1}}
+@media(max-width:600px){.rdsp__ai-bars>div{grid-template-columns:4rem 1fr 2rem}.rdsp__ai-flow{gap:.28rem;font-size:.49rem;letter-spacing:0}.rdsp__portrait-wrap{width:4.6rem}.rdsp__faculty-grid article{grid-template-columns:4.6rem 1fr}}
+@media(prefers-reduced-motion:reduce){.rdsp__ai-bars span i{animation:none}}
