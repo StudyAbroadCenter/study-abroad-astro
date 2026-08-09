@@ -55,8 +55,8 @@ const sample = (name: string) => `${base}images/programs/rwjp/${name}`;
 
   <section class="rwjpx__screens" id="screens"><div class="site-shell"><div class="rwjpx__screens-head"><p class="rwjpx__kicker">ONE TRIP. MANY SCREENS.</p><h2>あなたの2週間は、ひとつの画面には収まらない。</h2><p>スマホには日々の写真。タブレットにはアルバム。ラップトップには、授業の記録や長めの動画。使う画面が変われば、同じ2週間の見え方も変わります。</p></div><div class="rwjpx__devices">
     <div class="rwjpx__tablet" aria-label="タブレットのフォトライブラリ風イメージ"><div class="rwjpx__tablet-camera"></div><div class="rwjpx__tablet-screen"><div class="rwjpx__photo-library"><figure><img src={sample('rwjp-kyoto-winter.webp')} alt="京都の記録イメージ" loading="lazy" decoding="async" /></figure><figure><img src={sample('rwjp-japanese-class.webp')} alt="授業の記録イメージ" loading="lazy" decoding="async" /></figure><figure><img src={sample('rwjp-student-interaction.webp')} alt="交流の記録イメージ" loading="lazy" decoding="async" /></figure><figure><img src={sample('rwjp-cultural-experience.webp')} alt="文化体験の記録イメージ" loading="lazy" decoding="async" /></figure><figure><img src={sample('rwjp-cultural-activity.webp')} alt="活動の記録イメージ" loading="lazy" decoding="async" /></figure></div><p>FEB · KYOTO · 126 PHOTOS</p></div></div>
-    <div class="rwjpx__student-laptop" aria-label="ノートパソコンで見る動画日記風イメージ"><div class="rwjpx__student-laptop-lid"><div class="rwjpx__video-ui"><div class="rwjpx__video-main"><img src={sample('rwjp-cultural-activity.webp')} alt="動画日記のサムネイルイメージ" loading="lazy" decoding="async" /><span class="rwjpx__play">▶</span></div><div class="rwjpx__video-copy"><b>Two weeks in Kyoto — Day 8</b><small>class · lunch · culture · after class</small></div><div class="rwjpx__video-list"><span><img src={sample('rwjp-japanese-class.webp')} alt="" loading="lazy" decoding="async" />Morning class</span><span><img src={sample('rwjp-student-interaction.webp')} alt="" loading="lazy" decoding="async" />New people</span><span><img src={sample('rwjp-kyoto-winter.webp')} alt="" loading="lazy" decoding="async" />After class</span></div></div></div><div class="rwjpx__keyboard" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><b></b></div></div>
-  </div><p class="rwjpx__screens-note">特定のSNS、写真サービス、動画サービスの画面を再現したものではありません。学生の日常にある「見る・残す・見せる」という感覚を、独自UIで表現した仮イメージです。</p></div></section>
+    <div class="rwjpx__student-laptop" aria-label="ノートパソコンで見る動画日記風イメージ"><div class="rwjpx__student-laptop-lid"><div class="rwjpx__video-ui" data-demo-reel><div class="rwjpx__video-main"><img src={sample('rwjp-cultural-activity.webp')} alt="動画日記のサンプルフレーム" loading="lazy" decoding="async" /><span class="rwjpx__play">▶</span></div><div class="rwjpx__video-copy"><b>Two weeks in Kyoto — Day 8</b><small>class · people · culture · after class</small></div><div class="rwjpx__video-list"><span><img src={sample('rwjp-japanese-class.webp')} alt="" loading="lazy" decoding="async" />Morning class</span><span><img src={sample('rwjp-student-interaction.webp')} alt="" loading="lazy" decoding="async" />New people</span><span><img src={sample('rwjp-kyoto-winter.webp')} alt="" loading="lazy" decoding="async" />After class</span></div></div></div><div class="rwjpx__keyboard" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><b></b></div></div>
+  </div><p class="rwjpx__screens-note"><strong>SAMPLE REEL:</strong> 現在の動画部分は、実際の動画を入れる前の挙動確認用です。再生ボタンを押すと、既存の仮写真を使った短いデモリールが動きます。正式版では同じ枠組みを実動画に差し替えられます。</p><p class="rwjpx__screens-note">特定のSNS、写真サービス、動画サービスの画面を再現したものではありません。学生の日常にある「見る・残す・見せる」という感覚を、独自UIで表現した仮イメージです。</p></div></section>
 
   <section class="rwjpx__restart" id="restart"><div class="site-shell rwjpx__restart-grid"><figure class="rwjpx__restart-photo"><img src={sample('rwjp-japanese-class.webp')} alt="日本語授業に取り組むイメージ" loading="lazy" decoding="async" /><figcaption>仮イメージ：日本語学習をもう一度動かす。</figcaption></figure><div><p class="rwjpx__kicker">RESTART YOUR JAPANESE</p><h2>2週間を、日本語学習の起爆剤に。</h2><p>これまで学んできた日本語を、教室の外まで持ち出してみる。知っている単語が街で聞こえる。習った表現を使ってみる。分からなかったことを、もう一度調べる。</p><p>学ぶ機会は用意される。でも、どこまで使うかは本人次第です。短いからこそ、受け身で待つより、自分から試した人ほど2週間を濃くできます。</p><div class="rwjpx__restart-line"><span>REMEMBER</span><i>→</i><span>USE</span><i>→</i><span>NOTICE</span><i>→</i><span>TRY AGAIN</span></div></div></div></section>
 
@@ -74,3 +74,141 @@ const sample = (name: string) => `${base}images/programs/rwjp/${name}`;
 
   <section class="rwjpx__apply"><div class="site-shell rwjpx__apply-grid"><div><p class="rwjpx__kicker">TWO WEEKS CAN FIT.</p><h2>「そのうち」を、今回に。</h2></div><div><p>長期留学の前に。初めての日本留学に。まず一人で挑戦してみたいときに。完璧に準備できる日を待たなくてもいい。</p><p class="rwjpx__status">募集開始後は、正式な定員・応募条件・締切をここに掲載します。参加を考えている人と、支援する家族の双方が判断しやすい応募導線にします。</p></div></div></section>
 </article>
+
+<style is:global>
+  [data-demo-reel] .rwjpx__video-main{position:relative;overflow:hidden;background:#111}
+  [data-demo-reel] .rwjpx__video-main>img{transition:opacity .28s ease,transform .8s ease}
+  [data-demo-reel].is-playing .rwjpx__video-main>img{transform:scale(1.025)}
+  [data-demo-reel] .rwjpx__play{display:grid;place-items:center;cursor:pointer;user-select:none;outline:none;transition:transform .18s ease,background .18s ease}
+  [data-demo-reel] .rwjpx__play:hover,[data-demo-reel] .rwjpx__play:focus-visible{transform:translate(-50%,-50%) scale(1.08);background:#fff}
+  [data-demo-reel] .rwjpx__play:focus-visible{box-shadow:0 0 0 3px rgba(139,23,54,.25)}
+  .rwjpx__demo-badge{position:absolute;left:.65rem;top:.65rem;z-index:5;padding:.28rem .5rem;border-radius:999px;background:rgba(22,22,24,.72);color:#fff;font-size:.48rem;font-weight:850;letter-spacing:.08em;backdrop-filter:blur(6px)}
+  .rwjpx__demo-progress{position:absolute;left:0;right:0;bottom:0;z-index:6;height:.2rem;background:rgba(255,255,255,.36)}
+  .rwjpx__demo-progress>i{display:block;width:0;height:100%;background:#fff;transition:width 1.7s linear}
+  [data-demo-reel].is-playing .rwjpx__demo-progress>i{width:100%}
+  [data-demo-reel] .rwjpx__video-list span{cursor:pointer;border-radius:.35rem;outline:none;transition:background .18s ease,transform .18s ease}
+  [data-demo-reel] .rwjpx__video-list span:hover,[data-demo-reel] .rwjpx__video-list span:focus-visible{background:#f5eff1;transform:translateY(-1px)}
+  [data-demo-reel] .rwjpx__video-list span.is-active{background:#f5e9ed;color:#8b1736;font-weight:800}
+  @media(prefers-reduced-motion:reduce){[data-demo-reel] .rwjpx__video-main>img,[data-demo-reel] .rwjpx__play,[data-demo-reel] .rwjpx__video-list span,.rwjpx__demo-progress>i{transition:none!important}}
+</style>
+
+<script is:inline>
+  (() => {
+    const reels = document.querySelectorAll('[data-demo-reel]');
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    reels.forEach((reel) => {
+      const main = reel.querySelector('.rwjpx__video-main');
+      const mainImg = main?.querySelector('img');
+      const play = reel.querySelector('.rwjpx__play');
+      const chapters = Array.from(reel.querySelectorAll('.rwjpx__video-list span'));
+      if (!main || !mainImg || !play || chapters.length === 0) return;
+
+      const frames = [
+        { src: mainImg.getAttribute('src'), alt: '文化活動のサンプルフレーム', label: 'Culture moment' },
+        ...chapters.map((chapter) => {
+          const img = chapter.querySelector('img');
+          return { src: img?.getAttribute('src'), alt: `${chapter.textContent?.trim() || '活動'}のサンプルフレーム`, label: chapter.textContent?.trim() || '' };
+        })
+      ].filter((frame) => frame.src);
+
+      let index = 0;
+      let timer = null;
+      let playing = false;
+
+      const badge = document.createElement('span');
+      badge.className = 'rwjpx__demo-badge';
+      badge.textContent = 'SAMPLE REEL · INTERACTION DEMO';
+      main.appendChild(badge);
+
+      const progress = document.createElement('span');
+      progress.className = 'rwjpx__demo-progress';
+      progress.setAttribute('aria-hidden', 'true');
+      progress.innerHTML = '<i></i>';
+      main.appendChild(progress);
+
+      play.setAttribute('role', 'button');
+      play.setAttribute('tabindex', '0');
+      play.setAttribute('aria-label', 'サンプルリールを再生');
+
+      chapters.forEach((chapter, chapterIndex) => {
+        chapter.setAttribute('role', 'button');
+        chapter.setAttribute('tabindex', '0');
+        chapter.setAttribute('aria-label', `${chapter.textContent?.trim() || 'チャプター'}を表示`);
+        const targetIndex = chapterIndex + 1;
+        const choose = () => {
+          stop();
+          show(targetIndex);
+        };
+        chapter.addEventListener('click', choose);
+        chapter.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            choose();
+          }
+        });
+      });
+
+      function show(nextIndex) {
+        index = nextIndex % frames.length;
+        const frame = frames[index];
+        mainImg.style.opacity = '0';
+        window.setTimeout(() => {
+          mainImg.setAttribute('src', frame.src);
+          mainImg.setAttribute('alt', frame.alt);
+          mainImg.style.opacity = '1';
+        }, reduced ? 0 : 140);
+        chapters.forEach((chapter, chapterIndex) => chapter.classList.toggle('is-active', chapterIndex + 1 === index));
+        const bar = progress.querySelector('i');
+        if (bar) {
+          bar.style.transition = 'none';
+          bar.style.width = '0';
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              bar.style.transition = reduced ? 'none' : 'width 1.7s linear';
+              bar.style.width = playing && !reduced ? '100%' : '0';
+            });
+          });
+        }
+      }
+
+      function stop() {
+        playing = false;
+        reel.classList.remove('is-playing');
+        play.textContent = '▶';
+        play.setAttribute('aria-label', 'サンプルリールを再生');
+        if (timer) window.clearInterval(timer);
+        timer = null;
+      }
+
+      function start() {
+        if (reduced) {
+          show((index + 1) % frames.length);
+          return;
+        }
+        playing = true;
+        reel.classList.add('is-playing');
+        play.textContent = 'Ⅱ';
+        play.setAttribute('aria-label', 'サンプルリールを一時停止');
+        show(index);
+        timer = window.setInterval(() => show((index + 1) % frames.length), 1800);
+      }
+
+      function toggle() {
+        if (playing) stop(); else start();
+      }
+
+      play.addEventListener('click', toggle);
+      play.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          toggle();
+        }
+      });
+
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden && playing) stop();
+      });
+    });
+  })();
+</script>
