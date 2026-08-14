@@ -7,6 +7,7 @@ export interface RwjpJourneyLink {
   url: string | null;
   state: JourneyLinkState;
   external: boolean;
+  phone?: string;
 }
 
 /**
@@ -22,7 +23,7 @@ export const rwjp2027JourneyLinks: Record<RwjpJourneyLink['id'], RwjpJourneyLink
   application: {
     id: 'application',
     labelJa: '2027 RWJPに応募する',
-    descriptionJa: '個人が直接申し込む正式なWeb申請フォームです。所属大学による推薦・ノミネーションが必要かは、応募前に所属大学へ確認してください。',
+    descriptionJa: 'Microsoft Formsを利用した一次申請フォームを予定しています。氏名、連絡先、日本語学習歴、参加資格確認など、応募判断に必要な最小限の情報を収集し、申請書類の添付は求めません。正式URL公開後に有効化します。',
     url: null,
     state: 'awaiting-official-url',
     external: true,
@@ -31,14 +32,15 @@ export const rwjp2027JourneyLinks: Record<RwjpJourneyLink['id'], RwjpJourneyLink
     id: 'inquiry',
     labelJa: 'RWJPについて問い合わせる',
     descriptionJa: '応募資格、申請書類、宿泊、支払い等について確認する正式な問い合わせ先です。',
-    url: null,
-    state: 'awaiting-official-url',
-    external: true,
+    url: 'mailto:rsjprwjp@st.ritsumei.ac.jp',
+    state: 'ready',
+    external: false,
+    phone: '075-466-3009',
   },
   'medical-form': {
     id: 'medical-form',
     labelJa: '健康診断書をダウンロード',
-    descriptionJa: '立命館所定様式です。医師の署名が必要です。',
+    descriptionJa: '立命館所定様式です。医師の署名が必要です。正式ファイルは後日掲載します。',
     url: null,
     state: 'awaiting-official-url',
     external: false,
@@ -46,7 +48,7 @@ export const rwjp2027JourneyLinks: Record<RwjpJourneyLink['id'], RwjpJourneyLink
   'essay-template': {
     id: 'essay-template',
     labelJa: '日本語エッセイ様式をダウンロード',
-    descriptionJa: 'テーマを記載した所定テンプレートです。手書きで作成し、翻訳ソフトは使用しません。',
+    descriptionJa: 'テーマを記載した所定テンプレートです。手書きで作成し、翻訳ソフトは使用しません。正式ファイルは後日掲載します。',
     url: null,
     state: 'awaiting-official-url',
     external: false,
