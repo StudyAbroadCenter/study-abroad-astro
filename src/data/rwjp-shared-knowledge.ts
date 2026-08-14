@@ -1,75 +1,22 @@
 export type RwjpKnowledgeAudience = 'website' | 'manual' | 'faq';
-
 export interface RwjpKnowledgeEntry {
-  id: string;
-  category: 'eligibility' | 'academic' | 'culture' | 'accommodation' | 'payment' | 'refund' | 'operations';
-  title: string;
-  question: string;
-  shortAnswer: string;
-  detail: string;
-  audiences: RwjpKnowledgeAudience[];
-  certainty: 'Confirmed' | 'Provisional';
-  source: string;
-  verifiedAt: string;
+  id: string; category: 'eligibility' | 'academic' | 'culture' | 'accommodation' | 'payment' | 'refund' | 'operations';
+  title: string; question: string; shortAnswer: string; detail: string; audiences: RwjpKnowledgeAudience[];
+  certainty: 'Confirmed' | 'Provisional'; source: string; verifiedAt: string;
 }
-
 const ownerConfirmation = 'Programme owner working confirmation for 2027 RWJP';
 const common = { audiences: ['website', 'manual', 'faq'] as RwjpKnowledgeAudience[], certainty: 'Confirmed' as const, source: ownerConfirmation, verifiedAt: '2026-08-14' };
-
 export const rwjpSharedKnowledge: RwjpKnowledgeEntry[] = [
-  {
-    id: 'rwjp.academic.class-placement', category: 'academic', title: '日本語クラスのレベル判定とクラス変更',
-    question: '日本語クラスはどのように決まりますか？レベルが合わない場合は変更できますか？',
-    shortAnswer: '申込時の日本語学習歴と日本語エッセイ等を参考に仮判定し、初日のプレイスメントテストで再調整します。開始後も担任へ相談し、必要に応じてクラス変更ができます。',
-    detail: '申込時に提出された過去の日本語学習歴、日本語エッセイ等を参考に、参加者の日本語レベルを事前に判断します。プログラム初日にプレイスメントテストを実施し、その結果に基づいてクラスを再調整します。テスト結果によってクラスを移動する場合があります。日本語講座開始後に本人がレベルが合わないと感じた場合は、担任の先生に相談し、学習状況を確認したうえで必要に応じてクラスを変更します。', ...common,
-  },
-  {
-    id: 'rwjp.academic.grading', category: 'academic', title: '日本語科目の成績評価', question: 'RWJPの日本語授業では、どのように成績が評価されますか？',
-    shortAnswer: '試験、クイズ、出席率、課題提出、プレゼンテーション、授業への参加度を総合して成績評価を行います。',
-    detail: 'RWJPの日本語授業では成績評価を行います。評価対象には、試験、クイズ、出席率、課題の提出状況、プレゼンテーションの出来、授業・クラスへの参加度が含まれます。単一の試験結果だけではなく、期間中の学習への取り組みを複数の観点から総合的に評価します。', ...common,
-  },
-  {
-    id: 'rwjp.academic.grade-scale', category: 'academic', title: '成績評価の段階', question: 'RWJPの成績はどのような評価段階ですか？',
-    shortAnswer: '成績はA+、A、B、C、Fの5段階です。成績不良の場合はFとなります。', detail: 'RWJPの成績評価はA+、A、B、C、Fの5段階で行います。評価基準を満たさない場合はFとなります。', ...common,
-  },
-  {
-    id: 'rwjp.academic.transcript-and-certificate', category: 'academic', title: '成績表・修了証書と修了要件', question: '成績表や修了証書は発行されますか？発行条件はありますか？',
-    shortAnswer: '成績表と修了証書を発行します。日本語講座と日本文化体験のそれぞれで3分の2以上の出席が必要です。',
-    detail: 'RWJPでは成績表と修了証書を発行します。発行には、日本語講座と日本文化体験のそれぞれについて、全実施回数の3分の2以上に出席することが必要です。どちらか一方だけではなく、両方でこの出席要件を満たす必要があります。なお、3分の2は修了証書発行の最低要件であり、参加者が3分の1まで自由に欠席してよいという意味ではありません。', ...common,
-  },
-  {
-    id: 'rwjp.academic.no-credit', category: 'academic', title: '単位の取扱い', question: 'RWJP参加により立命館大学の単位は取得できますか？',
-    shortAnswer: 'RWJPでは立命館大学の単位は発行されません。', detail: 'RWJPでは成績評価、成績表、修了証書はありますが、立命館大学の正規科目としての単位は発行されません。所属大学での単位認定の可否については、参加者自身が所属大学へ確認してください。', ...common,
-  },
-  {
-    id: 'rwjp.culture.activity-model', category: 'culture', title: '日本文化体験の実施方針', question: 'RWJPではどのような日本文化体験がありますか？',
-    shortAnswer: '日本文化体験は11回実施します。具体的な内容は年度ごとのプログラム手配時に決定し、茶道・書道・坐禅などを採用することがあります。',
-    detail: 'RWJPでは日本文化体験を11回実施します。個々の体験内容は、年度ごとのプログラム手配時に改めて決定するため、募集時点で茶道・書道・坐禅などの特定活動を確約しません。これらは過去に採用することが多い代表例です。11回の中には、立命館大学の学生団体が主催し、日本文化体験と立命館学生との交流を兼ねる回を含むことがあります。公開時には、確定前の活動名を確約表現で掲載しないでください。', ...common,
-  },
-  {
-    id: 'rwjp.operations.attendance-expectation', category: 'operations', title: '授業・文化体験への参加姿勢',
-    question: '授業や日本文化体験はすべて参加する必要がありますか？',
-    shortAnswer: '原則として、日本語講座と日本文化体験を含むすべてのプログラム活動への参加を求めます。日本文化体験は選択制ではありません。',
-    detail: 'RWJPでは、日本語講座、日本文化体験、その他の予定されたプログラム活動に原則すべて参加することを求めます。日本文化体験は選択制ではありません。修了証書の発行要件としては、日本語講座と日本文化体験のそれぞれで3分の2以上の出席が必要ですが、これは最低基準です。参加者には、正当な理由のない欠席や遅刻を避け、すべての活動に真摯かつ前向きに参加することを期待します。', ...common,
-  },
-  {
-    id: 'rwjp.operations.absence-notification', category: 'operations', title: '欠席・遅刻時の連絡',
-    question: '病気などで欠席・遅刻する場合はどうすればよいですか？',
-    shortAnswer: '欠席や遅刻が必要な場合は、できるだけ早く事務局へ電話またはメールで連絡してください。',
-    detail: '病気、体調不良、その他やむを得ない事情により欠席または遅刻する場合は、できるだけ早い時点でRWJP事務局へ電話またはメールで連絡することを推奨します。無断欠席や連絡のない遅刻は避けてください。', ...common,
-  },
-  {
-    id: 'rwjp.operations.attendance-followup', category: 'operations', title: '欠席が多い場合の面談',
-    question: '欠席が多い場合はどうなりますか？',
-    shortAnswer: '欠席や遅刻が多い場合、事務局が本人と面談し、参加状況や今後の改善について確認することがあります。',
-    detail: '欠席や遅刻が多い場合、または参加状況に懸念がある場合は、事務局が本人と面談を行うことがあります。面談では、事情を確認したうえで、今後の出席やプログラム参加姿勢について改善を求める場合があります。', ...common,
-  },
-  {
-    id: 'rwjp.operations.continuation-and-conduct', category: 'operations', title: '参加態度とプログラム継続',
-    question: '参加態度に重大な問題がある場合、プログラム参加を続けられますか？',
-    shortAnswer: '重大または継続的な態度上の問題がある場合、プログラムの継続を認めないことがあります。その場合、参加費は返金しません。',
-    detail: '無断欠席や繰り返す遅刻、活動への著しく不適切な参加姿勢など、重大または継続的な態度上の問題がある場合、事情確認や必要な指導を行ったうえで、RWJPへの参加継続を認めないことがあります。この場合、参加費は返金しません。また、必要に応じて参加者の派遣元・所属大学へ状況を連絡することがあります。個別の判断は、状況の重大性、継続性、本人への確認内容等を踏まえて事務局が行います。', ...common,
-  },
+  { id:'rwjp.academic.class-placement',category:'academic',title:'日本語クラスのレベル判定とクラス変更',question:'日本語クラスはどのように決まりますか？レベルが合わない場合は変更できますか？',shortAnswer:'申込時の日本語学習歴と日本語エッセイ等を参考に仮判定し、初日のプレイスメントテストで再調整します。開始後も担任へ相談し、必要に応じてクラス変更ができます。',detail:'申込時に提出された過去の日本語学習歴、日本語エッセイ等を参考に、参加者の日本語レベルを事前に判断します。プログラム初日にプレイスメントテストを実施し、その結果に基づいてクラスを再調整します。テスト結果によってクラスを移動する場合があります。日本語講座開始後に本人がレベルが合わないと感じた場合は、担任の先生に相談し、学習状況を確認したうえで必要に応じてクラスを変更します。',...common },
+  { id:'rwjp.academic.grading',category:'academic',title:'日本語科目の成績評価',question:'RWJPの日本語授業では、どのように成績が評価されますか？',shortAnswer:'試験、クイズ、出席率、課題提出、プレゼンテーション、授業への参加度を総合して成績評価を行います。',detail:'RWJPの日本語授業では成績評価を行います。評価対象には、試験、クイズ、出席率、課題の提出状況、プレゼンテーションの出来、授業・クラスへの参加度が含まれます。単一の試験結果だけではなく、期間中の学習への取り組みを複数の観点から総合的に評価します。',...common },
+  { id:'rwjp.academic.grade-scale',category:'academic',title:'成績評価の段階',question:'RWJPの成績はどのような評価段階ですか？',shortAnswer:'成績はA+、A、B、C、Fの5段階です。成績不良の場合はFとなります。',detail:'RWJPの成績評価はA+、A、B、C、Fの5段階で行います。評価基準を満たさない場合はFとなります。',...common },
+  { id:'rwjp.academic.transcript-and-certificate',category:'academic',title:'成績表・修了証書と修了要件',question:'成績表や修了証書は発行されますか？発行条件はありますか？',shortAnswer:'成績表と修了証書を発行します。日本語講座と日本文化体験のそれぞれで3分の2以上の出席が必要です。',detail:'RWJPでは成績表と修了証書を発行します。発行には、日本語講座と日本文化体験のそれぞれについて、全実施回数の3分の2以上に出席することが必要です。どちらか一方だけではなく、両方でこの出席要件を満たす必要があります。なお、3分の2は修了証書発行の最低要件であり、参加者が3分の1まで自由に欠席してよいという意味ではありません。',...common },
+  { id:'rwjp.academic.no-credit',category:'academic',title:'単位の取扱い',question:'RWJP参加により立命館大学の単位は取得できますか？',shortAnswer:'RWJPでは立命館大学の単位は発行されません。',detail:'RWJPでは成績評価、成績表、修了証書はありますが、立命館大学の正規科目としての単位は発行されません。所属大学での単位認定の可否については、参加者自身が所属大学へ確認してください。',...common },
+  { id:'rwjp.culture.activity-model',category:'culture',title:'日本文化体験の実施方針',question:'RWJPではどのような日本文化体験がありますか？',shortAnswer:'日本文化体験は11回実施します。具体的な内容は年度ごとのプログラム手配時に決定し、茶道・書道・坐禅などを採用することがあります。',detail:'RWJPでは日本文化体験を11回実施します。個々の体験内容は、年度ごとのプログラム手配時に改めて決定するため、募集時点で茶道・書道・坐禅などの特定活動を確約しません。これらは過去に採用することが多い代表例です。11回の中には、立命館大学の学生団体が主催し、日本文化体験と立命館学生との交流を兼ねる回を含むことがあります。公開時には、確定前の活動名を確約表現で掲載しないでください。',...common },
+  { id:'rwjp.operations.attendance-expectation',category:'operations',title:'授業・文化体験への参加姿勢',question:'授業や日本文化体験はすべて参加する必要がありますか？',shortAnswer:'原則として、日本語講座と日本文化体験を含むすべてのプログラム活動への参加を求めます。日本文化体験は選択制ではありません。',detail:'RWJPでは、日本語講座、日本文化体験、その他の予定されたプログラム活動に原則すべて参加することを求めます。日本文化体験は選択制ではありません。修了証書の発行要件としては、日本語講座と日本文化体験のそれぞれで3分の2以上の出席が必要ですが、これは最低基準です。参加者には、正当な理由のない欠席や遅刻を避け、すべての活動に真摯かつ前向きに参加することを期待します。',...common },
+  { id:'rwjp.operations.absence-notification',category:'operations',title:'欠席・遅刻時の連絡',question:'病気などで欠席・遅刻する場合はどうすればよいですか？',shortAnswer:'欠席や遅刻が必要な場合は、できるだけ早く事務局へ電話またはメールで連絡してください。',detail:'病気、体調不良、その他やむを得ない事情により欠席または遅刻する場合は、できるだけ早い時点でRWJP事務局へ電話またはメールで連絡することを推奨します。無断欠席や連絡のない遅刻は避けてください。',...common },
+  { id:'rwjp.operations.attendance-followup',category:'operations',title:'欠席が多い場合の面談',question:'欠席が多い場合はどうなりますか？',shortAnswer:'欠席や遅刻が多い場合、事務局が本人と面談し、参加状況や今後の改善について確認することがあります。',detail:'欠席や遅刻が多い場合、または参加状況に懸念がある場合は、事務局が本人と面談を行うことがあります。面談では、事情を確認したうえで、今後の出席やプログラム参加姿勢について改善を求める場合があります。',...common },
+  { id:'rwjp.operations.continuation-and-conduct',category:'operations',title:'参加態度とプログラム継続',question:'参加態度に重大な問題がある場合、プログラム参加を続けられますか？',shortAnswer:'重大または継続的な態度上の問題がある場合、プログラムの継続を認めないことがあります。その場合、参加費は返金しません。',detail:'無断欠席や繰り返す遅刻、活動への著しく不適切な参加姿勢など、重大または継続的な態度上の問題がある場合、事情確認や必要な指導を行ったうえで、RWJPへの参加継続を認めないことがあります。この場合、参加費は返金しません。また、必要に応じて参加者の派遣元・所属大学へ状況を連絡することがあります。個別の判断は、状況の重大性、継続性、本人への確認内容等を踏まえて事務局が行います。',...common },
+  { id:'rwjp.operations.travel-insurance',category:'operations',title:'海外旅行保険と緊急時の連絡',question:'RWJP参加中の海外旅行保険はどうなっていますか？',shortAnswer:'プログラム期間中は、立命館大学がプログラム経費で海外旅行保険に加入します。緊急時は保険会社のアプリから24時間連絡できます。',detail:'RWJPでは、プログラム期間を対象として立命館大学がプログラム経費で海外旅行保険に加入します。補償は一般的な海外旅行保険の補償範囲に基づき、既往症や歯科・歯痛などは対象外です。保険会社から専用アプリが提供され、24時間、日本語・英語・中国語・韓国語で保険会社へ連絡できます。参加者は案内されたアプリを事前にダウンロードし、利用できる状態に有効化しておいてください。病気・けがなどの緊急時には、まずアプリを通じて保険会社へ連絡してください。補償内容、利用方法、緊急時の対応などの詳細はオリエンテーションで説明します。',...common },
 ];
-
 export const getRwjpKnowledgeEntry = (id: string) => rwjpSharedKnowledge.find((entry) => entry.id === id);
