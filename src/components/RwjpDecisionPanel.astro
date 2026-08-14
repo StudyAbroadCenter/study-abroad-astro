@@ -9,6 +9,9 @@ const dateLabel = isKnownFact(f.programmeDates)
 const feeLabel = isKnownFact(f.programmeFee)
   ? `${f.programmeFee.value.toLocaleString('ja-JP')}円`
   : '正式決定後に掲載';
+const accommodationFeeLabel = isKnownFact(f.accommodationFee)
+  ? `${f.accommodationFee.value.toLocaleString('ja-JP')}円`
+  : '確認中';
 const applicationStart = isKnownFact(f.applicationPeriod) ? f.applicationPeriod.value.start : null;
 const applicationEnd = isKnownFact(f.applicationPeriod) ? f.applicationPeriod.value.end : null;
 const applicationLabel = applicationStart && applicationEnd
@@ -30,9 +33,10 @@ const applicationLabel = applicationStart && applicationEnd
       <div><dt>キャンパス</dt><dd>{f.campus.value}</dd></div>
       <div><dt>日本語学習</dt><dd>{f.japaneseMinutes.value}分</dd></div>
       <div><dt>文化学習・体験</dt><dd>{f.cultureMinutes.value}分</dd></div>
+      <div><dt>プログラム費用</dt><dd>{feeLabel}</dd></div>
+      <div><dt>大将軍寮 宿泊費</dt><dd>{accommodationFeeLabel}（プログラム費用には含まれません）</dd></div>
       <div><dt>宿泊</dt><dd>{f.accommodation.value}</dd></div>
       <div><dt>支払方法</dt><dd>{f.paymentMethod.value}</dd></div>
-      <div><dt>参加費</dt><dd>{feeLabel}</dd></div>
       <div><dt>募集期間</dt><dd>{applicationLabel}</dd></div>
       <div>
         <dt>募集状況</dt>
@@ -55,6 +59,11 @@ const applicationLabel = applicationStart && applicationEnd
         <strong>日本語要件</strong>
         <p>{f.japaneseRequirement.value}</p>
       </article>
+    </div>
+
+    <div class="rwjp-decision__notice" aria-label="宿泊に関する注意">
+      <strong>宿泊について</strong>
+      <p>{f.accommodationPolicy.value}</p>
     </div>
 
     <div class="rwjp-decision__notice" aria-label="キャンセルと返金">
@@ -82,7 +91,7 @@ const applicationLabel = applicationStart && applicationEnd
         <li>授業だけでなく、学生交流や文化体験にも参加したい。</li>
         <li>一人で参加しても、自分から動いて新しい環境に入ってみたい。</li>
       </ul>
-      <p>応募前に、上記の在籍条件と日本語要件を必ず確認してください。</p>
+      <p>応募前に、上記の在籍条件・日本語要件・宿泊条件を必ず確認してください。</p>
     </div>
   </div>
 </section>
