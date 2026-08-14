@@ -1,0 +1,65 @@
+---
+import { rwjp2027Facts, isKnownFact } from '../data/rwjp-2027-facts';
+import '../styles/rwjp-decision-panel.css';
+
+const f = rwjp2027Facts;
+const dateLabel = isKnownFact(f.programmeDates)
+  ? `${f.programmeDates.value.start.replaceAll('-', '.')} — ${f.programmeDates.value.end.replaceAll('-', '.')}`
+  : '確認中';
+const feeLabel = isKnownFact(f.programmeFee)
+  ? `${f.programmeFee.value.toLocaleString('ja-JP')}円`
+  : '正式決定後に掲載';
+const applicationLabel = isKnownFact(f.applicationPeriod) ? f.applicationPeriod.value : '正式決定後に掲載';
+const statusLabel = isKnownFact(f.applicationStatus) ? f.applicationStatus.value : '募集開始前／確認中';
+---
+<section class="rwjp-decision" id="facts" aria-labelledby="rwjp-decision-title">
+  <div class="site-shell">
+    <div class="rwjp-decision__head">
+      <p class="rwjp-decision__kicker">2027 RWJP · DECISION FACTS</p>
+      <h2 id="rwjp-decision-title">参加を決める前に、条件を確認する。</h2>
+      <p>魅力だけでなく、日程・学習量・宿泊・支払など、判断に必要な情報を確認済みの範囲で掲載します。未確定項目は推測で埋めません。</p>
+    </div>
+
+    <dl class="rwjp-decision__facts">
+      <div><dt>正式名称</dt><dd>{f.officialName.value}</dd></div>
+      <div><dt>実施日程</dt><dd>{dateLabel}</dd></div>
+      <div><dt>期間</dt><dd>{f.durationLabel.value}</dd></div>
+      <div><dt>キャンパス</dt><dd>{f.campus.value}</dd></div>
+      <div><dt>日本語学習</dt><dd>{f.japaneseMinutes.value}分</dd></div>
+      <div><dt>文化学習・体験</dt><dd>{f.cultureMinutes.value}分</dd></div>
+      <div><dt>宿泊</dt><dd>{f.accommodation.value}</dd></div>
+      <div><dt>支払方法</dt><dd>{f.paymentMethod.value}</dd></div>
+      <div><dt>参加費</dt><dd>{feeLabel}</dd></div>
+      <div><dt>募集期間</dt><dd>{applicationLabel}</dd></div>
+      <div><dt>募集状況</dt><dd>{statusLabel}</dd></div>
+    </dl>
+
+    <div class="rwjp-decision__notice" aria-label="返金に関する注意">
+      <strong>キャンセル・返金</strong>
+      <p>返金額として54,000円が確認されています。適用条件・期限・手続は、正式な募集案内を確認してから掲載します。</p>
+    </div>
+
+    <div class="rwjp-decision__actions" aria-label="RWJPの次の確認項目">
+      <a href="#rwjp-fit">自分に合うか確認する</a>
+      <a href="/contact/">問い合わせる</a>
+    </div>
+  </div>
+</section>
+
+<section class="rwjp-fit" id="rwjp-fit" aria-labelledby="rwjp-fit-title">
+  <div class="site-shell rwjp-fit__grid">
+    <div>
+      <p class="rwjp-decision__kicker">IS RWJP FOR YOU?</p>
+      <h2 id="rwjp-fit-title">こんな学生に向いています。</h2>
+    </div>
+    <div class="rwjp-fit__body">
+      <ul>
+        <li>短期旅行ではなく、京都で数週間生活しながら日本語を学びたい。</li>
+        <li>日本語学習をプログラムの中心に置きたい。</li>
+        <li>授業だけでなく、学生交流や文化体験にも参加したい。</li>
+        <li>一人で参加しても、自分から動いて新しい環境に入ってみたい。</li>
+      </ul>
+      <p>日本語レベルなどの正式な応募資格は、募集要項の確認後にこのページへ反映します。</p>
+    </div>
+  </div>
+</section>
