@@ -28,6 +28,18 @@ export const rwjpSharedKnowledge: RwjpKnowledgeEntry[] = [
     source: ownerConfirmation,
     verifiedAt: '2026-08-14',
   },
+  {
+    id: 'rwjp.academic.grading',
+    category: 'academic',
+    title: '日本語科目の成績評価',
+    question: 'RWJPの日本語授業では、どのように成績が評価されますか？',
+    shortAnswer: '試験、クイズ、出席率、課題提出、プレゼンテーション、授業への参加度を総合して成績評価を行います。',
+    detail: 'RWJPの日本語授業では成績評価を行います。評価対象には、試験、クイズ、出席率、課題の提出状況、プレゼンテーションの出来、授業・クラスへの参加度が含まれます。単一の試験結果だけではなく、期間中の学習への取り組みを複数の観点から総合的に評価します。',
+    audiences: ['website', 'manual', 'faq'],
+    certainty: 'Confirmed',
+    source: ownerConfirmation,
+    verifiedAt: '2026-08-14',
+  },
 ];
 
 export const getRwjpKnowledgeEntry = (id: string) =>
