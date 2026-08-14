@@ -6,6 +6,7 @@ export interface RwjpApplicationRequirement {
   labelEn: string;
   required: boolean;
   issueLanguage?: 'English' | 'Not Applicable';
+  detailJa?: string;
   certainty: RwjpApplicationRequirementCertainty;
   audiences: Array<'website' | 'manual' | 'faq'>;
   source: string;
@@ -34,5 +35,12 @@ export const rwjpApplicationRequirements: RwjpApplicationRequirement[] = [
   { id: 'rwjp.application.transcript', labelJa: '成績証明書', labelEn: 'Academic Transcript', issueLanguage: 'English', ...common },
   { id: 'rwjp.application.passport-copy', labelJa: 'パスポートのコピー', labelEn: 'Passport Copy', issueLanguage: 'Not Applicable', ...common },
   { id: 'rwjp.application.japanese-essay', labelJa: '日本語エッセイ', labelEn: 'Japanese Essay', issueLanguage: 'Not Applicable', ...common },
-  { id: 'rwjp.application.health-certificate', labelJa: '健康診断書', labelEn: 'Health Certificate', issueLanguage: 'English', ...common },
+  {
+    id: 'rwjp.application.health-certificate',
+    labelJa: '健康診断書',
+    labelEn: 'Health Certificate',
+    issueLanguage: 'English',
+    detailJa: '立命館大学所定の健康診断書様式をプログラムWebサイトからダウンロードして使用してください。医師の署名が必要です。様式の指示をよく読み、必要事項を漏れなく記入・確認したうえで提出してください。一般的な健康診断書で代替できるとは案内しません。',
+    ...common,
+  },
 ];
