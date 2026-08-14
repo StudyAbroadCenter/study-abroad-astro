@@ -12,6 +12,9 @@ const feeLabel = isKnownFact(f.programmeFee)
 const accommodationFeeLabel = isKnownFact(f.accommodationFee)
   ? `${f.accommodationFee.value.toLocaleString('ja-JP')}円`
   : '確認中';
+const accommodationDateLabel = isKnownFact(f.accommodationDates)
+  ? `${f.accommodationDates.value.checkIn.replaceAll('-', '.')} チェックイン — ${f.accommodationDates.value.checkOut.replaceAll('-', '.')} チェックアウト`
+  : '確認中';
 const applicationStart = isKnownFact(f.applicationPeriod) ? f.applicationPeriod.value.start : null;
 const applicationEnd = isKnownFact(f.applicationPeriod) ? f.applicationPeriod.value.end : null;
 const applicationLabel = applicationStart && applicationEnd
@@ -35,6 +38,7 @@ const applicationLabel = applicationStart && applicationEnd
       <div><dt>文化学習・体験</dt><dd>{f.cultureMinutes.value}分</dd></div>
       <div><dt>プログラム費用</dt><dd>{feeLabel}</dd></div>
       <div><dt>大将軍寮 宿泊費</dt><dd>{accommodationFeeLabel}（プログラム費用には含まれません）</dd></div>
+      <div><dt>大将軍寮 宿泊期間</dt><dd>{accommodationDateLabel}（この日程は必須）</dd></div>
       <div><dt>宿泊</dt><dd>{f.accommodation.value}</dd></div>
       <div><dt>支払方法</dt><dd>{f.paymentMethod.value}</dd></div>
       <div><dt>募集期間</dt><dd>{applicationLabel}</dd></div>
