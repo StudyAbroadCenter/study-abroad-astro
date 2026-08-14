@@ -4,6 +4,8 @@
 
 For the full content specification, see `docs/handbook/05_CONTENT_SPEC.md`.
 
+For Japanese, English, Korean, locale routing, terminology, and multilingual review rules, see `docs/handbook/22_LOCALISATION_SPEC.md`.
+
 ## Core Rule
 
 Write for prospective international students.
