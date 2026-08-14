@@ -18,9 +18,8 @@ export interface RwjpFacts {
   accommodation: RwjpFact<string>;
   paymentMethod: RwjpFact<string>;
   refundAmount: RwjpFact<number>;
-  applicationPeriod: RwjpFact<string>;
+  applicationPeriod: RwjpFact<{ start: string; end: string }>;
   programmeFee: RwjpFact<number>;
-  applicationStatus: RwjpFact<string>;
 }
 
 const ownerConfirmation = 'Programme owner working confirmation for 2027 RWJP';
@@ -82,22 +81,16 @@ export const rwjp2027Facts: RwjpFacts = {
     verifiedAt: '2026-08-14',
   },
   applicationPeriod: {
-    value: null,
-    certainty: 'Unknown',
-    source: 'Awaiting approved application schedule',
-    verifiedAt: null,
+    value: { start: '2026-09-30', end: '2026-10-14' },
+    certainty: 'Confirmed',
+    source: ownerConfirmation,
+    verifiedAt: '2026-08-14',
   },
   programmeFee: {
-    value: null,
-    certainty: 'Unknown',
-    source: 'Awaiting approved programme fee',
-    verifiedAt: null,
-  },
-  applicationStatus: {
-    value: null,
-    certainty: 'Unknown',
-    source: 'Awaiting approved application status',
-    verifiedAt: null,
+    value: 370000,
+    certainty: 'Confirmed',
+    source: ownerConfirmation,
+    verifiedAt: '2026-08-14',
   },
 };
 
