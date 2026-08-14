@@ -8,6 +8,7 @@ import * as annual2027 from '../rwjp-2027-facts';
 import * as annualFacts from '../rwjp-annual-facts';
 import * as applicationProcess from '../rwjp-application-process';
 import * as applicationRequirements from '../rwjp-application-requirements';
+import * as journeyLinks from '../rwjp-journey-links';
 import * as placement from '../rwjp-placement-policy';
 import * as orientation from '../rwjp-orientation-policy';
 import * as visa from '../rwjp-visa-policy';
@@ -39,7 +40,7 @@ import * as dormVisitorDelivery from '../rwjp-daishogun-visitor-delivery-policy'
  *
  * Boundary rules:
  * - annual: values that normally change by programme year (dates, fees, application period)
- * - application: application, documents, selection, visa and placement
+ * - application: application, documents, selection, visa, placement and confirmed public destinations
  * - academicOperations: teaching/attendance/orientation/conduct rules
  * - accommodation: Taishogun Dormitory rules shared by RWJP and RWJP Express where stated
  * - participantLife: practical preparation and safety rules
@@ -55,6 +56,7 @@ export const rwjpData = {
   application: {
     process: applicationProcess,
     requirements: applicationRequirements,
+    journeyLinks,
     placement,
     visa,
   },
@@ -95,3 +97,4 @@ export { rwjp2027Facts, isKnownFact } from '../rwjp-2027-facts';
 export { rwjpApplicationProcess, rwjpAdmissionNotification } from '../rwjp-application-process';
 export { rwjpApplicationRequirements, rwjpApplicationDocumentPolicy } from '../rwjp-application-requirements';
 export { rwjpVisaPolicy } from '../rwjp-visa-policy';
+export { rwjp2027JourneyLinks, isJourneyLinkReady } from '../rwjp-journey-links';
