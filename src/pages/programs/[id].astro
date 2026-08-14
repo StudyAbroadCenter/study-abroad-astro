@@ -3,8 +3,10 @@ import StudentRecruitmentLayout from '../../components/StudentRecruitmentLayout.
 import ProgrammePageShell from '../../components/ProgrammePageShell.astro';
 import RwjpFlagshipPage from '../../components/RwjpFlagshipPage.astro';
 import RwjpExpressFlagshipPage from '../../components/RwjpExpressFlagshipPage.astro';
+import RwjpExpressAcademicLoad from '../../components/RwjpExpressAcademicLoad.astro';
 import RdspFlagshipPage from '../../components/RdspFlagshipPage.astro';
 import { programmePageDrafts, type ProgrammePageDraft } from '../../data/programme-page-drafts';
+import { rwjp2027Facts, isKnownFact } from '../../data/rwjp/index';
 import '../../styles/rwjp-cinematic-hero.css';
 
 export function getStaticPaths() {
@@ -12,9 +14,30 @@ export function getStaticPaths() {
 }
 interface Props { programme: ProgrammePageDraft; }
 const { programme } = Astro.props;
-const title = `${programme.title} | 立命館大学 短期受入プログラム`;
-const description = `${programme.title}のプログラムページを制作中です。確認済みの情報から順に掲載します。`;
+const isRwjp = programme.id === 'rwjp';
+const f = rwjp2027Facts;
+const title = isRwjp
+  ? `2027 RWJP | ${isKnownFact(f.officialName) ? f.officialName.value : 'Ritsumeikan Winter Japanese Program'} | 立命館大学`
+  : `${programme.title} | 立命館大学 短期受入プログラム`;
+const rwjpProgrammeDates = isKnownFact(f.programmeDates)
+  ? `${f.programmeDates.value.start.replaceAll('-', '/')}〜${f.programmeDates.value.end.replaceAll('-', '/')}`
+  : '日程確認中';
+const rwjpFee = isKnownFact(f.programmeFee) ? `${f.programmeFee.value.toLocaleString('ja-JP')}円` : '参加費確認中';
+const rwjpApplication = isKnownFact(f.applicationPeriod)
+  ? `${f.applicationPeriod.value.start.replaceAll('-', '/')}〜${f.applicationPeriod.value.end.replaceAll('-', '/')}`
+  : '応募期間確認中';
+const description = isRwjp
+  ? `2027 RWJP。${rwjpProgrammeDates}、冬の京都で日本語を学びながら5週間生活する短期プログラム。参加費${rwjpFee}、応募期間${rwjpApplication}。`
+  : `${programme.title}のプログラムページを制作中です。確認済みの情報から順に掲載します。`;
 ---
 <StudentRecruitmentLayout title={title} description={description} robots="noindex,nofollow">
-  {programme.id === 'rwjp' ? <RwjpFlagshipPage programme={programme} /> : programme.id === 'rwjp-express' ? <RwjpExpressFlagshipPage programme={programme} /> : programme.id === 'rdsp' ? <RdspFlagshipPage programme={programme} /> : <ProgrammePageShell programme={programme} />}
+  {programme.id === 'rwjp' ? (
+    <RwjpFlagshipPage programme={programme} />
+  ) : programme.id === 'rwjp-express' ? (
+    <><RwjpExpressFlagshipPage programme={programme} /><RwjpExpressAcademicLoad /></>
+  ) : programme.id === 'rdsp' ? (
+    <RdspFlagshipPage programme={programme} />
+  ) : (
+    <ProgrammePageShell programme={programme} />
+  )}
 </StudentRecruitmentLayout>

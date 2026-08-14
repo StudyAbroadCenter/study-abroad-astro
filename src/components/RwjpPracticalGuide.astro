@@ -1,0 +1,100 @@
+---
+import { rwjpData, rwjpApplicationProcess, rwjpApplicationRequirements, rwjpVisaPolicy } from '../data/rwjp/index';
+import '../styles/rwjp-practical-guide.css';
+
+const knowledge = rwjpData.academicOperations.sharedKnowledge.rwjpSharedKnowledge;
+const byId = (id: string) => knowledge.find((entry) => entry.id === id);
+
+const academicCards = [
+  byId('rwjp.academic.japanese-prerequisite'),
+  byId('rwjp.academic.class-placement'),
+  byId('rwjp.academic.direct-method'),
+  byId('rwjp.academic.transcript-and-certificate'),
+  byId('rwjp.academic.no-credit'),
+].filter(Boolean);
+
+const participationCards = [
+  byId('rwjp.operations.attendance-expectation'),
+  byId('rwjp.operations.absence-notification'),
+  byId('rwjp.operations.continuation-and-conduct'),
+].filter(Boolean);
+
+const insurance = byId('rwjp.operations.travel-insurance');
+const dorm = rwjpData.accommodation;
+const life = rwjpData.participantLife;
+---
+<section class="rwjp-practical" id="prepare" aria-labelledby="rwjp-practical-title">
+  <div class="site-shell">
+    <header class="rwjp-practical__head">
+      <p class="rwjp-practical__kicker">BEFORE YOU APPLY</p>
+      <h2 id="rwjp-practical-title">応募前に知っておきたいこと。</h2>
+      <p>細かな規則を最初から全部読む必要はありません。まず、学び方・申請・生活の重要なポイントを確認してください。</p>
+    </header>
+
+    <div class="rwjp-practical__grid">
+      <article class="rwjp-practical__card">
+        <span>01</span><h3>日本語を学ぶ</h3>
+        <p>初心者も応募できます。ただし、開始前までにひらがな・カタカナを習得してください。授業は日本語による直接法を基本とします。</p>
+        <a href="#study-details">学習・修了要件を見る</a>
+      </article>
+      <article class="rwjp-practical__card">
+        <span>02</span><h3>申請を準備する</h3>
+        <p>在籍証明書、成績証明書、パスポートコピー、日本語エッセイ、所定の健康診断書などを準備します。</p>
+        <a href="#application-details">申請方法を見る</a>
+      </article>
+      <article class="rwjp-practical__card">
+        <span>03</span><h3>京都で生活する</h3>
+        <p>大将軍寮を利用する場合は共同生活です。食事の提供はなく、日用品の一部は各自で準備します。</p>
+        <a href="#dorm-details">寮生活を見る</a>
+      </article>
+      <article class="rwjp-practical__card">
+        <span>04</span><h3>安全に参加する</h3>
+        <p>保険、緊急連絡、出席、安全ルールを確認し、5週間のプログラム活動に前向きに参加してください。</p>
+        <a href="#safety-details">安全・参加ルールを見る</a>
+      </article>
+    </div>
+
+    <div class="rwjp-practical__details" id="study-details">
+      <h3>学習・修了要件</h3>
+      <div class="rwjp-practical__accordion">
+        {academicCards.map((item) => item && <details><summary>{item.title}</summary><p>{item.detail}</p></details>)}
+        {participationCards.map((item) => item && <details><summary>{item.title}</summary><p>{item.detail}</p></details>)}
+      </div>
+    </div>
+
+    <div class="rwjp-practical__details" id="application-details">
+      <h3>申請・必要書類・ビザ</h3>
+      <ol class="rwjp-practical__steps">
+        {rwjpApplicationProcess.map((step) => <li><strong>{step.titleJa}</strong><p>{step.detailJa}</p></li>)}
+      </ol>
+      <div class="rwjp-practical__document-grid">
+        {rwjpApplicationRequirements.map((doc) => <article><strong>{doc.labelJa}</strong><span>{doc.labelEn}</span>{doc.detailJa && <p>{doc.detailJa}</p>}</article>)}
+      </div>
+      <details class="rwjp-practical__wide"><summary>ビザが必要な場合</summary><p>{rwjpVisaPolicy.detailJa}</p></details>
+      <p class="rwjp-practical__pending">健康診断書・日本語エッセイの正式ダウンロードリンクは、年度版ファイル確認後に掲載します。</p>
+    </div>
+
+    <div class="rwjp-practical__details" id="dorm-details">
+      <h3>大将軍寮での生活</h3>
+      <div class="rwjp-practical__facts">
+        <article><strong>部屋</strong><p>同性で分けた最大4人部屋。2段ベッド2台。部屋・ベッド・同室者は大学・事務局が決定し、無断の交換はできません。</p></article>
+        <article><strong>共用設備</strong><p>シャワー、トイレ、キッチン、ラウンジ、テレビ、無料Wi-Fi、洗濯機・乾燥機（有料）があります。共用PC・プリンターはありません。</p></article>
+        <article><strong>自炊</strong><p>食事提供はありません。冷蔵庫、電子レンジ、鍋、フライパン、包丁、皿、カトラリーがあります。食材・調味料・油は各自で用意します。</p></article>
+        <article><strong>持参するもの</strong><p>タオル、ティッシュ、洗剤、シャンプー、石けん、歯磨き用品などは各自で準備してください。アイロン、ドライヤー、ハンガーも備え付けていません。</p></article>
+        <article><strong>訪問・配送</strong><p>外部者は昼間を含め訪問・入館・宿泊できません。寮スタッフは宅配便やオンラインショッピングの荷物を代理受領できません。</p></article>
+        <article><strong>生活ルール</strong><p>居室は各自で清掃し、ごみは京都市のルールに従って分別します。設備・備品・鍵の破損や紛失に必要な費用は本人負担です。</p></article>
+      </div>
+      <p class="rwjp-practical__pending">正式なチェックイン・チェックアウト時刻は確認後に掲載します。日付は基本情報欄の指定日程に従ってください。</p>
+    </div>
+
+    <div class="rwjp-practical__details" id="safety-details">
+      <h3>安全・保険・参加ルール</h3>
+      <div class="rwjp-practical__accordion">
+        {insurance && <details open><summary>{insurance.title}</summary><p>{insurance.detail}</p></details>}
+        <details><summary>移動の安全ルール</summary><p>{life.wheeledTransport.rwjpWheeledTransportPolicy.website.detail}</p></details>
+        <details><summary>スマートフォン・PC</summary><p>インターネット接続可能なスマートフォンは実務上ほぼ必携のため、強く推奨します。ノートPCは必須ではありませんが、日本語講座でプレゼンテーションの機会があり、寮に共用PC・プリンターがないため持参を推奨します。</p></details>
+        <details><summary>現金・カード・交通系IC</summary><p>日本円の現金とクレジットカードの両方を準備してください。現金しか使えない場面があります。ICOCA・Suicaなどの交通系ICカードも便利で、対応するスマートフォンではモバイル版も利用できます。</p></details>
+      </div>
+    </div>
+  </div>
+</section>
