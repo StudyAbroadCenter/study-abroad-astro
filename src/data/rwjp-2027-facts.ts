@@ -3,7 +3,7 @@ export type FactCertainty = 'Confirmed' | 'Provisional' | 'Unknown' | 'Not Appli
 export interface RwjpFact<T> { value: T | null; certainty: FactCertainty; source: string; verifiedAt: string | null; }
 export interface RwjpFacts {
   offering: string; officialName: RwjpFact<string>; programmeDates: RwjpFact<{ start: string; end: string }>;
-  durationLabel: RwjpFact<string>; campus: RwjpFact<string>; japaneseMinutes: RwjpFact<number>; cultureMinutes: RwjpFact<number>;
+  durationLabel: RwjpFact<string>; campus: RwjpFact<string>; japaneseMinutes: RwjpFact<number>; cultureMinutes: RwjpFact<number>; cultureSessions: RwjpFact<number>; cultureSessionMinutes: RwjpFact<number>;
   accommodation: RwjpFact<string>; accommodationFee: RwjpFact<number>; accommodationDates: RwjpFact<{ checkIn: string; checkOut: string }>;
   accommodationWifi: RwjpFact<string>; accommodationLaundry: RwjpFact<string>; accommodationMeals: RwjpFact<string>; accommodationKitchen: RwjpFact<string>;
   accommodationCurfew: RwjpFact<string>; accommodationCommute: RwjpFact<string>; accommodationClimateControl: RwjpFact<string>; accommodationBedding: RwjpFact<string>;
@@ -13,11 +13,14 @@ export interface RwjpFacts {
 }
 const ownerConfirmation = 'Programme owner working confirmation for 2027 RWJP';
 const confirmed = <T>(value: T): RwjpFact<T> => ({ value, certainty: 'Confirmed', source: ownerConfirmation, verifiedAt: '2026-08-14' });
+const unknown = <T>(): RwjpFact<T> => ({ value: null, certainty: 'Unknown', source: ownerConfirmation, verifiedAt: '2026-08-14' });
 export const rwjp2027Facts: RwjpFacts = {
   offering: '2027 RWJP',
   officialName: confirmed('Ritsumeikan Winter Japanese Program'),
   programmeDates: confirmed({ start: '2027-01-12', end: '2027-02-11' }),
-  durationLabel: confirmed('5週間'), campus: confirmed('衣笠キャンパス（京都）'), japaneseMinutes: confirmed(990), cultureMinutes: confirmed(360),
+  durationLabel: confirmed('5週間'), campus: confirmed('衣笠キャンパス（京都）'),
+  japaneseMinutes: unknown<number>(),
+  cultureMinutes: confirmed(990), cultureSessions: confirmed(11), cultureSessionMinutes: confirmed(90),
   accommodation: confirmed('大将軍寮。1室最大4名、同性で部屋分け、2段ベッド2台。シャワー・トイレ・キッチンは共用。最大12室。'),
   accommodationFee: confirmed(94500), accommodationDates: confirmed({ checkIn: '2027-01-11', checkOut: '2027-02-12' }), accommodationWifi: confirmed('無料Wi-Fiあり'),
   accommodationLaundry: confirmed('洗濯機・乾燥機あり。有料。料金は現在確認中。'), accommodationMeals: confirmed('食事の提供はありません。'),
@@ -31,7 +34,7 @@ export const rwjp2027Facts: RwjpFacts = {
   paymentMethod: confirmed('合格後に事務局から案内'),
   paymentPolicy: confirmed('合格後に支払い方法と手順を事務局から通知します。プログラム費370,000円と、大将軍寮を利用する場合の宿泊費94,500円は、指定された支払期限までに一括で支払います。支払期限までに支払いが完了しない場合、参加資格は自動的に失効します。'),
   refundAmount: confirmed(54000),
-  refundPolicy: confirmed('参加費を支払う前に辞退する場合、キャンセル料は発生しません。支払後にキャンセルする場合は、管理手数料54,000円を差し引き、さらにキャンセル時点ですでに手配済みで返金できない費用がある場合は、その実費も差し引いた残額を返金します。'),
+  refundPolicy: confirmed('参加費を支払う前に辞退する場合、キャンセル料は発生しません。支払後にキャンセルする場合は、所定の管理手数料を差し引き、さらにキャンセル時点ですでに手配済みで返金できない費用がある場合は、その実費も差し引いた残額を返金します。'),
   eligibility: confirmed('申請時からプログラム参加時まで大学または大学院に在籍している学生が対象です。大学入学前の方、卒業後の方は対象外です。社会人でも、大学・大学院にパートタイム学生として在籍している場合は対象です。'),
   japaneseRequirement: confirmed('JLPT N1保持者は対象外です。日本語学習経験がない方も応募できますが、プログラム開始前までにひらがな・カタカナを読めるようにしておく必要があります。'),
   applicationPeriod: confirmed({ start: '2026-09-30', end: '2026-10-14' }), programmeFee: confirmed(370000),
