@@ -31,14 +31,18 @@ const applicationLabel = applicationStart && applicationEnd ? `${applicationStar
     <div class="rwjp-decision__notice" aria-label="支払いに関する注意"><strong>支払いについて</strong><p>{f.paymentPolicy.value}</p></div>
     <div class="rwjp-decision__notice" aria-label="宿泊に関する注意"><strong>宿泊について</strong><p>{f.accommodationPolicy.value}</p></div>
     <div class="rwjp-decision__notice" aria-label="キャンセルと返金"><strong>キャンセル・返金</strong><p>{refundAmountLabel ? `支払後のキャンセルでは管理手数料${refundAmountLabel}を差し引きます。` : '管理手数料は正式決定後に掲載します。'} {f.refundPolicy.value}</p></div>
+    <div class="rwjp-decision__contact" aria-label="RWJP公式問い合わせ先">
+      <strong>公式問い合わせ先</strong>
+      <p><a href="mailto:rsjprwjp@st.ritsumei.ac.jp">rsjprwjp@st.ritsumei.ac.jp</a> ／ <a href="tel:+81754663009">075-466-3009</a></p>
+    </div>
     <div class="rwjp-decision__actions" aria-label="RWJPの応募・問い合わせ">
       <a href="#prepare">応募前の詳細を確認する</a>
       {isJourneyLinkReady(applicationLink) && applicationLink.url
         ? <a href={applicationLink.url} target={applicationLink.external ? '_blank' : undefined} rel={applicationLink.external ? 'noopener noreferrer' : undefined}>{applicationLink.labelJa}</a>
-        : <span aria-disabled="true">応募フォーム：正式URL確認待ち</span>}
+        : <span aria-disabled="true">応募フォーム：Microsoft Forms準備中</span>}
       {isJourneyLinkReady(inquiryLink) && inquiryLink.url
-        ? <a href={inquiryLink.url} target={inquiryLink.external ? '_blank' : undefined} rel={inquiryLink.external ? 'noopener noreferrer' : undefined}>{inquiryLink.labelJa}</a>
-        : <span aria-disabled="true">問い合わせ先：正式URL確認待ち</span>}
+        ? <a href={inquiryLink.url}>{inquiryLink.labelJa}</a>
+        : <span aria-disabled="true">問い合わせ先：確認待ち</span>}
     </div>
   </div>
 </section>
