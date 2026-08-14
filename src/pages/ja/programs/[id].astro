@@ -1,20 +1,10 @@
 ---
-import StudentRecruitmentLayout from '../../../components/StudentRecruitmentLayout.astro';
-import ProgrammePageShell from '../../../components/ProgrammePageShell.astro';
-import RwjpFlagshipPage from '../../../components/RwjpFlagshipPage.astro';
-import RwjpExpressFlagshipPage from '../../../components/RwjpExpressFlagshipPage.astro';
-import RdspFlagshipPage from '../../../components/RdspFlagshipPage.astro';
-import { programmePageDrafts, type ProgrammePageDraft } from '../../../data/programme-page-drafts';
-import '../../../styles/rwjp-cinematic-hero.css';
+import { programmePageDrafts } from '../../../data/programme-page-drafts';
 
 export function getStaticPaths() {
-  return programmePageDrafts.map((programme) => ({ params: { id: programme.id }, props: { programme } }));
+  return programmePageDrafts.map((programme) => ({ params: { id: programme.id } }));
 }
-interface Props { programme: ProgrammePageDraft; }
-const { programme } = Astro.props;
-const title = `${programme.title} | 立命館大学 短期受入プログラム`;
-const description = `${programme.title}のプログラムページを制作中です。確認済みの情報から順に掲載します。`;
+
+const { id } = Astro.params;
+return Astro.redirect(`/programs/${id}/`);
 ---
-<StudentRecruitmentLayout title={title} description={description} robots="noindex,nofollow">
-  {programme.id === 'rwjp' ? <RwjpFlagshipPage programme={programme} /> : programme.id === 'rwjp-express' ? <RwjpExpressFlagshipPage programme={programme} /> : programme.id === 'rdsp' ? <RdspFlagshipPage programme={programme} /> : <ProgrammePageShell programme={programme} />}
-</StudentRecruitmentLayout>
