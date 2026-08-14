@@ -16,6 +16,8 @@ export interface RwjpFacts {
   japaneseMinutes: RwjpFact<number>;
   cultureMinutes: RwjpFact<number>;
   accommodation: RwjpFact<string>;
+  accommodationFee: RwjpFact<number>;
+  accommodationPolicy: RwjpFact<string>;
   paymentMethod: RwjpFact<string>;
   refundAmount: RwjpFact<number>;
   refundPolicy: RwjpFact<string>;
@@ -66,7 +68,19 @@ export const rwjp2027Facts: RwjpFacts = {
     verifiedAt: '2026-08-14',
   },
   accommodation: {
-    value: '大将軍寮を使用予定。部屋条件・配慮事項は正式募集案内で確認します。',
+    value: '大将軍寮。1室最大4名、同性で部屋分け、2段ベッド2台。シャワー・トイレ・キッチンは共用。最大12室。',
+    certainty: 'Confirmed',
+    source: ownerConfirmation,
+    verifiedAt: '2026-08-14',
+  },
+  accommodationFee: {
+    value: 94500,
+    certainty: 'Confirmed',
+    source: ownerConfirmation,
+    verifiedAt: '2026-08-14',
+  },
+  accommodationPolicy: {
+    value: '大将軍寮の宿泊はプログラム費用370,000円には含まれません。利用する場合は宿泊費94,500円を追加で支払います。物理的な満室等により宿泊は保証されません。参加者の希望で外部宿舎を自己手配・自己負担で利用することもできます。その場合もプログラム費用370,000円は立命館大学へ支払い、外部宿泊費は参加者が各宿泊施設へ直接支払います。',
     certainty: 'Confirmed',
     source: ownerConfirmation,
     verifiedAt: '2026-08-14',
