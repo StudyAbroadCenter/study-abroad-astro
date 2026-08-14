@@ -13,22 +13,17 @@ RWJP is complete only when the page is both compelling and decision-ready. Visua
 - Preserved the existing RWJP flagship visual direction.
 - Added a structured `rwjp-2027-facts.ts` fact boundary with certainty and source fields.
 - Connected the RWJP route to a decision-information panel.
-- Added verified-date, duration, campus, learning-minute, accommodation, payment and refund information.
-- Left fee, application period and application status explicitly Unknown instead of inferring values.
+- Added confirmed programme dates, duration, campus, learning minutes, accommodation, payment method, programme fee, application period and refund amount.
+- Programme fee confirmed at **370,000 JPY**.
+- Application period confirmed as **September 30, 2026 through October 14, 2026**.
+- Program period confirmed as **January 12, 2027 through February 11, 2027**.
+- Added a client-side application-state label derived from the confirmed application dates so the static page does not hard-code a stale status.
 - Added an `Is RWJP for you?` self-assessment section.
 - Added RWJP-specific title and description metadata.
-- Kept `noindex,nofollow` while decision-critical facts and Japanese contact/application journeys remain incomplete.
+- Kept `noindex,nofollow` while remaining decision-critical facts and Japanese contact/application journeys remain incomplete.
 - Prevented linking to the legacy English `/contact/` prototype from the RWJP page.
 
 ## Remaining publication blockers
-
-### P0 — Programme fee
-
-Need current approved 2027 RWJP programme fee.
-
-### P0 — Application period and status
-
-Need approved application opening/closing dates and current application state.
 
 ### P0 — Eligibility
 
