@@ -34,7 +34,14 @@ export const rwjpApplicationRequirements: RwjpApplicationRequirement[] = [
   { id: 'rwjp.application.enrollment-certificate', labelJa: '在籍証明書', labelEn: 'Enrollment Certificate', issueLanguage: 'English', ...common },
   { id: 'rwjp.application.transcript', labelJa: '成績証明書', labelEn: 'Academic Transcript', issueLanguage: 'English', ...common },
   { id: 'rwjp.application.passport-copy', labelJa: 'パスポートのコピー', labelEn: 'Passport Copy', issueLanguage: 'Not Applicable', ...common },
-  { id: 'rwjp.application.japanese-essay', labelJa: '日本語エッセイ', labelEn: 'Japanese Essay', issueLanguage: 'Not Applicable', ...common },
+  {
+    id: 'rwjp.application.japanese-essay',
+    labelJa: '日本語エッセイ',
+    labelEn: 'Japanese Essay',
+    issueLanguage: 'Not Applicable',
+    detailJa: 'プログラムWebサイトから所定のエッセイテンプレートをダウンロードして使用してください。テーマはテンプレートに記載されています。エッセイは手書きで作成し、翻訳ソフトは使用しないでください。エッセイの出来は合否判定には使用しません。日本語で書けない場合は、その旨を英語でテンプレート上に明記してください。',
+    ...common,
+  },
   {
     id: 'rwjp.application.health-certificate',
     labelJa: '健康診断書',
