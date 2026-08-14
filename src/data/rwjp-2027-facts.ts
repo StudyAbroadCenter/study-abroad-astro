@@ -8,7 +8,7 @@ export interface RwjpFacts {
   accommodationWifi: RwjpFact<string>; accommodationLaundry: RwjpFact<string>; accommodationMeals: RwjpFact<string>; accommodationKitchen: RwjpFact<string>;
   accommodationCurfew: RwjpFact<string>; accommodationCommute: RwjpFact<string>; accommodationClimateControl: RwjpFact<string>; accommodationBedding: RwjpFact<string>;
   accommodationBringYourOwn: RwjpFact<string>; accommodationShowerAccess: RwjpFact<string>; accommodationToiletAccess: RwjpFact<string>; accommodationPolicy: RwjpFact<string>;
-  paymentMethod: RwjpFact<string>; refundAmount: RwjpFact<number>; refundPolicy: RwjpFact<string>; eligibility: RwjpFact<string>; japaneseRequirement: RwjpFact<string>;
+  paymentMethod: RwjpFact<string>; paymentPolicy: RwjpFact<string>; refundAmount: RwjpFact<number>; refundPolicy: RwjpFact<string>; eligibility: RwjpFact<string>; japaneseRequirement: RwjpFact<string>;
   applicationPeriod: RwjpFact<{ start: string; end: string }>; programmeFee: RwjpFact<number>;
 }
 const ownerConfirmation = 'Programme owner working confirmation for 2027 RWJP';
@@ -28,7 +28,9 @@ export const rwjp2027Facts: RwjpFacts = {
   accommodationBringYourOwn: confirmed('タオル、シャンプー、石鹸、歯磨き用品、その他の洗面用品は各自で持参してください。'),
   accommodationShowerAccess: confirmed('共用シャワーは24時間利用できます。'), accommodationToiletAccess: confirmed('共用トイレは24時間利用できます。'),
   accommodationPolicy: confirmed('大将軍寮の宿泊はプログラム費用370,000円には含まれません。利用する場合は宿泊費94,500円を追加で支払います。宿泊期間はプログラム開始前日の2027年1月11日チェックイン、終了翌日の2027年2月12日チェックアウトで、この日程は必須です。布団・シーツ・枕などの寝具は宿泊費に含まれています。タオル、シャンプー、石鹸、歯磨き用品、その他の洗面用品は各自で持参してください。無料Wi-Fiを利用でき、冷暖房を完備しています。共用シャワー・トイレは24時間利用できます。洗濯機・乾燥機は有料で利用できます（料金は現在確認中）。食事の提供はありません。共用キッチン、電子レンジ、冷蔵庫を利用でき、必要に応じて自炊できます。門限はありません。衣笠キャンパスまでは徒歩約10〜15分を基本とし、安全上の理由からプログラム期間中の自転車利用は禁止します。寮の目の前からバスも利用できますが、運賃は自己負担です。物理的な満室等により宿泊は保証されません。参加者の希望で外部宿舎を自己手配・自己負担で利用することもできます。その場合もプログラム費用370,000円は立命館大学へ支払い、外部宿泊費は参加者が各宿泊施設へ直接支払います。'),
-  paymentMethod: confirmed('Convera'), refundAmount: confirmed(54000),
+  paymentMethod: confirmed('Convera'),
+  paymentPolicy: confirmed('合格後に支払い案内を通知します。プログラム費370,000円と、大将軍寮を利用する場合の宿泊費94,500円は、指定された支払期限までに一括で支払います。具体的な支払方法・手順は合格後に事務局から案内します。'),
+  refundAmount: confirmed(54000),
   refundPolicy: confirmed('参加費支払後にキャンセルする場合、管理手数料54,000円は返金されません。残額は返金対象ですが、キャンセル時点ですでに手配済みで返金できない費用がある場合は、その実費を差し引いて返金します。'),
   eligibility: confirmed('申請時からプログラム参加時まで大学または大学院に在籍している学生が対象です。大学入学前の方、卒業後の方は対象外です。社会人でも、大学・大学院にパートタイム学生として在籍している場合は対象です。'),
   japaneseRequirement: confirmed('JLPT N1保持者は対象外です。日本語学習経験がない方も応募できますが、プログラム開始前までにひらがな・カタカナを読めるようにしておく必要があります。'),
