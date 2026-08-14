@@ -1,9 +1,11 @@
 ---
-import { rwjpData, rwjpApplicationProcess, rwjpApplicationRequirements, rwjpVisaPolicy } from '../data/rwjp/index';
+import { rwjpData, rwjpApplicationProcess, rwjpApplicationRequirements, rwjpVisaPolicy, rwjp2027JourneyLinks, isJourneyLinkReady } from '../data/rwjp/index';
 import '../styles/rwjp-practical-guide.css';
 
 const knowledge = rwjpData.academicOperations.sharedKnowledge.rwjpSharedKnowledge;
 const byId = (id: string) => knowledge.find((entry) => entry.id === id);
+const medicalForm = rwjp2027JourneyLinks['medical-form'];
+const essayTemplate = rwjp2027JourneyLinks['essay-template'];
 
 const academicCards = [
   byId('rwjp.academic.japanese-prerequisite'),
@@ -20,7 +22,6 @@ const participationCards = [
 ].filter(Boolean);
 
 const insurance = byId('rwjp.operations.travel-insurance');
-const dorm = rwjpData.accommodation;
 const life = rwjpData.participantLife;
 ---
 <section class="rwjp-practical" id="prepare" aria-labelledby="rwjp-practical-title">
@@ -70,8 +71,20 @@ const life = rwjpData.participantLife;
       <div class="rwjp-practical__document-grid">
         {rwjpApplicationRequirements.map((doc) => <article><strong>{doc.labelJa}</strong><span>{doc.labelEn}</span>{doc.detailJa && <p>{doc.detailJa}</p>}</article>)}
       </div>
+      <div class="rwjp-practical__document-grid" aria-label="RWJP所定様式">
+        <article>
+          <strong>{medicalForm.labelJa}</strong>
+          <p>{medicalForm.descriptionJa}</p>
+          {isJourneyLinkReady(medicalForm) && medicalForm.url ? <a href={medicalForm.url}>正式様式を開く</a> : <span aria-disabled="true">正式ファイル確認待ち</span>}
+        </article>
+        <article>
+          <strong>{essayTemplate.labelJa}</strong>
+          <p>{essayTemplate.descriptionJa}</p>
+          {isJourneyLinkReady(essayTemplate) && essayTemplate.url ? <a href={essayTemplate.url}>正式様式を開く</a> : <span aria-disabled="true">正式ファイル確認待ち</span>}
+        </article>
+      </div>
       <details class="rwjp-practical__wide"><summary>ビザが必要な場合</summary><p>{rwjpVisaPolicy.detailJa}</p></details>
-      <p class="rwjp-practical__pending">健康診断書・日本語エッセイの正式ダウンロードリンクは、年度版ファイル確認後に掲載します。</p>
+      <p class="rwjp-practical__pending">所定様式は、立命館が確認した正式ファイルだけを掲載します。未確認のファイルや仮リンクには接続しません。</p>
     </div>
 
     <div class="rwjp-practical__details" id="dorm-details">
