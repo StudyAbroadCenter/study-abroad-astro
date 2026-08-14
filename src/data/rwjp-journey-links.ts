@@ -23,9 +23,9 @@ export const rwjp2027JourneyLinks: Record<RwjpJourneyLink['id'], RwjpJourneyLink
   application: {
     id: 'application',
     labelJa: '2027 RWJPに応募する',
-    descriptionJa: 'Microsoft Formsを利用した一次申請フォームを予定しています。氏名、連絡先、日本語学習歴、参加資格確認など、応募判断に必要な最小限の情報を収集し、申請書類の添付は求めません。正式URL公開後に有効化します。',
-    url: null,
-    state: 'awaiting-official-url',
+    descriptionJa: 'Microsoft Formsを利用した一次申請フォームです。氏名、連絡先、日本語学習歴、参加資格確認など、応募判断に必要な最小限の情報を収集し、申請書類の添付は求めません。募集期間中のみ応募ボタンを有効化します。',
+    url: 'https://forms.cloud.microsoft/r/kUpnnQVYxG',
+    state: 'ready',
     external: true,
   },
   inquiry: {
