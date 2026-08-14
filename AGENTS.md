@@ -19,6 +19,8 @@ The handbook defines product and governance rules. It does not turn existing pro
 
 For programme-facing work, also read the relevant specification in `docs/handbook/12_...` through `20_...` and apply `docs/handbook/21_CROSS_SPEC_GOVERNANCE.md`.
 
+For multilingual, translation, locale-routing, or language-specific content work, also read and apply `docs/handbook/22_LOCALISATION_SPEC.md`.
+
 A factual conflict is a blocker. Do not choose the value that appears most plausible.
 
 ## 1. Read Before Editing
