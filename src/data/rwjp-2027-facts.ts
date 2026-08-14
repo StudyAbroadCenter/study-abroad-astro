@@ -23,6 +23,7 @@ export interface RwjpFacts {
   accommodationMeals: RwjpFact<string>;
   accommodationKitchen: RwjpFact<string>;
   accommodationCurfew: RwjpFact<string>;
+  accommodationCommute: RwjpFact<string>;
   accommodationPolicy: RwjpFact<string>;
   paymentMethod: RwjpFact<string>;
   refundAmount: RwjpFact<number>;
@@ -121,8 +122,14 @@ export const rwjp2027Facts: RwjpFacts = {
     source: ownerConfirmation,
     verifiedAt: '2026-08-14',
   },
+  accommodationCommute: {
+    value: '衣笠キャンパスまでは徒歩を基本とし、所要時間は約10〜15分です。安全上の理由からプログラム期間中の自転車利用は禁止します。寮の目の前にバス停があり、バスも利用できますが、バス運賃はプログラム費用に含まれません。',
+    certainty: 'Confirmed',
+    source: ownerConfirmation,
+    verifiedAt: '2026-08-14',
+  },
   accommodationPolicy: {
-    value: '大将軍寮の宿泊はプログラム費用370,000円には含まれません。利用する場合は宿泊費94,500円を追加で支払います。宿泊期間はプログラム開始前日の2027年1月11日チェックイン、終了翌日の2027年2月12日チェックアウトで、この日程は必須です。無料Wi-Fiを利用できます。洗濯機・乾燥機は有料で利用できます（料金は現在確認中）。食事の提供はありません。共用キッチン、電子レンジ、冷蔵庫を利用でき、必要に応じて自炊できます。門限はありません。物理的な満室等により宿泊は保証されません。参加者の希望で外部宿舎を自己手配・自己負担で利用することもできます。その場合もプログラム費用370,000円は立命館大学へ支払い、外部宿泊費は参加者が各宿泊施設へ直接支払います。',
+    value: '大将軍寮の宿泊はプログラム費用370,000円には含まれません。利用する場合は宿泊費94,500円を追加で支払います。宿泊期間はプログラム開始前日の2027年1月11日チェックイン、終了翌日の2027年2月12日チェックアウトで、この日程は必須です。無料Wi-Fiを利用できます。洗濯機・乾燥機は有料で利用できます（料金は現在確認中）。食事の提供はありません。共用キッチン、電子レンジ、冷蔵庫を利用でき、必要に応じて自炊できます。門限はありません。衣笠キャンパスまでは徒歩約10〜15分を基本とし、安全上の理由からプログラム期間中の自転車利用は禁止します。寮の目の前からバスも利用できますが、運賃は自己負担です。物理的な満室等により宿泊は保証されません。参加者の希望で外部宿舎を自己手配・自己負担で利用することもできます。その場合もプログラム費用370,000円は立命館大学へ支払い、外部宿泊費は参加者が各宿泊施設へ直接支払います。',
     certainty: 'Confirmed',
     source: ownerConfirmation,
     verifiedAt: '2026-08-14',
