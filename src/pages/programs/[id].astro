@@ -2,6 +2,7 @@
 import StudentRecruitmentLayout from '../../components/StudentRecruitmentLayout.astro';
 import ProgrammePageShell from '../../components/ProgrammePageShell.astro';
 import RwjpFlagshipPage from '../../components/RwjpFlagshipPage.astro';
+import RwjpDecisionPanel from '../../components/RwjpDecisionPanel.astro';
 import RwjpExpressFlagshipPage from '../../components/RwjpExpressFlagshipPage.astro';
 import RdspFlagshipPage from '../../components/RdspFlagshipPage.astro';
 import { programmePageDrafts, type ProgrammePageDraft } from '../../data/programme-page-drafts';
@@ -12,9 +13,15 @@ export function getStaticPaths() {
 }
 interface Props { programme: ProgrammePageDraft; }
 const { programme } = Astro.props;
-const title = `${programme.title} | 立命館大学 短期受入プログラム`;
-const description = `${programme.title}のプログラムページを制作中です。確認済みの情報から順に掲載します。`;
+const isRwjp = programme.id === 'rwjp';
+const title = isRwjp
+  ? 'Ritsumeikan Winter Japanese Program (RWJP) 2027 | 立命館大学'
+  : `${programme.title} | 立命館大学 短期受入プログラム`;
+const description = isRwjp
+  ? '2027年1月12日から2月11日まで京都・衣笠キャンパスで実施するRWJP。日本語学習を中心に、文化体験や学生交流を通じて冬の京都で学び暮らす5週間の短期プログラムです。'
+  : `${programme.title}のプログラムページを制作中です。確認済みの情報から順に掲載します。`;
+const robots = 'noindex,nofollow';
 ---
-<StudentRecruitmentLayout title={title} description={description} robots="noindex,nofollow">
-  {programme.id === 'rwjp' ? <RwjpFlagshipPage programme={programme} /> : programme.id === 'rwjp-express' ? <RwjpExpressFlagshipPage programme={programme} /> : programme.id === 'rdsp' ? <RdspFlagshipPage programme={programme} /> : <ProgrammePageShell programme={programme} />}
+<StudentRecruitmentLayout title={title} description={description} robots={robots}>
+  {isRwjp ? <><RwjpFlagshipPage programme={programme} /><RwjpDecisionPanel /></> : programme.id === 'rwjp-express' ? <RwjpExpressFlagshipPage programme={programme} /> : programme.id === 'rdsp' ? <RdspFlagshipPage programme={programme} /> : <ProgrammePageShell programme={programme} />}
 </StudentRecruitmentLayout>
