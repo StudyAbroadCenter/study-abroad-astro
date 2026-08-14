@@ -1,9 +1,11 @@
+import { programmeAcademicLoads } from './programme-academic-loads';
+
 export type FactCertainty = 'Confirmed' | 'Provisional' | 'Unknown' | 'Not Applicable';
 
 export interface RwjpFact<T> { value: T | null; certainty: FactCertainty; source: string; verifiedAt: string | null; }
 export interface RwjpFacts {
   offering: string; officialName: RwjpFact<string>; programmeDates: RwjpFact<{ start: string; end: string }>;
-  durationLabel: RwjpFact<string>; campus: RwjpFact<string>; japaneseMinutes: RwjpFact<number>; cultureMinutes: RwjpFact<number>; cultureSessions: RwjpFact<number>; cultureSessionMinutes: RwjpFact<number>;
+  durationLabel: RwjpFact<string>; campus: RwjpFact<string>; japaneseMinutes: RwjpFact<number>; japaneseClassMinutes: RwjpFact<number>; japaneseClassesPerDay: RwjpFact<number>; japaneseTeachingDays: RwjpFact<number>; cultureMinutes: RwjpFact<number>; cultureSessions: RwjpFact<number>; cultureSessionMinutes: RwjpFact<number>;
   accommodation: RwjpFact<string>; accommodationFee: RwjpFact<number>; accommodationDates: RwjpFact<{ checkIn: string; checkOut: string }>;
   accommodationWifi: RwjpFact<string>; accommodationLaundry: RwjpFact<string>; accommodationMeals: RwjpFact<string>; accommodationKitchen: RwjpFact<string>;
   accommodationCurfew: RwjpFact<string>; accommodationCommute: RwjpFact<string>; accommodationClimateControl: RwjpFact<string>; accommodationBedding: RwjpFact<string>;
@@ -13,13 +15,13 @@ export interface RwjpFacts {
 }
 const ownerConfirmation = 'Programme owner working confirmation for 2027 RWJP';
 const confirmed = <T>(value: T): RwjpFact<T> => ({ value, certainty: 'Confirmed', source: ownerConfirmation, verifiedAt: '2026-08-14' });
-const unknown = <T>(): RwjpFact<T> => ({ value: null, certainty: 'Unknown', source: ownerConfirmation, verifiedAt: '2026-08-14' });
+const fiveWeekJapanese = programmeAcademicLoads.fiveWeek;
 export const rwjp2027Facts: RwjpFacts = {
   offering: '2027 RWJP',
   officialName: confirmed('Ritsumeikan Winter Japanese Program'),
   programmeDates: confirmed({ start: '2027-01-12', end: '2027-02-11' }),
   durationLabel: confirmed('5週間'), campus: confirmed('衣笠キャンパス（京都）'),
-  japaneseMinutes: unknown<number>(),
+  japaneseMinutes: confirmed(fiveWeekJapanese.totalMinutes), japaneseClassMinutes: confirmed(fiveWeekJapanese.classMinutes), japaneseClassesPerDay: confirmed(fiveWeekJapanese.classesPerDay), japaneseTeachingDays: confirmed(fiveWeekJapanese.teachingDays),
   cultureMinutes: confirmed(990), cultureSessions: confirmed(11), cultureSessionMinutes: confirmed(90),
   accommodation: confirmed('大将軍寮。1室最大4名、同性で部屋分け、2段ベッド2台。シャワー・トイレ・キッチンは共用。最大12室。'),
   accommodationFee: confirmed(94500), accommodationDates: confirmed({ checkIn: '2027-01-11', checkOut: '2027-02-12' }), accommodationWifi: confirmed('無料Wi-Fiあり'),
