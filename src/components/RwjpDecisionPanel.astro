@@ -7,7 +7,9 @@ const dateLabel = isKnownFact(f.programmeDates) ? `${f.programmeDates.value.star
 const feeLabel = isKnownFact(f.programmeFee) ? `${f.programmeFee.value.toLocaleString('ja-JP')}円` : '正式決定後に掲載';
 const accommodationFeeLabel = isKnownFact(f.accommodationFee) ? `${f.accommodationFee.value.toLocaleString('ja-JP')}円` : '確認中';
 const accommodationDateLabel = isKnownFact(f.accommodationDates) ? `${f.accommodationDates.value.checkIn.replaceAll('-', '.')} チェックイン — ${f.accommodationDates.value.checkOut.replaceAll('-', '.')} チェックアウト` : '確認中';
-const japaneseLoadLabel = isKnownFact(f.japaneseMinutes) ? `5週間合計 ${f.japaneseMinutes.value.toLocaleString('ja-JP')}分` : '日本語講座を実施（総授業時間は最終確認中）';
+const japaneseLoadLabel = isKnownFact(f.japaneseMinutes) && isKnownFact(f.japaneseClassMinutes) && isKnownFact(f.japaneseClassesPerDay) && isKnownFact(f.japaneseTeachingDays)
+  ? `5週間合計 ${f.japaneseMinutes.value.toLocaleString('ja-JP')}分（${f.japaneseClassMinutes.value}分 × 1日${f.japaneseClassesPerDay.value}コマ × ${f.japaneseTeachingDays.value}日）／57.5時間`
+  : '確認中';
 const cultureLoadLabel = isKnownFact(f.cultureMinutes) && isKnownFact(f.cultureSessions) && isKnownFact(f.cultureSessionMinutes)
   ? `5週間合計 ${f.cultureMinutes.value.toLocaleString('ja-JP')}分（${f.cultureSessionMinutes.value}分 × ${f.cultureSessions.value}回）`
   : '確認中';
@@ -20,7 +22,7 @@ const applicationLabel = applicationStart && applicationEnd ? `${applicationStar
   <div class="site-shell">
     <div class="rwjp-decision__head"><p class="rwjp-decision__kicker">2027 RWJP · DECISION FACTS</p><h2 id="rwjp-decision-title">参加を決める前に、条件を確認する。</h2><p>魅力だけでなく、日程・学習量・宿泊・支払・応募資格など、判断に必要な情報を確認済みの範囲で掲載します。</p></div>
     <dl class="rwjp-decision__facts">
-      <div><dt>正式名称</dt><dd>{f.officialName.value}</dd></div><div><dt>実施日程</dt><dd>{dateLabel}</dd></div><div><dt>期間</dt><dd>{f.durationLabel.value}</dd></div><div><dt>キャンパス</dt><dd>{f.campus.value}</dd></div><div><dt>日本語学習</dt><dd>{japaneseLoadLabel}</dd></div><div><dt>日本文化体験</dt><dd>{cultureLoadLabel}</dd></div><div><dt>プログラム費用</dt><dd>{feeLabel}</dd></div><div><dt>大将軍寮 宿泊費</dt><dd>{accommodationFeeLabel}（プログラム費用には含まれません）</dd></div><div><dt>大将軍寮 宿泊期間</dt><dd>{accommodationDateLabel}（この日程は必須）</dd></div><div><dt>宿泊</dt><dd>{f.accommodation.value}</dd></div><div><dt>支払方法</dt><dd>{f.paymentMethod.value}</dd></div><div><dt>募集期間</dt><dd>{applicationLabel}</dd></div>
+      <div><dt>正式名称</dt><dd>{f.officialName.value}</dd></div><div><dt>実施日程</dt><dd>{dateLabel}</dd></div><div><dt>期間</dt><dd>{f.durationLabel.value}</dd></div><div><dt>キャンパス</dt><dd>{f.campus.value}</dd></div><div><dt>日本語講座</dt><dd>{japaneseLoadLabel}</dd></div><div><dt>日本文化体験</dt><dd>{cultureLoadLabel}</dd></div><div><dt>プログラム費用</dt><dd>{feeLabel}</dd></div><div><dt>大将軍寮 宿泊費</dt><dd>{accommodationFeeLabel}（プログラム費用には含まれません）</dd></div><div><dt>大将軍寮 宿泊期間</dt><dd>{accommodationDateLabel}（この日程は必須）</dd></div><div><dt>宿泊</dt><dd>{f.accommodation.value}</dd></div><div><dt>支払方法</dt><dd>{f.paymentMethod.value}</dd></div><div><dt>募集期間</dt><dd>{applicationLabel}</dd></div>
       <div><dt>募集状況</dt><dd>{applicationStart && applicationEnd ? <span data-rwjp-application-status data-start={applicationStart} data-end={applicationEnd}>募集期間：{applicationLabel}</span> : '確認中'}</dd></div>
     </dl>
     <div class="rwjp-decision__requirements" aria-label="RWJP応募資格と日本語要件"><article><strong>応募資格</strong><p>{f.eligibility.value}</p></article><article><strong>日本語要件</strong><p>{f.japaneseRequirement.value}</p></article></div>
