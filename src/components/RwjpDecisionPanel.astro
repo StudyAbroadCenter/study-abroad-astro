@@ -1,8 +1,10 @@
 ---
-import { rwjp2027Facts, isKnownFact } from '../data/rwjp/index';
+import { rwjp2027Facts, isKnownFact, rwjp2027JourneyLinks, isJourneyLinkReady } from '../data/rwjp/index';
 import '../styles/rwjp-decision-panel.css';
 
 const f = rwjp2027Facts;
+const applicationLink = rwjp2027JourneyLinks.application;
+const inquiryLink = rwjp2027JourneyLinks.inquiry;
 const dateLabel = isKnownFact(f.programmeDates) ? `${f.programmeDates.value.start.replaceAll('-', '.')} — ${f.programmeDates.value.end.replaceAll('-', '.')}` : '確認中';
 const feeLabel = isKnownFact(f.programmeFee) ? `${f.programmeFee.value.toLocaleString('ja-JP')}円` : '正式決定後に掲載';
 const accommodationFeeLabel = isKnownFact(f.accommodationFee) ? `${f.accommodationFee.value.toLocaleString('ja-JP')}円` : '確認中';
@@ -29,7 +31,15 @@ const applicationLabel = applicationStart && applicationEnd ? `${applicationStar
     <div class="rwjp-decision__notice" aria-label="支払いに関する注意"><strong>支払いについて</strong><p>{f.paymentPolicy.value}</p></div>
     <div class="rwjp-decision__notice" aria-label="宿泊に関する注意"><strong>宿泊について</strong><p>{f.accommodationPolicy.value}</p></div>
     <div class="rwjp-decision__notice" aria-label="キャンセルと返金"><strong>キャンセル・返金</strong><p>{refundAmountLabel ? `支払後のキャンセルでは管理手数料${refundAmountLabel}を差し引きます。` : '管理手数料は正式決定後に掲載します。'} {f.refundPolicy.value}</p></div>
-    <div class="rwjp-decision__actions" aria-label="RWJPの次の確認項目"><a href="#prepare">応募前の詳細を確認する</a><span aria-disabled="true">申請フォーム・問い合わせ先は正式URL確認後に有効化</span></div>
+    <div class="rwjp-decision__actions" aria-label="RWJPの応募・問い合わせ">
+      <a href="#prepare">応募前の詳細を確認する</a>
+      {isJourneyLinkReady(applicationLink) && applicationLink.url
+        ? <a href={applicationLink.url} target={applicationLink.external ? '_blank' : undefined} rel={applicationLink.external ? 'noopener noreferrer' : undefined}>{applicationLink.labelJa}</a>
+        : <span aria-disabled="true">応募フォーム：正式URL確認待ち</span>}
+      {isJourneyLinkReady(inquiryLink) && inquiryLink.url
+        ? <a href={inquiryLink.url} target={inquiryLink.external ? '_blank' : undefined} rel={inquiryLink.external ? 'noopener noreferrer' : undefined}>{inquiryLink.labelJa}</a>
+        : <span aria-disabled="true">問い合わせ先：正式URL確認待ち</span>}
+    </div>
   </div>
 </section>
 <section class="rwjp-fit" id="rwjp-fit" aria-labelledby="rwjp-fit-title"><div class="site-shell rwjp-fit__grid"><div><p class="rwjp-decision__kicker">IS RWJP FOR YOU?</p><h2 id="rwjp-fit-title">こんな学生に向いています。</h2></div><div class="rwjp-fit__body"><ul><li>短期旅行ではなく、京都で数週間生活しながら日本語を学びたい。</li><li>日本語学習をプログラムの中心に置きたい。</li><li>授業だけでなく、学生交流や文化体験にも参加したい。</li><li>一人で参加しても、自分から動いて新しい環境に入ってみたい。</li></ul><p>応募前に、上記の在籍条件・日本語要件・宿泊条件を必ず確認してください。</p></div></div></section>
