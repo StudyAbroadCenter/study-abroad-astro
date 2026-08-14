@@ -1,35 +1,32 @@
 ---
-import Layout from '../components/Layout.astro';
-const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
-const withBase = (path: string) => `${base}${path.replace(/^\//, '')}`;
-const image = (name: string) => withBase(`/images/${name}`);
-const programs = [
-  ['RSJP','Ritsumeikan Summer Japanese Program','Summer · 4 weeks','Japanese language and Japan Studies','IMG_8178.JPG'],
-  ['RWJP','Ritsumeikan Winter Japanese Program','Winter · 4 weeks','Language, culture and campus life','IMG_8263.JPG'],
-  ['EXPRESS','RWJP Express','Winter · 2 weeks','An intensive introduction to Japan','IMG_1588.JPG'],
-  ['RDSP','Ritsumeikan Discover Studies Program','Summer · Short format','Interdisciplinary discovery and exchange','IMG_3725.JPG'],
-  ['RBMP','Ritsumeikan Business & Management Program','Custom season','Business, management and innovation','IMG_6091.JPG'],
-  ['CUSTOM','Custom Programs','Flexible','Designed with overseas partner universities','IMG_1687.JPG'],
-];
+import StudentRecruitmentLayout from '../components/StudentRecruitmentLayout.astro';
+import RecruitmentHero from '../components/RecruitmentHero.astro';
+import ProgramFinder from '../components/ProgramFinder.astro';
+import ExperiencePillars from '../components/ExperiencePillars.astro';
+import ParticipantDay from '../components/ParticipantDay.astro';
+import CampusJourney from '../components/CampusJourney.astro';
+import PerformanceStyles from '../components/PerformanceStyles.astro';
+import '../styles/ja-visual-refinement.css';
+import '../styles/ja-typography-polish.css';
 ---
-<Layout title="Study in Japan | Digital Prospectus Prototype" description="A responsive digital prospectus prototype for short-term study programs in Japan.">
-  <section class="prospectus-hero">
-    <div class="container prospectus-grid">
-      <div class="hero-copy"><p class="eyebrow">Japan · University · Discovery</p><h1>Learn in Japan.<br />Connect for life.</h1><p class="lede">A photo-led digital prospectus concept for international students and partner universities—combining academic learning, Japanese culture and a welcoming campus community.</p><div class="button-row"><a class="button" href={withBase('/programs/')}>Compare programs</a><a class="button secondary" href="#experience">See the experience</a></div><ul class="trust-list" aria-label="Program strengths"><li>University-based learning</li><li>Practical student support</li><li>Culture beyond the classroom</li></ul></div>
-      <figure class="photo-stage"><img src={image('IMG_1687.JPG')} alt="Green university campus under a blue sky" loading="eager" fetchpriority="high" /><figcaption><strong>A university experience in Japan</strong><span>Responsive crop for desktop and mobile</span></figcaption></figure>
+<StudentRecruitmentLayout
+  title="立命館大学 短期受入プログラム"
+  description="日本語・日本文化、学生共修、専門テーマ、大学向けCustom Programsを通じて、京都・大阪・滋賀で学ぶ立命館大学の短期受入プログラム。"
+>
+  <RecruitmentHero />
+  <ProgramFinder />
+  <ExperiencePillars />
+  <ParticipantDay />
+  <CampusJourney />
+  <PerformanceStyles />
+
+  <section class="mvp-preview" aria-label="今後追加するコンテンツ">
+    <div class="site-shell mvp-preview__grid mvp-preview__grid--single">
+      <article id="support-preview">
+        <span>NEXT 01</span>
+        <h2>参加前から帰国までの支援</h2>
+        <p>応募、渡航準備、宿泊、保険、緊急時対応まで、安心材料を分かりやすく提示します。</p>
+      </article>
     </div>
   </section>
-  <aside class="notice"><div class="container"><strong>Prototype notice</strong><p>This is a sample digital prospectus for evaluation. It is not an official university website.</p></div></aside>
-
-  <section class="section intro"><div class="container narrow"><p class="eyebrow">A university experience in Japan</p><h2>Serious learning. Human connection. A memorable place.</h2><p class="large-copy">The design balances trust and academic credibility with the warmth of real program photography. Images of classrooms, campuses and cultural activities are cropped for comfortable viewing on every screen size.</p></div></section>
-
-  <section class="section muted"><div class="container"><div class="section-heading"><div><p class="eyebrow">Six program pathways</p><h2>Find the experience that fits.</h2></div><a class="text-link" href={withBase('/programs/')}>Open comparison view →</a></div><div class="prospectus-cards">{programs.map(([code,name,format,focus,file]) => <article class="prospectus-card"><div class="photo-slot"><img src={image(file)} alt="" loading="lazy" /><span>{code}</span></div><div class="card-body"><p class="eyebrow">{format}</p><h3>{name}</h3><p>{focus}</p><a class="text-link" href={withBase('/programs/')}>Compare details →</a></div></article>)}</div></div></section>
-
-  <section class="section" id="experience"><div class="container"><p class="eyebrow">The experience</p><h2>Japan is part of the classroom.</h2><div class="story-grid"><article class="story-photo"><img src={image('IMG_8178.JPG')} alt="Students attending an orientation class at a Japanese university" loading="lazy" /><div><p class="eyebrow">Academic</p><h3>Learn with purpose</h3><p>Language classes, lectures and field-based learning give each program a clear academic foundation.</p></div></article><article class="story-photo"><img src={image('IMG_5092.JPG')} alt="Freshly prepared matcha tea and bamboo whisk" loading="lazy" /><div><p class="eyebrow">Culture</p><h3>Experience Japan thoughtfully</h3><p>Tea, arts, local visits and everyday encounters create context beyond tourism.</p></div></article><article class="story-photo"><img src={image('IMG_1656.JPG')} alt="University campus lawn and clock tower" loading="lazy" /><div><p class="eyebrow">Community</p><h3>Belong on campus</h3><p>Orientation, buddies and practical support help students participate with confidence.</p></div></article></div></div></section>
-
-  <section class="section muted"><div class="container split"><div><p class="eyebrow">Program comparison</p><h2>Make the differences easy to understand.</h2><p class="large-copy">On desktop, students can scan a structured comparison table. On phones, the same information becomes readable stacked cards instead of a cramped spreadsheet.</p><a class="button" href={withBase('/programs/')}>Compare all six programs</a></div><div class="comparison-demo" aria-label="Sample mobile program comparison"><div><strong>RWJP Express</strong><span>2 weeks</span><span>Winter</span></div><div><strong>RSJP</strong><span>4 weeks</span><span>Summer</span></div><div><strong>Custom</strong><span>Flexible</span><span>Partner designed</span></div></div></div></section>
-
-  <section class="section"><div class="container split"><div><p class="eyebrow">Connected Q&A</p><h2>Answers that can grow with the program.</h2><p class="large-copy">The FAQ area is designed so it can later receive approved questions and answers from the Q&A application now under development.</p><ul class="check-list"><li>Category and keyword search</li><li>Frequently viewed questions</li><li>Clear route to human support</li></ul></div><div class="faq-preview"><details open><summary>Which program is right for me?</summary><p>Compare season, length, academic theme and language component before opening each program page.</p></details><details><summary>Do I need Japanese language experience?</summary><p>Requirements vary by program and will be shown clearly in the comparison view.</p></details><details><summary>How will the future Q&A connection work?</summary><p>The public website can display approved content supplied by the separate Q&A application through a controlled data connection.</p></details></div></div></section>
-
-  <section class="cta"><div class="container"><p class="eyebrow">Digital prospectus prototype</p><h2>Built to be trusted—and enjoyed.</h2><p>Responsive by design, illustrated with real program photography and structured for future Q&A integration.</p><a class="button light" href={withBase('/programs/')}>View the program comparison</a></div></section>
-</Layout>
+</StudentRecruitmentLayout>
