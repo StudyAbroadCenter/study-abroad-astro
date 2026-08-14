@@ -19,6 +19,7 @@ const refundAmountLabel = isKnownFact(f.refundAmount) ? `${f.refundAmount.value.
 const applicationStart = isKnownFact(f.applicationPeriod) ? f.applicationPeriod.value.start : null;
 const applicationEnd = isKnownFact(f.applicationPeriod) ? f.applicationPeriod.value.end : null;
 const applicationLabel = applicationStart && applicationEnd ? `${applicationStart.replaceAll('-', '.')} — ${applicationEnd.replaceAll('-', '.')}` : '正式決定後に掲載';
+const applicationReady = isJourneyLinkReady(applicationLink) && Boolean(applicationLink.url);
 ---
 <section class="rwjp-decision" id="facts" aria-labelledby="rwjp-decision-title">
   <div class="site-shell">
@@ -37,8 +38,11 @@ const applicationLabel = applicationStart && applicationEnd ? `${applicationStar
     </div>
     <div class="rwjp-decision__actions" aria-label="RWJPの応募・問い合わせ">
       <a href="#prepare">応募前の詳細を確認する</a>
-      {isJourneyLinkReady(applicationLink) && applicationLink.url
-        ? <a href={applicationLink.url} target={applicationLink.external ? '_blank' : undefined} rel={applicationLink.external ? 'noopener noreferrer' : undefined}>{applicationLink.labelJa}</a>
+      {applicationReady && applicationLink.url && applicationStart && applicationEnd
+        ? <>
+            <a href={applicationLink.url} target={applicationLink.external ? '_blank' : undefined} rel={applicationLink.external ? 'noopener noreferrer' : undefined} data-rwjp-apply-link data-start={applicationStart} data-end={applicationEnd} hidden>{applicationLink.labelJa}</a>
+            <span aria-disabled="true" data-rwjp-apply-closed data-start={applicationStart} data-end={applicationEnd}>応募受付期間外</span>
+          </>
         : <span aria-disabled="true">応募フォーム：Microsoft Forms準備中</span>}
       {isJourneyLinkReady(inquiryLink) && inquiryLink.url
         ? <a href={inquiryLink.url}>{inquiryLink.labelJa}</a>
@@ -48,11 +52,39 @@ const applicationLabel = applicationStart && applicationEnd ? `${applicationStar
 </section>
 <section class="rwjp-fit" id="rwjp-fit" aria-labelledby="rwjp-fit-title"><div class="site-shell rwjp-fit__grid"><div><p class="rwjp-decision__kicker">IS RWJP FOR YOU?</p><h2 id="rwjp-fit-title">こんな学生に向いています。</h2></div><div class="rwjp-fit__body"><ul><li>短期旅行ではなく、京都で数週間生活しながら日本語を学びたい。</li><li>日本語学習をプログラムの中心に置きたい。</li><li>授業だけでなく、学生交流や文化体験にも参加したい。</li><li>一人で参加しても、自分から動いて新しい環境に入ってみたい。</li></ul><p>応募前に、上記の在籍条件・日本語要件・宿泊条件を必ず確認してください。</p></div></div></section>
 <script is:inline>
-  document.querySelectorAll('[data-rwjp-application-status]').forEach((node) => {
-    const start = node.getAttribute('data-start'); const end = node.getAttribute('data-end'); if (!start || !end) return;
+  (() => {
     const jstToday = new Date(Date.now() + 9 * 60 * 60 * 1000).toISOString().slice(0, 10);
-    if (jstToday < start) node.textContent = `募集開始前（${start.replaceAll('-', '.')} 受付開始）`;
-    else if (jstToday <= end) node.textContent = `募集中（${end.replaceAll('-', '.')} 締切）`;
-    else node.textContent = `募集終了（募集期間 ${start.replaceAll('-', '.')} — ${end.replaceAll('-', '.')}）`;
-  });
+    const statusNodes = document.querySelectorAll('[data-rwjp-application-status]');
+    statusNodes.forEach((node) => {
+      const start = node.getAttribute('data-start');
+      const end = node.getAttribute('data-end');
+      if (!start || !end) return;
+      if (jstToday < start) node.textContent = `募集開始前（${start.replaceAll('-', '.')} 受付開始）`;
+      else if (jstToday <= end) node.textContent = `募集中（${end.replaceAll('-', '.')} 締切）`;
+      else node.textContent = `募集終了（募集期間 ${start.replaceAll('-', '.')} — ${end.replaceAll('-', '.')}）`;
+    });
+
+    const applyLink = document.querySelector('[data-rwjp-apply-link]');
+    const closedState = document.querySelector('[data-rwjp-apply-closed]');
+    const start = applyLink?.getAttribute('data-start') || closedState?.getAttribute('data-start');
+    const end = applyLink?.getAttribute('data-end') || closedState?.getAttribute('data-end');
+    const isOpen = Boolean(start && end && jstToday >= start && jstToday <= end);
+    if (applyLink instanceof HTMLElement) applyLink.hidden = !isOpen;
+    if (closedState instanceof HTMLElement) {
+      closedState.hidden = isOpen;
+      if (start && end) {
+        closedState.textContent = jstToday < start
+          ? `応募受付は ${start.replaceAll('-', '.')} から開始します`
+          : `2027 RWJPの応募受付は終了しました`;
+      }
+    }
+
+    const closingStatus = document.querySelector('.rwjp-flagship__status');
+    if (closingStatus) {
+      if (!applyLink) closingStatus.textContent = '2027年度の主要情報は確認済みです。Microsoft Formsの申請URLと所定様式は公開前の最終確認中です。';
+      else if (isOpen) closingStatus.textContent = '2027 RWJPは現在応募受付中です。応募前に条件と必要書類を確認してください。';
+      else if (start && jstToday < start) closingStatus.textContent = `2027 RWJPの応募受付は ${start.replaceAll('-', '.')} に開始します。`;
+      else closingStatus.textContent = '2027 RWJPの応募受付は終了しました。問い合わせは公式メールまたは電話をご利用ください。';
+    }
+  })();
 </script>
