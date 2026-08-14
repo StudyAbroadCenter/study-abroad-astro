@@ -20,7 +20,7 @@ const applicationLabel = applicationStart && applicationEnd
     <div class="rwjp-decision__head">
       <p class="rwjp-decision__kicker">2027 RWJP · DECISION FACTS</p>
       <h2 id="rwjp-decision-title">参加を決める前に、条件を確認する。</h2>
-      <p>魅力だけでなく、日程・学習量・宿泊・支払など、判断に必要な情報を確認済みの範囲で掲載します。未確定項目は推測で埋めません。</p>
+      <p>魅力だけでなく、日程・学習量・宿泊・支払・応募資格など、判断に必要な情報を確認済みの範囲で掲載します。</p>
     </div>
 
     <dl class="rwjp-decision__facts">
@@ -46,9 +46,20 @@ const applicationLabel = applicationStart && applicationEnd
       </div>
     </dl>
 
-    <div class="rwjp-decision__notice" aria-label="返金に関する注意">
+    <div class="rwjp-decision__requirements" aria-label="RWJP応募資格と日本語要件">
+      <article>
+        <strong>応募資格</strong>
+        <p>{f.eligibility.value}</p>
+      </article>
+      <article>
+        <strong>日本語要件</strong>
+        <p>{f.japaneseRequirement.value}</p>
+      </article>
+    </div>
+
+    <div class="rwjp-decision__notice" aria-label="キャンセルと返金">
       <strong>キャンセル・返金</strong>
-      <p>返金額として54,000円が確認されています。適用条件・期限・手続は、正式な募集案内を確認してから掲載します。</p>
+      <p>{f.refundPolicy.value}</p>
     </div>
 
     <div class="rwjp-decision__actions" aria-label="RWJPの次の確認項目">
@@ -71,7 +82,7 @@ const applicationLabel = applicationStart && applicationEnd
         <li>授業だけでなく、学生交流や文化体験にも参加したい。</li>
         <li>一人で参加しても、自分から動いて新しい環境に入ってみたい。</li>
       </ul>
-      <p>日本語レベルなどの正式な応募資格は、募集要項の確認後にこのページへ反映します。</p>
+      <p>応募前に、上記の在籍条件と日本語要件を必ず確認してください。</p>
     </div>
   </div>
 </section>
