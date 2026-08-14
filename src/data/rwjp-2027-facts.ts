@@ -18,6 +18,9 @@ export interface RwjpFacts {
   accommodation: RwjpFact<string>;
   paymentMethod: RwjpFact<string>;
   refundAmount: RwjpFact<number>;
+  refundPolicy: RwjpFact<string>;
+  eligibility: RwjpFact<string>;
+  japaneseRequirement: RwjpFact<string>;
   applicationPeriod: RwjpFact<{ start: string; end: string }>;
   programmeFee: RwjpFact<number>;
 }
@@ -76,6 +79,24 @@ export const rwjp2027Facts: RwjpFacts = {
   },
   refundAmount: {
     value: 54000,
+    certainty: 'Confirmed',
+    source: ownerConfirmation,
+    verifiedAt: '2026-08-14',
+  },
+  refundPolicy: {
+    value: '参加費支払後にキャンセルする場合、管理手数料54,000円は返金されません。残額は返金対象ですが、キャンセル時点ですでに手配済みで返金できない費用がある場合は、その実費を差し引いて返金します。',
+    certainty: 'Confirmed',
+    source: ownerConfirmation,
+    verifiedAt: '2026-08-14',
+  },
+  eligibility: {
+    value: '申請時からプログラム参加時まで大学または大学院に在籍している学生が対象です。大学入学前の方、卒業後の方は対象外です。社会人でも、大学・大学院にパートタイム学生として在籍している場合は対象です。',
+    certainty: 'Confirmed',
+    source: ownerConfirmation,
+    verifiedAt: '2026-08-14',
+  },
+  japaneseRequirement: {
+    value: 'JLPT N1保持者は対象外です。日本語学習経験がない方も応募できますが、プログラム開始前までにひらがな・カタカナを読めるようにしておく必要があります。',
     certainty: 'Confirmed',
     source: ownerConfirmation,
     verifiedAt: '2026-08-14',
