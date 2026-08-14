@@ -17,6 +17,7 @@ export interface RwjpFacts {
   cultureMinutes: RwjpFact<number>;
   accommodation: RwjpFact<string>;
   accommodationFee: RwjpFact<number>;
+  accommodationDates: RwjpFact<{ checkIn: string; checkOut: string }>;
   accommodationPolicy: RwjpFact<string>;
   paymentMethod: RwjpFact<string>;
   refundAmount: RwjpFact<number>;
@@ -79,8 +80,14 @@ export const rwjp2027Facts: RwjpFacts = {
     source: ownerConfirmation,
     verifiedAt: '2026-08-14',
   },
+  accommodationDates: {
+    value: { checkIn: '2027-01-11', checkOut: '2027-02-12' },
+    certainty: 'Confirmed',
+    source: ownerConfirmation,
+    verifiedAt: '2026-08-14',
+  },
   accommodationPolicy: {
-    value: '大将軍寮の宿泊はプログラム費用370,000円には含まれません。利用する場合は宿泊費94,500円を追加で支払います。物理的な満室等により宿泊は保証されません。参加者の希望で外部宿舎を自己手配・自己負担で利用することもできます。その場合もプログラム費用370,000円は立命館大学へ支払い、外部宿泊費は参加者が各宿泊施設へ直接支払います。',
+    value: '大将軍寮の宿泊はプログラム費用370,000円には含まれません。利用する場合は宿泊費94,500円を追加で支払います。宿泊期間はプログラム開始前日の2027年1月11日チェックイン、終了翌日の2027年2月12日チェックアウトで、この日程は必須です。物理的な満室等により宿泊は保証されません。参加者の希望で外部宿舎を自己手配・自己負担で利用することもできます。その場合もプログラム費用370,000円は立命館大学へ支払い、外部宿泊費は参加者が各宿泊施設へ直接支払います。',
     certainty: 'Confirmed',
     source: ownerConfirmation,
     verifiedAt: '2026-08-14',
