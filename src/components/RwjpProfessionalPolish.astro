@@ -1,0 +1,114 @@
+---
+import '../styles/rwjp-professional-polish.css';
+
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const conceptBase = `${base}images/programs/rwjp/concept/`;
+---
+<div class="rwjp-professional-polish" data-concept-base={conceptBase} hidden aria-hidden="true"></div>
+
+<script is:inline>
+  (() => {
+    const marker = document.querySelector('.rwjp-professional-polish');
+    if (!(marker instanceof HTMLElement)) return;
+
+    const conceptBase = marker.dataset.conceptBase || '/images/programs/rwjp/concept/';
+
+    const polish = () => {
+      const root = document.querySelector('.rwjp-flagship');
+      if (!(root instanceof HTMLElement) || root.dataset.professionalPolish === 'done') return;
+      root.dataset.professionalPolish = 'done';
+
+      const heroTitle = root.querySelector('.rwjp-flagship__hero-copy h1');
+      if (heroTitle) heroTitle.innerHTML = '京都で<br /><em>5週間暮らしてみる</em>';
+
+      const headingReplacements = new Map([
+        ['旅行者から、少しずつ京都の住民へ。', '旅行者から 少しずつ京都の住民へ'],
+        ['「一人で参加して、大丈夫かな。」', '一人で参加しても大丈夫かな'],
+        ['授業、交流、文化体験、そして自分の時間。', '授業 交流 文化体験 そして自分の時間'],
+        ['大学へ向かう時間も、京都で暮らす時間。', '通学の時間も 京都で暮らす時間'],
+        ['日本語講座のある日は、午前を中心に集中する。', '日本語講座の日は 午前の学びが中心'],
+        ['授業の合間は、自分で過ごし方を選ぶ。', '授業の合間は 自分のペースで'],
+        ['教室の外でも、日本語を使うきっかけがある。', '教室の外で 日本語を使ってみる'],
+        ['文化は、見るだけでなく体験する。', '文化は 見るだけでなく体験する'],
+        ['授業後の京都は、自分で見つける。', '授業後の京都を 自分で見つける'],
+        ['学んだことを、自分のペースで振り返る。', '今日の学びを 自分のペースで振り返る'],
+        ['日本語講座では、日本語に向き合う。', '日本語講座では 日本語に向き合う'],
+      ]);
+
+      root.querySelectorAll('h2, h3').forEach((heading) => {
+        const current = (heading.textContent || '').replace(/\s+/g, ' ').trim();
+        const replacement = headingReplacements.get(current);
+        if (replacement) {
+          heading.textContent = replacement;
+          return;
+        }
+
+        heading.textContent = current
+          .replace(/、/g, ' ')
+          .replace(/。$/g, '')
+          .replace(/\s{2,}/g, ' ')
+          .trim();
+      });
+
+      root.querySelectorAll('.rwjp-day__aside').forEach((banner) => {
+        banner.textContent = (banner.textContent || '')
+          .replace(/[、。,.]/g, '')
+          .replace(/\s{2,}/g, ' ')
+          .trim();
+      });
+
+      const swaps = [
+        {
+          selector: '.rwjp-day__scene--japanese',
+          file: 'rwjp-concept-classroom.webp',
+          alt: '日本語講座をイメージした生成写真',
+        },
+        {
+          selector: '.rwjp-day__scene--buddy',
+          file: 'rwjp-concept-campus-exchange.webp',
+          alt: 'キャンパスでの学生交流をイメージした生成写真',
+        },
+        {
+          selector: '.rwjp-day__scene--kyoto',
+          file: 'rwjp-concept-kyoto-learning.webp',
+          alt: '京都での学びと街歩きをイメージした生成写真',
+        },
+      ];
+
+      swaps.forEach(({ selector, file, alt }) => {
+        const scene = root.querySelector(selector);
+        const media = scene?.querySelector('.rwjp-day__scene-media');
+        const image = media?.querySelector('img');
+        if (!(media instanceof HTMLElement) || !(image instanceof HTMLImageElement)) return;
+
+        image.src = `${conceptBase}${file}`;
+        image.alt = alt;
+        image.width = 720;
+        image.height = 480;
+        media.classList.add('rwjp-day__scene-media--concept');
+
+        if (!media.querySelector('.rwjp-day__concept-badge')) {
+          const badge = document.createElement('span');
+          badge.className = 'rwjp-day__concept-badge';
+          badge.textContent = '生成イメージ';
+          media.appendChild(badge);
+        }
+      });
+
+      const intro = root.querySelector('.rwjp-day__intro');
+      if (intro && !intro.querySelector('.rwjp-day__concept-note')) {
+        const note = document.createElement('p');
+        note.className = 'rwjp-day__concept-note';
+        note.innerHTML = '<strong>IMAGE PHOTO</strong><span>「生成イメージ」と表示した写真は実際の参加者・授業風景ではありません</span>';
+        intro.appendChild(note);
+      }
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', polish, { once: true });
+    } else {
+      polish();
+    }
+  })();
+</script>
