@@ -5,14 +5,15 @@
   align-items:center;
 }
 .international-impact h2{
-  max-width:16ch!important;
+  max-width:12em!important;
   font-size:clamp(2.25rem,2.9vw,3.35rem)!important;
   line-height:1.14!important;
   letter-spacing:-.032em!important;
   text-wrap:pretty!important;
 }
-.international-impact h2 span{
+.international-impact__title-line{
   display:block;
+  white-space:nowrap;
 }
 .international-impact__lead>p:first-child{
   max-width:38rem;
@@ -23,6 +24,14 @@
   font-size:clamp(1.18rem,1.35vw,1.42rem)!important;
   line-height:1.48!important;
   text-wrap:pretty!important;
+}
+.international-impact__phrase{
+  display:inline-block;
+  white-space:nowrap;
+  margin-right:.28em;
+}
+.international-impact__phrase:last-child{
+  margin-right:0;
 }
 .international-impact__card>p{
   font-size:.94rem;
@@ -67,7 +76,7 @@
   max-width:68rem!important;
 }
 .rwjp-flagship__future h2{
-  max-width:28ch!important;
+  max-width:14em!important;
   font-size:clamp(2.05rem,2.8vw,2.9rem)!important;
   line-height:1.22!important;
   letter-spacing:-.028em!important;
@@ -83,17 +92,17 @@
 .rwjp-flagship__kyoto-intro h2,
 .rwjp-flagship__people h2,
 .rwjp-flagship__apply h2{
-  max-width:24ch!important;
+  max-width:12em!important;
   font-size:clamp(1.95rem,3vw,2.9rem)!important;
   line-height:1.22!important;
   letter-spacing:-.03em!important;
   text-wrap:pretty!important;
 }
 .rwjp-day__intro h2{
-  max-width:26ch!important;
+  max-width:13em!important;
 }
 .rwjp-day__scene-copy h3{
-  max-width:22ch!important;
+  max-width:11em!important;
   font-size:clamp(1.3rem,1.7vw,1.72rem)!important;
   line-height:1.36!important;
   letter-spacing:-.02em!important;
@@ -124,7 +133,7 @@
 
 /* Global evidence remains prominent, but not oversized. */
 .global-evidence h2{
-  max-width:15ch!important;
+  max-width:8em!important;
   font-size:clamp(2.1rem,3.2vw,3.45rem)!important;
   line-height:1.16!important;
   text-wrap:pretty!important;
@@ -145,7 +154,7 @@
 
 @media(min-width:901px){
   .international-impact__intro{
-    grid-template-columns:minmax(0,1.12fr) minmax(25rem,.88fr)!important;
+    grid-template-columns:minmax(0,1.22fr) minmax(25rem,.78fr)!important;
     gap:clamp(2.5rem,5vw,5rem)!important;
   }
 }
@@ -156,7 +165,7 @@
     white-space:normal;
   }
   .international-impact h2{
-    max-width:18ch!important;
+    max-width:12em!important;
     font-size:clamp(2.15rem,6.3vw,3rem)!important;
   }
 }
@@ -165,8 +174,11 @@
   .international-impact h2,
   .global-evidence h2{
     max-width:none!important;
-    font-size:clamp(1.95rem,8.6vw,2.55rem)!important;
+    font-size:clamp(1.8rem,8vw,2.35rem)!important;
     line-height:1.22!important;
+  }
+  .international-impact__title-line{
+    white-space:nowrap;
   }
   .rwjp-practical__head h2,
   .rwjp-decision h2,
