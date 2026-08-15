@@ -12,6 +12,7 @@ const responsiveCardImages = (path: string) => ({
   src: optimizedImage(path, 960),
   srcset: `${optimizedImage(path, 640)} 640w, ${optimizedImage(path, 960)} 960w`,
 });
+const programmeHref = (id: string) => `${base}programs/${id}/`;
 const studentProgrammes = programmes.filter((programme) => programme.audience === 'individual');
 const partnerProgramme = programmes.find((programme) => programme.audience === 'partner');
 const customThemes = [
@@ -86,6 +87,7 @@ const customThemes = [
       {studentProgrammes.map((programme) => {
         const copy = programme.copy.ja;
         const sources = responsiveCardImages(programme.image);
+        const href = programmeHref(programme.id);
         return (
           <article
             class={`programme-card programme-card--${programme.goals[0]}`}
@@ -93,7 +95,7 @@ const customThemes = [
             data-goals={programme.goals.join(' ')}
             data-season={programme.season}
           >
-            <div class="programme-card__visual">
+            <a class="programme-card__visual" href={href} aria-label={`${copy.name}の詳細ページを見る`}>
               <img
                 src={sources.src}
                 srcset={sources.srcset}
@@ -106,19 +108,19 @@ const customThemes = [
               />
               <span>{programme.code}</span>
               <small>{copy.familyLabel}</small>
-            </div>
+            </a>
             <div class="programme-card__body">
               <div class="programme-card__meta">
                 <span>{copy.seasonLabel}</span>
                 <span>{copy.duration}</span>
                 <span class="programme-card__campus">{copy.campusLabel}</span>
               </div>
-              <h3>{copy.name}</h3>
+              <h3><a href={href}>{copy.name}</a></h3>
               <p>{copy.summary}</p>
               {copy.experienceLine && <p class="programme-card__experience">{copy.experienceLine}</p>}
-              <button type="button" class="programme-card__link" aria-label={`${copy.name}の詳細は準備中`}>
-                詳細ページは準備中 <span>→</span>
-              </button>
+              <a class="programme-card__link" href={href} aria-label={`${copy.name}の詳細ページを見る`}>
+                詳細を見る <span>→</span>
+              </a>
             </div>
           </article>
         );
@@ -154,7 +156,7 @@ const customThemes = [
 
           <div class="partner-programme__footer">
             <p>実施キャンパスは教育目的と内容に応じて決定します。主に衣笠キャンパスまたは大阪いばらきキャンパスで実施し 一部の特定プログラムはびわこ・くさつキャンパスで実施します。</p>
-            <button type="button" class="action-button action-button--dark">大学担当者向け相談ページは準備中</button>
+            <a class="action-button action-button--dark" href={programmeHref(partnerProgramme.id)}>大学担当者向けページを見る</a>
           </div>
         </div>
       </aside>
