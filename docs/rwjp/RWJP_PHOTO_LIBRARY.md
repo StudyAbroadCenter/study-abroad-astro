@@ -32,7 +32,7 @@ Repository path:
 
 `public/images/programs/rwjp/real/`
 
-The current web derivatives are 960 × 640 WebP files. The original source photographs remain the archival masters and should not be overwritten by web derivatives.
+The current card-delivery derivatives are deliberately lightweight WebP files: four are 480 × 320 and the Kyoto field image is 300 × 200. They are sized for the present card layout and reliable preview delivery. The edited source photographs remain the archival masters and should not be overwritten; larger derivatives can be regenerated if a future layout displays these images more prominently.
 
 ## Candidate archive supplied in August 2026
 
@@ -78,22 +78,3 @@ The following source filenames were reviewed as part of the current selection. S
 - shrine or temple-area group activity
 - students using maps / phones together
 - place-based observation and discussion
-
-**Atmosphere / supporting photography**
-- large learning spaces
-- campus corridors and informal moments
-- empty classroom / location establishing shots
-
-## Current page placement
-
-The professional-polish layer uses the adopted photographs in these contexts:
-
-- Japanese study card → `rwjp-real-japanese-class.webp`
-- Student-interaction / shared-learning card → `rwjp-real-learning-hub.webp`
-- Culture card → `rwjp-real-culture-tatami.webp`
-- Kyoto card → `rwjp-real-kyoto-field.webp`
-- Japanese-learning OUTPUT panel → `rwjp-real-academic-presentation.webp`
-
-## Privacy note
-
-The public-web derivatives use restrained facial-detail softening to reduce individual identifiability while preserving the atmosphere of the original photographs. This is a presentation safeguard, not a substitute for any institutional consent / image-use policy that may apply to publication.
