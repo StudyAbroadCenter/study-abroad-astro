@@ -1,0 +1,289 @@
+/* Japanese master — final editorial / readability guardrails
+ *
+ * This file is deliberately loaded last by StudentRecruitmentLayout.
+ * It protects the approved Japanese master from typography regressions while
+ * leaving programme-specific visual composition intact.
+ *
+ * Editorial hierarchy:
+ * - Facts/evidence: calm, precise, compact.
+ * - Student-facing copy: short, rhythmic, human.
+ * - Body copy: readable at presentation distance; never shrunk to rescue layout.
+ * - 320px/390px: reflow by meaning rather than forcing desktop line breaks.
+ */
+
+:root {
+  --ja-body-readable: clamp(0.98rem, 0.95rem + 0.12vw, 1.075rem);
+  --ja-body-compact: clamp(0.9rem, 0.88rem + 0.08vw, 0.98rem);
+  --ja-note-readable: clamp(0.78rem, 0.76rem + 0.06vw, 0.84rem);
+  --ja-display-xl: clamp(2.4rem, 4.2vw, 4.25rem);
+  --ja-display-lg: clamp(2.05rem, 3.25vw, 3.35rem);
+  --ja-section-space: clamp(4.25rem, 6vw, 6.5rem);
+}
+
+/* Kinsoku-friendly base. Do not use ch as a Japanese character-count proxy. */
+:where(h1, h2, h3, p, li, dt, dd, summary, a, button) {
+  line-break: strict;
+}
+
+:where(
+  .programme-finder__intro h2,
+  .partner-programme__lead h2,
+  .experience-pillars h2,
+  .international-impact h2,
+  .global-evidence h2,
+  .participant-day h2,
+  .campus-journey h2,
+  .support-preview h2,
+  .programme-page h1,
+  .programme-page h2
+) {
+  text-wrap: pretty;
+  word-break: normal;
+  overflow-wrap: normal;
+}
+
+/* Presentation-distance readability floors */
+:where(
+  .programme-finder__intro-copy,
+  .programme-card__body > p,
+  .partner-programme__lead > p,
+  .experience-pillar__body,
+  .international-impact__lead > p,
+  .international-impact__card > p,
+  .global-evidence__lead,
+  .real-photo-story__lead,
+  .participant-day__intro-copy > p,
+  .campus-journey__intro-copy > p,
+  .campus-scene__body,
+  .support-preview__lead > p,
+  .support-step > p,
+  .programme-page__lead,
+  .programme-page__body-copy > p,
+  .programme-page__section-heading > p
+) {
+  font-size: var(--ja-body-readable) !important;
+  line-height: 1.8 !important;
+}
+
+:where(
+  .programme-card__experience,
+  .finder-results-heading small,
+  .partner-programme__process p,
+  .partner-programme__footer > p,
+  .global-evidence__source-note,
+  .global-evidence__scope-note,
+  .global-evidence__current-design > p,
+  .global-evidence__directory-heading p,
+  .real-photo-story__note,
+  .participant-day__outro > small,
+  .campus-journey__intro-copy > small,
+  .campus-journey__note,
+  .support-preview__lead > small,
+  .recruitment-hero__note
+) {
+  font-size: var(--ja-note-readable) !important;
+  line-height: 1.7 !important;
+}
+
+/* Small labels stay accents, but must still be legible on a projector. */
+:where(
+  .section-kicker,
+  .programme-pathways article > p,
+  .programme-card__visual > small,
+  .partner-programme__process span,
+  .partner-programme__themes > p,
+  .global-evidence__stats span,
+  .global-evidence__current-design dt,
+  .global-evidence__directory-heading label span
+) {
+  font-size: max(0.72rem, 11.5px) !important;
+}
+
+/* Main section headings: strong, not oversized. */
+.programme-finder__intro h2,
+.partner-programme__lead h2,
+.experience-pillars__intro h2,
+.international-impact__intro h2,
+.global-evidence__intro h2,
+.participant-day__intro h2,
+.campus-journey__intro h2,
+.support-preview__intro h2 {
+  font-size: var(--ja-display-lg) !important;
+  line-height: 1.12 !important;
+  letter-spacing: -0.045em !important;
+}
+
+/* Evidence headings are semantically authored line-by-line. */
+.global-evidence__title-line,
+.international-impact__title-line {
+  display: block;
+}
+
+@media (min-width: 901px) {
+  .global-evidence--rwjp .global-evidence__title-line,
+  .global-evidence--rwjp-express .global-evidence__title-line,
+  .international-impact__title-line {
+    white-space: nowrap;
+  }
+
+  .global-evidence--rwjp h2 {
+    font-size: clamp(2rem, 2.35vw, 2.75rem) !important;
+  }
+}
+
+/* Avoid the old oversized whitespace between editorial sections. */
+:where(
+  .programme-finder,
+  .experience-pillars,
+  .international-impact,
+  .global-evidence,
+  .real-photo-story,
+  .support-preview
+) {
+  scroll-margin-top: 88px;
+}
+
+/* Programme cards need enough reading size without becoming verbose walls. */
+.programme-card__body h3 {
+  font-size: clamp(1.16rem, 1.35vw, 1.38rem) !important;
+  line-height: 1.35 !important;
+}
+
+.programme-card__body > p:not(.programme-card__experience) {
+  margin-top: 0.65rem;
+}
+
+.programme-card__experience {
+  font-size: 0.9rem !important;
+  line-height: 1.65 !important;
+}
+
+/* Global evidence detail remains data-dense, never microscopic. */
+.global-evidence__stats dt { font-size: 0.88rem !important; }
+.global-evidence__stats span { font-size: 0.74rem !important; }
+.global-evidence__country summary strong { font-size: 0.98rem !important; }
+.global-evidence__country summary small,
+.global-evidence__country li strong { font-size: 0.78rem !important; }
+.global-evidence__country li span { font-size: 0.84rem !important; }
+.global-evidence__photo figcaption { font-size: 0.84rem !important; line-height: 1.55 !important; }
+
+/* MVP programme-shell readability */
+.programme-page__draft-note,
+.programme-page__status {
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+.programme-page__facts dt { font-size: 0.82rem; }
+.programme-page__facts dd { font-size: 1rem; }
+
+/* Shared Japanese utility pages created during the Japanese-master completion pass. */
+.jp-utility {
+  padding: clamp(7rem, 10vw, 9rem) 0 var(--ja-section-space);
+  background: #fffdfa;
+  color: #262321;
+}
+.jp-utility__intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.75fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: end;
+  padding-bottom: clamp(2.5rem, 5vw, 4.5rem);
+  border-bottom: 1px solid rgba(62, 50, 44, 0.14);
+}
+.jp-utility__intro h1 {
+  max-width: 11em;
+  margin-top: 0.75rem;
+  font-size: var(--ja-display-xl);
+  line-height: 1.05;
+  letter-spacing: -0.055em;
+}
+.jp-utility__lead {
+  font-size: var(--ja-body-readable);
+  line-height: 1.9;
+  color: #534b46;
+}
+.jp-utility__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin-top: clamp(2.5rem, 5vw, 4.5rem);
+  border: 1px solid rgba(62, 50, 44, 0.12);
+  background: rgba(62, 50, 44, 0.12);
+  border-radius: 18px;
+  overflow: hidden;
+}
+.jp-utility__card {
+  padding: clamp(1.5rem, 3vw, 2.4rem);
+  background: #fff;
+}
+.jp-utility__card h2,
+.jp-utility__card h3 {
+  font-size: clamp(1.25rem, 1.8vw, 1.6rem);
+  line-height: 1.35;
+}
+.jp-utility__card p,
+.jp-utility__card li {
+  margin-top: 0.7rem;
+  font-size: var(--ja-body-compact);
+  line-height: 1.8;
+  color: #5b514b;
+}
+.jp-utility__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+.jp-utility details {
+  border-bottom: 1px solid rgba(62, 50, 44, 0.14);
+  padding: 1rem 0;
+}
+.jp-utility summary {
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.jp-utility details p { margin: 0.8rem 0 0; font-size: 0.95rem; line-height: 1.8; color: #5b514b; }
+.jp-utility__programme-list { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1rem; margin-top: 2.5rem; }
+.jp-utility__programme-list article { padding: 1.4rem; border: 1px solid rgba(62,50,44,.13); border-radius: 16px; background:#fff; }
+.jp-utility__programme-list h2 { font-size: 1.15rem; line-height:1.35; }
+.jp-utility__programme-list p { margin-top:.55rem; font-size:.92rem; line-height:1.7; color:#5b514b; }
+.jp-utility__programme-list a { display:inline-flex; margin-top:1rem; font-size:.9rem; font-weight:700; color:#9e2636; }
+
+@media (max-width: 900px) {
+  .jp-utility__intro { grid-template-columns: 1fr; align-items: start; }
+  .global-evidence__title-line,
+  .international-impact__title-line { white-space: normal !important; }
+}
+
+@media (max-width: 620px) {
+  :root {
+    --ja-display-xl: clamp(2.15rem, 11vw, 3.05rem);
+    --ja-display-lg: clamp(1.9rem, 9.2vw, 2.55rem);
+    --ja-body-readable: 1rem;
+    --ja-body-compact: 0.94rem;
+    --ja-note-readable: 0.8rem;
+  }
+
+  .site-shell { width: min(100% - 36px, var(--shell)); }
+
+  .recruitment-hero__lead { font-size: 1rem !important; line-height: 1.75 !important; }
+  .recruitment-hero__facts dt { font-size: 0.72rem !important; }
+  .recruitment-hero__facts dd { font-size: 0.84rem !important; }
+
+  .programme-finder__intro h2,
+  .partner-programme__lead h2,
+  .experience-pillars__intro h2,
+  .international-impact__intro h2,
+  .global-evidence__intro h2,
+  .participant-day__intro h2,
+  .campus-journey__intro h2,
+  .support-preview__intro h2 {
+    font-size: var(--ja-display-lg) !important;
+  }
+
+  .jp-utility { padding-top: 6.25rem; }
+  .jp-utility__grid,
+  .jp-utility__programme-list { grid-template-columns: 1fr; }
+  .jp-utility__intro h1 { max-width: none; }
+}
