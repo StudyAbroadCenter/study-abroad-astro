@@ -4,6 +4,10 @@ import { programmes } from '../../data/programs';
 
 const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const hrefFor = (id: string) => `${base}programs/${id}/`;
+const safeName = (id: string, name: string) => id === 'rdsp' ? 'RDSP' : name;
+const safeSummary = (id: string, summary: string) => id === 'rdsp'
+  ? '専門テーマ型の短期プログラムです。正式名称と年度別の学習内容は確認中です。'
+  : summary;
 ---
 <StudentRecruitmentLayout
   title="プログラム一覧 | 立命館大学 短期受入プログラム"
@@ -32,16 +36,16 @@ const hrefFor = (id: string) => `${base}programs/${id}/`;
           return (
             <article>
               <p class="section-kicker">{programme.code}</p>
-              <h2>{copy.name}</h2>
-              <p>{copy.summary}</p>
-              <p><strong>{copy.seasonLabel}</strong> · {copy.duration} · {copy.campusLabel}</p>
+              <h2>{safeName(programme.id, copy.name)}</h2>
+              <p>{safeSummary(programme.id, copy.summary)}</p>
+              <p><strong>年度別条件は詳細ページで確認</strong></p>
               <a href={hrefFor(programme.id)}>詳細ページを見る →</a>
             </article>
           );
         })}
       </div>
 
-      <p class="real-photo-story__note" style="margin-top:2rem;">日程・費用・募集状況などの年度別情報は、確認済みの内容を各プログラム詳細ページで案内します。未確認情報を比較のために推測して補うことはしません。</p>
+      <p class="real-photo-story__note" style="margin-top:2rem;">季節、期間、キャンパス、日程、費用、募集状況などは、確認済みの情報だけを各プログラム詳細ページで案内します。比較のために未確認値を推測して補うことはしません。</p>
     </div>
   </article>
 </StudentRecruitmentLayout>
