@@ -1,5 +1,6 @@
 ---
 import { programmes } from '../data/programs';
+import { getProgrammePublicDescriptor } from '../data/programme-public-descriptors';
 import '../styles/programme-architecture.css';
 
 const rawBase = import.meta.env.BASE_URL;
@@ -15,6 +16,7 @@ const responsiveCardImages = (path: string) => ({
 const programmeHref = (id: string) => `${base}programs/${id}/`;
 const studentProgrammes = programmes.filter((programme) => programme.audience === 'individual');
 const partnerProgramme = programmes.find((programme) => programme.audience === 'partner');
+const partnerDescriptor = partnerProgramme ? getProgrammePublicDescriptor(partnerProgramme.id) : undefined;
 const customThemes = [
   'MBA',
   'Business',
@@ -25,7 +27,6 @@ const customThemes = [
   'Film & Media',
   'Pop Culture',
 ];
-const detailStatus = (id: string) => id === 'rwjp' ? '2027情報あり' : '年度別条件を確認中';
 ---
 <section class="programme-finder programme-finder--reframed" id="program-finder" aria-labelledby="finder-title">
   <div class="site-shell">
@@ -83,6 +84,10 @@ const detailStatus = (id: string) => id === 'rwjp' ? '2027情報あり' : '年�
     <div class="programme-grid" data-programme-grid>
       {studentProgrammes.map((programme) => {
         const copy = programme.copy.ja;
+        const publicCopy = getProgrammePublicDescriptor(programme.id);
+        const name = publicCopy?.name ?? programme.code;
+        const summary = publicCopy?.summary ?? '詳細情報を確認中です。';
+        const status = publicCopy?.status ?? '詳細確認中';
         const sources = responsiveCardImages(programme.image);
         const href = programmeHref(programme.id);
         return (
@@ -91,7 +96,7 @@ const detailStatus = (id: string) => id === 'rwjp' ? '2027情報あり' : '年�
             data-programme-card
             data-goals={programme.goals.join(' ')}
           >
-            <a class="programme-card__visual" href={href} aria-label={`${copy.name}の詳細ページを見る`}>
+            <a class="programme-card__visual" href={href} aria-label={`${name}の詳細ページを見る`}>
               <img
                 src={sources.src}
                 srcset={sources.srcset}
@@ -107,12 +112,12 @@ const detailStatus = (id: string) => id === 'rwjp' ? '2027情報あり' : '年�
             </a>
             <div class="programme-card__body">
               <div class="programme-card__meta programme-card__meta--status">
-                <span>{detailStatus(programme.id)}</span>
+                <span>{status}</span>
               </div>
-              <h3><a href={href}>{copy.name}</a></h3>
-              <p>{copy.summary}</p>
+              <h3><a href={href}>{name}</a></h3>
+              <p>{summary}</p>
               {copy.experienceLine && <p class="programme-card__experience">{copy.experienceLine}</p>}
-              <a class="programme-card__link" href={href} aria-label={`${copy.name}の詳細ページを見る`}>
+              <a class="programme-card__link" href={href} aria-label={`${name}の詳細ページを見る`}>
                 詳細を見る <span>→</span>
               </a>
             </div>
@@ -130,7 +135,7 @@ const detailStatus = (id: string) => id === 'rwjp' ? '2027情報あり' : '年�
           <div class="partner-programme__lead">
             <p class="section-kicker">BUILT AROUND YOUR ACADEMIC PURPOSE</p>
             <h2 id="partner-programme-title">大学の目的から ひとつの学びをつくる</h2>
-            <p>{partnerProgramme.copy.ja.summary}</p>
+            <p>{partnerDescriptor?.summary ?? '教育目的から設計する大学・機関向けプログラムです。'}</p>
             <p class="partner-programme__promise">テーマを持ってきてください。授業・共修・文化体験・訪問・宿泊を、一つのプログラムとして組み立てます。</p>
           </div>
 
