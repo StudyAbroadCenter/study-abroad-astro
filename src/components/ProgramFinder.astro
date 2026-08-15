@@ -25,6 +25,7 @@ const customThemes = [
   'Film & Media',
   'Pop Culture',
 ];
+const detailStatus = (id: string) => id === 'rwjp' ? '2027情報あり' : '年度別条件を確認中';
 ---
 <section class="programme-finder programme-finder--reframed" id="program-finder" aria-labelledby="finder-title">
   <div class="site-shell">
@@ -68,19 +69,15 @@ const customThemes = [
         </div>
       </fieldset>
 
-      <fieldset>
-        <legend><span>02</span>参加したい季節</legend>
-        <div class="finder-options finder-options--compact">
-          <label><input type="radio" name="season" value="any" checked /><span>指定なし</span></label>
-          <label><input type="radio" name="season" value="summer" /><span>夏</span></label>
-          <label><input type="radio" name="season" value="winter" /><span>冬</span></label>
-        </div>
+      <fieldset class="finder-controls__fact-note">
+        <legend><span>02</span>年度別の条件</legend>
+        <p>季節・期間・キャンパス・日程・費用は、確認済みの情報だけを詳細ページで案内します。</p>
       </fieldset>
     </form>
 
     <div class="finder-results-heading">
       <p>個人応募向け <strong data-result-count>{studentProgrammes.length}</strong>件</p>
-      <small>日程・費用・募集状況は、各プログラムの詳細ページで確認できます。</small>
+      <small>まず学びたい内容で絞り、気になるプログラムの詳細を確認してください。</small>
     </div>
 
     <div class="programme-grid" data-programme-grid>
@@ -93,7 +90,6 @@ const customThemes = [
             class={`programme-card programme-card--${programme.goals[0]}`}
             data-programme-card
             data-goals={programme.goals.join(' ')}
-            data-season={programme.season}
           >
             <a class="programme-card__visual" href={href} aria-label={`${copy.name}の詳細ページを見る`}>
               <img
@@ -110,10 +106,8 @@ const customThemes = [
               <small>{copy.familyLabel}</small>
             </a>
             <div class="programme-card__body">
-              <div class="programme-card__meta">
-                <span>{copy.seasonLabel}</span>
-                <span>{copy.duration}</span>
-                <span class="programme-card__campus">{copy.campusLabel}</span>
+              <div class="programme-card__meta programme-card__meta--status">
+                <span>{detailStatus(programme.id)}</span>
               </div>
               <h3><a href={href}>{copy.name}</a></h3>
               <p>{copy.summary}</p>
@@ -127,7 +121,7 @@ const customThemes = [
       })}
     </div>
 
-    <p class="finder-empty" data-finder-empty hidden>条件に合うプログラムがありません。季節を「指定なし」に戻してみてください。</p>
+    <p class="finder-empty" data-finder-empty hidden>この内容では見つかりませんでした。「すべて見る」に戻してみてください。</p>
 
     {partnerProgramme && (
       <aside class="partner-programme partner-programme--expanded" id="custom-programs" aria-labelledby="partner-programme-title">
@@ -174,18 +168,14 @@ const customThemes = [
     if (!(form instanceof HTMLFormElement)) return;
     const data = new FormData(form);
     const goal = String(data.get('goal') ?? 'all');
-    const season = String(data.get('season') ?? 'any');
     let visibleCount = 0;
 
     cards.forEach((card) => {
       if (!(card instanceof HTMLElement)) return;
       const goals = card.dataset.goals?.split(' ') ?? [];
-      const cardSeason = card.dataset.season ?? '';
       const matchesGoal = goal === 'all' || goals.includes(goal);
-      const matchesSeason = season === 'any' || cardSeason === season;
-      const isVisible = matchesGoal && matchesSeason;
-      card.hidden = !isVisible;
-      if (isVisible) visibleCount += 1;
+      card.hidden = !matchesGoal;
+      if (matchesGoal) visibleCount += 1;
     });
 
     if (count) count.textContent = String(visibleCount);
