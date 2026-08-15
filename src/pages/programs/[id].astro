@@ -5,6 +5,7 @@ import RwjpFlagshipPage from '../../components/RwjpFlagshipPage.astro';
 import RwjpExpressFlagshipPage from '../../components/RwjpExpressFlagshipPage.astro';
 import RwjpExpressAcademicLoad from '../../components/RwjpExpressAcademicLoad.astro';
 import InternationalLearningImpact from '../../components/InternationalLearningImpact.astro';
+import GlobalLearningEvidence from '../../components/GlobalLearningEvidence.astro';
 import RdspFlagshipPage from '../../components/RdspFlagshipPage.astro';
 import { programmePageDrafts, type ProgrammePageDraft } from '../../data/programme-page-drafts';
 import { rwjp2027Facts, isKnownFact } from '../../data/rwjp/index';
@@ -33,7 +34,11 @@ const description = isRwjp
 ---
 <StudentRecruitmentLayout title={title} description={description} robots="noindex,nofollow">
   {programme.id === 'rwjp' ? (
-    <><RwjpFlagshipPage programme={programme} /><InternationalLearningImpact context="rwjp" /></>
+    <>
+      <RwjpFlagshipPage programme={programme} />
+      <InternationalLearningImpact context="rwjp" />
+      <GlobalLearningEvidence context="rwjp" />
+    </>
   ) : programme.id === 'rwjp-express' ? (
     <><RwjpExpressFlagshipPage programme={programme} /><RwjpExpressAcademicLoad /></>
   ) : programme.id === 'rdsp' ? (
