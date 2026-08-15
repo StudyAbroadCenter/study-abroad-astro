@@ -1,0 +1,56 @@
+/* Final visual containment fixes discovered by multi-route Visual UAT.
+ * Loaded after ja-final-editorial.css.
+ * Keep this file narrow: only fixes proven by screenshots / viewport tests.
+ */
+
+/* Participant Day is a dark editorial section. Protect its intro contrast even if
+ * earlier/global typography layers change heading colours later. */
+.participant-day__intro,
+.participant-day__intro h2,
+.participant-day__intro-copy {
+  color: #fff !important;
+}
+
+@media (max-width: 620px) {
+  /* These semantic lines fit safely at 320px. Do not let the browser fragment
+   * particles/words into 4–6 lines. */
+  .participant-day__intro h2 span,
+  .campus-journey__intro h2 span {
+    white-space: nowrap;
+  }
+
+  /* The Express social-style feed is intentionally horizontally browsable, but
+   * its intrinsic six-card width must never enlarge the document viewport. */
+  .rwjpx__memories-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    min-width: 0 !important;
+  }
+
+  .rwjpx__memories-grid > *,
+  .rwjpx__feed {
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .rwjpx__feed {
+    width: 100% !important;
+    box-sizing: border-box;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    overscroll-behavior-inline: contain;
+    scrollbar-width: thin;
+  }
+
+  .rwjpx__feed > article {
+    min-width: 0;
+  }
+
+  /* Explanatory notes are not decorative microcopy. Keep them readable. */
+  .rwjpx__screens-note,
+  .rwjpx__supporters-note,
+  .rwjpx__weekend-small,
+  .rwjpx__facts-intro {
+    font-size: 0.8rem !important;
+    line-height: 1.7 !important;
+  }
+}
