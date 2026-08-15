@@ -2,277 +2,292 @@
 
 ## RSJP Experience System — 日本語マスターサイト完成監査
 
-Status: **NOT READY / Gate A 未達**
-
+Updated: 2026-08-16  
+Status: **MVP IMPLEMENTED / CI & VISUAL UAT PENDING**  
 Scope: Japanese master site at unprefixed routes (`/`, `/programs/...`)
 
-Purpose: 日本語版を英語・韓国語ローカライズの基準として使える完成状態まで引き上げるため、未完成要素・事実リスク・UX欠落を追跡する。
+Purpose: 日本語版を英語・韓国語ローカライズの基準として使える完成状態へ引き上げる。同時に、社内プレゼンMVPと一般公開V1の完成条件を混同しない。
 
 ---
 
-## 1. Completion Standard
+## 1. Two release gates
 
-日本語版は、単に見た目が完成しているだけでは完成としない。
+### Gate A1 — Internal presentation MVP
 
-Gate A を通過するには、少なくとも以下を満たすこと。
+会社・大学内のプレゼンで、サイト全体の設計思想と完成イメージを実際にクリックしながら説明できること。
 
-- 日本語の正規URLが `/ja/` ではなく unprefixed route になっている
-- 主要導線に404・旧プロトタイプ・準備中リンクがない
-- 掲載するプログラム事実が権威ある情報源で確認されている
-- トップと詳細ページで名称・期間・キャンパス・位置づけが矛盾しない
-- 全主要プログラムに必要な詳細ページがある
-- サポート、応募案内、FAQ、問い合わせの主要導線が実用状態である
-- placeholder / prototype / fictional / sample 表示を本番情報として残さない
-- 320px / 390px / tablet / desktop で主要導線を確認する
-- accessibility basics と metadata を確認する
-- production で index させるページと noindex のページを意図的に管理する
+必要条件:
 
----
+- 日本語が unprefixed route のマスターになっている
+- トップ → 一覧 → 各プログラム詳細の導線が切れない
+- 準備中ページでも404にならず、未確認情報を発明しない
+- 旧英語 / fictional prototype が導線上に残らない
+- 主要コピー、フォントサイズ、改行、余白、写真、CTAがプレゼン品質
+- 320px / 390px / tablet / desktop の視覚UAT
+- CI / Vercel Green
+- unresolved P1 / P2 = 0
 
-## 2. Audit Result Summary
+### Gate A2 — Japanese public V1
 
-### Overall judgement
+一般公開する募集サイトとして、年度別の募集事実まで権威ある情報源で確定していること。
 
-**NOT READY**
+Gate A1に加えて:
 
-日本語トップの視覚品質とブランド方向は強いが、現在は「完成した募集サイト」ではなく、完成度の高いトップページと複数の開発中プログラムページを組み合わせた状態である。
-
-現段階で英語・韓国語へ展開すると、未検証情報・未完成導線・ページ構成不足まで複製する危険がある。
-
-したがって、英語ローカライズ開始前に日本語 Gate A を通す。
-
----
-
-## 3. BLOCKERS — 日本語完成前に必須修正
-
-### B-01 — 日本語の canonical route を root に統一
-
-Status: **IMPLEMENTED / CI確認待ち**
-
-Required architecture:
-
-- `/` = 日本語トップ
-- `/programs/<id>/` = 日本語プログラム詳細
-- `/ja/` = legacy redirect only
-- `/ja/programs/<id>/` = equivalent unprefixed route へ redirect
-
-Do not create new `/ja/` canonical links.
-
-### B-02 — プログラム情報が prototype / unverified のまま表示されている
-
-Status: **BLOCKER**
-
-`src/data/programs.ts` 自身が、現在の値を authoritative Source of Truth ではなく prototype/unverified と明示している。
-
-しかしトップの Program Finder はこのデータから、期間・季節・キャンパス・概要等をユーザー向けに表示している。
-
-Required action:
-
-1. 各プログラムについて権威ある仕様・募集要項・確定資料を特定する。
-2. 日程、期間、料金、応募資格、キャンパス、募集状況、宿泊、語学要件等を verified fact domain に移す。
-3. 未確認値は削除または「確認中」と明示する。
-4. トップカードと詳細ページが同じ verified fact を参照するようにする。
-
-### B-03 — RDSP の名称・位置づけに repository 内不整合がある
-
-Status: **BLOCKER**
-
-Repository 内で RDSP の展開名・位置づけが一貫していない。
-
-例として、現行実装データには `Ritsumeikan Data Science Program` が存在する一方、PR文脈では `Ritsumeikan Discover Studies Program` として扱われている。
-
-推測で統一しないこと。
-
-Required action:
-
-- authoritative source で正式名称を確認する
-- program registry / detail page / metadata / headings / documentation を一括して統一する
-
-### B-04 — トップに表示するプログラムと詳細ページ registry が一致していない
-
-Status: **BLOCKER**
-
-トップ側 registry は個人向けとして RSJP / RSJP Express / RWJP / RWJP Express / RDSP / RBMP を扱うが、programme detail draft registry は RWJP / RWJP Express / RDSP / RBMP のみ。
-
-RSJP と RSJP Express は日本語マスター完成に必要な詳細ページが不足している。
-
-Required action:
-
-- 全募集対象プログラムの detail route を定義
-- verified facts が揃うまで未確認項目を発明しない
-- 同一 programme registry からトップと詳細ページを整合させる
-
-### B-05 — Program Finder の詳細CTAが機能していない
-
-Status: **BLOCKER**
-
-各カードは現在 `詳細ページは準備中` の button であり、利用者が詳細へ進めない。
-
-一部には既に詳細ページ実装が存在するため、ページの readiness に応じて実リンクへ切り替える。
-
-Required action:
-
-- completed detail page → 実リンク
-- incomplete page → 明確な unavailable state
-- button に見えるが遷移しない疑似CTAを本番完成版に残さない
-
-### B-06 — サポートセクションが preview のまま
-
-Status: **BLOCKER**
-
-トップ末尾の Support は `NEXT 01` / `今後追加するコンテンツ` として実装されている。
-
-Required action:
-
-最低限、以下のユーザー判断材料を完成させる。
-
-- 応募前の問い合わせ
-- 渡航準備
+- 各プログラムの正式名称
+- 年度別日程・期間
+- 費用
+- 応募資格
+- キャンパス
 - 宿泊
-- 保険
-- 緊急時対応
-- 到着時サポート
-- プログラム期間中の相談先
-- 帰国までの基本フロー
+- 募集状況
+- 応募方法
+- 連絡先
+- 安全・保険・キャンセル条件
 
-内部運用を過剰公開せず、学生が安心して判断できる範囲に限定する。
+を authoritative fact domain から表示する。
 
-### B-07 — 日本語の FAQ / Application / Contact journey が完成していない
-
-Status: **BLOCKER**
-
-root 配下には旧英語プロトタイプ由来の `faq.astro`, `contact.astro`, `about.astro`, `programs/index.astro` 等が残っている。
-
-日本語をメインサイトとする以上、これらをそのまま indexable な public route として残さない。
-
-Required action:
-
-- 必要なものは日本語マスターとして再実装
-- 不要な旧prototype route は削除、隔離、または noindex + 非導線化
-- 本番 sitemap / canonical から prototype page を除外
+**未確認値は、見栄えのために補わない。**
 
 ---
 
-## 4. HIGH PRIORITY — Gate A までに修正
+## 2. Current judgement
 
-### H-01 — Programme detail pages が開発中 metadata のまま
+### Internal presentation MVP
 
-現行 detail route は `robots="noindex,nofollow"` で、description も「制作中」です。
+**CONDITIONAL GO — visual UAT pending**
 
-開発中としては正しいが、本番完成条件ではない。
+実装・情報設計・コピー・導線はMVPとして大きく前進した。現在の残ゲートは最新HEADのCI / Vercel確認と、実ブラウザでのdesktop / 390px / 320px目視確認。
 
-各ページ完成時にのみ indexability を切り替える。
+### Japanese public V1
 
-### H-02 — Shared facts と presentation copy の境界を強化
+**NO-GO — programme fact verification remains**
 
-現在 `programs.ts` と `programme-page-drafts.ts` に関連情報が分散している。
+理由はデザインではない。非RWJPプログラムの年度別事実と、RDSPの正式名称など、権威あるソースで確定すべき情報が残っているため。
 
-同一事実を複数箇所で独立更新する構造は、多言語化後に不整合を生む。
-
-Required action:
-
-- locale-neutral verified facts を1つの管理境界に寄せる
-- locale copy は別管理
-- UI component に事実を重複 hard-code しない
-
-### H-03 — Language switcher は locale ready になるまで出さない
-
-日本語完成フェーズでは、未完成英語版へ誘導する `EN` link を表示しない。
-
-English Gate B を満たした時点で `/en/` を有効化する。
-
-Korean Gate C を満たした時点で `/ko/` を有効化する。
-
-### H-04 — CTA architecture を完成させる
-
-トップには魅力訴求だけでなく、最終的に次の行動へ進める明確な導線が必要。
-
-最低限検討する CTA:
-
-- プログラム詳細を見る
-- 日程・費用を見る
-- 応募条件を見る
-- 応募方法を見る
-- 問い合わせる
-
-未確定の申込受付を `Apply Now` 相当で誤認させない。
-
-### H-05 — Historical / previous programme media labeling
-
-過去実施写真は有効だが、現在年度の実施内容と誤認させない。
-
-programme-specific photo / previous programme / concept visual の区別を維持する。
+英語版は、日本語MVPの視覚UATが完了し、日本語の情報構造・コピー・デザインが固定された後に着手する。一般公開前には日本語 / 英語ともGate A2相当の事実確認を行う。
 
 ---
 
-## 5. UX / VISUAL AUDIT
+## 3. Former blockers — current status
 
-### Current strengths
+### B-01 — Japanese canonical route
 
-- ファーストビューは「短期留学の大学サイト」として一般的な大学公式サイトより体験価値を強く伝えられている。
-- 実写真を大きく使う方向は学生が参加後を想像しやすい。
-- 「学ぶだけでは、終わらない。」は日本語マスターのブランド軸として機能している。
-- ナビゲーション項目は学生目線で、大学内部組織ベースになっていない。
-- Program Finder → Experience → Participant Day → Campus Journey という流れは product direction と整合する。
+Status: **RESOLVED**
 
-### Remaining visual checks
+- `/` = Japanese master
+- `/programs/<id>/` = Japanese programme route
+- `/ja/` = redirect only
+- `/ja/programs/<id>/` = unprefixed routeへredirect
 
-- hero text contrast を実機・複数ディスプレイで確認
-- 320px / 390px で hero copy と CTA が viewport 内で破綻しないこと
-- large image の crop が人物や重要情報を不自然に切らないこと
-- anchor navigation 後に sticky header が見出しを隠さないこと
-- keyboard focus が dark hero / dark header 上でも常に視認できること
-- motion が `prefers-reduced-motion` に対応すること
-- long Japanese heading の manual `<br>` が狭幅で不自然にならないこと
+新しい `/ja/` canonical link は作らない。
+
+### B-02 — prototype / unverified programme facts exposed in discovery UI
+
+Status: **MVP EXPOSURE RESOLVED / FACT MIGRATION REMAINS FOR PUBLIC V1**
+
+以前はProgram Finderと`/programs/`が`src/data/programs.ts`のprototype/unverifiedな季節・期間・キャンパス等をそのまま表示していた。
+
+Current implementation:
+
+- Program Finderから未検証の季節フィルターを削除
+- 期間・季節・キャンパスのprototype値をカードから非表示
+- `/programs/`でも同値を表示しない
+- overview用に`src/data/programme-public-descriptors.ts`を追加
+- public descriptorは年度別運用条件を持たない
+- 年度別条件はverifiedな詳細ページへ送る
+
+Remaining for public V1:
+
+- 各プログラムの運用事実をauthoritative fact domainへ移行
+- verified factからカード / detail / Englishを生成
+
+### B-03 — RDSP official-name conflict
+
+Status: **PUBLIC CLAIM SUPPRESSED / AUTHORITATIVE RESOLUTION STILL REQUIRED**
+
+Repository内に`Ritsumeikan Data Science Program`と`Ritsumeikan Discover Studies Program`の不整合があるため、推測でどちらかを採用しない。
+
+Current implementation:
+
+- overview / metadata / draft registryでは`RDSP`のみを使用
+- `正式名称確認中`を明示
+
+Required before public V1:
+
+- authoritative sourceで正式名称を確定
+- registry / page / metadata / docsを一括更新
+
+### B-04 — top registry and detail coverage mismatch
+
+Status: **RESOLVED FOR MVP**
+
+RSJP / RSJP Express / RWJP / RWJP Express / RDSP / RBMP / Custom Programsの全カードが実routeを持つ。
+
+未完成ページも404ではなく、未確認項目を`確認中`として扱うMVPページを表示する。
+
+### B-05 — non-functional programme CTA
+
+Status: **RESOLVED**
+
+カード画像・タイトル・`詳細を見る`から詳細routeへ移動できる。
+
+### B-06 — Support preview only
+
+Status: **RESOLVED FOR MVP**
+
+トップ末尾を5段階のsupport journeyへ更新:
+
+1. 応募・手続き
+2. 渡航前の準備
+3. 到着・宿泊
+4. 滞在中の安心
+5. 修了・帰国
+
+具体的制度はプログラム別のverified情報に従う。
+
+### B-07 — FAQ / Contact / About / Programme index old prototype
+
+Status: **RESOLVED FOR MVP**
+
+旧英語 / fictional prototypeを日本語MVPへ置換。
+
+- `/programs/`
+- `/about/`
+- `/faq/`
+- `/contact/`
+- `/404/`
+
+これらは現在noindexで、公開V1のindexability判断は後で行う。
 
 ---
 
-## 6. SEO / ACCESSIBILITY AUDIT
+## 4. Japanese editorial / typography state
 
-Before Gate A:
+Current master rule:
 
-- root Japanese pages use `<html lang="ja">`
-- canonical points to unprefixed Japanese URL
-- legacy `/ja/` is redirect only
-- old prototype pages are not accidentally canonical/indexable
-- each completed programme has unique title / description
-- heading hierarchy has one clear page H1
-- meaningful images have meaningful Japanese alt text
-- decorative images use empty alt or equivalent treatment
-- language switcher is absent until destinations are valid
-- keyboard navigation and focus states work
-- 404 behaviour is deliberate
+**公式情報は短く強く。学生向けコピーでは少し遊ぶ。事実では遊ばない。**
 
-Multilingual SEO (`hreflang`) is deferred until `/en/` and `/ko/` equivalent pages exist.
+Implemented:
 
----
+- `ja-final-editorial.css`を最終CSS層として読み込む
+- 日本語本文の可読サイズを底上げ
+- 注記 / helper textの極端な小型化を抑止
+- `line-break: strict`
+- 重要見出しはsemantic lineを使用
+- 日本語幅に`ch`を使わない
+- major H2はdesktopで原則1–2 semantic lines
+- section間の事故的な大余白を圧縮
+- 390px / 320pxではdesktop nowrapを解放
 
-## 7. Recommended Implementation Order
+Playful copy examples are intentionally limited to student-facing surfaces:
 
-1. Verify root Japanese routing and legacy `/ja/` redirects in CI / Preview.
-2. Quarantine or replace old English prototype routes at unprefixed URLs.
-3. Establish verified programme fact source and resolve RDSP naming conflict.
-4. Align top programme registry and detail-page registry.
-5. Complete RSJP / RSJP Express detail pages.
-6. Finish RWJP / RWJP Express / RDSP detail pages and review RBMP provisional status.
-7. Wire real detail CTAs from Program Finder.
-8. Build Support section.
-9. Build Japanese FAQ / Application Guidance / Contact journeys.
-10. Run factual cross-page audit.
-11. Run 320px / 390px / tablet / desktop UAT.
-12. Run accessibility / SEO / performance checks.
-13. Only after Gate A = PASS, begin English localisation.
+- `何が好き？ 何を学ぶ？`
+- `見るだけじゃ、もったいない。`
+- `短くても、学びは濃く。`
+- `「かわいい」だけでもいい。行動できたら、もっといい。`
+
+Evidence / fees / eligibility / application / safetyには使用しない。
 
 ---
 
-## 8. Release Decision
+## 5. Truth / interaction safeguards
 
-Current decision: **NO-GO for Japanese V1 completion**
+Implemented:
 
-Reason: visual direction is advanced, but verified programme facts, complete detail coverage, support/application journeys, CTA completion, and legacy prototype cleanup are not yet complete.
+- Historical participation = historical evidence, not current partnership
+- country / region = sending institution location, not participant nationality
+- five-week network = RSJP + RWJP only; Express excluded
+- RWJP directory = RWJP-only historical records
+- shared Participant Dayから架空のexact timeを削除
+- generic Buddy / friendship guaranteeを削除
+- student interaction is an opportunity, not a promised relationship
+- RWJP current facts and application-state logic remain in the verified domain
+- unknown facts display as unknown / preparing rather than being invented
 
-This is a normal development-state NO-GO, not a recommendation to redesign the site.
+---
 
-The current design should be preserved while the information architecture, verified facts, and missing journeys are completed.
+## 6. Current route inventory
 
-Target decision after remediation: **GO — Japanese Master V1**, then begin `/en/` localisation.
+Japanese master / MVP review routes:
+
+- `/`
+- `/programs/`
+- `/programs/rsjp/`
+- `/programs/rsjp-express/`
+- `/programs/rwjp/`
+- `/programs/rwjp-express/`
+- `/programs/rdsp/`
+- `/programs/rbmp/`
+- `/programs/custom-programs/`
+- `/about/`
+- `/faq/`
+- `/contact/`
+- 404
+
+Legacy redirect only:
+
+- `/ja/`
+- `/ja/programs/<id>/`
+
+---
+
+## 7. Remaining visual UAT
+
+Before merging the Japanese editorial PR, inspect at:
+
+- wide desktop
+- intermediate / laptop
+- 390px
+- 320px
+
+Check:
+
+- header logo and `Ritsumeikan Study Abroad Center`
+- hero image remains the approved original
+- CTA contrast
+- no text/background colour collision
+- no card or label overlap
+- no horizontal page overflow
+- no single-character / particle orphan in Japanese display headings
+- Global Evidence network labels do not collide
+- Participant Day scene metadata fits at 390px / 320px
+- Program Finder safe-status copy remains readable
+- section transitions do not create empty-screen gaps
+- RWJP facts / practical / decision text is readable on projector and mobile
+- Express social-style mock remains clearly a mock, not an actual app
+
+---
+
+## 8. English handoff rule
+
+Japanese is the master product.
+
+After Japanese Gate A1 visual sign-off:
+
+- create `/en/`
+- keep the same design system and information architecture
+- preserve fact identity exactly
+- rewrite copy for English-native readers
+- do **not** translate sentence-by-sentence
+- adjust heading length, CTA wording, paragraph order and explanatory style for English
+- rerun 320px / 390px / tablet / desktop UAT because English expands differently
+
+English quality question:
+
+> Would an English-speaking prospective student believe this page was written for them in English?
+
+If not, localisation is not complete.
+
+---
+
+## 9. Release decision
+
+Current decision:
+
+**PR #50 — NO MERGE until current CI / Vercel are Green and visual UAT passes.**
+
+After those gates:
+
+**GO — Internal Japanese MVP**
+
+Public Japanese V1 remains separately gated by authoritative programme-fact verification, especially RDSP naming and non-RWJP annual offering facts.
