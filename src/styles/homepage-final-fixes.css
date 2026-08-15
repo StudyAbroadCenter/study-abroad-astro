@@ -1,54 +1,152 @@
-/* Final homepage visual repair pass — desktop first, responsive safe.
-   Fixes support-card collapse, portfolio metadata squeeze, stale dark Custom Programs styling,
-   and Programme Finder spacing/typography regressions observed in visual UAT. */
+/* Final homepage professional pass.
+   This file is intentionally loaded last. It resolves stale selector conflicts,
+   restores the official brand lockup, protects readable type sizes, and removes
+   unnecessary vertical dead space across the Japanese homepage. */
 
-/* 1) Support preview: a single item must never inherit the 2/3-column grid. */
-.mvp-preview{
-  padding-block:clamp(4rem,7vw,6.5rem)!important;
-  background:#fffdfa!important;
+/* ------------------------------------------------------------
+   Header / official identity
+   ------------------------------------------------------------ */
+.recruitment-header,
+.recruitment-header.is-scrolled{
+  height:72px!important;
+  border-bottom:1px solid rgba(54,47,43,.12)!important;
+  background:rgba(255,253,250,.98)!important;
+  color:#242526!important;
+  box-shadow:0 6px 20px rgba(52,42,38,.045)!important;
+  backdrop-filter:blur(14px)!important;
 }
-.mvp-preview__grid--single{
-  grid-template-columns:minmax(0,1fr)!important;
-  width:min(100%,58rem)!important;
-  max-width:58rem!important;
-  margin-inline:auto!important;
+.recruitment-header__inner{gap:1.5rem!important}
+.recruitment-brand{display:flex!important;align-items:center!important;gap:.85rem!important;min-width:0!important;color:#242526!important}
+.recruitment-brand__logo-plate{
+  position:relative!important;
+  display:grid!important;
+  width:148px!important;
+  height:40px!important;
+  flex:0 0 auto!important;
+  place-items:center start!important;
+  overflow:hidden!important;
+  background:#fff!important;
 }
-.mvp-preview__grid--single>article{
-  width:100%!important;
-  min-width:0!important;
-  padding:clamp(1.6rem,3vw,2.4rem)!important;
-  border:1px solid var(--rits-line,#e5dfd8)!important;
+.recruitment-brand__logo{display:block!important;width:100%!important;height:100%!important;object-fit:contain!important;object-position:left center!important}
+.recruitment-brand__fallback{position:absolute!important;inset:0!important;display:none!important;align-items:center!important;color:#8b2432!important;font-size:1rem!important;font-weight:700!important;letter-spacing:.08em!important}
+.recruitment-header.has-logo-fallback .recruitment-brand__logo{display:none!important}
+.recruitment-header.has-logo-fallback .recruitment-brand__fallback{display:flex!important}
+.recruitment-brand__office{
+  display:block!important;
+  padding-left:.85rem!important;
+  border-left:1px solid rgba(54,47,43,.16)!important;
+  color:#6b645f!important;
+  font-size:.64rem!important;
+  font-weight:650!important;
+  line-height:1.42!important;
+  letter-spacing:.025em!important;
+  white-space:nowrap!important;
+}
+.recruitment-nav--desktop{gap:clamp(.9rem,1.3vw,1.4rem)!important}
+.recruitment-nav--desktop>a:not(.recruitment-nav__cta){color:#48433f!important;font-size:.78rem!important;font-weight:600!important}
+.recruitment-nav .recruitment-nav__cta,
+.recruitment-nav--desktop>.recruitment-nav__cta,
+.recruitment-menu .recruitment-menu__cta{
+  min-height:40px!important;
+  padding:.65rem 1rem!important;
+  border:1px solid #8b2432!important;
+  border-radius:.7rem!important;
+  background:#8b2432!important;
+  color:#fff!important;
+  font-size:.76rem!important;
+  font-weight:700!important;
+  line-height:1.2!important;
+  text-shadow:none!important;
+}
+.recruitment-nav .recruitment-nav__cta:hover{background:#6f1c28!important;color:#fff!important}
+.recruitment-menu__eyebrow{margin:.2rem .35rem .7rem!important;color:#8b2432!important;font-size:.62rem!important;font-weight:750!important;letter-spacing:.11em!important}
+
+/* ------------------------------------------------------------
+   Programme Finder
+   ------------------------------------------------------------ */
+.programme-finder--reframed{padding-block:clamp(4rem,6vw,5.5rem)!important}
+.programme-finder__intro{align-items:end!important;gap:1rem 3.5rem!important}
+.programme-finder__intro h2{
+  max-width:18em!important;
+  color:#282422!important;
+  font-size:clamp(2.4rem,3.9vw,3.7rem)!important;
+  line-height:1.16!important;
+  letter-spacing:-.04em!important;
+  text-wrap:pretty!important;
+}
+.programme-finder__intro-copy{color:#5d5753!important;font-size:1rem!important;line-height:1.9!important}
+.programme-finder__intro-copy small{border-left-color:#8b2432!important;color:#746d68!important;font-size:.8rem!important;line-height:1.75!important}
+.programme-pathways{margin-top:clamp(2.2rem,4vw,3.2rem)!important;border-color:#e4ddd6!important;background:#e4ddd6!important;border-radius:1rem!important}
+.programme-pathways article{min-height:0!important;padding:clamp(1.4rem,2.2vw,1.9rem)!important;background:#fff!important}
+.programme-pathways article>span{color:#8b2432!important;font-size:.72rem!important}
+.programme-pathways article>p{margin-top:1.2rem!important;color:#807873!important;font-size:.64rem!important}
+.programme-pathways h3{color:#302b29!important;font-size:clamp(1.35rem,1.7vw,1.7rem)!important}
+.programme-pathways small{color:#6c655f!important;font-size:.75rem!important;line-height:1.6!important}
+.programme-pathways article::after{background:#8b2432!important}
+.finder-controls{margin-top:2rem!important}
+.finder-controls legend{font-size:.92rem!important}
+.finder-options label span{font-size:.84rem!important}
+.finder-results-heading{margin-top:2.1rem!important}
+.finder-results-heading p{font-size:1rem!important}
+.finder-results-heading small{color:#746d68!important;font-size:.8rem!important;line-height:1.65!important}
+.programme-card__body>p{font-size:.9rem!important;line-height:1.78!important}
+.programme-card__meta span{font-size:.7rem!important}
+.programme-card__link{font-size:.82rem!important}
+
+/* ------------------------------------------------------------
+   Custom Programs — always light, always readable
+   ------------------------------------------------------------ */
+.programme-finder .partner-programme.partner-programme--expanded{
+  margin-top:clamp(3.5rem,6vw,5rem)!important;
+  border:1px solid rgba(139,36,50,.16)!important;
   border-radius:1rem!important;
-  background:linear-gradient(135deg,#fff 0%,#faf6f2 100%)!important;
-  box-shadow:0 12px 32px rgba(52,42,38,.045)!important;
+  background:linear-gradient(145deg,#fffdfa 0%,#f8f1f2 52%,#f4eeea 100%)!important;
+  color:#242526!important;
+  box-shadow:0 18px 46px rgba(52,42,38,.06)!important;
 }
-.mvp-preview__grid--single h2{
-  max-width:none!important;
-  margin-top:.45rem!important;
-  color:var(--rits-ink,#242526)!important;
-  font-size:clamp(1.65rem,2.5vw,2.45rem)!important;
-  line-height:1.28!important;
-  letter-spacing:-.03em!important;
-  word-break:keep-all!important;
-  overflow-wrap:normal!important;
+.programme-finder .partner-programme.partner-programme--expanded::after{border-color:rgba(139,36,50,.05)!important}
+.programme-finder .partner-programme__label{border-bottom-color:rgba(139,36,50,.13)!important;color:#746a65!important;font-size:.68rem!important}
+.programme-finder .partner-programme .section-kicker{color:#8b2432!important;font-size:.68rem!important}
+.programme-finder .partner-programme__content{padding:clamp(2.2rem,4vw,3.5rem)!important}
+.programme-finder .partner-programme__lead h2{
+  max-width:18em!important;
+  color:#292523!important;
+  font-size:clamp(2.25rem,3.5vw,3.45rem)!important;
+  line-height:1.16!important;
+  letter-spacing:-.04em!important;
+  text-wrap:pretty!important;
 }
-.mvp-preview__grid--single p{
-  max-width:44rem!important;
-  margin-top:.8rem!important;
-  color:#625d59!important;
-  font-size:.94rem!important;
-  line-height:1.85!important;
+.programme-finder .partner-programme__lead>p:not(.section-kicker){max-width:52rem!important;color:#554f4b!important;font-size:.94rem!important;line-height:1.82!important}
+.programme-finder .partner-programme__promise{
+  max-width:52rem!important;
+  margin-top:.2rem!important;
+  padding:.8rem 1rem!important;
+  border-left:2px solid #8b2432!important;
+  background:rgba(255,255,255,.74)!important;
+  color:#3b3633!important;
+  font-size:.92rem!important;
+  font-weight:600!important;
+  line-height:1.8!important;
 }
-.mvp-preview__grid--single span{color:var(--rits-enji,#8b2432)!important}
+.programme-finder .partner-programme__process{margin-top:2rem!important;border-color:#e4dcd6!important;background:#e9e2dc!important;border-radius:.8rem!important}
+.programme-finder .partner-programme__process>div{min-height:0!important;padding:1.5rem!important;background:#fff!important;color:#302b29!important}
+.programme-finder .partner-programme__process span{color:#8b2432!important;font-size:.68rem!important}
+.programme-finder .partner-programme__process strong{margin-top:1rem!important;color:#514946!important;font-size:.82rem!important}
+.programme-finder .partner-programme__process p{color:#625b56!important;font-size:.82rem!important;line-height:1.72!important}
+.programme-finder .partner-programme__themes{margin-top:2rem!important}
+.programme-finder .partner-programme__themes>p{color:#817872!important;font-size:.64rem!important}
+.programme-finder .partner-programme__themes li{border-color:#ddd4ce!important;background:#fff!important;color:#4e4844!important;font-size:.72rem!important}
+.programme-finder .partner-programme__footer{margin-top:2rem!important;border-top-color:#ddd5cf!important;padding-top:1.5rem!important}
+.programme-finder .partner-programme__footer>p{color:#665f5a!important;font-size:.76rem!important;line-height:1.75!important}
+.programme-finder .partner-programme .action-button,
+.programme-finder .partner-programme .action-button--dark{border-color:#8b2432!important;background:#8b2432!important;color:#fff!important;font-size:.8rem!important}
 
-/* 2) Homepage portfolio: metadata rows are full-width, never squeezed into a 2-column sliver. */
+/* ------------------------------------------------------------
+   Global evidence portfolio
+   ------------------------------------------------------------ */
 .global-evidence__portfolio article{
   grid-template-columns:minmax(0,1fr) auto!important;
-  grid-template-areas:
-    "label label"
-    "flags value"
-    "detail detail"
-    "note note"!important;
+  grid-template-areas:"label label" "flags value" "detail detail" "note note"!important;
   column-gap:1rem!important;
   row-gap:.45rem!important;
   align-content:start!important;
@@ -56,169 +154,84 @@
 .global-evidence__portfolio article>p{grid-area:label!important;grid-column:auto!important}
 .global-evidence__portfolio-flags{grid-area:flags!important;min-width:0!important;align-self:center!important}
 .global-evidence__portfolio article>strong{grid-area:value!important;align-self:center!important;white-space:nowrap!important}
-.global-evidence__portfolio article>span{
-  grid-area:detail!important;
-  display:block!important;
-  min-width:0!important;
-  color:#615a56!important;
-  font-size:.76rem!important;
-  line-height:1.65!important;
-  word-break:normal!important;
-  overflow-wrap:normal!important;
-}
-.global-evidence__portfolio article>small{
-  grid-area:note!important;
-  justify-self:start!important;
-  max-width:100%!important;
-  color:#8d847e!important;
-  font-size:.58rem!important;
-  line-height:1.55!important;
-  text-align:left!important;
-  overflow-wrap:anywhere!important;
-}
-.global-evidence__portfolio-custom>strong{
-  color:#5e3038!important;
-  font-size:1rem!important;
-}
+.global-evidence__portfolio article>span{grid-area:detail!important;display:block!important;min-width:0!important;color:#615a56!important;font-size:.82rem!important;line-height:1.65!important;word-break:normal!important;overflow-wrap:normal!important}
+.global-evidence__portfolio article>small{grid-area:note!important;justify-self:start!important;max-width:100%!important;color:#817a74!important;font-size:.66rem!important;line-height:1.55!important;text-align:left!important;overflow-wrap:anywhere!important}
+.global-evidence__portfolio-custom>strong{color:#5e3038!important;font-size:1rem!important}
 .global-evidence__portfolio-custom>span{color:#675d59!important}
+.global-evidence__lead{font-size:1rem!important;line-height:1.9!important}
+.global-evidence__source-note{font-size:.74rem!important;line-height:1.7!important}
 
-/* 3) Custom Programs: retire the stale dark theme completely.
-   This deliberately outranks .partner-programme--expanded from programme-architecture.css. */
-.programme-finder .partner-programme.partner-programme--expanded{
-  border:1px solid rgba(139,36,50,.16)!important;
-  background:linear-gradient(145deg,#fffdfa 0%,#f8f1f2 52%,#f4eeea 100%)!important;
-  color:var(--rits-ink,#242526)!important;
-  box-shadow:0 18px 46px rgba(52,42,38,.06)!important;
-}
-.programme-finder .partner-programme.partner-programme--expanded::after{
-  border-color:rgba(139,36,50,.06)!important;
-}
-.programme-finder .partner-programme__label{
-  border-bottom-color:rgba(139,36,50,.13)!important;
-  color:#746a65!important;
-}
-.programme-finder .partner-programme .section-kicker{
-  color:var(--rits-enji,#8b2432)!important;
-}
-.programme-finder .partner-programme__lead h2{
-  max-width:18em!important;
+/* ------------------------------------------------------------
+   Shared section rhythm and readable type
+   ------------------------------------------------------------ */
+.experience-pillars__intro{padding-block:clamp(4rem,6vw,5.5rem) clamp(2.8rem,4vw,4rem)!important}
+.experience-pillars__intro h2{font-size:clamp(2.7rem,5.3vw,5rem)!important;line-height:1.03!important;letter-spacing:-.055em!important}
+.experience-pillars__lead>p{font-size:1rem!important;line-height:1.88!important}
+.experience-pillars__lead>small{font-size:.8rem!important;line-height:1.7!important}
+.experience-pillars__grid{padding-bottom:clamp(4rem,6vw,5.5rem)!important}
+.experience-pillar{min-height:0!important;padding:1.5rem!important}
+.experience-pillar h3{font-size:clamp(1.25rem,1.7vw,1.65rem)!important;line-height:1.42!important}
+.experience-pillar__body{font-size:.9rem!important;line-height:1.82!important}
+.experience-pillar header>p{font-size:.64rem!important}
+.experience-pillar__note{font-size:.76rem!important;line-height:1.7!important}
+
+.international-impact{padding-block:clamp(4rem,6vw,5.5rem)!important}
+.international-impact__lead>p:first-child{font-size:1rem!important;line-height:1.88!important}
+.international-impact__card>p{font-size:.9rem!important;line-height:1.8!important}
+.international-impact__note{font-size:.8rem!important;line-height:1.72!important}
+
+.global-evidence{padding-block:clamp(4rem,6vw,5.5rem)!important}
+.global-evidence__visual-grid{margin-top:clamp(2.2rem,4vw,3.3rem)!important}
+
+/* ------------------------------------------------------------
+   Campus ending — retain immersive atlas, lighten the closing summary
+   ------------------------------------------------------------ */
+.campus-journey__intro{padding-block:clamp(4rem,6vw,5.5rem) clamp(3rem,4vw,4rem)!important}
+.campus-journey__intro h2{font-size:clamp(2.8rem,5vw,5.3rem)!important;line-height:1.03!important}
+.campus-journey__intro-copy small{font-size:.8rem!important;line-height:1.7!important}
+.campus-journey__outro{
+  padding-block:clamp(4rem,6vw,5.5rem)!important;
+  background:#f7f3ee!important;
   color:#292523!important;
-  font-size:clamp(2rem,3.5vw,3.5rem)!important;
-  line-height:1.15!important;
-  letter-spacing:-.04em!important;
-  text-wrap:pretty!important;
+  box-shadow:0 0 0 100vmax #f7f3ee!important;
+  clip-path:inset(0 -100vmax)!important;
 }
-.programme-finder .partner-programme__lead>p:not(.section-kicker){
-  color:#5d5753!important;
-}
-.programme-finder .partner-programme__promise{
-  border-left-color:var(--rits-enji,#8b2432)!important;
-  color:#3f3936!important;
-  background:rgba(255,255,255,.52)!important;
-  padding:.75rem 0 .75rem 1rem!important;
-}
-.programme-finder .partner-programme__process{
-  border-color:#e4dcd6!important;
-  background:#e9e2dc!important;
-}
-.programme-finder .partner-programme__process>div{
-  background:#fff!important;
-  color:#302b29!important;
-}
-.programme-finder .partner-programme__process span{
-  color:var(--rits-enji,#8b2432)!important;
-}
-.programme-finder .partner-programme__process strong{
-  color:#514946!important;
-}
-.programme-finder .partner-programme__process p{
-  color:#665f5a!important;
-}
-.programme-finder .partner-programme__themes>p{
-  color:#8a817b!important;
-}
-.programme-finder .partner-programme__themes li{
-  border-color:#ddd4ce!important;
-  background:#fff!important;
-  color:#4e4844!important;
-}
-.programme-finder .partner-programme__footer{
-  border-top-color:#ddd5cf!important;
-}
-.programme-finder .partner-programme__footer>p{
-  color:#706963!important;
-}
-.programme-finder .partner-programme .action-button,
-.programme-finder .partner-programme .action-button--dark{
-  border-color:var(--rits-enji,#8b2432)!important;
-  background:var(--rits-enji,#8b2432)!important;
-  color:#fff!important;
-}
+.campus-journey__outro .campus-journey__kicker{color:#8b2432!important}
+.campus-journey__outro h2{color:#292523!important;font-size:clamp(2.5rem,4.6vw,4.6rem)!important;line-height:1.08!important}
+.campus-journey__comparison{margin-top:clamp(2.5rem,4vw,3.8rem)!important;border-top-color:#d9d1ca!important;border-bottom-color:#d9d1ca!important}
+.campus-journey__comparison>div{min-height:12rem!important;padding:1.8rem!important;border-right-color:#ddd5cf!important}
+.campus-journey__comparison strong{color:#302b29!important}
+.campus-journey__comparison p{color:#625b56!important;font-size:.82rem!important;line-height:1.65!important}
+.campus-journey__note{color:#77706a!important;font-size:.76rem!important;line-height:1.72!important}
 
-/* 4) Programme Finder: reduce dead space and keep the intro/body visually connected. */
-.programme-finder--reframed{
-  padding-block:clamp(4.5rem,7vw,6.5rem)!important;
-}
-.programme-finder__intro{
-  align-items:end!important;
-}
-.programme-finder__intro h2{
-  max-width:18em!important;
-  color:#282422!important;
-  font-size:clamp(2.35rem,4vw,3.75rem)!important;
-  line-height:1.14!important;
-  letter-spacing:-.04em!important;
-}
-.programme-finder__intro-copy{
-  color:#5d5753!important;
-  line-height:1.9!important;
-}
-.programme-finder__intro-copy small{
-  border-left-color:var(--rits-enji,#8b2432)!important;
-  color:#817974!important;
-}
-.programme-pathways{
-  margin-top:clamp(2.4rem,4.5vw,3.6rem)!important;
-  border-color:#e4ddd6!important;
-  background:#e4ddd6!important;
-  border-radius:1rem!important;
-}
-.programme-pathways article{
-  min-height:0!important;
-  padding:clamp(1.35rem,2.3vw,2rem)!important;
-  background:#fff!important;
-}
-.programme-pathways article>span{color:var(--rits-enji,#8b2432)!important}
-.programme-pathways article>p{margin-top:1.4rem!important;color:#928984!important}
-.programme-pathways h3{color:#302b29!important}
-.programme-pathways small{color:#756d68!important}
-.programme-pathways article::after{background:var(--rits-enji,#8b2432)!important}
-.finder-results-heading small{color:#817974!important}
+/* Footer readability */
+.recruitment-footer__inner{padding-block:2.4rem!important}
+.recruitment-footer__inner strong{font-size:.82rem!important;letter-spacing:.02em!important}
+.recruitment-footer__inner p{font-size:.74rem!important;line-height:1.7!important}
 
-@media(min-width:900px){
-  .mvp-preview__grid--single>article{
-    display:grid!important;
-    grid-template-columns:minmax(15rem,.36fr) minmax(0,.64fr)!important;
-    gap:.3rem 3rem!important;
-    align-items:start!important;
-  }
-  .mvp-preview__grid--single>article>span,
-  .mvp-preview__grid--single>article>h2{grid-column:1!important}
-  .mvp-preview__grid--single>article>p{grid-column:2!important;grid-row:1/3!important;margin-top:0!important;align-self:center!important}
+@media(max-width:1120px){
+  .recruitment-brand__office{display:none!important}
+  .recruitment-brand__logo-plate{width:138px!important}
 }
 
 @media(max-width:900px){
-  .global-evidence__portfolio article{grid-template-columns:minmax(0,1fr) auto!important}
+  .recruitment-header,.recruitment-header.is-scrolled{height:68px!important}
+  .recruitment-brand__logo-plate{width:132px!important;height:37px!important}
   .programme-finder .partner-programme__process>div{min-height:auto!important}
+  .campus-journey__comparison{grid-template-columns:1fr!important}
+  .campus-journey__comparison>div{border-right:0!important;border-bottom:1px solid #ddd5cf!important}
+  .campus-journey__comparison>div:last-child{border-bottom:0!important}
 }
 
 @media(max-width:620px){
-  .global-evidence__portfolio article{
-    grid-template-columns:1fr!important;
-    grid-template-areas:"label" "flags" "value" "detail" "note"!important;
-  }
+  .recruitment-brand__logo-plate{width:122px!important;height:34px!important}
+  .global-evidence__portfolio article{grid-template-columns:1fr!important;grid-template-areas:"label" "flags" "value" "detail" "note"!important}
   .global-evidence__portfolio article>strong{justify-self:start!important}
-  .programme-finder .partner-programme__lead h2{font-size:clamp(1.8rem,8vw,2.35rem)!important}
-  .programme-finder--reframed{padding-block:3.8rem!important}
-  .programme-finder__intro h2{font-size:clamp(2rem,10vw,2.7rem)!important}
+  .programme-finder--reframed,.international-impact,.global-evidence{padding-block:3.6rem!important}
+  .programme-finder__intro h2{font-size:clamp(2rem,9vw,2.7rem)!important}
+  .programme-finder .partner-programme__lead h2{font-size:clamp(1.9rem,8vw,2.4rem)!important}
+  .experience-pillars__intro{padding-block:3.6rem 2.6rem!important}
+  .experience-pillars__intro h2{font-size:clamp(2.25rem,11vw,3.2rem)!important}
+  .campus-journey__intro{padding-block:3.6rem 2.8rem!important}
+  .campus-journey__outro{padding-block:3.6rem!important}
 }
