@@ -17,7 +17,7 @@
   --ja-note-readable: clamp(0.78rem, 0.76rem + 0.06vw, 0.84rem);
   --ja-display-xl: clamp(2.4rem, 4.2vw, 4.25rem);
   --ja-display-lg: clamp(2.05rem, 3.25vw, 3.35rem);
-  --ja-section-space: clamp(4.25rem, 6vw, 6.5rem);
+  --ja-section-space: clamp(4.25rem, 6vw, 6.25rem);
 }
 
 /* Kinsoku-friendly base. Do not use ch as a Japanese character-count proxy. */
@@ -117,6 +117,7 @@
   .global-evidence__current-design > p,
   .global-evidence__directory-heading p,
   .real-photo-story__note,
+  .participant-day__intro-copy > small,
   .participant-day__outro > small,
   .campus-journey__intro-copy > small,
   .campus-journey__note,
@@ -148,6 +149,8 @@
   .global-evidence__stats span,
   .global-evidence__current-design dt,
   .global-evidence__directory-heading label span,
+  .support-step__meta > span,
+  .support-step__meta > p,
   .rwjp-flagship__kicker,
   .rwjp-practical__kicker,
   .rwjp-decision__kicker,
@@ -212,7 +215,22 @@
   }
 }
 
-/* Avoid the old oversized whitespace between editorial sections. */
+/* Section rhythm: remove accidental dead space, preserve editorial breathing room. */
+.international-impact,
+.global-evidence,
+.real-photo-story {
+  padding-block: var(--ja-section-space) !important;
+}
+
+.participant-day__intro,
+.campus-journey__intro {
+  padding-block: clamp(4.5rem, 6vw, 5.5rem) clamp(3.5rem, 5vw, 4.5rem) !important;
+}
+
+.support-preview {
+  padding-block: clamp(4rem, 5.5vw, 5.5rem) !important;
+}
+
 :where(
   .programme-finder,
   .experience-pillars,
@@ -390,6 +408,18 @@
     .rwjp-fit h2
   ) {
     font-size: clamp(1.85rem, 8.7vw, 2.55rem) !important;
+  }
+
+  .international-impact,
+  .global-evidence,
+  .real-photo-story,
+  .support-preview {
+    padding-block: 4rem !important;
+  }
+
+  .participant-day__intro,
+  .campus-journey__intro {
+    padding-block: 4rem 3rem !important;
   }
 
   .jp-utility { padding-top: 6.25rem; }
