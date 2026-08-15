@@ -2,6 +2,7 @@
 import StudentHeader from './StudentHeader.astro';
 import '../styles/student-recruitment.css';
 import '../styles/mvp-refinement.css';
+import '../styles/institutional-polish.css';
 
 interface Props {
   title: string;
@@ -20,7 +21,7 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astro.u
     <meta name="description" content={description} />
     <meta name="robots" content={robots} />
     <link rel="canonical" href={canonical} />
-    <meta name="theme-color" content="#17191d" />
+    <meta name="theme-color" content="#fffdfa" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
