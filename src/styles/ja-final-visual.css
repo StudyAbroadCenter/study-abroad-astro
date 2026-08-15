@@ -20,25 +20,36 @@
   }
 
   /* The Express social-style feed is intentionally horizontally browsable, but
-   * its intrinsic six-card width must never enlarge the document viewport. */
+   * its intrinsic six-card width must never enlarge the document viewport.
+   * The outer wrapper clips transformed card paint while the feed itself remains
+   * the only horizontal scroll container. */
   .rwjpx__memories-grid {
     grid-template-columns: minmax(0, 1fr) !important;
     min-width: 0 !important;
+    max-width: 100% !important;
+    overflow-x: clip !important;
   }
 
-  .rwjpx__memories-grid > *,
-  .rwjpx__feed {
+  .rwjpx__memories-grid > * {
     min-width: 0 !important;
     max-width: 100% !important;
   }
 
+  .rwjpx__memories-grid > div:last-child {
+    width: 100% !important;
+    overflow-x: hidden !important;
+  }
+
   .rwjpx__feed {
+    min-width: 0 !important;
+    max-width: 100% !important;
     width: 100% !important;
     box-sizing: border-box;
     overflow-x: auto !important;
     overflow-y: hidden !important;
     overscroll-behavior-inline: contain;
     scrollbar-width: thin;
+    contain: inline-size paint;
   }
 
   .rwjpx__feed > article {
