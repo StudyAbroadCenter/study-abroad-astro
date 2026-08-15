@@ -28,7 +28,28 @@ const records = isRwjp
     : [];
 const historical = isProgramme ? summarizeParticipation(records) : null;
 const countries = isProgramme ? participationByCountry(records) : [];
-const topCountries = countries.slice(0, 3);
+
+const networkSlots = [
+  { x: 14, y: 17 },
+  { x: 72, y: 15 },
+  { x: 79, y: 69 },
+  { x: 18, y: 73 },
+  { x: 5, y: 45 },
+  { x: 89, y: 45 },
+  { x: 37, y: 7 },
+  { x: 49, y: 86 },
+  { x: 63, y: 7 },
+];
+
+const programmeNetwork = countries.slice(0, networkSlots.length).map((country, index) => {
+  const slot = networkSlots[index];
+  const size = country.participants >= 20 ? 'lg' : country.participants >= 3 ? 'md' : 'sm';
+  return {
+    ...country,
+    ...slot,
+    size,
+  };
+});
 
 const rwjpJapaneseHours = isKnownFact(rwjp2027Facts.japaneseMinutes)
   ? rwjp2027Facts.japaneseMinutes.value / 60
@@ -87,30 +108,53 @@ const copy = isRwjp
     </div>
   </div>
 
-  <div class="site-shell global-evidence__visual-grid">
+  <div class={`site-shell global-evidence__visual-grid ${isProgramme ? 'global-evidence__visual-grid--network' : ''}`}>
     <figure class="global-evidence__photo global-evidence__photo--primary">
       <img src={image(copy.imageA)} alt={copy.imageAAlt} loading="lazy" decoding="async" />
       <figcaption>{copy.imageACaption}</figcaption>
     </figure>
 
-    <div class="global-evidence__globe" aria-label="世界と立命館キャンパスのつながりを表す図">
-      <div class="global-evidence__globe-ring global-evidence__globe-ring--one"></div>
-      <div class="global-evidence__globe-ring global-evidence__globe-ring--two"></div>
-      <div class="global-evidence__globe-ring global-evidence__globe-ring--three"></div>
-      {isProgramme ? topCountries.map((country, index) => (
-        <span class={`global-evidence__origin global-evidence__origin--${index + 1}`}>
-          <strong>{country.countryOrRegion}</strong>
-          <small>{country.participants}名</small>
-        </span>
-      )) : (
-        <>
-          <span class="global-evidence__origin global-evidence__origin--1"><strong>South Korea</strong><small>219名</small></span>
-          <span class="global-evidence__origin global-evidence__origin--2"><strong>Australia</strong><small>90名</small></span>
-          <span class="global-evidence__origin global-evidence__origin--3"><strong>United States</strong><small>81名</small></span>
-        </>
-      )}
-      <strong class="global-evidence__globe-title">RITSUMEIKAN<br />GLOBAL LEARNING</strong>
-    </div>
+    {isProgramme && historical ? (
+      <div class="global-evidence__network" aria-label={`${isRwjp ? 'RWJP' : 'RWJP Express'}の参加者が世界各地から立命館へ集う実績図`}>
+        <svg class="global-evidence__network-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+          <circle cx="50" cy="50" r="24" class="global-evidence__network-orbit" />
+          <circle cx="50" cy="50" r="35" class="global-evidence__network-orbit global-evidence__network-orbit--outer" />
+          {programmeNetwork.map((country) => (
+            <path
+              class={`global-evidence__network-line global-evidence__network-line--${country.size}`}
+              d={`M 50 50 Q ${(50 + country.x) / 2} ${((50 + country.y) / 2) - 5} ${country.x} ${country.y}`}
+            />
+          ))}
+        </svg>
+
+        <div class="global-evidence__network-center">
+          <span>{isRwjp ? 'RWJP' : 'RWJP EXPRESS'}</span>
+          <strong>RITSUMEIKAN</strong>
+          <b>GLOBAL LEARNING</b>
+          <small>{historical.participants}名 · {historical.countries}か国・地域 · {historical.institutions}大学・機関</small>
+        </div>
+
+        {programmeNetwork.map((country) => (
+          <div
+            class={`global-evidence__network-node global-evidence__network-node--${country.size}`}
+            style={`--node-x:${country.x}%;--node-y:${country.y}%;`}
+          >
+            <strong>{country.countryOrRegion}</strong>
+            <span><b>{country.participants}名</b><small>{country.institutions.length}大学・機関</small></span>
+          </div>
+        ))}
+      </div>
+    ) : (
+      <div class="global-evidence__globe" aria-label="世界と立命館キャンパスのつながりを表す図">
+        <div class="global-evidence__globe-ring global-evidence__globe-ring--one"></div>
+        <div class="global-evidence__globe-ring global-evidence__globe-ring--two"></div>
+        <div class="global-evidence__globe-ring global-evidence__globe-ring--three"></div>
+        <span class="global-evidence__origin global-evidence__origin--1"><strong>South Korea</strong><small>219名</small></span>
+        <span class="global-evidence__origin global-evidence__origin--2"><strong>Australia</strong><small>90名</small></span>
+        <span class="global-evidence__origin global-evidence__origin--3"><strong>United States</strong><small>81名</small></span>
+        <strong class="global-evidence__globe-title">RITSUMEIKAN<br />GLOBAL LEARNING</strong>
+      </div>
+    )}
 
     <figure class="global-evidence__photo global-evidence__photo--secondary">
       <img src={image(copy.imageB)} alt={copy.imageBAlt} loading="lazy" decoding="async" />
