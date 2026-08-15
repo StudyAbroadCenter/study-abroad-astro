@@ -2,7 +2,8 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { chromium } from 'playwright';
 
-const baseUrl = (process.env.VISUAL_BASE_URL || 'http://127.0.0.1:4173/study-abroad-astro').replace(/\/$/, '');
+const baseUrl = (process.env.VISUAL_BASE_URL || 'http://127.0.0.1:4173').replace(/\/$/, '');
+const baseOrigin = new URL(baseUrl).origin;
 const outputDir = process.env.VISUAL_OUTPUT_DIR || 'visual-uat';
 
 const routes = [
@@ -37,6 +38,14 @@ const mobileCritical = new Set([
   'contact',
 ]);
 
+const classifyUrl = (rawUrl) => {
+  try {
+    return new URL(rawUrl).origin === baseOrigin ? 'local' : 'external';
+  } catch {
+    return 'unknown';
+  }
+};
+
 await fs.mkdir(outputDir, { recursive: true });
 
 const browser = await chromium.launch({ headless: true });
@@ -54,11 +63,32 @@ for (const viewport of viewports) {
   for (const [name, route] of selectedRoutes) {
     const page = await context.newPage();
     const url = `${baseUrl}${route}`;
-    const errors = [];
+    const pageErrors = [];
+    const consoleErrors = [];
+    const localResourceErrors = [];
+    const externalResourceWarnings = [];
 
-    page.on('pageerror', (error) => errors.push(`pageerror: ${error.message}`));
+    page.on('pageerror', (error) => pageErrors.push(error.message));
+
     page.on('console', (message) => {
-      if (message.type() === 'error') errors.push(`console: ${message.text()}`);
+      if (message.type() !== 'error') return;
+      const text = message.text();
+      // Resource failures are classified with response/requestfailed handlers, where
+      // the failing URL is available. Other JavaScript console errors remain fatal.
+      if (!text.startsWith('Failed to load resource')) consoleErrors.push(text);
+    });
+
+    page.on('response', (response) => {
+      if (response.status() < 400) return;
+      const entry = `${response.status()} ${response.url()}`;
+      if (classifyUrl(response.url()) === 'local') localResourceErrors.push(entry);
+      else externalResourceWarnings.push(entry);
+    });
+
+    page.on('requestfailed', (request) => {
+      const entry = `${request.failure()?.errorText || 'request failed'} ${request.url()}`;
+      if (classifyUrl(request.url()) === 'local') localResourceErrors.push(entry);
+      else externalResourceWarnings.push(entry);
     });
 
     const response = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30_000 });
@@ -78,6 +108,31 @@ for (const viewport of viewports) {
         const rect = element.getBoundingClientRect();
         return style.display !== 'none' && style.visibility !== 'hidden' && Number(style.opacity) !== 0 && rect.width > 0 && rect.height > 0;
       };
+
+      const describe = (element) => {
+        const rect = element.getBoundingClientRect();
+        return {
+          tag: element.tagName.toLowerCase(),
+          id: element.id || '',
+          className: typeof element.className === 'string' ? element.className.slice(0, 180) : '',
+          text: (element.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 120),
+          left: Math.round(rect.left * 10) / 10,
+          right: Math.round(rect.right * 10) / 10,
+          width: Math.round(rect.width * 10) / 10,
+        };
+      };
+
+      const overflowOffenders = overflowX > 2
+        ? [...document.querySelectorAll('body *')]
+            .filter(visible)
+            .filter((element) => {
+              const rect = element.getBoundingClientRect();
+              return rect.left < -2 || rect.right > window.innerWidth + 2;
+            })
+            .map(describe)
+            .sort((a, b) => Math.max(Math.abs(b.left), b.right - window.innerWidth) - Math.max(Math.abs(a.left), a.right - window.innerWidth))
+            .slice(0, 25)
+        : [];
 
       const headingWarnings = [...document.querySelectorAll('main h1, main h2')]
         .filter(visible)
@@ -109,6 +164,7 @@ for (const viewport of viewports) {
         overflowX,
         scrollWidth,
         viewportWidth: window.innerWidth,
+        overflowOffenders,
         headingWarnings,
         tinyTextWarnings,
       };
@@ -123,7 +179,12 @@ for (const viewport of viewports) {
     });
 
     const status = response?.status() ?? 0;
-    const routeFailed = status >= 400 || metrics.overflowX > 2 || errors.length > 0;
+    const routeFailed =
+      status >= 400 ||
+      metrics.overflowX > 2 ||
+      pageErrors.length > 0 ||
+      consoleErrors.length > 0 ||
+      localResourceErrors.length > 0;
     if (routeFailed) failed = true;
 
     report.push({
@@ -134,7 +195,10 @@ for (const viewport of viewports) {
       height: viewport.height,
       httpStatus: status,
       ...metrics,
-      errors,
+      pageErrors,
+      consoleErrors,
+      localResourceErrors: [...new Set(localResourceErrors)],
+      externalResourceWarnings: [...new Set(externalResourceWarnings)],
       screenshot: screenshotPath,
       passed: !routeFailed,
     });
@@ -156,7 +220,11 @@ await fs.writeFile(
 for (const item of report) {
   const mark = item.passed ? 'PASS' : 'FAIL';
   console.log(`${mark} ${item.viewport.padEnd(9)} ${item.route.padEnd(28)} status=${item.httpStatus} overflowX=${item.overflowX}px headings>4=${item.headingWarnings.length} tiny<12=${item.tinyTextWarnings.length}`);
-  if (item.errors.length) item.errors.forEach((error) => console.log(`  ${error}`));
+  if (item.pageErrors.length) item.pageErrors.forEach((error) => console.log(`  pageerror: ${error}`));
+  if (item.consoleErrors.length) item.consoleErrors.forEach((error) => console.log(`  console: ${error}`));
+  if (item.localResourceErrors.length) item.localResourceErrors.forEach((error) => console.log(`  local-resource: ${error}`));
+  if (item.overflowOffenders.length) item.overflowOffenders.slice(0, 5).forEach((entry) => console.log(`  overflow: <${entry.tag}> .${entry.className} left=${entry.left} right=${entry.right} width=${entry.width} ${entry.text}`));
+  if (item.externalResourceWarnings.length) console.log(`  external warnings: ${item.externalResourceWarnings.length}`);
 }
 
 if (failed) {
