@@ -11,7 +11,7 @@ const isRwjp = context === 'rwjp';
 const copy = isRwjp
   ? {
       kicker: 'LEARNING FLOWS BOTH WAYS',
-      title: '留学生を迎えることが\nキャンパスの学びをひらく',
+      title: '留学生を迎えることが\nキャンパスの学びを\nひらく',
       lead: 'RWJPは、海外から来る学生だけの学びではありません。立命館の学生と出会い、話し、共に活動する機会をつくることで、受入そのものをキャンパスの国際教育につなげます。',
       note: '海外へ行くことだけが国際経験ではありません。キャンパスにいながら異なる言語・文化・価値観と出会える機会を広げます。',
     }
@@ -32,13 +32,13 @@ const impacts = [
   {
     number: '02',
     eyebrow: 'GLOBAL AT HOME',
-    title: 'キャンパスの中にも国際交流を',
+    title: 'キャンパスの中にも 国際交流を',
     body: '留学への距離や費用、時期などの事情にかかわらず、在学生がキャンパスで多文化・多言語の環境に触れられる機会を増やします。',
   },
   {
     number: '03',
     eyebrow: 'LANGUAGE CONFIDENCE',
-    title: '外国語を 人とつながる道具へ',
+    title: '外国語を 人とつながる 道具へ',
     body: '完璧に話せなくても、まず伝えてみる。異なる言語を使う相手と接する経験が、外国語への心理的な距離を縮めるきっかけになります。',
   },
   {
@@ -54,7 +54,7 @@ const impacts = [
     <div>
       <p class="international-impact__kicker">{copy.kicker}</p>
       <h2 id={`international-impact-title-${context}`}>
-        {copy.title.split('\n').map((line) => <span>{line}</span>)}
+        {copy.title.split('\n').map((line) => <span class="international-impact__title-line">{line}</span>)}
       </h2>
     </div>
     <div class="international-impact__lead">
@@ -70,7 +70,7 @@ const impacts = [
           <span>{impact.number}</span>
           <p>{impact.eyebrow}</p>
         </header>
-        <h3>{impact.title}</h3>
+        <h3>{impact.title.split(' ').map((phrase) => <span class="international-impact__phrase">{phrase}</span>)}</h3>
         <p>{impact.body}</p>
       </article>
     ))}
