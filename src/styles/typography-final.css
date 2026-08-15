@@ -71,7 +71,7 @@
   max-width:52rem!important;
 }
 
-/* Future-facing copy benefits from two balanced lines, not three slogan fragments. */
+/* Future-facing copy should wrap naturally, never by artificial balancing. */
 .rwjp-flagship__future-inner{
   max-width:68rem!important;
 }
@@ -80,7 +80,7 @@
   font-size:clamp(2.05rem,2.8vw,2.9rem)!important;
   line-height:1.22!important;
   letter-spacing:-.028em!important;
-  text-wrap:balance!important;
+  text-wrap:pretty!important;
 }
 
 /* Apply the same rhythm across the flagship page. */
@@ -131,16 +131,21 @@
   color:#766f69!important;
 }
 
-/* Global evidence remains prominent, but not oversized. */
+/* Global evidence: preserve the two editorial lines as semantic units. */
 .global-evidence h2{
-  max-width:8em!important;
+  max-width:12em!important;
   font-size:clamp(2.1rem,3.2vw,3.45rem)!important;
   line-height:1.16!important;
   text-wrap:pretty!important;
 }
+.global-evidence__title-line{
+  display:block;
+  white-space:nowrap;
+}
 .global-evidence__directory-heading h3{
   font-size:clamp(1.5rem,2.25vw,2.15rem)!important;
   line-height:1.32!important;
+  text-wrap:pretty!important;
 }
 
 /* Body text should never compete with display type. */
@@ -171,13 +176,18 @@
 }
 
 @media(max-width:620px){
-  .international-impact h2,
-  .global-evidence h2{
+  .international-impact h2{
     max-width:none!important;
-    font-size:clamp(1.8rem,8vw,2.35rem)!important;
+    font-size:clamp(1.7rem,7.5vw,2.25rem)!important;
     line-height:1.22!important;
   }
-  .international-impact__title-line{
+  .global-evidence h2{
+    max-width:none!important;
+    font-size:clamp(1.6rem,7.2vw,2.15rem)!important;
+    line-height:1.22!important;
+  }
+  .international-impact__title-line,
+  .global-evidence__title-line{
     white-space:nowrap;
   }
   .rwjp-practical__head h2,
