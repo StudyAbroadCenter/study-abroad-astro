@@ -65,11 +65,10 @@ export const programmePageDrafts: ProgrammePageDraft[] = [
   {
     id: 'rdsp',
     code: 'RDSP',
-    category: 'データサイエンス',
-    title: 'Ritsumeikan Data Science Program',
-    lead: 'データから、社会を見る。',
-    emphasis: 'データサイエンスを軸に、専門的な学びの内容と価値が一目で分かるページへ整備しています。',
-    campus: '大阪いばらきキャンパス（OIC）',
+    category: '専門テーマ · 正式名称確認中',
+    title: 'RDSP',
+    lead: '専門テーマを 日本で深める。',
+    emphasis: '正式名称と年度別の学習テーマを含む詳細は確認中です。確認できた内容から、学びの特徴と参加判断に必要な情報を掲載します。',
   },
   {
     id: 'rbmp',
