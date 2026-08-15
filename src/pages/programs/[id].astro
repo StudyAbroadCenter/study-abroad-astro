@@ -17,6 +17,7 @@ export function getStaticPaths() {
 interface Props { programme: ProgrammePageDraft; }
 const { programme } = Astro.props;
 const isRwjp = programme.id === 'rwjp';
+const isRwjpExpress = programme.id === 'rwjp-express';
 const f = rwjp2027Facts;
 const title = isRwjp
   ? `2027 RWJP | ${isKnownFact(f.officialName) ? f.officialName.value : 'Ritsumeikan Winter Japanese Program'} | 立命館大学`
@@ -29,8 +30,10 @@ const rwjpApplication = isKnownFact(f.applicationPeriod)
   ? `${f.applicationPeriod.value.start.replaceAll('-', '/')}〜${f.applicationPeriod.value.end.replaceAll('-', '/')}`
   : '応募期間確認中';
 const description = isRwjp
-  ? `2027 RWJP。${rwjpProgrammeDates}、冬の京都で日本語を学び、立命館の学生との交流と共修を通じてキャンパスの国際教育にもつながる5週間の短期プログラム。参加費${rwjpFee}、応募期間${rwjpApplication}。`
-  : `${programme.title}のプログラムページを制作中です。確認済みの情報から順に掲載します。`;
+  ? `2027 RWJP。${rwjpProgrammeDates}、冬の京都で日本語を学び、立命館の学生との交流と共修を通じてキャンパスの国際教育にもつながる5週間の短期プログラム。参加費${rwjpFee}、応募期間${rwjpApplication}。2023–2026年のRWJP参加実績は140名、9か国・地域、18大学・機関。`
+  : isRwjpExpress
+    ? `${programme.title}。短期間に集中して日本語と日本文化を学ぶ冬期プログラム。2023–2026年のRWJP Express参加実績は71名、6か国・地域、15大学・機関。`
+    : `${programme.title}のプログラムページを制作中です。確認済みの情報から順に掲載します。`;
 ---
 <StudentRecruitmentLayout title={title} description={description} robots="noindex,nofollow">
   {programme.id === 'rwjp' ? (
