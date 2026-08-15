@@ -1,0 +1,213 @@
+/* Final Japanese typography pass: semantic wrapping, restrained scale, and orphan prevention. */
+
+/* Keep display type confident without turning headings into vertical blocks. */
+.international-impact__intro{
+  align-items:center;
+}
+.international-impact h2{
+  max-width:12em!important;
+  font-size:clamp(2.25rem,2.9vw,3.35rem)!important;
+  line-height:1.14!important;
+  letter-spacing:-.032em!important;
+  text-wrap:pretty!important;
+}
+.international-impact__title-line{
+  display:block;
+  white-space:nowrap;
+}
+.international-impact__lead>p:first-child{
+  max-width:38rem;
+  font-size:clamp(1rem,1.25vw,1.16rem)!important;
+  line-height:1.9!important;
+}
+.international-impact__card h3{
+  font-size:clamp(1.18rem,1.35vw,1.42rem)!important;
+  line-height:1.48!important;
+  text-wrap:pretty!important;
+}
+.international-impact__phrase{
+  display:inline-block;
+  white-space:nowrap;
+  margin-right:.28em;
+}
+.international-impact__phrase:last-child{
+  margin-right:0;
+}
+.international-impact__card>p{
+  font-size:.94rem;
+  line-height:1.86!important;
+}
+
+/* RWJP section heads: prefer one clean desktop line when the copy is short enough. */
+.rwjp-practical__head{
+  max-width:62rem!important;
+}
+.rwjp-practical__head h2{
+  max-width:none!important;
+  font-size:clamp(2rem,2.8vw,3rem)!important;
+  line-height:1.2!important;
+  letter-spacing:-.03em!important;
+  text-wrap:pretty!important;
+  white-space:nowrap;
+}
+.rwjp-practical__head>p:last-child{
+  max-width:48rem;
+  font-size:1rem!important;
+  line-height:1.85!important;
+}
+
+.rwjp-decision__head{
+  max-width:70rem!important;
+}
+.rwjp-decision h2{
+  max-width:none!important;
+  font-size:clamp(2rem,3vw,3rem)!important;
+  line-height:1.18!important;
+  letter-spacing:-.03em!important;
+  text-wrap:pretty!important;
+  white-space:nowrap;
+}
+.rwjp-decision__head>p:last-child{
+  max-width:52rem!important;
+}
+
+/* Future-facing copy should wrap naturally, never by artificial balancing. */
+.rwjp-flagship__future-inner{
+  max-width:68rem!important;
+}
+.rwjp-flagship__future h2{
+  max-width:14em!important;
+  font-size:clamp(2.05rem,2.8vw,2.9rem)!important;
+  line-height:1.22!important;
+  letter-spacing:-.028em!important;
+  text-wrap:pretty!important;
+}
+
+/* Apply the same rhythm across the flagship page. */
+.rwjp-flagship__opening h2,
+.rwjp-persona h2,
+.rwjp-day__intro h2,
+.rwjp-flagship__section-head h2,
+.rwjp-flagship__switch h2,
+.rwjp-flagship__kyoto-intro h2,
+.rwjp-flagship__people h2,
+.rwjp-flagship__apply h2{
+  max-width:12em!important;
+  font-size:clamp(1.95rem,3vw,2.9rem)!important;
+  line-height:1.22!important;
+  letter-spacing:-.03em!important;
+  text-wrap:pretty!important;
+}
+.rwjp-day__intro h2{
+  max-width:13em!important;
+}
+.rwjp-day__scene-copy h3{
+  max-width:11em!important;
+  font-size:clamp(1.3rem,1.7vw,1.72rem)!important;
+  line-height:1.36!important;
+  letter-spacing:-.02em!important;
+  text-wrap:pretty!important;
+}
+
+/* Remove the last heavy interruption in the applicant journey. */
+.rwjp-fit{
+  background:#f7f3ee!important;
+  color:var(--rits-ink)!important;
+  border-top:1px solid var(--rits-line);
+  border-bottom:1px solid var(--rits-line);
+}
+.rwjp-fit .rwjp-decision__kicker{
+  color:var(--rits-enji)!important;
+}
+.rwjp-fit h2{
+  color:var(--rits-ink)!important;
+  font-size:clamp(1.9rem,2.8vw,2.75rem)!important;
+  line-height:1.22!important;
+}
+.rwjp-fit__body li{
+  color:#514c48!important;
+}
+.rwjp-fit__body p{
+  color:#766f69!important;
+}
+
+/* Global evidence: preserve the two editorial lines as semantic units. */
+.global-evidence h2{
+  max-width:12em!important;
+  font-size:clamp(2.1rem,3.2vw,3.45rem)!important;
+  line-height:1.16!important;
+  text-wrap:pretty!important;
+}
+.global-evidence__title-line{
+  display:block;
+  white-space:nowrap;
+}
+.global-evidence__directory-heading h3{
+  font-size:clamp(1.5rem,2.25vw,2.15rem)!important;
+  line-height:1.32!important;
+  text-wrap:pretty!important;
+}
+
+/* Body text should never compete with display type. */
+.rwjp-flagship__prose,
+.rwjp-flagship__people-copy,
+.rwjp-flagship__future-inner>p:not(.rwjp-flagship__kicker):not(.rwjp-flagship__future-line),
+.rwjp-decision__head>p:last-child,
+.rwjp-practical__head>p:last-child{
+  line-height:1.88!important;
+}
+
+@media(min-width:901px){
+  .international-impact__intro{
+    grid-template-columns:minmax(0,1.22fr) minmax(25rem,.78fr)!important;
+    gap:clamp(2.5rem,5vw,5rem)!important;
+  }
+}
+
+@media(max-width:900px){
+  .rwjp-practical__head h2,
+  .rwjp-decision h2{
+    white-space:normal;
+  }
+  .international-impact h2{
+    max-width:12em!important;
+    font-size:clamp(2.15rem,6.3vw,3rem)!important;
+  }
+}
+
+@media(max-width:620px){
+  .international-impact h2{
+    max-width:none!important;
+    font-size:clamp(1.7rem,7.5vw,2.25rem)!important;
+    line-height:1.22!important;
+  }
+  .global-evidence h2{
+    max-width:none!important;
+    font-size:clamp(1.6rem,7.2vw,2.15rem)!important;
+    line-height:1.22!important;
+  }
+  .international-impact__title-line,
+  .global-evidence__title-line{
+    white-space:nowrap;
+  }
+  .rwjp-practical__head h2,
+  .rwjp-decision h2,
+  .rwjp-flagship__future h2,
+  .rwjp-flagship__opening h2,
+  .rwjp-persona h2,
+  .rwjp-day__intro h2,
+  .rwjp-flagship__section-head h2,
+  .rwjp-flagship__switch h2,
+  .rwjp-flagship__kyoto-intro h2,
+  .rwjp-flagship__people h2,
+  .rwjp-flagship__apply h2{
+    max-width:none!important;
+    font-size:clamp(1.75rem,7.5vw,2.25rem)!important;
+    line-height:1.28!important;
+    text-wrap:pretty!important;
+  }
+  .rwjp-day__scene-copy h3{
+    max-width:none!important;
+    font-size:clamp(1.3rem,6.2vw,1.6rem)!important;
+  }
+}

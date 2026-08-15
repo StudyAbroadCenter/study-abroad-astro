@@ -32,9 +32,10 @@ html {
 
 .recruitment-header.is-scrolled {
   height: 64px;
-  border-bottom-color: rgba(255, 255, 255, 0.1);
-  background: rgba(7, 28, 51, 0.98);
-  box-shadow: 0 10px 30px rgba(7, 28, 51, 0.2);
+  border-bottom-color: rgba(77, 63, 57, 0.12);
+  background: rgba(255, 253, 250, 0.97);
+  color: #242526;
+  box-shadow: 0 8px 24px rgba(52, 42, 38, 0.06);
   backdrop-filter: blur(16px);
 }
 
@@ -70,7 +71,7 @@ html {
 }
 
 .recruitment-hero__image {
-  filter: saturate(0.94) contrast(1.03);
+  filter: saturate(0.9) contrast(1.01) brightness(1.03);
 }
 
 .recruitment-hero__facts dd {
@@ -103,7 +104,37 @@ html {
 
 .partner-programme {
   margin-top: 44px;
-  background: linear-gradient(135deg, #1746d1 0%, #2b61f2 100%);
+  border: 1px solid rgba(139, 36, 50, 0.14);
+  background: linear-gradient(135deg, #faf5f5 0%, #f2e7e9 100%);
+  color: #302b29;
+  box-shadow: 0 14px 36px rgba(52, 42, 38, 0.05);
+}
+
+.partner-programme::after {
+  border-color: rgba(139, 36, 50, 0.07);
+}
+
+.partner-programme__label {
+  border-bottom-color: rgba(139, 36, 50, 0.13);
+  color: #7a6265;
+}
+
+.partner-programme .section-kicker {
+  color: #8b2432;
+}
+
+.partner-programme__content > p:not(.section-kicker) {
+  color: #625a57;
+}
+
+.partner-programme li::before {
+  background: #8b2432;
+}
+
+.partner-programme .action-button {
+  border-color: #8b2432;
+  background: #8b2432;
+  color: #fff;
 }
 
 .mvp-preview__grid--single {

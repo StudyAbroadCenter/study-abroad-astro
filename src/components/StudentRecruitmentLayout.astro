@@ -2,6 +2,10 @@
 import StudentHeader from './StudentHeader.astro';
 import '../styles/student-recruitment.css';
 import '../styles/mvp-refinement.css';
+import '../styles/institutional-polish.css';
+import '../styles/typography-final.css';
+import '../styles/global-reach-fiveweek.css';
+import '../styles/homepage-final-fixes.css';
 
 interface Props {
   title: string;
@@ -20,7 +24,7 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astro.u
     <meta name="description" content={description} />
     <meta name="robots" content={robots} />
     <link rel="canonical" href={canonical} />
-    <meta name="theme-color" content="#17191d" />
+    <meta name="theme-color" content="#fffdfa" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -28,6 +32,7 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astro.u
     <meta name="generator" content={Astro.generator} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://www.ritsumei.ac.jp" />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@600&display=swap"
@@ -40,8 +45,8 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astro.u
     <footer class="recruitment-footer">
       <div class="site-shell recruitment-footer__inner">
         <div>
-          <strong>Ritsumeikan Short-Term Programs</strong>
-          <p>立命館大学留学サポートデスク</p>
+          <strong>Ritsumeikan Study Abroad Center</strong>
+          <p>立命館大学 短期受入プログラム</p>
         </div>
         <p>掲載している授業・交流・文化体験等は過去実施例です。実施内容はプログラムにより異なります。</p>
       </div>

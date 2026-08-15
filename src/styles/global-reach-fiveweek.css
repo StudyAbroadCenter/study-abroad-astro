@@ -1,0 +1,85 @@
+/* Five-week Japanese-programme reach + homepage portfolio distinction. */
+.global-evidence__network-more{position:absolute;z-index:4;right:1rem;bottom:.9rem;left:1rem;display:grid;gap:.5rem;padding:.7rem .8rem;border:1px solid rgba(139,36,50,.1);border-radius:.8rem;background:rgba(255,253,250,.96);backdrop-filter:blur(8px)}
+.global-evidence__network-more>span{color:var(--rits-enji,#8b2432);font-size:.52rem;font-weight:800;letter-spacing:.14em}
+.global-evidence__network-more>div{display:flex;flex-wrap:wrap;gap:.34rem .45rem}
+.global-evidence__network-more small{display:inline-flex;align-items:center;gap:.22rem;color:#625b57;font-size:.49rem;line-height:1.2;white-space:nowrap}
+.global-evidence__network-more small i{font-style:normal;font-size:.72rem}
+.global-evidence__network-more small b{color:var(--rits-enji,#8b2432);font-size:.48rem}
+/* Reserve a dedicated lower band for AND MORE. The hub nodes must never sit behind it. */
+.global-evidence--rwjp .global-evidence__network{min-height:33rem;padding-bottom:7.4rem}
+.global-evidence--rwjp .global-evidence__network-center{top:40%}
+.global-evidence--rwjp .global-evidence__network-lines{height:72%}
+.global-evidence--rwjp .global-evidence__network-node{transform:translate(-50%,-50%) scale(.9)}
+.global-evidence--rwjp .global-evidence__network-node:nth-of-type(n+7){--node-y:68%!important}
+.global-evidence__scope-note{margin:.75rem auto 0;color:#817873;font-size:.72rem;line-height:1.7}
+
+/* The two-column intro must own its width. Japanese display lines may wrap inside the left column, never across the evidence copy. */
+.global-evidence--rwjp .global-evidence__intro{grid-template-columns:minmax(0,1.08fr) minmax(22rem,.92fr);gap:clamp(2.5rem,5vw,5rem);align-items:start}
+.global-evidence--rwjp .global-evidence__intro>div{min-width:0}
+.global-evidence--rwjp .global-evidence__title-line{white-space:normal!important;overflow-wrap:normal;word-break:normal}
+.global-evidence--rwjp h2{max-width:10.5em!important;font-size:clamp(2.1rem,3vw,3.25rem)!important;line-height:1.18!important}
+.global-evidence--rwjp .global-evidence__lead-wrap{min-width:0;padding-top:.1rem}
+
+.global-evidence__visual-grid--portfolio{grid-template-columns:minmax(0,.9fr) minmax(22rem,1.25fr) minmax(0,.9fr)}
+.global-evidence__portfolio{display:grid;gap:.8rem;align-content:center;min-height:24rem;padding:1rem;border:1px solid var(--rits-line,#e5dfd8);border-radius:1rem;background:linear-gradient(180deg,#fffdfa,#f7f3ee);box-shadow:0 10px 28px rgba(52,42,38,.045)}
+.global-evidence__portfolio article{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.35rem 1rem;align-items:center;padding:1rem 1.05rem;border:1px solid #e8e1da;border-radius:.8rem;background:#fff}
+.global-evidence__portfolio article p{grid-column:1/-1;margin:0;color:var(--rits-enji,#8b2432);font-size:.58rem;font-weight:800;letter-spacing:.12em}
+.global-evidence__portfolio-flags{font-size:1.12rem;letter-spacing:.08em;white-space:nowrap}
+.global-evidence__portfolio article>strong{justify-self:end;color:#302b29;font-size:1.35rem;line-height:1.1}
+.global-evidence__portfolio article>span{color:#615a56;font-size:.73rem;line-height:1.45}
+.global-evidence__portfolio article>small{justify-self:end;color:#8d847e;font-size:.56rem;line-height:1.4;text-align:right}
+.global-evidence__portfolio-custom{background:#faf6f6!important;border-color:rgba(139,36,50,.14)!important}
+.global-evidence__portfolio-custom>strong{font-size:1rem!important;color:#5e3038!important}
+
+@media(max-width:1080px){
+  .global-evidence__visual-grid--portfolio{grid-template-columns:minmax(0,.8fr) minmax(20rem,1.35fr) minmax(0,.8fr)}
+  .global-evidence--rwjp .global-evidence__intro{grid-template-columns:1fr;gap:1.6rem}
+  .global-evidence--rwjp h2{max-width:14em!important}
+  .global-evidence--rwjp .global-evidence__network-node{transform:translate(-50%,-50%) scale(.84)}
+}
+@media(max-width:900px){
+  .global-evidence__visual-grid--portfolio{grid-template-columns:1fr 1fr}
+  .global-evidence__portfolio{grid-column:1/-1;order:-1;min-height:auto}
+  .global-evidence--rwjp .global-evidence__network{min-height:36rem;padding-bottom:8rem}
+  .global-evidence--rwjp .global-evidence__network-node{transform:translate(-50%,-50%) scale(.86)}
+}
+@media(max-width:620px){
+  .global-evidence__visual-grid--portfolio{grid-template-columns:1fr}
+  .global-evidence__portfolio{grid-column:auto}
+  .global-evidence__portfolio article{grid-template-columns:1fr}
+  .global-evidence__portfolio article>strong,.global-evidence__portfolio article>small{justify-self:start;text-align:left}
+  .global-evidence__portfolio-flags{white-space:normal}
+  .global-evidence--rwjp .global-evidence__network{min-height:46rem;padding-bottom:10rem}
+  .global-evidence--rwjp .global-evidence__network-center{top:36%;width:9.6rem}
+  .global-evidence--rwjp .global-evidence__network-lines{height:62%}
+  .global-evidence--rwjp .global-evidence__network-node{transform:translate(-50%,-50%) scale(.75)}
+  .global-evidence__network-more{bottom:.7rem;max-height:8.5rem;overflow:auto}
+  .global-evidence__network-more>div{gap:.38rem .55rem}
+  .global-evidence__network-more small{font-size:.5rem}
+  .global-evidence--rwjp h2{max-width:none!important;font-size:clamp(1.6rem,7.2vw,2.15rem)!important}
+}
+
+/* RWJP network collision fix: use a stable eight-point ring and keep AND MORE in its own band. */
+@media(min-width:621px){
+  .global-evidence--rwjp .global-evidence__network{min-height:35rem;padding-bottom:7.8rem}
+  .global-evidence--rwjp .global-evidence__network-center{top:50%}
+  .global-evidence--rwjp .global-evidence__network-lines{height:100%}
+  .global-evidence--rwjp .global-evidence__network-node:nth-of-type(2){--node-x:50%!important;--node-y:13%!important}
+  .global-evidence--rwjp .global-evidence__network-node:nth-of-type(3){--node-x:78%!important;--node-y:24%!important}
+  .global-evidence--rwjp .global-evidence__network-node:nth-of-type(4){--node-x:84%!important;--node-y:47%!important}
+  .global-evidence--rwjp .global-evidence__network-node:nth-of-type(5){--node-x:76%!important;--node-y:68%!important}
+  .global-evidence--rwjp .global-evidence__network-node:nth-of-type(6){--node-x:50%!important;--node-y:72%!important}
+  .global-evidence--rwjp .global-evidence__network-node:nth-of-type(7){--node-x:24%!important;--node-y:68%!important}
+  .global-evidence--rwjp .global-evidence__network-node:nth-of-type(8){--node-x:16%!important;--node-y:47%!important}
+  .global-evidence--rwjp .global-evidence__network-node:nth-of-type(9){--node-x:22%!important;--node-y:24%!important}
+  .global-evidence--rwjp .global-evidence__network-more{top:auto;right:1rem;bottom:.9rem;left:1rem;max-height:6.3rem;overflow:auto}
+}
+
+@media(max-width:1080px) and (min-width:621px){
+  .global-evidence--rwjp .global-evidence__network-node:nth-of-type(3){--node-x:80%!important}
+  .global-evidence--rwjp .global-evidence__network-node:nth-of-type(4){--node-x:82%!important}
+  .global-evidence--rwjp .global-evidence__network-node:nth-of-type(5){--node-x:75%!important}
+  .global-evidence--rwjp .global-evidence__network-node:nth-of-type(7){--node-x:25%!important}
+  .global-evidence--rwjp .global-evidence__network-node:nth-of-type(8){--node-x:18%!important}
+  .global-evidence--rwjp .global-evidence__network-node:nth-of-type(9){--node-x:20%!important}
+}

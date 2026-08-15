@@ -29,7 +29,7 @@
 
 .international-impact h2 {
   margin: 0;
-  max-width: 12ch;
+  max-width: 12em;
   font-size: clamp(2rem, 4.5vw, 4.6rem);
   line-height: 1.08;
   letter-spacing: -0.04em;
@@ -75,15 +75,20 @@
   box-shadow: 0 1.1rem 3rem rgba(32, 68, 67, 0.06);
 }
 
+/* Number and English label belong to one left-aligned hierarchy.
+   Avoid pushing the label to the far-right edge of each card. */
 .international-impact__card header {
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 2.2rem;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 0.45rem;
+  margin-bottom: 1.65rem;
+  text-align: left;
 }
 
 .international-impact__card header span {
+  display: block;
   font-size: 0.78rem;
   font-weight: 800;
   color: #76918f;
@@ -91,10 +96,13 @@
 
 .international-impact__card header p {
   margin: 0;
+  max-width: 100%;
   font-size: 0.68rem;
   font-weight: 800;
+  line-height: 1.45;
   letter-spacing: 0.12em;
   color: #167c70;
+  text-align: left;
 }
 
 .international-impact__card h3 {
@@ -102,12 +110,14 @@
   font-size: clamp(1.25rem, 1.7vw, 1.65rem);
   line-height: 1.45;
   letter-spacing: -0.02em;
+  text-align: left;
 }
 
 .international-impact__card > p {
   margin: 0;
   line-height: 1.85;
   color: #4a6266;
+  text-align: left;
 }
 
 .international-impact__outro {
@@ -136,7 +146,7 @@
   }
 
   .international-impact h2 {
-    max-width: 15ch;
+    max-width: 15em;
   }
 
   .international-impact__grid {
@@ -182,12 +192,13 @@
   }
 
   .international-impact__card header {
+    gap: 0.35rem;
     margin-bottom: 1.2rem;
   }
 
   .international-impact__card header p {
-    max-width: 70%;
-    text-align: right;
+    max-width: 100%;
+    text-align: left;
   }
 
   .international-impact__outro {

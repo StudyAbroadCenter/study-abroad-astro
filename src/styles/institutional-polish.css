@@ -1,0 +1,93 @@
+/* Final institutional polish: lighter surfaces, restrained Ritsumeikan enji accents, cleaner Japanese typography. */
+:root{
+  --rits-enji:#8b2432;
+  --rits-enji-dark:#6f1c28;
+  --rits-enji-soft:#f6ecee;
+  --rits-ink:#242526;
+  --rits-muted:#686461;
+  --rits-line:#e5dfd8;
+  --rits-paper:#fffdfa;
+  --rits-ivory:#f8f5f0;
+  --rits-sage:#f1f5f3;
+}
+body{background:var(--rits-paper);color:var(--rits-ink);font-family:"Noto Sans JP",Inter,"Helvetica Neue","Hiragino Sans","Yu Gothic UI","Yu Gothic",Meiryo,sans-serif;line-height:1.78}
+.section-kicker,.international-impact__kicker,.international-impact__outro-label,.global-evidence__kicker,.rwjp-flagship__kicker,.rwjp-day__time,.rwjp-decision__kicker,.rwjp-practical__kicker{color:var(--rits-enji)!important}
+:focus-visible{outline-color:rgba(139,36,50,.45)!important}
+
+/* Header: calm white institutional bar, enji used as the identifying accent. */
+.recruitment-header{border-bottom:1px solid rgba(77,63,57,.12)!important;background:rgba(255,253,250,.94)!important;color:var(--rits-ink)!important;box-shadow:0 8px 24px rgba(52,42,38,.04)!important;backdrop-filter:blur(16px)!important}
+.recruitment-brand__mark{border-color:var(--rits-enji)!important;color:var(--rits-enji)!important;background:#fff!important}
+.recruitment-brand__text small{color:var(--rits-muted)!important;opacity:1!important}
+.recruitment-nav a{color:#3b3937!important}
+.recruitment-nav a:hover,.recruitment-nav a:focus-visible{color:var(--rits-enji)!important}
+.recruitment-nav__cta,.recruitment-menu__cta{background:var(--rits-enji)!important;color:#fff!important;box-shadow:none!important}
+.recruitment-menu summary{border-color:rgba(139,36,50,.25)!important;background:#fff!important}
+.recruitment-menu summary span{background:var(--rits-enji)!important}
+.recruitment-menu nav{border-color:var(--rits-line)!important;background:rgba(255,253,250,.98)!important;color:var(--rits-ink)!important;box-shadow:0 18px 48px rgba(52,42,38,.12)!important}
+.recruitment-menu nav a:hover{background:var(--rits-enji-soft)!important}
+
+/* Shared recruitment UI: remove bright SaaS colours and heavy shadows. */
+.action-button--primary{background:var(--rits-enji)!important;color:#fff!important}
+.action-button--primary:hover{background:var(--rits-enji-dark)!important}
+.programme-finder{background:var(--rits-ivory)!important}
+.finder-controls fieldset,.programme-card{border-color:var(--rits-line)!important;background:rgba(255,255,255,.94)!important;box-shadow:0 12px 32px rgba(52,42,38,.05)!important}
+.finder-controls legend span,.finder-results-heading strong{color:var(--rits-enji)!important}
+.finder-options input:checked+span{border-color:var(--rits-enji)!important;background:var(--rits-enji)!important;color:#fff!important}
+.programme-card:hover{box-shadow:0 16px 38px rgba(52,42,38,.08)!important}
+
+/* International-learning section: warm white + enji rather than teal dominance. */
+.international-impact{background:linear-gradient(180deg,#fffdfa 0%,#fff 58%,#f8f5f0 100%)!important;color:var(--rits-ink)!important}
+.international-impact--rwjp{border-color:var(--rits-line)!important}
+.international-impact__note{border-left-color:var(--rits-enji)!important;background:#fff!important;color:#57524f!important}
+.international-impact__card{border-color:var(--rits-line)!important;border-radius:1rem!important;background:#fff!important;box-shadow:0 10px 30px rgba(52,42,38,.045)!important}
+.international-impact__card header p{color:var(--rits-enji)!important}
+.international-impact__card header span{color:#8a817c!important}
+.international-impact__card>p{color:#625d59!important}
+.international-impact__outro{border-color:var(--rits-line)!important}
+
+/* Global reach: editorial evidence section with Japanese-safe em sizing. */
+.global-evidence{background:linear-gradient(180deg,#f7f3ee 0%,#fffdfa 44%,#f3f6f4 100%)!important;color:var(--rits-ink)!important}
+.global-evidence h2{max-width:12em;font-size:clamp(2.15rem,4.1vw,4rem)!important;line-height:1.13!important;letter-spacing:-.035em!important}
+.global-evidence__lead{color:#57524f!important;font-size:clamp(1rem,1.35vw,1.14rem)!important;line-height:1.9!important}
+.global-evidence__source-note{border-color:var(--rits-line)!important;color:#8a817c!important}
+.global-evidence__visual-grid{gap:1.15rem!important;margin-top:clamp(2.5rem,5vw,4rem)!important}
+.global-evidence__photo{min-height:24rem!important;border-color:var(--rits-line)!important;border-radius:1rem!important;background:#eee9e3!important;box-shadow:0 10px 28px rgba(52,42,38,.05)!important}
+.global-evidence__photo img{min-height:24rem!important}
+.global-evidence__photo:after{background:linear-gradient(180deg,transparent 58%,rgba(24,22,21,.58) 100%)!important}
+.global-evidence__globe{min-height:24rem!important;border-color:#dfd7d0!important;border-radius:1rem!important;background:radial-gradient(circle at center,rgba(139,36,50,.08),rgba(255,255,255,.96) 55%,#f1ece6 100%)!important;box-shadow:0 10px 28px rgba(52,42,38,.04)!important}
+.global-evidence__globe:before,.global-evidence__globe-ring{border-color:rgba(139,36,50,.22)!important}
+.global-evidence__globe:before{box-shadow:inset 0 0 4rem rgba(139,36,50,.05)!important}
+.global-evidence__globe-title{color:#352f2d!important;letter-spacing:.07em!important}
+.global-evidence__origin{border-color:#e1d8d1!important;background:#fff!important;color:#302b29!important;box-shadow:0 .5rem 1.4rem rgba(52,42,38,.08)!important}
+.global-evidence__origin small{color:var(--rits-enji)!important}
+.global-evidence__stats{border-color:var(--rits-line)!important;background:#fff!important;box-shadow:0 10px 28px rgba(52,42,38,.04)!important}
+.global-evidence__stats>div{border-color:var(--rits-line)!important}
+.global-evidence__stats dt{color:#766f6a!important}.global-evidence__stats dd{color:#282422!important}.global-evidence__stats span{color:var(--rits-enji)!important}
+.global-evidence__programme-totals{border-color:var(--rits-line)!important;background:rgba(255,255,255,.78)!important}
+.global-evidence__programme-totals div{border-color:var(--rits-line)!important}.global-evidence__programme-totals span{color:#766f6a!important}.global-evidence__programme-totals strong{color:#302b29!important}
+.global-evidence__current-design{border-color:rgba(139,36,50,.2)!important;background:var(--rits-enji-soft)!important}.global-evidence__current-design>p{color:var(--rits-enji)!important}.global-evidence__current-design dl div{border-color:rgba(139,36,50,.16)!important}.global-evidence__current-design dt{color:#7c6e6e!important}.global-evidence__current-design dd{color:#352f2d!important}
+.global-evidence__directory{border-color:var(--rits-line)!important}.global-evidence__directory-heading p{color:var(--rits-enji)!important}.global-evidence__directory-heading>div>span,.global-evidence__directory-heading label span{color:#7c756f!important}
+.global-evidence__directory-heading input{border-color:#d9d1ca!important;background:#fff!important;color:#302b29!important}.global-evidence__directory-heading input::placeholder{color:#aaa19a!important}.global-evidence__directory-heading input:focus{border-color:var(--rits-enji)!important;box-shadow:0 0 0 3px rgba(139,36,50,.1)!important}
+.global-evidence__country{border-color:var(--rits-line)!important;background:#fff!important}.global-evidence__country summary small{color:#8b837d!important}.global-evidence__country summary b{color:var(--rits-enji)!important}.global-evidence__country li{border-color:#eee8e2!important}.global-evidence__country li span{color:#5f5955!important}.global-evidence__country li strong{color:#302b29!important}.global-evidence__no-results{border-color:#d9d1ca!important;color:#6f6862!important}
+
+/* RWJP: keep contrast where it aids reading, but remove long runs of dark surfaces. */
+.rwjp-flagship__morning{background:#f2f4f2!important;color:var(--rits-ink)!important;border-top:1px solid var(--rits-line);border-bottom:1px solid var(--rits-line)}
+.rwjp-flagship__section-head>p:last-child{color:#5f5a56!important}
+.rwjp-flagship__study-line{background:transparent!important}.rwjp-flagship__study-line>div{border-color:#d9d3cc!important;background:transparent!important}.rwjp-flagship__study-line span{color:#948b85!important}.rwjp-flagship__study-line strong{color:#332f2d!important}.rwjp-flagship__study-line p{color:#635e5a!important}
+.rwjp-flagship__photo-grid--dark figcaption{color:#6d6762!important}.rwjp-flagship__photo-grid--dark figcaption strong{color:#302b29!important}
+.rwjp-flagship__switch{background:#f7eeee!important;color:#4e292e!important;border-color:#ead8db!important}
+.rwjp-flagship__switch-time{color:var(--rits-enji)!important}
+.rwjp-flagship__future{background:#f1f5f3!important}
+.rwjp-flagship__apply{background:#f5f1ec!important;color:var(--rits-ink)!important;border-top:1px solid var(--rits-line)!important}
+.rwjp-flagship__closing{color:var(--rits-enji)!important}.rwjp-flagship__status{border-color:#ddd5ce!important;color:#655f5b!important}
+.rwjp-day__scene{border-color:rgba(80,67,61,.1)!important;box-shadow:0 14px 36px rgba(52,42,38,.05)!important}
+
+/* Editorial typography: titles are not sentences. */
+.recruitment-hero h1,.section-intro h2,.international-impact h2,.international-impact h3,.global-evidence h2,.global-evidence h3,.rwjp-flagship h1,.rwjp-flagship h2,.rwjp-flagship h3,.rwjp-decision h2,.rwjp-practical h2,.rwjp-practical h3{font-family:"Noto Sans JP",Inter,sans-serif;text-wrap:pretty;word-break:auto;overflow-wrap:normal}
+.rwjp-flagship h1{font-weight:700!important}.rwjp-flagship h2,.global-evidence h2,.international-impact h2{font-weight:650!important}.rwjp-day__scene-copy h3{font-weight:650!important}
+
+/* Footer: lighter finish rather than another dark wall. */
+.recruitment-footer{background:#f4f0eb!important;color:#3c3835!important;border-top:1px solid var(--rits-line)!important}.recruitment-footer p{color:#756e68!important}
+
+@media(max-width:900px){.global-evidence__photo,.global-evidence__photo img{min-height:20rem!important}.global-evidence__globe{min-height:19rem!important}}
+@media(max-width:620px){.global-evidence{padding:3.5rem 0!important}.global-evidence h2{font-size:clamp(2rem,9vw,2.85rem)!important;line-height:1.18!important}.global-evidence__photo,.global-evidence__photo img{min-height:18rem!important}.international-impact{padding:3.5rem 0!important}.international-impact__card{border-radius:.9rem!important}}
