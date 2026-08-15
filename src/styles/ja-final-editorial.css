@@ -35,7 +35,20 @@
   .campus-journey h2,
   .support-preview h2,
   .programme-page h1,
-  .programme-page h2
+  .programme-page h2,
+  .rwjp-flagship h1,
+  .rwjp-flagship h2,
+  .rwjp-flagship h3,
+  .rwjpx h1,
+  .rwjpx h2,
+  .rwjpx h3,
+  .rdsp h1,
+  .rdsp h2,
+  .rdsp h3,
+  .rwjp-practical h2,
+  .rwjp-practical h3,
+  .rwjp-decision h2,
+  .rwjp-fit h2
 ) {
   text-wrap: pretty;
   word-break: normal;
@@ -59,7 +72,36 @@
   .support-step > p,
   .programme-page__lead,
   .programme-page__body-copy > p,
-  .programme-page__section-heading > p
+  .programme-page__section-heading > p,
+  .rwjp-flagship__lead,
+  .rwjp-flagship__prose > p,
+  .rwjp-persona__lead,
+  .rwjp-persona__decision,
+  .rwjp-day__intro > p,
+  .rwjp-day__voice,
+  .rwjp-flagship__section-head > p,
+  .rwjp-practical__head > p,
+  .rwjp-practical__card > p,
+  .rwjp-practical__accordion p,
+  .rwjp-practical__steps p,
+  .rwjp-practical__facts p,
+  .rwjp-decision__head > p,
+  .rwjp-decision__requirements p,
+  .rwjp-decision__notice p,
+  .rwjp-fit__body,
+  .rwjpx__lead,
+  .rwjpx__copy > p,
+  .rwjpx__experience-grid p,
+  .rwjpx__memories-grid > div > p,
+  .rwjpx__screens-head > p,
+  .rdsp__lead,
+  .rdsp__body > p,
+  .rdsp__topics-lead,
+  .rdsp__experience-head > p,
+  .rdsp__topic-grid p,
+  .rdsp__future-copy > p,
+  .rdsp__future-questions p,
+  .rdsp__xp-card p
 ) {
   font-size: var(--ja-body-readable) !important;
   line-height: 1.8 !important;
@@ -79,7 +121,18 @@
   .campus-journey__intro-copy > small,
   .campus-journey__note,
   .support-preview__lead > small,
-  .recruitment-hero__note
+  .recruitment-hero__note,
+  .rwjp-day__note,
+  .rwjp-day__fact,
+  .rwjp-practical__pending,
+  .rwjp-practical__document-grid span,
+  .rwjp-flagship__micro,
+  .rwjpx__micro,
+  .rwjpx__note,
+  .rwjpx__mock-label,
+  .rdsp__future-note,
+  .rdsp__hero-photo-label,
+  .rdsp__topic-photo small
 ) {
   font-size: var(--ja-note-readable) !important;
   line-height: 1.7 !important;
@@ -94,7 +147,12 @@
   .partner-programme__themes > p,
   .global-evidence__stats span,
   .global-evidence__current-design dt,
-  .global-evidence__directory-heading label span
+  .global-evidence__directory-heading label span,
+  .rwjp-flagship__kicker,
+  .rwjp-practical__kicker,
+  .rwjp-decision__kicker,
+  .rwjpx__kicker,
+  .rdsp__kicker
 ) {
   font-size: max(0.72rem, 11.5px) !important;
 }
@@ -111,6 +169,29 @@
   font-size: var(--ja-display-lg) !important;
   line-height: 1.12 !important;
   letter-spacing: -0.045em !important;
+}
+
+/* Flagship/detail pages may have expressive heroes; section headings stay controlled. */
+:where(
+  .rwjp-flagship section h2,
+  .rwjpx section h2,
+  .rdsp section h2,
+  .rwjp-practical h2,
+  .rwjp-decision h2,
+  .rwjp-fit h2
+) {
+  font-size: clamp(1.95rem, 3vw, 3.2rem) !important;
+  line-height: 1.12 !important;
+  letter-spacing: -0.04em !important;
+}
+
+:where(
+  .rwjp-day__scene-copy h3,
+  .rwjpx section h3,
+  .rdsp section h3,
+  .rwjp-practical h3
+) {
+  line-height: 1.3 !important;
 }
 
 /* Evidence headings are semantically authored line-by-line. */
@@ -166,6 +247,24 @@
 .global-evidence__country li strong { font-size: 0.78rem !important; }
 .global-evidence__country li span { font-size: 0.84rem !important; }
 .global-evidence__photo figcaption { font-size: 0.84rem !important; line-height: 1.55 !important; }
+
+/* Flagship facts / application guidance must never become fine print. */
+.rwjp-decision__facts dt,
+.rwjp-practical__card span,
+.rwjp-practical__document-grid span {
+  font-size: 0.82rem !important;
+}
+.rwjp-decision__facts dd,
+.rwjp-practical__card h3,
+.rwjp-practical__facts strong {
+  font-size: 1rem;
+}
+.rwjp-practical summary,
+.rwjp-decision__contact,
+.rwjp-decision__actions a,
+.rwjp-decision__actions span {
+  font-size: 0.94rem !important;
+}
 
 /* MVP programme-shell readability */
 .programme-page__draft-note,
@@ -280,6 +379,17 @@
   .campus-journey__intro h2,
   .support-preview__intro h2 {
     font-size: var(--ja-display-lg) !important;
+  }
+
+  :where(
+    .rwjp-flagship section h2,
+    .rwjpx section h2,
+    .rdsp section h2,
+    .rwjp-practical h2,
+    .rwjp-decision h2,
+    .rwjp-fit h2
+  ) {
+    font-size: clamp(1.85rem, 8.7vw, 2.55rem) !important;
   }
 
   .jp-utility { padding-top: 6.25rem; }
