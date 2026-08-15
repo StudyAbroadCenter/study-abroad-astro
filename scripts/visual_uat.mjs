@@ -94,8 +94,25 @@ for (const viewport of viewports) {
     const response = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30_000 });
     await page.evaluate(async () => {
       if (document.fonts?.ready) await document.fonts.ready;
+
+      // Full-page screenshots do not scroll naturally, so below-the-fold lazy images
+      // can otherwise remain as placeholders. Promote ordinary lazy images to eager
+      // for the audit, then wait briefly for them to settle before measuring/capturing.
+      const images = [...document.querySelectorAll('img[loading="lazy"]')];
+      images.forEach((img) => { img.loading = 'eager'; });
+      const imageReady = Promise.all(images.map((img) => {
+        if (img.complete) return Promise.resolve();
+        return new Promise((resolve) => {
+          img.addEventListener('load', resolve, { once: true });
+          img.addEventListener('error', resolve, { once: true });
+        });
+      }));
+      await Promise.race([
+        imageReady,
+        new Promise((resolve) => window.setTimeout(resolve, 5000)),
+      ]);
     });
-    await page.waitForTimeout(700);
+    await page.waitForTimeout(350);
 
     const metrics = await page.evaluate(() => {
       const root = document.documentElement;
