@@ -1,0 +1,104 @@
+---
+import { participationHistory, summarizeParticipation } from '../data/participation-history';
+import { rwjp2027Facts, isKnownFact } from '../data/rwjp/index';
+import '../styles/global-learning-evidence.css';
+
+interface Props {
+  context?: 'site' | 'rwjp';
+}
+
+const { context = 'site' } = Astro.props;
+const isRwjp = context === 'rwjp';
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const image = (path: string) => `${base}images/${path.replace(/^\//, '')}`;
+
+const records = isRwjp
+  ? participationHistory.filter((record) => record.programme === 'RWJP')
+  : participationHistory;
+const historical = summarizeParticipation(records);
+const hasHistoricalData = records.length > 0;
+
+const rwjpJapaneseHours = isKnownFact(rwjp2027Facts.japaneseMinutes)
+  ? rwjp2027Facts.japaneseMinutes.value / 60
+  : null;
+const rwjpCultureSessions = isKnownFact(rwjp2027Facts.cultureSessions)
+  ? rwjp2027Facts.cultureSessions.value
+  : null;
+
+const copy = isRwjp
+  ? {
+      kicker: 'EVIDENCE OF THE EXPERIENCE',
+      title: '「京都で学ぶ5週間」を、\n数字と実際の場面で見る。',
+      lead: 'RWJPの価値を、雰囲気だけで伝えない。確定している学習量と実際のプログラム写真を使い、どんな時間を過ごすのかを具体的に見せます。',
+      imageA: 'programs/rwjp/rwjp-student-interaction.webp',
+      imageAAlt: 'RWJPで参加者同士や学生が交流する様子',
+      imageACaption: 'CONNECT — 教室の外にも、ことばを使い、人と出会う時間がある。',
+      imageB: 'programs/rwjp/rwjp-japanese-class.webp',
+      imageBAlt: 'RWJPの日本語授業の様子',
+      imageBCaption: 'STUDY — 日本語学習が5週間の中心にある。',
+    }
+  : {
+      kicker: 'RITSUMEIKAN · GLOBAL LEARNING',
+      title: '受入の実績を、\n教育の価値につなげる。',
+      lead: '世界から学生を迎え、キャンパスで共に学ぶ。その積み重ねを、今後は参加人数・国や地域・大学・参加者の声まで含めて、検証可能な実績として見せていきます。',
+      imageA: 'IMG_1588.JPG',
+      imageAAlt: '立命館大学の短期プログラムに参加する学生たち',
+      imageACaption: 'PEOPLE — 国や大学を越えて、学生が同じ場所で学ぶ。',
+      imageB: 'hero/hero-kinugasa-clocktower.jpg',
+      imageBAlt: '立命館大学衣笠キャンパスの時計台',
+      imageBCaption: 'PLACE — 立命館のキャンパスそのものが国際交流の舞台になる。',
+    };
+---
+<section class={`global-evidence global-evidence--${context}`} aria-labelledby={`global-evidence-title-${context}`}>
+  <div class="site-shell global-evidence__intro">
+    <div>
+      <p class="global-evidence__kicker">{copy.kicker}</p>
+      <h2 id={`global-evidence-title-${context}`}>
+        {copy.title.split('\n').map((line) => <span>{line}</span>)}
+      </h2>
+    </div>
+    <p class="global-evidence__lead">{copy.lead}</p>
+  </div>
+
+  <div class="site-shell global-evidence__visual-grid">
+    <figure class="global-evidence__photo global-evidence__photo--primary">
+      <img src={image(copy.imageA)} alt={copy.imageAAlt} loading="lazy" decoding="async" />
+      <figcaption>{copy.imageACaption}</figcaption>
+    </figure>
+
+    <div class="global-evidence__globe" aria-label="世界と立命館キャンパスのつながりを表す図">
+      <div class="global-evidence__globe-ring global-evidence__globe-ring--one"></div>
+      <div class="global-evidence__globe-ring global-evidence__globe-ring--two"></div>
+      <div class="global-evidence__globe-ring global-evidence__globe-ring--three"></div>
+      <span class="global-evidence__globe-dot global-evidence__globe-dot--kyoto">KYOTO</span>
+      <span class="global-evidence__globe-dot global-evidence__globe-dot--campus">CAMPUS</span>
+      <span class="global-evidence__globe-dot global-evidence__globe-dot--world">WORLD</span>
+      <strong>GLOBAL<br />LEARNING</strong>
+    </div>
+
+    <figure class="global-evidence__photo global-evidence__photo--secondary">
+      <img src={image(copy.imageB)} alt={copy.imageBAlt} loading="lazy" decoding="async" />
+      <figcaption>{copy.imageBCaption}</figcaption>
+    </figure>
+  </div>
+
+  {isRwjp ? (
+    <dl class="site-shell global-evidence__stats" aria-label="2027 RWJPの確定学習量">
+      <div><dt>期間</dt><dd>5週間</dd><span>KYOTO</span></div>
+      <div><dt>日本語学習</dt><dd>{rwjpJapaneseHours !== null ? `${rwjpJapaneseHours}時間` : '確認済み日程に基づく'}</dd><span>JAPANESE</span></div>
+      <div><dt>文化体験</dt><dd>{rwjpCultureSessions !== null ? `${rwjpCultureSessions}回` : '複数回'}</dd><span>CULTURE</span></div>
+    </dl>
+  ) : hasHistoricalData ? (
+    <dl class="site-shell global-evidence__stats" aria-label="短期受入プログラム参加実績">
+      <div><dt>参加者</dt><dd>{historical.participants.toLocaleString('ja-JP')}人</dd><span>STUDENTS</span></div>
+      <div><dt>国・地域</dt><dd>{historical.countries}</dd><span>COUNTRIES / REGIONS</span></div>
+      <div><dt>大学</dt><dd>{historical.institutions}</dd><span>INSTITUTIONS</span></div>
+    </dl>
+  ) : (
+    <div class="site-shell global-evidence__history-ready" role="note">
+      <p><strong>Historical participation data</strong></p>
+      <p>過去の参加人数・国／地域・大学別実績は、正本データを確認したものから掲載できる構造にしています。未確認値は公開しません。</p>
+    </div>
+  )}
+</section>
