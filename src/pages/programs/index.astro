@@ -1,19 +1,47 @@
 ---
-import Layout from '../../components/Layout.astro';
-const base = import.meta.env.BASE_URL;
-const withBase = (path: string) => `${base}${path.replace(/^\//, '')}`;
-const programs = [
-  {code:'RSJP',name:'Ritsumeikan Summer Japanese Program',season:'Summer',duration:'4 weeks',focus:'Japanese language + Japan Studies',audience:'Students seeking an immersive summer experience',format:'Open program'},
-  {code:'RWJP',name:'Ritsumeikan Winter Japanese Program',season:'Winter',duration:'4 weeks',focus:'Japanese language + culture',audience:'Students seeking a fuller winter program',format:'Open program'},
-  {code:'EXPRESS',name:'RWJP Express',season:'Winter',duration:'2 weeks',focus:'Intensive language + culture',audience:'Students with limited time',format:'Open program'},
-  {code:'RDSP',name:'Ritsumeikan Discover Studies Program',season:'Summer',duration:'Short format',focus:'Interdisciplinary discovery',audience:'Students exploring Japan through multiple themes',format:'Open program'},
-  {code:'RBMP',name:'Ritsumeikan Business & Management Program',season:'Flexible',duration:'Custom',focus:'Business, management + innovation',audience:'Business and management cohorts',format:'Partner program'},
-  {code:'CUSTOM',name:'Custom Programs',season:'Flexible',duration:'Flexible',focus:'Designed with partner universities',audience:'Overseas universities and organized groups',format:'Partner program'},
-];
+import StudentRecruitmentLayout from '../../components/StudentRecruitmentLayout.astro';
+import { programmes } from '../../data/programs';
+
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+const hrefFor = (id: string) => `${base}programs/${id}/`;
 ---
-<Layout title="Compare programs | Digital Prospectus Prototype" description="Compare six sample short-term study program pathways in a mobile-friendly format.">
-  <header class="page-hero"><div class="container narrow"><p class="eyebrow">Compare programs</p><h1>One view. Six different pathways.</h1><p class="lede">This sample comparison makes season, duration, focus and audience easy to scan. Details remain illustrative while the digital prospectus is under development.</p></div></header>
-  <section class="section"><div class="container"><div class="compare-table" role="table" aria-label="Program comparison"><div class="compare-row compare-head" role="row"><div role="columnheader">Program</div><div role="columnheader">Season</div><div role="columnheader">Duration</div><div role="columnheader">Academic focus</div><div role="columnheader">Best suited to</div><div role="columnheader">Format</div></div>{programs.map((p) => <article class="compare-row" role="row"><div role="cell" data-label="Program"><span class="program-code">{p.code}</span><strong>{p.name}</strong></div><div role="cell" data-label="Season">{p.season}</div><div role="cell" data-label="Duration">{p.duration}</div><div role="cell" data-label="Academic focus">{p.focus}</div><div role="cell" data-label="Best suited to">{p.audience}</div><div role="cell" data-label="Format"><span class="format-pill">{p.format}</span></div></article>)}</div></div></section>
-  <section class="section muted"><div class="container split"><div><p class="eyebrow">Mobile-first comparison</p><h2>No tiny spreadsheet on a phone.</h2><p class="large-copy">Below 760px, every comparison row becomes a clearly labeled card. Important differences stay readable without horizontal scrolling.</p></div><div class="notice-card"><p class="eyebrow">Next content step</p><h2>Replace sample facts with approved program data.</h2><p>Dates, fees, eligibility, accommodation and application status can be added once the official content set is confirmed.</p></div></div></section>
-  <section class="cta compact"><div class="container"><h2>Questions while comparing?</h2><p>The FAQ can later be connected to the separate Q&A application.</p><div class="button-row"><a class="button light" href={withBase('/faq/')}>Open the FAQ</a><a class="button outline-light" href={withBase('/')}>Return home</a></div></div></section>
-</Layout>
+<StudentRecruitmentLayout
+  title="プログラム一覧 | 立命館大学 短期受入プログラム"
+  description="立命館大学の短期受入プログラムを一覧で確認できます。日本語・日本文化、専門テーマ、大学向けCustom Programsから目的に合う入口を探せます。"
+  robots="noindex,nofollow"
+>
+  <article class="jp-utility">
+    <div class="site-shell">
+      <header class="jp-utility__intro">
+        <div>
+          <p class="section-kicker">PROGRAMMES</p>
+          <h1>違いが分かると 選びやすい</h1>
+        </div>
+        <div>
+          <p class="jp-utility__lead">日本語・日本文化、専門テーマ、大学向けオーダーメード。まずは気になるプログラムを開いて、学び方と条件を比べてください。</p>
+          <div class="jp-utility__actions">
+            <a class="action-button action-button--primary" href={`${base}#program-finder`}>条件から探す</a>
+            <a class="action-button action-button--dark" href={base}>トップへ戻る</a>
+          </div>
+        </div>
+      </header>
+
+      <div class="jp-utility__programme-list" aria-label="短期受入プログラム一覧">
+        {programmes.map((programme) => {
+          const copy = programme.copy.ja;
+          return (
+            <article>
+              <p class="section-kicker">{programme.code}</p>
+              <h2>{copy.name}</h2>
+              <p>{copy.summary}</p>
+              <p><strong>{copy.seasonLabel}</strong> · {copy.duration} · {copy.campusLabel}</p>
+              <a href={hrefFor(programme.id)}>詳細ページを見る →</a>
+            </article>
+          );
+        })}
+      </div>
+
+      <p class="real-photo-story__note" style="margin-top:2rem;">日程・費用・募集状況などの年度別情報は、確認済みの内容を各プログラム詳細ページで案内します。未確認情報を比較のために推測して補うことはしません。</p>
+    </div>
+  </article>
+</StudentRecruitmentLayout>
