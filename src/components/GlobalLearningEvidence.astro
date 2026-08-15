@@ -78,7 +78,7 @@ const copy = isRwjp
     <div>
       <p class="global-evidence__kicker">{copy.kicker}</p>
       <h2 id={`global-evidence-title-${context}`}>
-        {copy.title.split('\n').map((line) => <span>{line}</span>)}
+        {copy.title.split('\n').map((line) => <span class="global-evidence__title-line">{line}</span>)}
       </h2>
     </div>
     <div class="global-evidence__lead-wrap">
