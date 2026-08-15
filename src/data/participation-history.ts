@@ -50,7 +50,6 @@ export const participationHistory: ProgrammeParticipationRecord[] = [
   { programme: 'RWJP', countryOrRegion: 'Australia', institution: 'RMIT University', participants: 1 },
   { programme: 'RWJP', countryOrRegion: 'Australia', institution: 'University of Western Australia', participants: 1 },
   { programme: 'RWJP', countryOrRegion: 'Australia', institution: 'University of Queensland', participants: 1 },
-  { programme: 'RWJP', countryOrRegion: 'Australia', institution: 'Queensland University of Technology', participants: 0 },
   { programme: 'RWJP', countryOrRegion: 'South Korea', institution: 'Ajou University', participants: 19 },
   { programme: 'RWJP', countryOrRegion: 'South Korea', institution: "Sookmyung Women's University", participants: 16 },
   { programme: 'RWJP', countryOrRegion: 'South Korea', institution: 'Daejeon University', participants: 9 },
@@ -79,7 +78,7 @@ export const participationHistory: ProgrammeParticipationRecord[] = [
   { programme: 'RWJP Express', countryOrRegion: 'United Kingdom', institution: 'University of Leeds', participants: 1 },
   { programme: 'RWJP Express', countryOrRegion: 'United Kingdom', institution: 'SOAS University of London', participants: 1 },
   { programme: 'RWJP Express', countryOrRegion: 'Australia', institution: 'Queensland University of Technology', participants: 1 },
-].filter((record) => record.participants > 0);
+];
 
 export function participationByProgramme(programme: ProgrammeParticipationRecord['programme']) {
   return participationHistory.filter((record) => record.programme === programme);
