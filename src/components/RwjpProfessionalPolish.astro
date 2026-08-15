@@ -3,16 +3,16 @@ import '../styles/rwjp-professional-polish.css';
 
 const rawBase = import.meta.env.BASE_URL;
 const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
-const conceptBase = `${base}images/programs/rwjp/concept/`;
+const realBase = `${base}images/programs/rwjp/real/`;
 ---
-<div class="rwjp-professional-polish" data-concept-base={conceptBase} hidden aria-hidden="true"></div>
+<div class="rwjp-professional-polish" data-real-base={realBase} hidden aria-hidden="true"></div>
 
 <script is:inline>
   (() => {
     const marker = document.querySelector('.rwjp-professional-polish');
     if (!(marker instanceof HTMLElement)) return;
 
-    const conceptBase = marker.dataset.conceptBase || '/images/programs/rwjp/concept/';
+    const realBase = marker.dataset.realBase || '/images/programs/rwjp/real/';
 
     const polish = () => {
       const root = document.querySelector('.rwjp-flagship');
@@ -60,49 +60,47 @@ const conceptBase = `${base}images/programs/rwjp/concept/`;
 
       const swaps = [
         {
-          selector: '.rwjp-day__scene--japanese',
-          file: 'rwjp-concept-classroom.webp',
-          alt: '日本語講座をイメージした生成写真',
+          selector: '.rwjp-day__scene--japanese .rwjp-day__scene-media img',
+          file: 'rwjp-real-japanese-class.webp',
+          alt: '大学の教室で授業を受ける短期受入プログラムの学生たち',
+          cropClass: 'rwjp-real-photo--class',
         },
         {
-          selector: '.rwjp-day__scene--buddy',
-          file: 'rwjp-concept-campus-exchange.webp',
-          alt: 'キャンパスでの学生交流をイメージした生成写真',
+          selector: '.rwjp-day__scene--buddy .rwjp-day__scene-media img',
+          file: 'rwjp-real-learning-hub.webp',
+          alt: '学生たちが発表と学びを共有する短期受入プログラムの活動風景',
+          cropClass: 'rwjp-real-photo--hub',
         },
         {
-          selector: '.rwjp-day__scene--kyoto',
-          file: 'rwjp-concept-kyoto-learning.webp',
-          alt: '京都での学びと街歩きをイメージした生成写真',
+          selector: '.rwjp-day__scene--culture .rwjp-day__scene-media img',
+          file: 'rwjp-real-culture-tatami.webp',
+          alt: '畳の部屋で日本文化を学ぶ短期受入プログラムの学生たち',
+          cropClass: 'rwjp-real-photo--culture',
+        },
+        {
+          selector: '.rwjp-day__scene--kyoto .rwjp-day__scene-media img',
+          file: 'rwjp-real-kyoto-field.webp',
+          alt: '京都の街でグループ活動を行う短期受入プログラムの学生たち',
+          cropClass: 'rwjp-real-photo--kyoto',
+        },
+        {
+          selector: '.rwjp-flagship__photo-grid--dark figure:nth-child(2) img',
+          file: 'rwjp-real-academic-presentation.webp',
+          alt: '大学の教室で発表を聞く短期受入プログラムの学生たち',
+          cropClass: 'rwjp-real-photo--presentation',
         },
       ];
 
-      swaps.forEach(({ selector, file, alt }) => {
-        const scene = root.querySelector(selector);
-        const media = scene?.querySelector('.rwjp-day__scene-media');
-        const image = media?.querySelector('img');
-        if (!(media instanceof HTMLElement) || !(image instanceof HTMLImageElement)) return;
+      swaps.forEach(({ selector, file, alt, cropClass }) => {
+        const image = root.querySelector(selector);
+        if (!(image instanceof HTMLImageElement)) return;
 
-        image.src = `${conceptBase}${file}`;
+        image.src = `${realBase}${file}`;
         image.alt = alt;
-        image.width = 720;
-        image.height = 480;
-        media.classList.add('rwjp-day__scene-media--concept');
-
-        if (!media.querySelector('.rwjp-day__concept-badge')) {
-          const badge = document.createElement('span');
-          badge.className = 'rwjp-day__concept-badge';
-          badge.textContent = '生成イメージ';
-          media.appendChild(badge);
-        }
+        image.width = 960;
+        image.height = 640;
+        image.classList.add('rwjp-real-photo', cropClass);
       });
-
-      const intro = root.querySelector('.rwjp-day__intro');
-      if (intro && !intro.querySelector('.rwjp-day__concept-note')) {
-        const note = document.createElement('p');
-        note.className = 'rwjp-day__concept-note';
-        note.innerHTML = '<strong>IMAGE PHOTO</strong><span>「生成イメージ」と表示した写真は実際の参加者・授業風景ではありません</span>';
-        intro.appendChild(note);
-      }
     };
 
     if (document.readyState === 'loading') {
