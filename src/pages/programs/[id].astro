@@ -4,6 +4,7 @@ import ProgrammePageShell from '../../components/ProgrammePageShell.astro';
 import RwjpFlagshipPage from '../../components/RwjpFlagshipPage.astro';
 import RwjpExpressFlagshipPage from '../../components/RwjpExpressFlagshipPage.astro';
 import RwjpExpressAcademicLoad from '../../components/RwjpExpressAcademicLoad.astro';
+import InternationalLearningImpact from '../../components/InternationalLearningImpact.astro';
 import RdspFlagshipPage from '../../components/RdspFlagshipPage.astro';
 import { programmePageDrafts, type ProgrammePageDraft } from '../../data/programme-page-drafts';
 import { rwjp2027Facts, isKnownFact } from '../../data/rwjp/index';
@@ -27,12 +28,12 @@ const rwjpApplication = isKnownFact(f.applicationPeriod)
   ? `${f.applicationPeriod.value.start.replaceAll('-', '/')}〜${f.applicationPeriod.value.end.replaceAll('-', '/')}`
   : '応募期間確認中';
 const description = isRwjp
-  ? `2027 RWJP。${rwjpProgrammeDates}、冬の京都で日本語を学びながら5週間生活する短期プログラム。参加費${rwjpFee}、応募期間${rwjpApplication}。`
+  ? `2027 RWJP。${rwjpProgrammeDates}、冬の京都で日本語を学び、立命館の学生との交流と共修を通じてキャンパスの国際教育にもつながる5週間の短期プログラム。参加費${rwjpFee}、応募期間${rwjpApplication}。`
   : `${programme.title}のプログラムページを制作中です。確認済みの情報から順に掲載します。`;
 ---
 <StudentRecruitmentLayout title={title} description={description} robots="noindex,nofollow">
   {programme.id === 'rwjp' ? (
-    <RwjpFlagshipPage programme={programme} />
+    <><RwjpFlagshipPage programme={programme} /><InternationalLearningImpact context="rwjp" /></>
   ) : programme.id === 'rwjp-express' ? (
     <><RwjpExpressFlagshipPage programme={programme} /><RwjpExpressAcademicLoad /></>
   ) : programme.id === 'rdsp' ? (
