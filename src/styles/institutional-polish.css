@@ -45,9 +45,9 @@ body{background:var(--rits-paper);color:var(--rits-ink);font-family:"Noto Sans J
 .international-impact__card>p{color:#625d59!important}
 .international-impact__outro{border-color:var(--rits-line)!important}
 
-/* Global reach: turn the former near-black dashboard into an editorial evidence section. */
+/* Global reach: editorial evidence section with Japanese-safe em sizing. */
 .global-evidence{background:linear-gradient(180deg,#f7f3ee 0%,#fffdfa 44%,#f3f6f4 100%)!important;color:var(--rits-ink)!important}
-.global-evidence h2{max-width:12.5ch;font-size:clamp(2.15rem,4.1vw,4rem)!important;line-height:1.13!important;letter-spacing:-.035em!important}
+.global-evidence h2{max-width:12em;font-size:clamp(2.15rem,4.1vw,4rem)!important;line-height:1.13!important;letter-spacing:-.035em!important}
 .global-evidence__lead{color:#57524f!important;font-size:clamp(1rem,1.35vw,1.14rem)!important;line-height:1.9!important}
 .global-evidence__source-note{border-color:var(--rits-line)!important;color:#8a817c!important}
 .global-evidence__visual-grid{gap:1.15rem!important;margin-top:clamp(2.5rem,5vw,4rem)!important}
