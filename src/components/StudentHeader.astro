@@ -4,6 +4,11 @@ const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
 const withBase = (path: string) => `${base}${path.replace(/^\//, '')}`;
 const japaneseHomeAnchor = (id: string) => withBase(`/#${id}`);
 
+// Publicly rendered preview of the official horizontal R / RITSUMEIKAN
+// communication mark. Keep the mark intact. Replace with an internally
+// approved transparent local asset before final public launch when supplied.
+const officialLogo = 'https://www.ritsumei.ac.jp/image.jsp?id=228381';
+
 const links = [
   { href: japaneseHomeAnchor('program-finder'), label: 'プログラム' },
   { href: japaneseHomeAnchor('experience-pillars'), label: '学びと体験' },
@@ -15,12 +20,19 @@ const links = [
 <header class="recruitment-header" data-recruitment-header>
   <a class="skip-link" href="#main-content">本文へ移動</a>
   <div class="site-shell recruitment-header__inner">
-    <a class="recruitment-brand" href={withBase('/')} aria-label="立命館大学短期受入プログラム 日本語トップ">
-      <span class="recruitment-brand__mark" aria-hidden="true">R</span>
-      <span class="recruitment-brand__text">
-        <strong>RITSUMEIKAN UNIVERSITY</strong>
-        <small>SHORT-TERM PROGRAMS · 立命館大学</small>
+    <a class="recruitment-brand" href={withBase('/')} aria-label="立命館大学 短期受入プログラム 日本語トップ">
+      <span class="recruitment-brand__logo-plate">
+        <img
+          class="recruitment-brand__logo"
+          src={officialLogo}
+          alt="RITSUMEIKAN"
+          loading="eager"
+          decoding="async"
+          data-official-logo
+        />
+        <span class="recruitment-brand__fallback" aria-hidden="true">RITSUMEIKAN</span>
       </span>
+      <span class="recruitment-brand__office">Ritsumeikan<br />Study Abroad Center</span>
     </a>
 
     <nav class="recruitment-nav recruitment-nav--desktop" aria-label="メインナビゲーション">
@@ -33,6 +45,7 @@ const links = [
         <span></span><span></span><span></span>
       </summary>
       <nav aria-label="モバイルナビゲーション">
+        <p class="recruitment-menu__eyebrow">RITSUMEIKAN STUDY ABROAD CENTER</p>
         {links.map((link) => <a href={link.href}>{link.label}</a>)}
         <a class="recruitment-menu__cta" href={japaneseHomeAnchor('program-finder')}>自分に合うプログラムを探す</a>
       </nav>
@@ -43,6 +56,7 @@ const links = [
 <script>
   const header = document.querySelector('[data-recruitment-header]');
   const menu = document.querySelector('[data-recruitment-menu]');
+  const officialLogo = document.querySelector('[data-official-logo]');
 
   const updateHeader = () => {
     header?.classList.toggle('is-scrolled', window.scrollY > 24);
@@ -50,6 +64,10 @@ const links = [
 
   updateHeader();
   window.addEventListener('scroll', updateHeader, { passive: true });
+
+  officialLogo?.addEventListener('error', () => {
+    header?.classList.add('has-logo-fallback');
+  }, { once: true });
 
   menu?.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => {
