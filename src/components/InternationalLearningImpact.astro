@@ -1,0 +1,83 @@
+---
+import '../styles/international-learning-impact.css';
+
+interface Props {
+  context?: 'site' | 'rwjp';
+}
+
+const { context = 'site' } = Astro.props;
+const isRwjp = context === 'rwjp';
+
+const copy = isRwjp
+  ? {
+      kicker: 'LEARNING FLOWS BOTH WAYS',
+      title: '留学生を受け入れることは、\nキャンパスの学びをひらくこと。',
+      lead: 'RWJPは、海外から来る学生だけの学びではありません。立命館の学生と出会い、話し、共に活動する機会をつくることで、受入そのものをキャンパスの国際教育につなげます。',
+      note: '海外へ行くことだけが国際経験ではありません。キャンパスにいながら異なる言語・文化・価値観と出会える機会を広げます。',
+    }
+  : {
+      kicker: 'INTERNATIONAL EDUCATION ON CAMPUS',
+      title: '世界から学生を迎える。\nキャンパス全体が学びの場になる。',
+      lead: '短期受入プログラムは、参加する留学生だけのためのものではありません。立命館の学生が、日常のキャンパスで異なる言語・文化・考え方に出会い、共に学ぶ機会を生み出します。',
+      note: '国際教育を「海外へ行ける学生だけの経験」にしない。受入を通じて、キャンパスの中にも国際交流と共修の入口を増やします。',
+    };
+
+const impacts = [
+  {
+    number: '01',
+    eyebrow: 'CO-LEARNING',
+    title: '交流で終わらず、共に学ぶ。',
+    body: '会う、話すだけでなく、一緒に考え、活動し、学ぶ。短期受入を、双方の学生に学習機会が生まれる共修へつなげます。',
+  },
+  {
+    number: '02',
+    eyebrow: 'GLOBAL AT HOME',
+    title: '海外に行かなくても、国際交流はできる。',
+    body: '留学への距離や費用、時期などの事情にかかわらず、在学生がキャンパスで多文化・多言語の環境に触れられる機会を増やします。',
+  },
+  {
+    number: '03',
+    eyebrow: 'LANGUAGE CONFIDENCE',
+    title: '外国語を「試験科目」から「人とつながる道具」へ。',
+    body: '完璧に話せなくても、まず伝えてみる。異なる言語を使う相手と接する経験が、外国語への心理的な距離を縮めるきっかけになります。',
+  },
+  {
+    number: '04',
+    eyebrow: 'INTERCULTURAL UNDERSTANDING',
+    title: '違いを知るだけでなく、違いと一緒に学ぶ。',
+    body: '価値観や習慣の違いを、知識だけでなく実際の関わりの中で理解する。多文化共生を、キャンパスの日常に近づけます。',
+  },
+];
+---
+<section id={isRwjp ? 'rwjp-international-learning' : 'international-learning'} class={`international-impact international-impact--${context}`} aria-labelledby={`international-impact-title-${context}`}>
+  <div class="site-shell international-impact__intro">
+    <div>
+      <p class="international-impact__kicker">{copy.kicker}</p>
+      <h2 id={`international-impact-title-${context}`}>
+        {copy.title.split('\n').map((line) => <span>{line}</span>)}
+      </h2>
+    </div>
+    <div class="international-impact__lead">
+      <p>{copy.lead}</p>
+      <p class="international-impact__note">{copy.note}</p>
+    </div>
+  </div>
+
+  <div class="site-shell international-impact__grid">
+    {impacts.map((impact) => (
+      <article class="international-impact__card">
+        <header>
+          <span>{impact.number}</span>
+          <p>{impact.eyebrow}</p>
+        </header>
+        <h3>{impact.title}</h3>
+        <p>{impact.body}</p>
+      </article>
+    ))}
+  </div>
+
+  <div class="site-shell international-impact__outro">
+    <p class="international-impact__outro-label">RECIPROCAL INTERNATIONALISATION</p>
+    <p class="international-impact__outro-copy">受入学生が学ぶ。立命館の学生も学ぶ。キャンパスが少しずつ国際化する。短期受入を、一方向ではない国際教育へ。</p>
+  </div>
+</section>
