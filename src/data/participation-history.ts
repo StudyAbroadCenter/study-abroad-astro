@@ -19,6 +19,52 @@ export const shortTermParticipationEvidence = {
   annualParticipants: { 2023: 114, 2024: 107, 2025: 137, 2026: 164 },
 } as const;
 
+/**
+ * Verified post-COVID five-week Japanese programme evidence.
+ * Scope: RSJP + RWJP only. Express programmes are intentionally excluded.
+ * Source: integrated 2023–2026 workbook, recalculated from institution-level rows.
+ */
+export const fiveWeekJapaneseProgrammeEvidence = {
+  period: '2023–2026',
+  participants: 293,
+  countriesOrRegions: 21,
+  institutions: 81,
+  programmeParticipants: { RSJP: 153, RWJP: 140 },
+  scopeNote: 'コロナ後の再開期である2023–2026年のRSJP・RWJP（各5週間）の実績。Expressは含みません。',
+  regions: [
+    { countryOrRegion:'Australia', flag:'🇦🇺', participants:89, institutions:7 },
+    { countryOrRegion:'United States', flag:'🇺🇸', participants:76, institutions:37 },
+    { countryOrRegion:'South Korea', flag:'🇰🇷', participants:57, institutions:6 },
+    { countryOrRegion:'Canada', flag:'🇨🇦', participants:18, institutions:4 },
+    { countryOrRegion:'New Zealand', flag:'🇳🇿', participants:11, institutions:1 },
+    { countryOrRegion:'United Kingdom', flag:'🇬🇧', participants:9, institutions:5 },
+    { countryOrRegion:'China', flag:'🇨🇳', participants:7, institutions:5 },
+    { countryOrRegion:'Taiwan', flag:'🇹🇼', participants:7, institutions:2 },
+    { countryOrRegion:'Macau', flag:'🇲🇴', participants:3, institutions:1 },
+    { countryOrRegion:'Singapore', flag:'🇸🇬', participants:3, institutions:2 },
+    { countryOrRegion:'Qatar', flag:'🇶🇦', participants:2, institutions:1 },
+    { countryOrRegion:'Romania', flag:'🇷🇴', participants:2, institutions:1 },
+    { countryOrRegion:'Azerbaijan', flag:'🇦🇿', participants:1, institutions:1 },
+    { countryOrRegion:'Finland', flag:'🇫🇮', participants:1, institutions:1 },
+    { countryOrRegion:'Hong Kong', flag:'🇭🇰', participants:1, institutions:1 },
+    { countryOrRegion:'Japan', flag:'🇯🇵', participants:1, institutions:1 },
+    { countryOrRegion:'Mexico', flag:'🇲🇽', participants:1, institutions:1 },
+    { countryOrRegion:'Netherlands', flag:'🇳🇱', participants:1, institutions:1 },
+    { countryOrRegion:'Poland', flag:'🇵🇱', participants:1, institutions:1 },
+    { countryOrRegion:'Saudi Arabia', flag:'🇸🇦', participants:1, institutions:1 },
+    { countryOrRegion:'Turkmenistan', flag:'🇹🇲', participants:1, institutions:1 },
+  ],
+} as const;
+
+export const expressProgrammeEvidence = {
+  period: '2023–2026',
+  participants: 229,
+  countriesOrRegions: 18,
+  institutions: 50,
+  programmeParticipants: { 'RSJP Express': 158, 'RWJP Express': 71 },
+  representativeFlags: ['🇰🇷','🇨🇳','🇹🇼','🇭🇰','🇬🇧','🇺🇸'],
+} as const;
+
 /** 2023–2026 institution totals for programme-specific search. No participant PII. */
 export const participationHistory: ProgrammeParticipationRecord[] = [
   { programme:'RWJP', countryOrRegion:'Australia', institution:'University of Melbourne', participants:68 },
