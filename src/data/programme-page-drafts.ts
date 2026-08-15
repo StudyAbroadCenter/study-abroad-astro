@@ -1,16 +1,20 @@
-// Draft page registry for the first four recruitment-priority programmes.
+// Draft page registry for recruitment-facing programme pages.
 //
 // IMPORTANT:
-// - This file intentionally contains only positioning explicitly confirmed for the
-//   Programme Page implementation work.
-// - It does not import unverified duration, dates, fees, accommodation,
-//   eligibility, status, or application facts from the prototype registry.
-// - Add decision-critical facts only after verification under
-//   docs/handbook/21_CROSS_SPEC_GOVERNANCE.md.
-// - RBMP's Business Management positioning is currently treated as a provisional
-//   project direction in this draft UI; operational details remain unverified.
+// - These pages are MVP presentation surfaces. They may exist before all operational
+//   facts are verified.
+// - Do not add dates, fees, accommodation, eligibility, status, or application facts
+//   unless verified under docs/handbook/21_CROSS_SPEC_GOVERNANCE.md.
+// - A draft page may intentionally say that details are being prepared.
 
-export type ProgrammePageId = 'rwjp' | 'rwjp-express' | 'rdsp' | 'rbmp';
+export type ProgrammePageId =
+  | 'rsjp'
+  | 'rsjp-express'
+  | 'rwjp'
+  | 'rwjp-express'
+  | 'rdsp'
+  | 'rbmp'
+  | 'custom-programs';
 
 export interface ProgrammePageDraft {
   id: ProgrammePageId;
@@ -24,6 +28,24 @@ export interface ProgrammePageDraft {
 }
 
 export const programmePageDrafts: ProgrammePageDraft[] = [
+  {
+    id: 'rsjp',
+    code: 'RSJP',
+    category: '日本語プログラム',
+    title: 'Ritsumeikan Summer Japanese Program',
+    lead: '夏の京都で日本語と日本文化を学ぶ5週間の短期受入プログラムです。',
+    emphasis: 'MVPではプログラムの特徴を先に示し、日程・費用・募集要項などの確定情報は確認後に順次掲載します。',
+    campus: '衣笠キャンパス（京都）',
+  },
+  {
+    id: 'rsjp-express',
+    code: 'RSJP EXPRESS',
+    category: '日本語プログラム',
+    title: 'RSJP Express',
+    lead: '日本語、日本文化、学生交流を短期間に凝縮して経験する夏のプログラムです。',
+    emphasis: '現在はMVPページです。確認済みの情報から順に詳細を追加します。',
+    campus: '衣笠キャンパス（京都）',
+  },
   {
     id: 'rwjp',
     code: 'RWJP',
@@ -58,6 +80,14 @@ export const programmePageDrafts: ProgrammePageDraft[] = [
     emphasis: '企画内容が確認できた項目から、学習内容と参加価値を具体的に示していきます。',
     campus: '大阪いばらきキャンパス（OIC）',
     isNewProgramme: true,
+  },
+  {
+    id: 'custom-programs',
+    code: 'CUSTOM PROGRAMS',
+    category: '大学・機関向け',
+    title: 'Custom Programs',
+    lead: '協定校・大学の教育目的に合わせて設計するオーダーメード型の短期プログラムです。',
+    emphasis: 'MVPでは設計の考え方を紹介し、相談導線と実施例は今後拡充します。',
   },
 ];
 
