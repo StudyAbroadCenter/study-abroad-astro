@@ -16,7 +16,7 @@ The homepage, RWJP and RWJP Express should use one institutional design language
 
 ## Historical data recovery and reconciliation
 
-The previously supplied source workbook was recovered and re-used:
+The previously supplied source workbook and the former globe evidence were recovered and reconciled:
 
 - source: `短期受入プログラム参加実績_2023-2026_統合.xlsx`
 - period: 2023–2026
@@ -29,7 +29,7 @@ The previously supplied source workbook was recovered and re-used:
 - RWJP: **140**
 - RWJP Express: **71**
 
-The workbook totals reconcile with the verified evidence layer previously used by the Global Learning Network / globe review build.
+These totals match the evidence layer previously used by the Global Learning Network / globe review build.
 
 Important definition: `country / region` means the location of the sending university or institution, **not participant nationality**.
 
@@ -47,7 +47,7 @@ No participant names or other personally identifiable information are stored in 
 - co-learning / Global at Home / language confidence / intercultural understanding narrative
 - shared `GlobalLearningEvidence` section
 - homepage evidence: 522 participants / 27 countries or regions / 114 institutions
-- programme family totals shown beneath the homepage evidence
+- homepage programme totals: RSJP 153 / RSJP Express 158 / RWJP 140 / RWJP Express 71
 - RWJP evidence: 140 / 9 / 18 plus verified 2027 design facts (five weeks, 57.5 hours Japanese instruction, 11 cultural-experience sessions)
 - RWJP Express evidence: 71 / 6 / 15, including the 2024 cancellation note
 - searchable country / university history for RWJP and RWJP Express
@@ -76,7 +76,7 @@ No approved local Ritsumeikan logo image asset is currently committed in the rep
 - the existing site brand mark
 - Kinugasa campus imagery
 - existing real programme photography
-- restrained dark / white / teal surfaces with a Ritsumeikan-like enji accent in the evidence layer
+- restrained dark / white / teal surfaces with an enji accent in the evidence layer
 - typography, spacing and interaction patterns shared with the Japanese homepage
 
 If an approved official logo asset is supplied later, it should replace the shared-header mark in one place rather than being duplicated across pages.
