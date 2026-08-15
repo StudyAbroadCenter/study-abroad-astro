@@ -58,3 +58,28 @@
   .global-evidence__network-more small{font-size:.5rem}
   .global-evidence--rwjp h2{max-width:none!important;font-size:clamp(1.6rem,7.2vw,2.15rem)!important}
 }
+
+/* RWJP network collision fix: use a stable eight-point ring and keep AND MORE in its own band. */
+@media(min-width:621px){
+  .global-evidence--rwjp .global-evidence__network{min-height:35rem;padding-bottom:7.8rem}
+  .global-evidence--rwjp .global-evidence__network-center{top:50%}
+  .global-evidence--rwjp .global-evidence__network-lines{height:100%}
+  .global-evidence--rwjp .global-evidence__network-node:nth-of-type(2){--node-x:50%!important;--node-y:13%!important}
+  .global-evidence--rwjp .global-evidence__network-node:nth-of-type(3){--node-x:78%!important;--node-y:24%!important}
+  .global-evidence--rwjp .global-evidence__network-node:nth-of-type(4){--node-x:84%!important;--node-y:47%!important}
+  .global-evidence--rwjp .global-evidence__network-node:nth-of-type(5){--node-x:76%!important;--node-y:68%!important}
+  .global-evidence--rwjp .global-evidence__network-node:nth-of-type(6){--node-x:50%!important;--node-y:72%!important}
+  .global-evidence--rwjp .global-evidence__network-node:nth-of-type(7){--node-x:24%!important;--node-y:68%!important}
+  .global-evidence--rwjp .global-evidence__network-node:nth-of-type(8){--node-x:16%!important;--node-y:47%!important}
+  .global-evidence--rwjp .global-evidence__network-node:nth-of-type(9){--node-x:22%!important;--node-y:24%!important}
+  .global-evidence--rwjp .global-evidence__network-more{top:auto;right:1rem;bottom:.9rem;left:1rem;max-height:6.3rem;overflow:auto}
+}
+
+@media(max-width:1080px) and (min-width:621px){
+  .global-evidence--rwjp .global-evidence__network-node:nth-of-type(3){--node-x:80%!important}
+  .global-evidence--rwjp .global-evidence__network-node:nth-of-type(4){--node-x:82%!important}
+  .global-evidence--rwjp .global-evidence__network-node:nth-of-type(5){--node-x:75%!important}
+  .global-evidence--rwjp .global-evidence__network-node:nth-of-type(7){--node-x:25%!important}
+  .global-evidence--rwjp .global-evidence__network-node:nth-of-type(8){--node-x:18%!important}
+  .global-evidence--rwjp .global-evidence__network-node:nth-of-type(9){--node-x:20%!important}
+}
