@@ -19,10 +19,23 @@
     white-space: nowrap;
   }
 
+  /* RWJP Express intentionally contains several horizontally browsable UI
+   * fragments. The page shell itself must never become the scroll container;
+   * clip decorative/intrinsic overflow at the component boundary and let the
+   * dedicated inner scrollers handle horizontal movement. */
+  .rwjpx {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: clip !important;
+  }
+
+  .rwjpx__nav {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
+
   /* The Express social-style feed is intentionally horizontally browsable, but
-   * its intrinsic six-card width must never enlarge the document viewport.
-   * The outer wrapper clips transformed card paint while the feed itself remains
-   * the only horizontal scroll container. */
+   * its intrinsic six-card width must never enlarge the document viewport. */
   .rwjpx__memories-grid {
     grid-template-columns: minmax(0, 1fr) !important;
     min-width: 0 !important;
