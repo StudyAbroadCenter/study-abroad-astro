@@ -30,16 +30,21 @@ const records = isRwjp
 const historical = isProgramme ? summarizeParticipation(records) : null;
 const countries = isProgramme ? participationByCountry(records) : [];
 
+/**
+ * Nine equal-angle hub slots around Ritsumeikan.
+ * The ellipse keeps every label inside the card while preserving a clear
+ * "world regions converge on Ritsumeikan" visual hierarchy.
+ */
 const networkSlots = [
-  { x: 14, y: 17 },
-  { x: 72, y: 15 },
-  { x: 79, y: 69 },
-  { x: 18, y: 73 },
-  { x: 5, y: 45 },
-  { x: 89, y: 45 },
-  { x: 37, y: 7 },
-  { x: 49, y: 86 },
-  { x: 63, y: 7 },
+  { x: 50.0, y: 16.0 },
+  { x: 70.6, y: 23.9 },
+  { x: 81.5, y: 44.1 },
+  { x: 77.7, y: 67.0 },
+  { x: 60.9, y: 81.9 },
+  { x: 39.1, y: 81.9 },
+  { x: 22.3, y: 67.0 },
+  { x: 18.5, y: 44.1 },
+  { x: 29.4, y: 23.9 },
 ];
 
 const programmeNetwork = countries.slice(0, networkSlots.length).map((country, index) => {
@@ -119,11 +124,11 @@ const copy = isRwjp
       <div class="global-evidence__network" aria-label={`${isRwjp ? 'RWJP' : 'RWJP Express'}の参加者が世界各地から立命館へ集う実績図`}>
         <svg class="global-evidence__network-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
           <circle cx="50" cy="50" r="24" class="global-evidence__network-orbit" />
-          <circle cx="50" cy="50" r="35" class="global-evidence__network-orbit global-evidence__network-orbit--outer" />
+          <ellipse cx="50" cy="50" rx="32" ry="34" class="global-evidence__network-orbit global-evidence__network-orbit--outer" />
           {programmeNetwork.map((country) => (
             <path
               class={`global-evidence__network-line global-evidence__network-line--${country.size}`}
-              d={`M 50 50 Q ${(50 + country.x) / 2} ${((50 + country.y) / 2) - 5} ${country.x} ${country.y}`}
+              d={`M 50 50 L ${country.x} ${country.y}`}
             />
           ))}
         </svg>
