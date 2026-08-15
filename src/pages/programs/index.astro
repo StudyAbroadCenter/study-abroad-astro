@@ -1,13 +1,10 @@
 ---
 import StudentRecruitmentLayout from '../../components/StudentRecruitmentLayout.astro';
 import { programmes } from '../../data/programs';
+import { getProgrammePublicDescriptor } from '../../data/programme-public-descriptors';
 
 const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const hrefFor = (id: string) => `${base}programs/${id}/`;
-const safeName = (id: string, name: string) => id === 'rdsp' ? 'RDSP' : name;
-const safeSummary = (id: string, summary: string) => id === 'rdsp'
-  ? '専門テーマ型の短期プログラムです。正式名称と年度別の学習内容は確認中です。'
-  : summary;
 ---
 <StudentRecruitmentLayout
   title="プログラム一覧 | 立命館大学 短期受入プログラム"
@@ -32,13 +29,13 @@ const safeSummary = (id: string, summary: string) => id === 'rdsp'
 
       <div class="jp-utility__programme-list" aria-label="短期受入プログラム一覧">
         {programmes.map((programme) => {
-          const copy = programme.copy.ja;
+          const publicCopy = getProgrammePublicDescriptor(programme.id);
           return (
             <article>
               <p class="section-kicker">{programme.code}</p>
-              <h2>{safeName(programme.id, copy.name)}</h2>
-              <p>{safeSummary(programme.id, copy.summary)}</p>
-              <p><strong>年度別条件は詳細ページで確認</strong></p>
+              <h2>{publicCopy?.name ?? programme.code}</h2>
+              <p>{publicCopy?.summary ?? '詳細情報を確認中です。'}</p>
+              <p><strong>{publicCopy?.status ?? '詳細確認中'}</strong></p>
               <a href={hrefFor(programme.id)}>詳細ページを見る →</a>
             </article>
           );
