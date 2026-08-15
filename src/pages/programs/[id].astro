@@ -6,7 +6,6 @@ import RwjpExpressFlagshipPage from '../../components/RwjpExpressFlagshipPage.as
 import RwjpExpressAcademicLoad from '../../components/RwjpExpressAcademicLoad.astro';
 import InternationalLearningImpact from '../../components/InternationalLearningImpact.astro';
 import GlobalLearningEvidence from '../../components/GlobalLearningEvidence.astro';
-import RdspFlagshipPage from '../../components/RdspFlagshipPage.astro';
 import { programmePageDrafts, type ProgrammePageDraft } from '../../data/programme-page-drafts';
 import { rwjp2027Facts, isKnownFact } from '../../data/rwjp/index';
 import '../../styles/rwjp-cinematic-hero.css';
@@ -48,8 +47,6 @@ const description = isRwjp
       <RwjpExpressAcademicLoad />
       <GlobalLearningEvidence context="rwjp-express" />
     </>
-  ) : programme.id === 'rdsp' ? (
-    <RdspFlagshipPage programme={programme} />
   ) : (
     <ProgrammePageShell programme={programme} />
   )}

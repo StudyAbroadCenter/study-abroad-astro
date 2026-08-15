@@ -71,37 +71,37 @@ const rwjpCultureSessions = isKnownFact(rwjp2027Facts.cultureSessions)
 const copy = isRwjp
   ? {
       kicker: 'RITSUMEIKAN · 5-WEEK JAPANESE PROGRAMMES',
-      title: '世界21か国・地域へ広がる\n立命館の5週間日本語プログラム',
-      lead: 'コロナ後の再開期である2023–2026年に、5週間のRSJP・RWJPへ293名、21か国・地域、81大学・機関から参加がありました。夏と冬を通じて積み重ねてきた、立命館の日本語教育と国際交流の広がりです。',
+      title: '世界21か国・地域から\n立命館の5週間へ',
+      lead: '2023–2026年、RSJP・RWJPに293名。21か国・地域、81大学・機関から学生が参加しました。夏と冬、5週間の日本語プログラムがつくる広がりです。',
       imageA: 'programs/rwjp/rwjp-student-interaction.webp',
       imageAAlt: '短期日本語プログラムで参加者同士や学生が交流する様子',
-      imageACaption: 'CONNECT — 夏と冬を越えて 世界の学生が立命館へ',
+      imageACaption: 'CONNECT — 世界から立命館へ',
       imageB: 'programs/rwjp/rwjp-japanese-class.webp',
       imageBAlt: '短期日本語プログラムの日本語授業の様子',
-      imageBCaption: 'STUDY — 5週間の中心にある日本語学習',
+      imageBCaption: 'STUDY — 5週間の中心に日本語',
     }
   : isExpress
     ? {
         kicker: 'RWJP EXPRESS · GLOBAL REACH',
-        title: '世界6か国・地域から\n短く集中して京都で学ぶ',
-        lead: '2023–2026年のRWJP Expressには、世界6か国・地域、15大学・機関から71名が参加しました。2024年度は中止のため参加者0名です。',
+        title: '6か国・地域から\n冬の2週間へ',
+        lead: '2023–2026年のRWJP Expressには、6か国・地域、15大学・機関から71名が参加しました。2024年度は中止のため参加者0名です。',
         imageA: 'programs/rwjp/rwjp-student-interaction.webp',
         imageAAlt: '日本語プログラムで学生が交流する様子',
-        imageACaption: 'CONNECT — 短期間でも 同世代との出会いを学びへ',
+        imageACaption: 'CONNECT — 短期でも 学びは人へ',
         imageB: 'programs/rwjp/rwjp-presentation.webp',
         imageBAlt: '日本語学習で発表する学生',
-        imageBCaption: 'OUTPUT — 学んだことばを 自分のことばとして使う',
+        imageBCaption: 'OUTPUT — 学んだことばを使う',
       }
     : {
         kicker: 'RITSUMEIKAN · INBOUND PROGRAMME PORTFOLIO',
-        title: '世界との接点を\nプログラムの形で見る',
-        lead: '2023–2026年の検証済み定型4プログラムでは522名、27か国・地域、114大学・機関の参加実績があります。5週間、Express、そして大学ごとに設計するCustom Programmeは、異なる役割を持つ受入の入口です。',
+        title: '27か国・地域から\n522名が立命館へ',
+        lead: '2023–2026年、検証済みの定型4プログラムに522名、27か国・地域、114大学・機関から参加がありました。5週間、Express、Custom Programs。それぞれ違う入口があります。',
         imageA: 'IMG_1588.JPG',
         imageAAlt: '立命館大学の短期プログラムに参加する学生たち',
-        imageACaption: 'PEOPLE — 国や大学を越えて 同じ場所で学ぶ',
+        imageACaption: 'PEOPLE — 国や大学を越えて学ぶ',
         imageB: 'hero/hero-kinugasa-clocktower.jpg',
         imageBAlt: '立命館大学衣笠キャンパスの時計台',
-        imageBCaption: 'PLACE — 立命館のキャンパスが国際交流の舞台になる',
+        imageBCaption: 'PLACE — キャンパスが出会いの舞台になる',
       };
 ---
 <section id={`global-evidence-${context}`} class={`global-evidence global-evidence--${context}`} aria-labelledby={`global-evidence-title-${context}`}>
@@ -179,7 +179,7 @@ const copy = isRwjp
           <div class="global-evidence__portfolio-flags" aria-hidden="true">🤝 🌏 🏫</div>
           <strong>大学ごとに設計</strong>
           <span>地域・人数・期間は案件ごとに異なるため別集計</span>
-          <small>Verified total pending canonical custom-programme dataset</small>
+          <small>Custom Programsは別集計・確認中</small>
         </article>
       </div>
     )}
@@ -229,8 +229,8 @@ const copy = isRwjp
       <div class="global-evidence__directory-heading">
         <div>
           <p>{isRwjp ? 'RWJP ONLY · 2023–2026' : 'FIND YOUR COUNTRY / UNIVERSITY'}</p>
-          <h3>{isRwjp ? 'このRWJPの過去参加実績を見る' : '自分の国・地域や大学を探す'}</h3>
-          <span>{isRwjp ? `ここからはRWJP単独の実績です。140名・9か国地域・18大学機関。` : ''} 過去の参加実績は、現在の募集対象・提携関係を意味するものではありません。</span>
+          <h3>{isRwjp ? 'RWJPの参加実績を探す' : '自分の国・地域や大学を探す'}</h3>
+          <span>{isRwjp ? `ここからはRWJP単独：140名・9か国・地域・18大学・機関。` : ''} 過去の参加実績は、現在の募集対象・提携関係を意味するものではありません。</span>
         </div>
         <label>
           <span>国・地域・大学名で検索</span>
@@ -252,7 +252,7 @@ const copy = isRwjp
           </details>
         ))}
       </div>
-      <p class="global-evidence__no-results" data-participation-empty hidden>該当する国・地域、大学・機関はこの実績データでは見つかりませんでした。</p>
+      <p class="global-evidence__no-results" data-participation-empty hidden>この実績データでは見つかりませんでした。</p>
     </div>
   )}
 </section>

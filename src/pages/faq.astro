@@ -1,17 +1,44 @@
 ---
-import Layout from '../components/Layout.astro';
+import StudentRecruitmentLayout from '../components/StudentRecruitmentLayout.astro';
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const faqs = [
-  ['Are these real university programs?', 'No. Every program, place, date, fee and detail on this site is fictional and created only to evaluate an Astro-based content experience.'],
-  ['Who would these programs be for?', 'A production website could define eligibility by program. This prototype imagines an international audience interested in short, English-taught study in Japan.'],
-  ['Do students need to speak Japanese?', 'The sample programs assume no prior Japanese ability unless a program description says otherwise. Introductory language learning may form part of the experience.'],
-  ['What does the sample fee include?', 'Fees are placeholders. A real program page would need a precise breakdown covering tuition, activities, accommodation, meals, transport and insurance.'],
-  ['How is accommodation arranged?', 'Each program entry includes a sample accommodation field. The options shown—residence, guesthouse and homestay—are fictional.'],
-  ['Can I apply through this website?', 'No. This prototype has no application system, form processing or personal-data collection.'],
-  ['Is accessibility considered?', 'The prototype uses semantic structure, keyboard focus styles, responsive layouts, reduced-motion support and contrast-conscious colors as a starting point.'],
+  ['どのプログラムが自分に合いますか？', 'まずは「何を学びたいか」と「参加したい季節」から探してください。日程・費用・条件などの重要情報は、各プログラムの詳細ページで確認できます。'],
+  ['日程や費用は、どこで確認できますか？', '各プログラムの詳細ページで、確認済みの年度別情報を案内します。準備中の項目を推測で埋めることはしません。'],
+  ['日本語を勉強したことがなくても参加できますか？', '条件はプログラムごとに異なります。日本語レベルや事前準備の条件は、対象プログラムの「応募前の確認」を見てください。'],
+  ['立命館の学生と交流できますか？', '学生との共修・交流の形や頻度は、プログラムと年度により異なります。交流の機会を紹介する場合も、個別の友人関係や一対一のマッチングを保証するものではありません。'],
+  ['掲載されている写真の活動は必ず実施されますか？', 'いいえ。写真は過去の実施・関連活動を含みます。授業、交流、文化体験、訪問先などの実施内容はプログラム・年度により異なります。'],
+  ['「準備中」と表示されるページがあるのはなぜですか？', 'MVPでは、未確認の日程・費用・条件をそれらしく作らず、確認できた情報から順に公開しています。準備中は、情報の不足を隠さないための表示です。'],
+  ['英語版はありますか？', 'まず日本語版をマスターとして完成させ、その後に英語版を作ります。英語は直訳ではなく、同じ事実とデザインを使って自然な英語として書き直す方針です。'],
 ];
 ---
-<Layout title="Frequently asked questions | Short Programs Prototype" description="Answers about the fictional programs and the scope of this independent website prototype.">
-  <header class="page-hero"><div class="container narrow"><p class="eyebrow">Frequently asked questions</p><h1>Helpful details, clearly explained.</h1><p class="lede">These answers describe the prototype experience. They are not official admissions or travel guidance.</p></div></header>
-  <section class="section"><div class="container narrow faq-list">{faqs.map(([question, answer]) => <details><summary>{question}</summary><p>{answer}</p></details>)}</div></section>
-  <section class="cta compact"><div class="container"><h2>Still exploring?</h2><p>Browse the fictional programs or view the contact-page concept.</p><div class="button-row"><a class="button light" href="/programs/">Browse programs</a><a class="button outline-light" href="/contact/">Contact prototype</a></div></div></section>
-</Layout>
+<StudentRecruitmentLayout
+  title="よくある質問 | 立命館大学 短期受入プログラム"
+  description="短期受入プログラムを検討するときに迷いやすいポイントを、現在の日本語MVPの範囲で簡潔に案内します。"
+  robots="noindex,nofollow"
+>
+  <article class="jp-utility">
+    <div class="site-shell">
+      <header class="jp-utility__intro">
+        <div>
+          <p class="section-kicker">FAQ</p>
+          <h1>迷ったら ここから</h1>
+        </div>
+        <p class="jp-utility__lead">答えは先に。条件は短く。重要な事実はFAQに隠さず、各プログラムの本文にも表示します。</p>
+      </header>
+
+      <section style="max-width:860px; margin-top:2.5rem;" aria-label="よくある質問">
+        {faqs.map(([question, answer]) => (
+          <details>
+            <summary>{question}</summary>
+            <p>{answer}</p>
+          </details>
+        ))}
+      </section>
+
+      <div class="jp-utility__actions">
+        <a class="action-button action-button--primary" href={`${base}programs/`}>プログラム一覧を見る</a>
+        <a class="action-button action-button--dark" href={`${base}contact/`}>お問い合わせについて</a>
+      </div>
+    </div>
+  </article>
+</StudentRecruitmentLayout>

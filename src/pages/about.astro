@@ -1,7 +1,45 @@
 ---
-import Layout from '../components/Layout.astro';
+import StudentRecruitmentLayout from '../components/StudentRecruitmentLayout.astro';
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 ---
-<Layout title="About this prototype | Short Programs Prototype" description="Learn why this independent Astro website prototype was created and understand its limitations.">
-  <header class="page-hero"><div class="container narrow"><p class="eyebrow">About this project</p><h1>An independent prototype for evaluation.</h1><p class="lede">This website explores how Astro could support clear, maintainable information for short-term inbound study programs at a Japanese university.</p></div></header>
-  <section class="section"><div class="container split align-start"><article class="prose"><h2>Purpose</h2><p>The prototype demonstrates a modern page system, reusable components and structured program content. It is intended for technical and design evaluation—not recruitment, admissions or publication.</p><h2>What is fictional</h2><p>All names, locations, dates, fees, deadlines, course descriptions and accommodation details were written as samples. No real student stories or university-confidential information are included.</p><h2>What it does not do</h2><p>There is no application process, account area, form submission, payment, analytics or tracking. Content should not be treated as academic, financial, immigration or travel advice.</p></article><aside class="notice-card"><p class="eyebrow">Please note</p><h2>Not an official website</h2><p>This is a prototype website created for evaluation purposes. It is not an official university website.</p><a class="text-link" href="/">Return home →</a></aside></div></section>
-</Layout>
+<StudentRecruitmentLayout
+  title="このサイトについて | 立命館大学 短期受入プログラム"
+  description="立命館大学の短期受入プログラムを、学生が理解し、比べ、参加を判断しやすくするための日本語MVPサイトです。"
+  robots="noindex,nofollow"
+>
+  <article class="jp-utility">
+    <div class="site-shell">
+      <header class="jp-utility__intro">
+        <div>
+          <p class="section-kicker">ABOUT THIS MVP</p>
+          <h1>分かるから 選べる</h1>
+        </div>
+        <p class="jp-utility__lead">このサイトは、立命館大学の短期受入プログラムを「探す・知る・比べる・判断する」体験として再設計する日本語MVPです。</p>
+      </header>
+
+      <div class="jp-utility__grid">
+        <section class="jp-utility__card">
+          <h2>学生の判断を先に</h2>
+          <p>プログラム名を並べるだけではなく、何を学ぶのか、どんな時間を過ごすのか、重要な条件は何かを、迷いにくい順番で伝えます。</p>
+        </section>
+        <section class="jp-utility__card">
+          <h2>事実は推測しない</h2>
+          <p>日程、費用、募集条件、宿泊、応募方法などの変わる情報は、確認できたものから掲載します。空欄をそれらしい数字で埋めません。</p>
+        </section>
+        <section class="jp-utility__card">
+          <h2>日本語をマスターに</h2>
+          <p>まず日本語版の情報設計、コピー、写真、UIを完成させます。その後、同じ事実とデザインを使い、英語・韓国語をそれぞれ自然な言語としてローカライズします。</p>
+        </section>
+        <section class="jp-utility__card">
+          <h2>人が最後に判断する</h2>
+          <p>AIは整理や表現改善に使いますが、未確認の制度や条件を決めません。公開判断と事実確認は、責任ある人・組織が行う設計です。</p>
+        </section>
+      </div>
+
+      <div class="jp-utility__actions">
+        <a class="action-button action-button--primary" href={`${base}#program-finder`}>プログラムを探す</a>
+        <a class="action-button action-button--dark" href={`${base}programs/`}>一覧を見る</a>
+      </div>
+    </div>
+  </article>
+</StudentRecruitmentLayout>

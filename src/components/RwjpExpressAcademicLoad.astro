@@ -3,10 +3,10 @@ import { programmeAcademicLoads } from '../data/programme-academic-loads';
 const load = programmeAcademicLoads.express;
 ---
 <section class="site-shell" aria-labelledby="rwjpx-academic-load-title" style="padding:2.5rem 0 4rem">
-  <div style="border:1px solid #d9e3df;border-radius:16px;background:#fff;padding:1.4rem 1.5rem">
-    <p style="margin:0 0 .45rem;font-size:.72rem;font-weight:800;letter-spacing:.12em;color:#187a70">FIXED ACADEMIC LOAD</p>
-    <h2 id="rwjpx-academic-load-title" style="margin:.1rem 0 .8rem;font-size:clamp(1.35rem,2.5vw,1.9rem)">RWJP Expressの日本語講座時間</h2>
-    <p style="margin:0;line-height:1.8;color:#4d606b"><strong>{load.totalMinutes.toLocaleString('ja-JP')}分（{load.totalHours}時間）</strong> — 1コマ{load.classMinutes}分 × 1日{load.classesPerDay}コマ × {load.teachingDays}日。これはExpress系2週間プログラムの固定授業構造です。</p>
-    <p style="margin:.65rem 0 0;line-height:1.75;color:#66757d;font-size:.92rem">日本文化体験は別枠で、90分 × 4回 = 360分です。</p>
+  <div style="border:1px solid #d9e3df;border-radius:16px;background:#fff;padding:clamp(1.4rem,3vw,2rem)">
+    <p style="margin:0 0 .5rem;font-size:.78rem;font-weight:800;letter-spacing:.12em;color:#187a70">ACADEMIC LOAD</p>
+    <h2 id="rwjpx-academic-load-title" style="margin:.1rem 0 .9rem;font-size:clamp(1.7rem,2.6vw,2.25rem);line-height:1.2">2週間の日本語学習</h2>
+    <p style="margin:0;line-height:1.8;color:#3f515b;font-size:1rem"><strong>{load.totalMinutes.toLocaleString('ja-JP')}分（{load.totalHours}時間）</strong>。1コマ{load.classMinutes}分 × 1日{load.classesPerDay}コマ × {load.teachingDays}日です。</p>
+    <p style="margin:.7rem 0 0;line-height:1.75;color:#5d6e76;font-size:.94rem">日本文化体験は別枠で、90分 × 4回 = 360分です。</p>
   </div>
 </section>

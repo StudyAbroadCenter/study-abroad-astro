@@ -1,8 +1,27 @@
 ---
-import Layout from '../components/Layout.astro';
-const base = import.meta.env.BASE_URL;
-const withBase = (path: string) => `${base}${path.replace(/^\//, '')}`;
+import StudentRecruitmentLayout from '../components/StudentRecruitmentLayout.astro';
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 ---
-<Layout title="Page not found | Short Programs Prototype" description="The requested page could not be found on this study-program website prototype.">
-  <section class="not-found"><div class="container narrow"><p class="error-code">404</p><p class="eyebrow">Page not found</p><h1>This path led somewhere unexpected.</h1><p class="lede">The page may have moved, or the address may be incorrect. Return home or continue exploring the fictional programs.</p><div class="button-row"><a class="button" href={withBase('/')}>Return home</a><a class="button secondary" href={withBase('/programs/')}>Browse programs</a></div></div></section>
-</Layout>
+<StudentRecruitmentLayout
+  title="ページが見つかりません | 立命館大学 短期受入プログラム"
+  description="お探しのページは見つかりませんでした。トップページまたはプログラム一覧からお進みください。"
+  robots="noindex,nofollow"
+>
+  <article class="jp-utility">
+    <div class="site-shell">
+      <header class="jp-utility__intro">
+        <div>
+          <p class="section-kicker">404 · PAGE NOT FOUND</p>
+          <h1>その先は まだありません</h1>
+        </div>
+        <div>
+          <p class="jp-utility__lead">URLが変わったか、ページがまだ準備中かもしれません。トップへ戻るか、プログラム一覧から続きを探してください。</p>
+          <div class="jp-utility__actions">
+            <a class="action-button action-button--primary" href={base}>トップへ戻る</a>
+            <a class="action-button action-button--dark" href={`${base}programs/`}>プログラム一覧</a>
+          </div>
+        </div>
+      </header>
+    </div>
+  </article>
+</StudentRecruitmentLayout>
