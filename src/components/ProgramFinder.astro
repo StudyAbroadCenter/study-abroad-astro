@@ -163,6 +163,39 @@ const customThemes = [
   </div>
 </section>
 
+<style>
+  .finder-controls__fact-note {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .finder-controls__fact-note p {
+    margin: 0;
+    max-width: 32rem;
+    font-size: 0.94rem;
+    line-height: 1.75;
+    color: #635953;
+  }
+
+  .programme-card__meta--status {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .programme-card__meta--status span {
+    max-width: 100%;
+    white-space: normal;
+    line-height: 1.45;
+  }
+
+  @media (max-width: 760px) {
+    .finder-controls__fact-note p {
+      font-size: 0.9rem;
+    }
+  }
+</style>
+
 <script>
   const form = document.querySelector('[data-finder-form]');
   const cards = Array.from(document.querySelectorAll('[data-programme-card]'));
