@@ -1,0 +1,202 @@
+.international-impact {
+  padding: clamp(4.5rem, 8vw, 8rem) 0;
+  background:
+    radial-gradient(circle at 85% 10%, rgba(19, 123, 109, 0.11), transparent 32%),
+    linear-gradient(180deg, #f7fbfa 0%, #ffffff 55%, #f4f8f7 100%);
+  color: #102a2f;
+}
+
+.international-impact--rwjp {
+  border-top: 1px solid rgba(16, 42, 47, 0.08);
+  border-bottom: 1px solid rgba(16, 42, 47, 0.08);
+}
+
+.international-impact__intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: end;
+}
+
+.international-impact__kicker,
+.international-impact__outro-label {
+  margin: 0 0 1rem;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: #167c70;
+}
+
+.international-impact h2 {
+  margin: 0;
+  max-width: 12ch;
+  font-size: clamp(2rem, 4.5vw, 4.6rem);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+
+.international-impact h2 span {
+  display: block;
+}
+
+.international-impact__lead {
+  max-width: 42rem;
+}
+
+.international-impact__lead > p:first-child {
+  margin: 0;
+  font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+  line-height: 1.9;
+  font-weight: 600;
+}
+
+.international-impact__note {
+  margin: 1.5rem 0 0;
+  padding: 1.1rem 1.25rem;
+  border-left: 3px solid #1d8c7d;
+  background: rgba(255, 255, 255, 0.76);
+  line-height: 1.8;
+  color: #355156;
+}
+
+.international-impact__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: clamp(2.8rem, 6vw, 5.5rem);
+}
+
+.international-impact__card {
+  min-height: 19rem;
+  padding: clamp(1.4rem, 2.5vw, 2rem);
+  border: 1px solid rgba(16, 42, 47, 0.09);
+  border-radius: 1.4rem;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 1.1rem 3rem rgba(32, 68, 67, 0.06);
+}
+
+.international-impact__card header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2.2rem;
+}
+
+.international-impact__card header span {
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #76918f;
+}
+
+.international-impact__card header p {
+  margin: 0;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #167c70;
+}
+
+.international-impact__card h3 {
+  margin: 0 0 1rem;
+  font-size: clamp(1.25rem, 1.7vw, 1.65rem);
+  line-height: 1.45;
+  letter-spacing: -0.02em;
+}
+
+.international-impact__card > p {
+  margin: 0;
+  line-height: 1.85;
+  color: #4a6266;
+}
+
+.international-impact__outro {
+  display: grid;
+  grid-template-columns: minmax(10rem, 0.4fr) minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
+  margin-top: clamp(2.5rem, 5vw, 4.5rem);
+  padding-top: 2rem;
+  border-top: 1px solid rgba(16, 42, 47, 0.11);
+}
+
+.international-impact__outro-copy {
+  margin: 0;
+  max-width: 48rem;
+  font-size: clamp(1.15rem, 2vw, 1.7rem);
+  line-height: 1.65;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+@media (max-width: 900px) {
+  .international-impact__intro,
+  .international-impact__outro {
+    grid-template-columns: 1fr;
+  }
+
+  .international-impact h2 {
+    max-width: 15ch;
+  }
+
+  .international-impact__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .international-impact {
+    padding: 4rem 0;
+  }
+
+  .international-impact__intro {
+    gap: 1.6rem;
+  }
+
+  .international-impact h2 {
+    font-size: clamp(2rem, 10vw, 3rem);
+    line-height: 1.14;
+  }
+
+  .international-impact__lead > p:first-child {
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .international-impact__note {
+    margin-top: 1.1rem;
+    padding: 1rem;
+    font-size: 0.94rem;
+  }
+
+  .international-impact__grid {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+    margin-top: 2.4rem;
+  }
+
+  .international-impact__card {
+    min-height: 0;
+    padding: 1.25rem;
+    border-radius: 1.1rem;
+  }
+
+  .international-impact__card header {
+    margin-bottom: 1.2rem;
+  }
+
+  .international-impact__card header p {
+    max-width: 70%;
+    text-align: right;
+  }
+
+  .international-impact__outro {
+    gap: 0.75rem;
+    margin-top: 2.4rem;
+  }
+
+  .international-impact__outro-copy {
+    font-size: 1.15rem;
+    line-height: 1.7;
+  }
+}
