@@ -50,6 +50,7 @@ No participant names or other personally identifiable information are stored in 
 - homepage programme totals: RSJP 153 / RSJP Express 158 / RWJP 140 / RWJP Express 71
 - RWJP evidence: 140 / 9 / 18 plus verified 2027 design facts (five weeks, 57.5 hours Japanese instruction, 11 cultural-experience sessions)
 - RWJP Express evidence: 71 / 6 / 15, including the 2024 cancellation note
+- page metadata uses the same verified RWJP / RWJP Express headline counts
 - searchable country / university history for RWJP and RWJP Express
 - top historical origins displayed around the lightweight globe motif
 - real programme photography already stored in the repository
