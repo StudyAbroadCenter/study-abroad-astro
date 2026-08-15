@@ -1,5 +1,7 @@
 ---
 import {
+  expressProgrammeEvidence,
+  fiveWeekJapaneseProgrammeEvidence,
   participationByCountry,
   participationByProgramme,
   participationHistorySource,
@@ -30,32 +32,34 @@ const records = isRwjp
 const historical = isProgramme ? summarizeParticipation(records) : null;
 const countries = isProgramme ? participationByCountry(records) : [];
 
-/**
- * Nine equal-angle hub slots around Ritsumeikan.
- * The ellipse keeps every label inside the card while preserving a clear
- * "world regions converge on Ritsumeikan" visual hierarchy.
- */
-const networkSlots = [
-  { x: 50.0, y: 16.0 },
-  { x: 70.6, y: 23.9 },
-  { x: 81.5, y: 44.1 },
-  { x: 77.7, y: 67.0 },
-  { x: 60.9, y: 81.9 },
-  { x: 39.1, y: 81.9 },
-  { x: 22.3, y: 67.0 },
-  { x: 18.5, y: 44.1 },
-  { x: 29.4, y: 23.9 },
-];
+const networkRegions = isRwjp
+  ? fiveWeekJapaneseProgrammeEvidence.regions.map((region) => ({ ...region, institutionCount: region.institutions }))
+  : countries.map((country) => ({
+      countryOrRegion: country.countryOrRegion,
+      flag: '',
+      participants: country.participants,
+      institutionCount: country.institutions.length,
+    }));
 
-const programmeNetwork = countries.slice(0, networkSlots.length).map((country, index) => {
+const majorNetworkRegions = isRwjp ? networkRegions.slice(0, 8) : networkRegions;
+const minorNetworkRegions = isRwjp ? networkRegions.slice(8) : [];
+const networkSlots = Array.from({ length: majorNetworkRegions.length }, (_, index) => {
+  const angle = (-90 + (index * 360) / majorNetworkRegions.length) * Math.PI / 180;
+  return { x: 50 + 31 * Math.cos(angle), y: 50 + 34 * Math.sin(angle) };
+});
+const programmeNetwork = majorNetworkRegions.map((country, index) => {
   const slot = networkSlots[index];
   const size = country.participants >= 20 ? 'lg' : country.participants >= 3 ? 'md' : 'sm';
-  return {
-    ...country,
-    ...slot,
-    size,
-  };
+  return { ...country, ...slot, size };
 });
+
+const networkSummary = isRwjp
+  ? {
+      participants: fiveWeekJapaneseProgrammeEvidence.participants,
+      countries: fiveWeekJapaneseProgrammeEvidence.countriesOrRegions,
+      institutions: fiveWeekJapaneseProgrammeEvidence.institutions,
+    }
+  : historical;
 
 const rwjpJapaneseHours = isKnownFact(rwjp2027Facts.japaneseMinutes)
   ? rwjp2027Facts.japaneseMinutes.value / 60
@@ -66,15 +70,15 @@ const rwjpCultureSessions = isKnownFact(rwjp2027Facts.cultureSessions)
 
 const copy = isRwjp
   ? {
-      kicker: 'RWJP · GLOBAL REACH',
-      title: '世界9か国・地域から\n京都で学ぶ5週間へ',
-      lead: '2023–2026年のRWJPには、世界9か国・地域、18大学・機関から140名が参加しました。過去に自分の国・地域や大学から参加した学生がいるか、実績データから確認できます。',
+      kicker: 'RITSUMEIKAN · 5-WEEK JAPANESE PROGRAMMES',
+      title: '世界21か国・地域へ広がる\n立命館の5週間日本語プログラム',
+      lead: 'コロナ後の再開期である2023–2026年に、5週間のRSJP・RWJPへ293名、21か国・地域、81大学・機関から参加がありました。夏と冬を通じて積み重ねてきた、立命館の日本語教育と国際交流の広がりです。',
       imageA: 'programs/rwjp/rwjp-student-interaction.webp',
-      imageAAlt: 'RWJPで参加者同士や学生が交流する様子',
-      imageACaption: 'CONNECT — 教室の外にも ことばを使い 人と出会う時間',
+      imageAAlt: '短期日本語プログラムで参加者同士や学生が交流する様子',
+      imageACaption: 'CONNECT — 夏と冬を越えて 世界の学生が立命館へ',
       imageB: 'programs/rwjp/rwjp-japanese-class.webp',
-      imageBAlt: 'RWJPの日本語授業の様子',
-      imageBCaption: 'STUDY — 日本語学習が5週間の中心',
+      imageBAlt: '短期日本語プログラムの日本語授業の様子',
+      imageBCaption: 'STUDY — 5週間の中心にある日本語学習',
     }
   : isExpress
     ? {
@@ -89,9 +93,9 @@ const copy = isRwjp
         imageBCaption: 'OUTPUT — 学んだことばを 自分のことばとして使う',
       }
     : {
-        kicker: 'RITSUMEIKAN · GLOBAL LEARNING NETWORK',
-        title: '世界27か国・地域から\n522名が立命館へ',
-        lead: '2023–2026年のRSJP・RSJP Express・RWJP・RWJP Expressには、世界27か国・地域、114大学・機関から522名が参加しました。大学と大学のつながりを、キャンパスでの学びと学生同士の国際交流へつなげています。',
+        kicker: 'RITSUMEIKAN · INBOUND PROGRAMME PORTFOLIO',
+        title: '世界との接点を\nプログラムの形で見る',
+        lead: '2023–2026年の検証済み定型4プログラムでは522名、27か国・地域、114大学・機関の参加実績があります。5週間、Express、そして大学ごとに設計するCustom Programmeは、異なる役割を持つ受入の入口です。',
         imageA: 'IMG_1588.JPG',
         imageAAlt: '立命館大学の短期プログラムに参加する学生たち',
         imageACaption: 'PEOPLE — 国や大学を越えて 同じ場所で学ぶ',
@@ -110,55 +114,73 @@ const copy = isRwjp
     </div>
     <div class="global-evidence__lead-wrap">
       <p class="global-evidence__lead">{copy.lead}</p>
-      <p class="global-evidence__source-note">集計期間：{participationHistorySource.period} ／ 出典：短期受入プログラム参加実績の統合データ。国・地域は参加者の国籍ではなく、大学・機関の所在地で整理しています。</p>
+      <p class="global-evidence__source-note">
+        集計期間：{participationHistorySource.period} ／ 出典：短期受入プログラム参加実績の統合データ。国・地域は参加者の国籍ではなく、大学・機関の所在地で整理しています。{isRwjp ? ' RSJP・RWJPのみを合算し、Expressは含みません。' : !isProgramme ? ' 522名の集計はRSJP・RSJP Express・RWJP・RWJP Expressのみで、Custom Programmeは別集計です。' : ''}
+      </p>
     </div>
   </div>
 
-  <div class={`site-shell global-evidence__visual-grid ${isProgramme ? 'global-evidence__visual-grid--network' : ''}`}>
+  <div class={`site-shell global-evidence__visual-grid ${isProgramme ? 'global-evidence__visual-grid--network' : 'global-evidence__visual-grid--portfolio'}`}>
     <figure class="global-evidence__photo global-evidence__photo--primary">
       <img src={image(copy.imageA)} alt={copy.imageAAlt} loading="lazy" decoding="async" />
       <figcaption>{copy.imageACaption}</figcaption>
     </figure>
 
-    {isProgramme && historical ? (
-      <div class="global-evidence__network" aria-label={`${isRwjp ? 'RWJP' : 'RWJP Express'}の参加者が世界各地から立命館へ集う実績図`}>
+    {isProgramme && networkSummary ? (
+      <div class="global-evidence__network" aria-label={`${isRwjp ? 'RSJPとRWJPの5週間日本語プログラム' : 'RWJP Express'}の参加実績ネットワーク`}>
         <svg class="global-evidence__network-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
           <circle cx="50" cy="50" r="24" class="global-evidence__network-orbit" />
           <ellipse cx="50" cy="50" rx="32" ry="34" class="global-evidence__network-orbit global-evidence__network-orbit--outer" />
           {programmeNetwork.map((country) => (
-            <path
-              class={`global-evidence__network-line global-evidence__network-line--${country.size}`}
-              d={`M 50 50 L ${country.x} ${country.y}`}
-            />
+            <path class={`global-evidence__network-line global-evidence__network-line--${country.size}`} d={`M 50 50 L ${country.x} ${country.y}`} />
           ))}
         </svg>
-
         <div class="global-evidence__network-center">
-          <span>{isRwjp ? 'RWJP' : 'RWJP EXPRESS'}</span>
+          <span>{isRwjp ? 'RSJP + RWJP · 5 WEEKS' : 'RWJP EXPRESS'}</span>
           <strong>RITSUMEIKAN</strong>
           <b>GLOBAL LEARNING</b>
-          <small>{historical.participants}名 · {historical.countries}か国・地域 · {historical.institutions}大学・機関</small>
+          <small>{networkSummary.participants}名 · {networkSummary.countries}か国・地域 · {networkSummary.institutions}大学・機関</small>
         </div>
-
         {programmeNetwork.map((country) => (
-          <div
-            class={`global-evidence__network-node global-evidence__network-node--${country.size}`}
-            style={`--node-x:${country.x}%;--node-y:${country.y}%;`}
-          >
-            <strong>{country.countryOrRegion}</strong>
-            <span><b>{country.participants}名</b><small>{country.institutions.length}大学・機関</small></span>
+          <div class={`global-evidence__network-node global-evidence__network-node--${country.size}`} style={`--node-x:${country.x}%;--node-y:${country.y}%;`}>
+            <strong>{country.flag && <span aria-hidden="true">{country.flag} </span>}{country.countryOrRegion}</strong>
+            <span><b>{country.participants}名</b><small>{country.institutionCount}大学・機関</small></span>
           </div>
         ))}
+        {minorNetworkRegions.length > 0 && (
+          <div class="global-evidence__network-more" aria-label="その他の参加国・地域">
+            <span>AND MORE</span>
+            <div>
+              {minorNetworkRegions.map((country) => (
+                <small><i aria-hidden="true">{country.flag}</i>{country.countryOrRegion}<b>{country.participants}</b></small>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     ) : (
-      <div class="global-evidence__globe" aria-label="世界と立命館キャンパスのつながりを表す図">
-        <div class="global-evidence__globe-ring global-evidence__globe-ring--one"></div>
-        <div class="global-evidence__globe-ring global-evidence__globe-ring--two"></div>
-        <div class="global-evidence__globe-ring global-evidence__globe-ring--three"></div>
-        <span class="global-evidence__origin global-evidence__origin--1"><strong>South Korea</strong><small>219名</small></span>
-        <span class="global-evidence__origin global-evidence__origin--2"><strong>Australia</strong><small>90名</small></span>
-        <span class="global-evidence__origin global-evidence__origin--3"><strong>United States</strong><small>81名</small></span>
-        <strong class="global-evidence__globe-title">RITSUMEIKAN<br />GLOBAL LEARNING</strong>
+      <div class="global-evidence__portfolio" aria-label="立命館の短期受入プログラム群">
+        <article>
+          <p>5-WEEK JAPANESE</p>
+          <div class="global-evidence__portfolio-flags" aria-hidden="true">🇦🇺 🇺🇸 🇰🇷 🇨🇦 🇳🇿 🇬🇧</div>
+          <strong>{fiveWeekJapaneseProgrammeEvidence.participants}名</strong>
+          <span>{fiveWeekJapaneseProgrammeEvidence.countriesOrRegions}か国・地域 · {fiveWeekJapaneseProgrammeEvidence.institutions}大学・機関</span>
+          <small>RSJP + RWJP / 5週間</small>
+        </article>
+        <article>
+          <p>EXPRESS</p>
+          <div class="global-evidence__portfolio-flags" aria-hidden="true">{expressProgrammeEvidence.representativeFlags.join(' ')}</div>
+          <strong>{expressProgrammeEvidence.participants}名</strong>
+          <span>{expressProgrammeEvidence.countriesOrRegions}か国・地域 · {expressProgrammeEvidence.institutions}大学・機関</span>
+          <small>RSJP Express + RWJP Express</small>
+        </article>
+        <article class="global-evidence__portfolio-custom">
+          <p>CUSTOM / PARTNER-BASED</p>
+          <div class="global-evidence__portfolio-flags" aria-hidden="true">🤝 🌏 🏫</div>
+          <strong>大学ごとに設計</strong>
+          <span>地域・人数・期間は案件ごとに異なるため別集計</span>
+          <small>Verified total pending canonical custom-programme dataset</small>
+        </article>
       </div>
     )}
 
@@ -168,26 +190,27 @@ const copy = isRwjp
     </figure>
   </div>
 
-  {isProgramme && historical ? (
-    <dl class="site-shell global-evidence__stats" aria-label={`${isRwjp ? 'RWJP' : 'RWJP Express'}の2023年から2026年の参加実績`}>
+  {isRwjp ? (
+    <>
+      <dl class="site-shell global-evidence__stats" aria-label="2023年から2026年のRSJP・RWJP 5週間日本語プログラム参加実績">
+        <div><dt>参加者</dt><dd>{fiveWeekJapaneseProgrammeEvidence.participants.toLocaleString('ja-JP')}名</dd><span>PARTICIPANTS</span></div>
+        <div><dt>国・地域</dt><dd>{fiveWeekJapaneseProgrammeEvidence.countriesOrRegions}</dd><span>COUNTRIES / REGIONS</span></div>
+        <div><dt>大学・機関</dt><dd>{fiveWeekJapaneseProgrammeEvidence.institutions}</dd><span>INSTITUTIONS</span></div>
+      </dl>
+      <p class="site-shell global-evidence__scope-note">※ 2023–2026年（コロナ後の再開期）のRSJP・RWJP実績を合算。両プログラムはいずれも5週間の日本語プログラムです。Express系は含みません。</p>
+    </>
+  ) : isExpress && historical ? (
+    <dl class="site-shell global-evidence__stats" aria-label="RWJP Expressの2023年から2026年の参加実績">
       <div><dt>参加者</dt><dd>{historical.participants.toLocaleString('ja-JP')}名</dd><span>PARTICIPANTS</span></div>
       <div><dt>国・地域</dt><dd>{historical.countries}</dd><span>COUNTRIES / REGIONS</span></div>
       <div><dt>大学・機関</dt><dd>{historical.institutions}</dd><span>INSTITUTIONS</span></div>
     </dl>
   ) : (
-    <dl class="site-shell global-evidence__stats" aria-label="2023年から2026年の短期受入プログラム参加実績">
-      <div><dt>参加者</dt><dd>{shortTermParticipationEvidence.participants.toLocaleString('ja-JP')}名</dd><span>PARTICIPANTS</span></div>
+    <dl class="site-shell global-evidence__stats" aria-label="2023年から2026年の検証済み定型短期受入プログラム参加実績">
+      <div><dt>参加者</dt><dd>{shortTermParticipationEvidence.participants.toLocaleString('ja-JP')}名</dd><span>STANDARD PROGRAMMES</span></div>
       <div><dt>国・地域</dt><dd>{shortTermParticipationEvidence.countriesOrRegions}</dd><span>COUNTRIES / REGIONS</span></div>
       <div><dt>大学・機関</dt><dd>{shortTermParticipationEvidence.institutions}</dd><span>INSTITUTIONS</span></div>
     </dl>
-  )}
-
-  {!isProgramme && (
-    <div class="site-shell global-evidence__programme-totals" aria-label="プログラム群別参加者数">
-      {Object.entries(shortTermParticipationEvidence.programmeParticipants).map(([programme, participants]) => (
-        <div><span>{programme}</span><strong>{participants}名</strong></div>
-      ))}
-    </div>
   )}
 
   {isRwjp && (
@@ -205,16 +228,15 @@ const copy = isRwjp
     <div class="site-shell global-evidence__directory" data-participation-directory>
       <div class="global-evidence__directory-heading">
         <div>
-          <p>FIND YOUR COUNTRY / UNIVERSITY</p>
-          <h3>自分の国・地域や大学を探す</h3>
-          <span>過去の参加実績です。現在の募集対象・提携関係を意味するものではありません。</span>
+          <p>{isRwjp ? 'RWJP ONLY · 2023–2026' : 'FIND YOUR COUNTRY / UNIVERSITY'}</p>
+          <h3>{isRwjp ? 'このRWJPの過去参加実績を見る' : '自分の国・地域や大学を探す'}</h3>
+          <span>{isRwjp ? `ここからはRWJP単独の実績です。140名・9か国地域・18大学機関。` : ''} 過去の参加実績は、現在の募集対象・提携関係を意味するものではありません。</span>
         </div>
         <label>
           <span>国・地域・大学名で検索</span>
           <input type="search" placeholder="例：Australia / Melbourne" autocomplete="off" data-participation-search />
         </label>
       </div>
-
       <div class="global-evidence__country-list" data-participation-list>
         {countries.map((country) => (
           <details class="global-evidence__country" data-participation-country data-search-text={`${country.countryOrRegion} ${country.institutions.map((item) => item.institution).join(' ')}`.toLowerCase()}>
@@ -242,7 +264,6 @@ const copy = isRwjp
       const countries = Array.from(directory.querySelectorAll('[data-participation-country]'));
       const empty = directory.querySelector('[data-participation-empty]');
       if (!(input instanceof HTMLInputElement)) return;
-
       input.addEventListener('input', () => {
         const query = input.value.trim().toLowerCase();
         let visible = 0;
