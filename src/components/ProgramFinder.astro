@@ -88,6 +88,7 @@ const customThemes = [
         const name = publicCopy?.name ?? programme.code;
         const summary = publicCopy?.summary ?? '詳細情報を確認中です。';
         const status = publicCopy?.status ?? '詳細確認中';
+        const experienceLine = publicCopy?.experienceLine;
         const sources = responsiveCardImages(programme.image);
         const href = programmeHref(programme.id);
         return (
@@ -101,7 +102,7 @@ const customThemes = [
                 src={sources.src}
                 srcset={sources.srcset}
                 sizes="(min-width: 900px) 380px, (min-width: 560px) 50vw, 100vw"
-                alt={copy.imageAlt}
+                alt={`${name}のプログラムイメージ`}
                 width="960"
                 height="640"
                 loading="lazy"
@@ -116,7 +117,7 @@ const customThemes = [
               </div>
               <h3><a href={href}>{name}</a></h3>
               <p>{summary}</p>
-              {copy.experienceLine && <p class="programme-card__experience">{copy.experienceLine}</p>}
+              {experienceLine && <p class="programme-card__experience">{experienceLine}</p>}
               <a class="programme-card__link" href={href} aria-label={`${name}の詳細ページを見る`}>
                 詳細を見る <span>→</span>
               </a>
