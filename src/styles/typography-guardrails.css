@@ -1,0 +1,192 @@
+/*
+ * Recruitment-site typography guardrails
+ *
+ * Purpose:
+ * - Preserve intentional Japanese line breaks on desktop.
+ * - Prevent large display copy from breaking into 3–5 awkward lines.
+ * - Keep explanatory text readable in presentations and on ordinary laptops.
+ * - Treat small English labels as accents, never as the primary information layer.
+ *
+ * Do not remove these rules during visual refactors without checking the Japanese
+ * recruitment pages at 1366px, 1600px and 1920px widths.
+ */
+
+/* Global evidence / participation sections */
+.global-evidence__intro {
+  grid-template-columns: minmax(0, 1.18fr) minmax(0, 0.82fr);
+  gap: clamp(2rem, 4.5vw, 4.75rem);
+  align-items: end;
+}
+
+.global-evidence h2 {
+  font-size: clamp(2rem, 3.25vw, 3.55rem);
+  line-height: 1.08;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+
+/* The five-week Japanese evidence heading is intentionally two lines on desktop. */
+.global-evidence--rwjp h2 {
+  font-size: clamp(1.95rem, 2vw, 2.25rem);
+  line-height: 1.16;
+  letter-spacing: -0.045em;
+}
+
+.global-evidence--rwjp .global-evidence__title-line {
+  white-space: nowrap;
+}
+
+.global-evidence__lead {
+  font-size: clamp(1.02rem, 1.15vw, 1.14rem);
+  line-height: 1.85;
+}
+
+.global-evidence__source-note,
+.global-evidence__scope-note {
+  font-size: 0.8rem;
+  line-height: 1.72;
+}
+
+.global-evidence__photo figcaption {
+  font-size: 0.86rem;
+  line-height: 1.55;
+}
+
+.global-evidence__stats dt {
+  font-size: 0.84rem;
+}
+
+.global-evidence__stats span {
+  font-size: 0.69rem;
+}
+
+.global-evidence__current-design > p,
+.global-evidence__current-design dt,
+.global-evidence__directory-heading p,
+.global-evidence__directory-heading label span {
+  font-size: 0.74rem;
+}
+
+.global-evidence__directory-heading > div > span {
+  font-size: 0.78rem;
+  line-height: 1.72;
+}
+
+.global-evidence__country summary strong {
+  font-size: 0.94rem;
+}
+
+.global-evidence__country summary small,
+.global-evidence__country li strong {
+  font-size: 0.7rem;
+}
+
+.global-evidence__country li span {
+  font-size: 0.78rem;
+}
+
+/* Programme finder / programme cards */
+.programme-finder__intro h2,
+.partner-programme__lead h2 {
+  max-width: 18em;
+  font-size: clamp(2rem, 3.35vw, 3.55rem);
+  line-height: 1.1;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+
+.programme-finder__intro-copy {
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.programme-finder__intro-copy small {
+  font-size: 0.8rem;
+  line-height: 1.7;
+}
+
+.programme-pathways article > span {
+  font-size: 0.72rem;
+}
+
+.programme-pathways article > p {
+  font-size: 0.66rem;
+}
+
+.programme-pathways small {
+  font-size: 0.76rem;
+}
+
+.programme-card__visual > small {
+  font-size: 0.66rem;
+}
+
+.programme-card__experience {
+  font-size: 0.82rem !important;
+  line-height: 1.65;
+}
+
+.partner-programme__process span,
+.partner-programme__themes > p {
+  font-size: 0.7rem;
+}
+
+.partner-programme__process strong {
+  font-size: 0.86rem;
+}
+
+.partner-programme__process p {
+  font-size: 0.84rem;
+}
+
+.partner-programme__themes li,
+.partner-programme__footer > p {
+  font-size: 0.78rem;
+}
+
+/* Japanese headings should break by meaning, not by arbitrary character count. */
+:where(
+  .section-intro h2,
+  .programme-finder h2,
+  .partner-programme h2,
+  .global-evidence h2,
+  .global-evidence h3
+) {
+  word-break: keep-all;
+  overflow-wrap: normal;
+}
+
+@media (max-width: 900px) {
+  .global-evidence__intro {
+    grid-template-columns: 1fr;
+  }
+
+  .global-evidence--rwjp h2 {
+    font-size: clamp(2rem, 6.5vw, 3rem);
+  }
+
+  .global-evidence--rwjp .global-evidence__title-line {
+    white-space: normal;
+  }
+}
+
+@media (max-width: 620px) {
+  .global-evidence h2,
+  .global-evidence--rwjp h2,
+  .programme-finder__intro h2,
+  .partner-programme__lead h2 {
+    font-size: clamp(1.85rem, 9vw, 2.6rem);
+    line-height: 1.12;
+  }
+
+  .global-evidence__lead,
+  .programme-finder__intro-copy {
+    font-size: 1rem;
+  }
+
+  .global-evidence__source-note,
+  .global-evidence__scope-note,
+  .programme-finder__intro-copy small {
+    font-size: 0.78rem;
+  }
+}
