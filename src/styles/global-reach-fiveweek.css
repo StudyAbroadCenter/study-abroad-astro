@@ -1,0 +1,48 @@
+/* Five-week Japanese-programme reach + homepage portfolio distinction. */
+.global-evidence__network-more{position:absolute;z-index:4;right:1rem;bottom:.9rem;left:1rem;display:grid;gap:.5rem;padding:.7rem .8rem;border:1px solid rgba(139,36,50,.1);border-radius:.8rem;background:rgba(255,253,250,.9);backdrop-filter:blur(8px)}
+.global-evidence__network-more>span{color:var(--rits-enji,#8b2432);font-size:.52rem;font-weight:800;letter-spacing:.14em}
+.global-evidence__network-more>div{display:flex;flex-wrap:wrap;gap:.34rem .45rem}
+.global-evidence__network-more small{display:inline-flex;align-items:center;gap:.22rem;color:#625b57;font-size:.49rem;line-height:1.2;white-space:nowrap}
+.global-evidence__network-more small i{font-style:normal;font-size:.72rem}
+.global-evidence__network-more small b{color:var(--rits-enji,#8b2432);font-size:.48rem}
+.global-evidence--rwjp .global-evidence__network{min-height:31rem;padding-bottom:5.8rem}
+.global-evidence--rwjp .global-evidence__network-center{top:45%}
+.global-evidence--rwjp .global-evidence__network-lines{height:82%}
+.global-evidence--rwjp .global-evidence__network-node{transform:translate(-50%,-50%) scale(.94)}
+.global-evidence__scope-note{margin:.75rem auto 0;color:#817873;font-size:.72rem;line-height:1.7}
+
+.global-evidence__visual-grid--portfolio{grid-template-columns:minmax(0,.9fr) minmax(22rem,1.25fr) minmax(0,.9fr)}
+.global-evidence__portfolio{display:grid;gap:.8rem;align-content:center;min-height:24rem;padding:1rem;border:1px solid var(--rits-line,#e5dfd8);border-radius:1rem;background:linear-gradient(180deg,#fffdfa,#f7f3ee);box-shadow:0 10px 28px rgba(52,42,38,.045)}
+.global-evidence__portfolio article{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.35rem 1rem;align-items:center;padding:1rem 1.05rem;border:1px solid #e8e1da;border-radius:.8rem;background:#fff}
+.global-evidence__portfolio article p{grid-column:1/-1;margin:0;color:var(--rits-enji,#8b2432);font-size:.58rem;font-weight:800;letter-spacing:.12em}
+.global-evidence__portfolio-flags{font-size:1.12rem;letter-spacing:.08em;white-space:nowrap}
+.global-evidence__portfolio article>strong{justify-self:end;color:#302b29;font-size:1.35rem;line-height:1.1}
+.global-evidence__portfolio article>span{color:#615a56;font-size:.73rem;line-height:1.45}
+.global-evidence__portfolio article>small{justify-self:end;color:#8d847e;font-size:.56rem;line-height:1.4;text-align:right}
+.global-evidence__portfolio-custom{background:#faf6f6!important;border-color:rgba(139,36,50,.14)!important}
+.global-evidence__portfolio-custom>strong{font-size:1rem!important;color:#5e3038!important}
+
+@media(max-width:1080px){
+  .global-evidence__visual-grid--portfolio{grid-template-columns:minmax(0,.8fr) minmax(20rem,1.35fr) minmax(0,.8fr)}
+  .global-evidence--rwjp .global-evidence__network-node{transform:translate(-50%,-50%) scale(.86)}
+}
+@media(max-width:900px){
+  .global-evidence__visual-grid--portfolio{grid-template-columns:1fr 1fr}
+  .global-evidence__portfolio{grid-column:1/-1;order:-1;min-height:auto}
+  .global-evidence--rwjp .global-evidence__network{min-height:34rem}
+  .global-evidence--rwjp .global-evidence__network-node{transform:translate(-50%,-50%) scale(.92)}
+}
+@media(max-width:620px){
+  .global-evidence__visual-grid--portfolio{grid-template-columns:1fr}
+  .global-evidence__portfolio{grid-column:auto}
+  .global-evidence__portfolio article{grid-template-columns:1fr}
+  .global-evidence__portfolio article>strong,.global-evidence__portfolio article>small{justify-self:start;text-align:left}
+  .global-evidence__portfolio-flags{white-space:normal}
+  .global-evidence--rwjp .global-evidence__network{min-height:44rem;padding-bottom:9.5rem}
+  .global-evidence--rwjp .global-evidence__network-center{top:40%;width:9.6rem}
+  .global-evidence--rwjp .global-evidence__network-lines{height:68%}
+  .global-evidence--rwjp .global-evidence__network-node{transform:translate(-50%,-50%) scale(.78)}
+  .global-evidence__network-more{bottom:.7rem;max-height:8rem;overflow:auto}
+  .global-evidence__network-more>div{gap:.38rem .55rem}
+  .global-evidence__network-more small{font-size:.5rem}
+}
