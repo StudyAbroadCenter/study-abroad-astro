@@ -17,15 +17,15 @@ const evidence = shortTermParticipationEvidence;
   <img class="recruitment-hero__image" src={image('IMG_1588.JPG')} alt="Students taking part in a short-term program at Ritsumeikan University" width="1600" height="1067" loading="eager" fetchpriority="high" />
   <div class="recruitment-hero__overlay" aria-hidden="true"></div>
   <div class="site-shell recruitment-hero__content en-hero__content">
-    <p class="recruitment-hero__location">Study at Ritsumeikan. Live Japan.</p>
+    <p class="recruitment-hero__location">Study at Ritsumeikan. Live in Japan.</p>
     <h1 id="en-hero-title"><span>Study beyond</span><span>the classroom.</span></h1>
-    <p class="recruitment-hero__lead">Learn on campus. Meet students here. Let everyday Japan become part of what you study.<br />Short-term study at Ritsumeikan University.</p>
+    <p class="recruitment-hero__lead">Learn on campus. Meet students here. Let daily life in Japan add context to what you study.<br />Short-term study at Ritsumeikan University.</p>
     <div class="recruitment-hero__actions">
       <a class="action-button action-button--primary" href="#program-finder">Find your program</a>
-      <a class="action-button action-button--glass" href="#why-ritsumeikan">See what the experience includes</a>
+      <a class="action-button action-button--glass" href="#why-ritsumeikan">See what learning here can include</a>
     </div>
     <dl class="recruitment-hero__facts">
-      <div><dt>For</dt><dd>University students</dd></div>
+      <div><dt>For</dt><dd>University & graduate students</dd></div>
       <div><dt>Ways to join</dt><dd>Individual or university group</dd></div>
       <div><dt>Program types</dt><dd>Language, culture and thematic study</dd></div>
     </dl>
@@ -38,16 +38,16 @@ const evidence = shortTermParticipationEvidence;
   <div class="site-shell">
     <div class="section-intro programme-finder__intro">
       <p class="section-kicker">For individual students</p>
-      <h2 id="en-finder-title">Find the program that fits how you want to learn</h2>
+      <h2 id="en-finder-title">Find a program that fits how you want to learn</h2>
       <div class="programme-finder__intro-copy"><p>Japanese language and culture · Thematic study</p><small>The campus is set for each program.</small></div>
     </div>
     <div class="programme-pathways programme-pathways--student" aria-label="Two ways to explore individual programs">
       <article><span>01</span><p>Learn Japanese in context</p><h3>Japanese Language & Culture</h3><small>RSJP / RSJP Express / RWJP / RWJP Express</small></article>
       <article><span>02</span><p>Study through a specialist theme</p><h3>Thematic Study</h3><small>RDSP / RBMP</small></article>
     </div>
-    <div class="finder-controls en-finder__note"><div><span>01</span><strong>Start with what you want to study</strong><p>Compare the six individual programs below. Confirmed dates, fees, eligibility and application details will appear on each English program page as those pages are released.</p></div></div>
-    <div class="finder-results-heading"><p>Individual programs <strong>{studentProgrammes.length}</strong></p><small>Annual details are shown only after they are verified.</small></div>
-    <div class="programme-grid">
+    <div class="finder-controls en-finder__note"><div><strong>Start with what you want to study.</strong><p>Compare the six individual programs below. Dates, fees, eligibility and application details are published on English program pages only after they are confirmed.</p></div></div>
+    <div class="finder-results-heading"><p>Individual programs <strong>{studentProgrammes.length}</strong></p><small>Annual details are shown only after verification.</small></div>
+    <div class="programme-grid en-programme-grid">
       {studentProgrammes.map((programme) => {
         const copy = programme.copy.en;
         return (
@@ -58,8 +58,9 @@ const evidence = shortTermParticipationEvidence;
             </div>
             <div class="programme-card__body">
               <div class="programme-card__meta programme-card__meta--status"><span>{copy.campusLabel}</span></div>
-              <h3>{copy.name}</h3><p>{copy.summary}</p>{copy.experienceLine && <p class="programme-card__experience">{copy.experienceLine}</p>}
-              <p class="en-programme-card__pending">English program details are being localised page by page.</p>
+              <h3>{copy.name}</h3>
+              <p>{copy.summary}</p>
+              {copy.experienceLine && <p class="programme-card__experience">{copy.experienceLine}</p>}
             </div>
           </article>
         );
@@ -70,15 +71,20 @@ const evidence = shortTermParticipationEvidence;
       <aside class="partner-programme partner-programme--expanded en-partner" id="custom-programs" aria-labelledby="en-custom-title">
         <div class="partner-programme__label">For universities and educational institutions</div>
         <div class="partner-programme__content">
-          <div class="partner-programme__lead"><p class="section-kicker">Build a program around your academic goals</p><h2 id="en-custom-title">A study program designed with your institution</h2><p>{customProgramme.copy.en.summary}</p><p class="partner-programme__promise">Custom Programs are for university or institutional groups, not individual applications. Academic goals, length, group size, student level, classes, student interaction, cultural activities, field learning and the most suitable campus are discussed together.</p></div>
+          <div class="partner-programme__lead">
+            <p class="section-kicker">Build around your academic goals</p>
+            <h2 id="en-custom-title">A study program designed with your institution</h2>
+            <p>{customProgramme.copy.en.summary}</p>
+            <p class="partner-programme__promise">Custom Programs are for university or institutional groups, not individual applications. We discuss the academic purpose, timing, group profile, learning activities and suitable campus with your institution.</p>
+          </div>
           <div class="partner-programme__process" aria-label="Custom Program planning process">
-            <div><span>01</span><strong>Define the purpose</strong><p>We start with your academic goals, theme, timing, group size and student profile.</p></div>
-            <div><span>02</span><strong>Shape the learning</strong><p>Classes, student interaction, cultural learning and visits are considered as one program.</p></div>
-            <div><span>03</span><strong>Choose the setting</strong><p>The campus is discussed based on the academic plan, facilities, accommodation and schedule.</p></div>
-            <div><span>04</span><strong>Prepare for delivery</strong><p>We work with your institution to turn the plan into a practical short-term program.</p></div>
+            <div><span>01</span><strong>Define the purpose</strong><p>Academic goals, theme, timing, group size and student profile.</p></div>
+            <div><span>02</span><strong>Shape the learning</strong><p>Classes, student interaction, cultural learning and field visits.</p></div>
+            <div><span>03</span><strong>Choose the setting</strong><p>Campus, facilities, accommodation and schedule are considered together.</p></div>
+            <div><span>04</span><strong>Prepare the program</strong><p>We work with your institution to turn the plan into a practical short-term program.</p></div>
           </div>
           <div class="partner-programme__themes"><p>Possible areas of discussion</p><ul><li>Japanese language and culture</li><li>Business</li><li>Marketing</li><li>Entrepreneurship</li><li>Data science</li><li>AI</li><li>Media</li><li>Popular culture</li></ul></div>
-          <div class="partner-programme__footer"><p>Kinugasa, Osaka Ibaraki and Biwako-Kusatsu are possible locations. The campus is not freely selected by participating students; it is considered with the institution according to the program design. The Study Abroad Center can communicate with institutional partners in English.</p></div>
+          <div class="partner-programme__footer"><p>Kinugasa, Osaka Ibaraki and Biwako-Kusatsu are possible locations. The campus is considered with the institution according to the program design; participating students do not select it independently. The Study Abroad Center can communicate with institutional partners in English.</p></div>
         </div>
       </aside>
     )}
@@ -86,16 +92,16 @@ const evidence = shortTermParticipationEvidence;
 </section>
 
 <section class="en-experience" id="why-ritsumeikan" aria-labelledby="en-experience-title"><div class="site-shell">
-  <div class="section-intro"><p class="section-kicker">Why Ritsumeikan</p><h2 id="en-experience-title">Study here. Connect here. Learn from where you are.</h2><p class="en-section-lead">A short program should still feel like university life. Our programs bring together academic study, contact with students and learning that reaches beyond the classroom.</p></div>
+  <div class="section-intro"><p class="section-kicker">Why Ritsumeikan</p><h2 id="en-experience-title">Learn on campus. Connect with people. Discover Japan in context.</h2><p class="en-section-lead">A short program can still feel like university life. Depending on the program, academic study is connected with student interaction, cultural learning and experiences beyond the classroom.</p></div>
   <div class="en-experience__grid">
-    <article><span>01</span><h3>Academic learning</h3><p>Build knowledge through language study or a focused academic theme, depending on the program.</p></article>
-    <article><span>02</span><h3>Student connection</h3><p>Where a program includes student interaction, it becomes part of the learning rather than a separate social extra.</p></article>
-    <article><span>03</span><h3>Japan in context</h3><p>Cultural experiences and field learning are connected to the purpose and structure of each program.</p></article>
+    <article><span>01</span><h3>Academic learning</h3><p>Develop your language skills or explore a focused academic theme.</p></article>
+    <article><span>02</span><h3>Student connection</h3><p>Where included, interaction with Ritsumeikan students becomes part of the learning.</p></article>
+    <article><span>03</span><h3>Japan in context</h3><p>Cultural experiences and field learning connect the program with the place around you.</p></article>
   </div>
 </div></section>
 
 <section class="en-evidence" id="global-reach" aria-labelledby="en-evidence-title"><div class="site-shell">
-  <div class="section-intro"><p class="section-kicker">Global Reach</p><h2 id="en-evidence-title">Students have come from universities around the world</h2><p class="en-section-lead">Verified participation in the four established Japanese-language programs, 2023–2026.</p></div>
+  <div class="section-intro"><p class="section-kicker">Global Reach</p><h2 id="en-evidence-title">Students have joined us from universities around the world</h2><p class="en-section-lead">Verified participation in the four established Japanese-language programs, 2023–2026.</p></div>
   <dl class="en-evidence__stats">
     <div><dt>{evidence.participants}</dt><dd>participants</dd></div>
     <div><dt>{evidence.institutions}</dt><dd>universities / institutions</dd></div>
@@ -105,15 +111,15 @@ const evidence = shortTermParticipationEvidence;
 </div></section>
 
 <section class="en-photo-story" aria-labelledby="en-photo-title"><div class="site-shell">
-  <div class="section-intro"><p class="section-kicker">Campus and community</p><h2 id="en-photo-title">A short stay can still have a real rhythm</h2></div>
+  <div class="section-intro"><p class="section-kicker">Campus and community</p><h2 id="en-photo-title">See what everyday learning can look like</h2><p class="en-section-lead">The balance of classes, interaction and activities differs by program. These photographs show past short-term program settings at Ritsumeikan.</p></div>
   <div class="en-photo-story__grid">
-    <figure><img src={image('IMG_8178.JPG')} alt="Students learning together during a Ritsumeikan short-term program" loading="lazy" width="1200" height="800" /><figcaption>Learn with a purpose, not just a timetable.</figcaption></figure>
-    <figure><img src={image('IMG_5092.JPG')} alt="Students taking part in a cultural activity in Kyoto" loading="lazy" width="1200" height="800" /><figcaption>Use the city and culture as part of the learning environment.</figcaption></figure>
-    <figure><img src={image('IMG_1687.JPG')} alt="Ritsumeikan University campus environment" loading="lazy" width="1200" height="800" /><figcaption>Spend time on a university campus, not on a packaged tour.</figcaption></figure>
+    <figure><img src={optimizedImage('IMG_8178.JPG', 960)} srcset={`${optimizedImage('IMG_8178.JPG', 640)} 640w, ${optimizedImage('IMG_8178.JPG', 960)} 960w`} sizes="(min-width: 900px) 42vw, 100vw" alt="Students learning together during a Ritsumeikan short-term program" loading="lazy" decoding="async" width="960" height="640" /><figcaption>Learning together on campus.</figcaption></figure>
+    <figure><img src={optimizedImage('IMG_5092.JPG', 960)} srcset={`${optimizedImage('IMG_5092.JPG', 640)} 640w, ${optimizedImage('IMG_5092.JPG', 960)} 960w`} sizes="(min-width: 900px) 29vw, 100vw" alt="Students taking part in a cultural activity in Kyoto" loading="lazy" decoding="async" width="960" height="640" /><figcaption>Culture and place as part of the experience.</figcaption></figure>
+    <figure><img src={optimizedImage('IMG_1687.JPG', 960)} srcset={`${optimizedImage('IMG_1687.JPG', 640)} 640w, ${optimizedImage('IMG_1687.JPG', 960)} 960w`} sizes="(min-width: 900px) 29vw, 100vw" alt="Ritsumeikan University campus environment" loading="lazy" decoding="async" width="960" height="640" /><figcaption>Time on a university campus in Japan.</figcaption></figure>
   </div>
 </div></section>
 
 <section class="en-support" id="support" aria-labelledby="en-support-title"><div class="site-shell en-support__inner">
   <div><p class="section-kicker">Support</p><h2 id="en-support-title">Clear information before you arrive</h2><p>Application conditions, accommodation, fees and schedules are published only when they are confirmed for the relevant program and year. The Study Abroad Center can provide support in English.</p></div>
-  <a class="action-button action-button--dark" href={base}>View the Japanese master site</a>
+  <a class="action-button action-button--dark" href={base}>View this site in Japanese</a>
 </div></section>
