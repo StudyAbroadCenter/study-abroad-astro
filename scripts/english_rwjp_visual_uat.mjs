@@ -48,6 +48,11 @@ for(const viewport of viewports){
     const end=apply?.getAttribute('data-end')||closed?.getAttribute('data-end')||'';
     const jstToday=new Date(Date.now()+9*60*60*1000).toISOString().slice(0,10);
     const shouldBeOpen=Boolean(start&&end&&jstToday>=start&&jstToday<=end);
+    const imageUpscaleRisk=[...document.querySelectorAll('main img')].map((img)=>{
+      const rect=img.getBoundingClientRect();
+      const dpr=window.devicePixelRatio||1;
+      return {src:img.getAttribute('src')||'',naturalWidth:img.naturalWidth,renderedDeviceWidth:Math.round(rect.width*dpr),ratio:img.naturalWidth?Number((rect.width*dpr/img.naturalWidth).toFixed(2)):999};
+    }).filter((item)=>item.ratio>1.12);
     return {
       lang:document.documentElement.lang,
       title:document.title,
@@ -59,6 +64,7 @@ for(const viewport of viewports){
       applySection:Boolean(document.querySelector('#apply')),
       japaneseLeak:[...document.querySelectorAll('main *')].map((el)=>el.textContent||'').find((text)=>/[ぁ-んァ-ン一-龯]/.test(text))||'',
       unloadedImages:[...document.querySelectorAll('main img')].filter((img)=>!img.complete||img.naturalWidth===0).map((img)=>img.getAttribute('src')||'').filter(Boolean),
+      imageUpscaleRisk,
       shouldBeOpen,
       applyVisible:apply instanceof HTMLElement?!apply.hidden:false,
       closedVisible:closed instanceof HTMLElement?!closed.hidden:false,
@@ -69,7 +75,7 @@ for(const viewport of viewports){
   const applicationStateCorrect=metrics.shouldBeOpen?metrics.applyVisible&&!metrics.closedVisible:!metrics.applyVisible&&metrics.closedVisible;
   const headerLinksCorrect=metrics.headerLinks.every((href)=>href.includes('/en/#'));
   const status=response?.status()??0;
-  const routeFailed=status>=400||metrics.lang!=='en'||!metrics.title.includes('RWJP')||metrics.robots!=='noindex,nofollow'||metrics.bodyText<1500||metrics.overflowX>2||!metrics.h1.includes('Study Japanese')||!metrics.h1.includes('Live in Kyoto')||!metrics.essentials||!metrics.applySection||Boolean(metrics.japaneseLeak)||metrics.unloadedImages.length>0||!applicationStateCorrect||!headerLinksCorrect||pageErrors.length>0||consoleErrors.length>0||localResourceErrors.length>0;
+  const routeFailed=status>=400||metrics.lang!=='en'||!metrics.title.includes('RWJP')||metrics.robots!=='noindex,nofollow'||metrics.bodyText<1500||metrics.overflowX>2||!metrics.h1.includes('Study Japanese')||!metrics.h1.includes('Live in Kyoto')||!metrics.essentials||!metrics.applySection||Boolean(metrics.japaneseLeak)||metrics.unloadedImages.length>0||metrics.imageUpscaleRisk.length>0||!applicationStateCorrect||!headerLinksCorrect||pageErrors.length>0||consoleErrors.length>0||localResourceErrors.length>0;
   if(routeFailed)failed=true;
   const screenshot=path.join(outputDir,`en-rwjp-${viewport.name}.jpg`);
   await page.screenshot({path:screenshot,fullPage:true,type:'jpeg',quality:80});
@@ -79,5 +85,5 @@ for(const viewport of viewports){
 
 await browser.close();
 await fs.writeFile(path.join(outputDir,'report.json'),JSON.stringify({generatedAt:new Date().toISOString(),route,report},null,2));
-for(const item of report)console.log(`${item.passed?'PASS':'FAIL'} ${item.viewport} ${route} status=${item.httpStatus} overflowX=${item.overflowX}px images=${item.unloadedImages.length} applicationState=${item.applicationStateCorrect}`);
+for(const item of report)console.log(`${item.passed?'PASS':'FAIL'} ${item.viewport} ${route} status=${item.httpStatus} overflowX=${item.overflowX}px images=${item.unloadedImages.length} upscaleRisk=${item.imageUpscaleRisk.length} applicationState=${item.applicationStateCorrect}`);
 if(failed){console.error('English RWJP visual UAT failed. Inspect english-rwjp-visual-uat/report.json and screenshots.');process.exit(1);}
