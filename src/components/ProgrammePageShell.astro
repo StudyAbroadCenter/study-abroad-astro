@@ -5,6 +5,8 @@ import '../styles/programme-page.css';
 interface Props { programme: ProgrammePageDraft; }
 const { programme } = Astro.props;
 const isCustom = programme.id === 'custom-programs';
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
 ---
 <article class="programme-page">
   <header class="programme-page__hero">
@@ -31,5 +33,5 @@ const isCustom = programme.id === 'custom-programs';
 
   <section class="programme-page__section" id="key-facts" aria-labelledby="key-facts-title"><div class="site-shell"><div class="programme-page__section-heading programme-page__section-heading--compact"><p class="section-kicker">基本情報</p><h2 id="key-facts-title">{isCustom ? '相談の前に知っておきたいこと' : '応募前に知っておきたいこと'}</h2><p>{isCustom ? '衣笠・大阪いばらき・びわこ・くさつの3キャンパスを候補に、教育内容、施設、宿泊、日程等を踏まえて実施場所を相談します。参加学生がキャンパスを自由に選択する仕組みではありません。' : '未確認の情報は推測せず、正式に確認できた項目から更新します。'}</p></div><dl class="programme-page__facts"><div><dt>{isCustom ? '対象' : '実施日程'}</dt><dd>{isCustom ? '海外大学・教育機関の学生団体' : '確認中'}</dd></div><div><dt>期間</dt><dd>{isCustom ? '相談のうえ設計' : '確認中'}</dd></div><div><dt>キャンパス</dt><dd>{isCustom ? '3キャンパスから内容に応じて相談' : programme.campus ?? '確認中'}</dd></div><div><dt>{isCustom ? '内容' : '参加費'}</dt><dd>{isCustom ? '教育目的に合わせて相談' : '確認中'}</dd></div><div><dt>{isCustom ? '問い合わせ' : '宿泊'}</dt><dd>{isCustom ? '大学・機関の担当者から' : '確認中'}</dd></div><div><dt>{isCustom ? '言語対応' : '応募条件'}</dt><dd>{isCustom ? '留学サポートデスクは英語での対応が可能' : '確認中'}</dd></div><div><dt>{isCustom ? '個人申込' : '募集期間'}</dt><dd>{isCustom ? '対象外' : '確認中'}</dd></div><div><dt>{isCustom ? '設計方法' : '募集状況'}</dt><dd>{isCustom ? '担当者との協議により決定' : '確認中'}</dd></div></dl></div></section>
 
-  <section class="programme-page__section programme-page__section--dark" id="before-you-apply" aria-labelledby="before-you-apply-title"><div class="site-shell programme-page__split"><div><p class="section-kicker">{isCustom ? 'ご相談' : '応募前の確認'}</p><h2 id="before-you-apply-title">{isCustom ? 'まず 大学・機関としてご相談ください' : '大切な条件は 応募する前に'}</h2></div><div class="programme-page__body-copy"><p>{isCustom ? '希望時期、参加人数、教育目的、関心のあるテーマ等を伺い、実施可能性を確認します。留学サポートデスクでは英語での相談・調整が可能です。' : '応募資格、費用、宿泊、キャンセル条件、必要書類など、参加判断に必要な情報を応募前に確認できる状態を目指します。'}</p><p class="programme-page__status">{isCustom ? '個人学生向けの応募フォームではなく、海外大学・教育機関の担当者向け問い合わせ導線を使用します。' : '現在は情報確認中です。募集状況と応募方法は、正式な情報を確認してから掲載します。'}</p></div></div></section>
+  <section class="programme-page__section programme-page__section--dark" id="before-you-apply" aria-labelledby="before-you-apply-title"><div class="site-shell programme-page__split"><div><p class="section-kicker">{isCustom ? 'ご相談' : '応募前の確認'}</p><h2 id="before-you-apply-title">{isCustom ? 'まず 大学・機関としてご相談ください' : '大切な条件は 応募する前に'}</h2></div><div class="programme-page__body-copy"><p>{isCustom ? '希望時期、参加人数、教育目的、関心のあるテーマ等を伺い、実施可能性を確認します。留学サポートデスクでは英語での相談・調整が可能です。' : '応募資格、費用、宿泊、キャンセル条件、必要書類など、参加判断に必要な情報を応募前に確認できる状態を目指します。'}</p><p class="programme-page__status">{isCustom ? '個人学生向けの応募フォームではなく、海外大学・教育機関の担当者向け問い合わせ導線を使用します。' : '現在は情報確認中です。募集状況と応募方法は、正式な情報を確認してから掲載します。'}</p>{isCustom && <a class="action-button action-button--primary" href={`${base}contact/`}>大学・機関として相談する</a>}</div></div></section>
 </article>
