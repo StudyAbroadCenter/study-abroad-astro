@@ -14,8 +14,8 @@ const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
       <div class="programme-page__hero-copy">
         <p class="programme-page__eyebrow">{programme.category}</p>
         <p class="programme-page__code">{programme.code}</p>
-        <h1>{programme.title}</h1>
-        <p class="programme-page__lead">{programme.lead}</p>
+        <h1>{isCustom ? '大学ごとに 日本での学びを設計する' : programme.title}</h1>
+        <p class="programme-page__lead">{isCustom ? '海外大学・教育機関からの学生団体を対象に、期間・内容・実施場所を相談しながらつくる短期受入プログラムです。' : programme.lead}</p>
         {programme.isNewProgramme && <p class="programme-page__new">新規企画</p>}
       </div>
       <aside class="programme-page__draft-note" aria-label="ページ制作状況">
