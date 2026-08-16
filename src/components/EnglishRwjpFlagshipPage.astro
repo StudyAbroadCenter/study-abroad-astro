@@ -1,0 +1,119 @@
+---
+import { rwjp2027Facts, isKnownFact } from '../data/rwjp/index';
+
+const f = rwjp2027Facts;
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const asset = (name: string) => `${base}images/programs/rwjp/${name}`;
+const realAsset = (name: string) => `${base}images/programs/rwjp/real/${name}`;
+const formatDate = (iso: string) => new Intl.DateTimeFormat('en-CA', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(`${iso}T00:00:00`));
+const programmeDates = isKnownFact(f.programmeDates) ? `${formatDate(f.programmeDates.value.start)} – ${formatDate(f.programmeDates.value.end)}` : 'To be confirmed';
+const applicationDates = isKnownFact(f.applicationPeriod) ? `${formatDate(f.applicationPeriod.value.start)} – ${formatDate(f.applicationPeriod.value.end)}` : 'To be confirmed';
+const dormDates = isKnownFact(f.accommodationDates) ? `${formatDate(f.accommodationDates.value.checkIn)} – ${formatDate(f.accommodationDates.value.checkOut)}` : 'To be confirmed';
+const programmeFee = isKnownFact(f.programmeFee) ? `¥${f.programmeFee.value.toLocaleString('en-US')}` : 'To be confirmed';
+const dormFee = isKnownFact(f.accommodationFee) ? `¥${f.accommodationFee.value.toLocaleString('en-US')}` : 'To be confirmed';
+const japaneseHours = isKnownFact(f.japaneseMinutes) ? `${(f.japaneseMinutes.value / 60).toFixed(1)} hours` : 'To be confirmed';
+const cultureHours = isKnownFact(f.cultureMinutes) ? `${(f.cultureMinutes.value / 60).toFixed(1)} hours` : 'To be confirmed';
+const applicationUrl = 'https://forms.cloud.microsoft/r/kUpnnQVYxG';
+---
+<article class="en-rwjp">
+  <header class="en-rwjp-hero">
+    <div class="site-shell en-rwjp-hero__grid">
+      <div class="en-rwjp-hero__copy">
+        <p class="en-rwjp-eyebrow">Ritsumeikan Winter Japanese Program · 2027</p>
+        <h1>Study Japanese.<br /><em>Live Kyoto.</em></h1>
+        <p class="en-rwjp-hero__lead">Five weeks is long enough for Kyoto to become more than a place you visit. Build your Japanese in class, meet students at Ritsumeikan, and make a daily life for yourself in the city.</p>
+        <div class="en-rwjp-hero__actions">
+          <a class="en-rwjp-button en-rwjp-button--primary" href="#essentials">See the 2027 details</a>
+          <a class="en-rwjp-button en-rwjp-button--quiet" href="#fit">Is RWJP for me?</a>
+        </div>
+        <p class="en-rwjp-hero__micro">Japanese language · Campus life · Kyoto in winter</p>
+      </div>
+      <figure class="en-rwjp-hero__media">
+        <img src={asset('rwjp-kyoto-winter.webp')} alt="Winter in Kyoto during a short-term study program" width="1600" height="1067" decoding="async" />
+        <figcaption>Kyoto is not the backdrop to RWJP. For five weeks, it is where you live.</figcaption>
+      </figure>
+    </div>
+  </header>
+
+  <nav class="en-rwjp-subnav" aria-label="RWJP page navigation">
+    <div class="site-shell en-rwjp-subnav__inner">
+      <a href="#story">The experience</a><a href="#learn">Japanese</a><a href="#life">Life in Kyoto</a><a href="#fit">Who it suits</a><a href="#essentials">2027 details</a><a href="#apply">Apply</a>
+    </div>
+  </nav>
+
+  <section class="en-rwjp-intro" id="story">
+    <div class="site-shell en-rwjp-intro__grid">
+      <div><p class="en-rwjp-kicker">Five weeks, not five days</p><h2>Stay long enough to find your own Kyoto</h2></div>
+      <div class="en-rwjp-prose"><p>A short visit gives you landmarks. Five weeks gives you routines: the walk to campus, a favourite lunch spot, classmates you recognise, and Japanese you tried yesterday becoming Japanese you can use today.</p><p>RWJP brings structured language study together with the independence of living abroad. The programme gives you a framework. What you make of the time around it is yours.</p></div>
+    </div>
+  </section>
+
+  <section class="en-rwjp-split" id="learn">
+    <div class="site-shell en-rwjp-split__grid">
+      <figure class="en-rwjp-split__media"><img src={realAsset('rwjp-real-japanese-class.webp')} alt="Students taking a Japanese language class at Ritsumeikan University" width="960" height="640" loading="lazy" decoding="async" /></figure>
+      <div class="en-rwjp-split__copy"><p class="en-rwjp-kicker">Learn with purpose</p><h2>Japanese is the centre of the programme</h2><p>On Japanese class days, learning is concentrated mainly in the morning. Classes build through presentations, quizzes and examinations, with opportunities to use what you learn beyond the classroom.</p><div class="en-rwjp-statline"><strong>{japaneseHours}</strong><span>of Japanese language study in the 2027 programme</span></div><p class="en-rwjp-note">Japanese classes are generally conducted directly in Japanese. Academic performance is recorded in a transcript.</p></div>
+    </div>
+  </section>
+
+  <section class="en-rwjp-life" id="life">
+    <div class="site-shell">
+      <div class="en-rwjp-section-head"><p class="en-rwjp-kicker">Beyond the classroom</p><h2>The programme has a schedule.<br />Your five weeks have a life.</h2><p>RWJP includes language classes, cultural activities and opportunities to interact with Ritsumeikan students. Around those organised elements, you also have ordinary time — meals, walks, study, conversations and your own exploration of Kyoto.</p></div>
+      <div class="en-rwjp-life__cards">
+        <article><img src={realAsset('rwjp-real-learning-hub.webp')} alt="Students sharing learning in a university setting" loading="lazy" decoding="async" /><div><span>Meet</span><h3>Use Japanese with people, not only exercises</h3><p>Student interaction creates opportunities to try what you have learned and talk about university life. The format and frequency follow the official arrangements for the year.</p></div></article>
+        <article><img src={realAsset('rwjp-real-culture-tatami.webp')} alt="Students taking part in a Japanese cultural activity" loading="lazy" decoding="async" /><div><span>Take part</span><h3>Culture is something you do</h3><p>The 2027 programme includes 11 cultural sessions. Activities may include tea ceremony, calligraphy or Zen meditation; the exact programme is finalised through annual arrangements.</p></div></article>
+        <article><img src={realAsset('rwjp-real-kyoto-field.webp')} alt="Students taking part in an activity in Kyoto" loading="lazy" decoding="async" /><div><span>Explore</span><h3>Make the city part of your learning</h3><p>History, neighbourhoods, cafés, contemporary culture or simply a familiar route home: how you use your free time changes the Kyoto you come to know.</p></div></article>
+      </div>
+      <p class="en-rwjp-life__fact">2027 cultural programme: <strong>{cultureHours}</strong> across <strong>{isKnownFact(f.cultureSessions) ? f.cultureSessions.value : 11} sessions</strong>. Specific activities and dates may vary.</p>
+    </div>
+  </section>
+
+  <section class="en-rwjp-fit" id="fit">
+    <div class="site-shell en-rwjp-fit__grid">
+      <div><p class="en-rwjp-kicker">A useful question before you apply</p><h2>Is RWJP the right kind of five weeks for you?</h2><p>You do not need to arrive as an advanced Japanese speaker. You do need to be ready to study seriously, take part in the programme and manage the everyday independence that comes with living abroad.</p></div>
+      <div class="en-rwjp-fit__list">
+        <article><span>01</span><div><h3>You want Japanese to be your academic focus</h3><p>Complete beginners may apply. JLPT N1 holders are not eligible. Before the programme begins, all participants must be able to read hiragana and katakana.</p></div></article>
+        <article><span>02</span><div><h3>You want more than a packaged tour</h3><p>Classes and programme activities are organised; your free time is not scripted. RWJP works best when you are willing to make choices and discover the city for yourself.</p></div></article>
+        <article><span>03</span><div><h3>You are currently a university student</h3><p>You must remain enrolled at a university or graduate school from application through participation. Part-time students are eligible; pre-university and post-graduation applicants are not.</p></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="en-rwjp-essentials" id="essentials">
+    <div class="site-shell">
+      <div class="en-rwjp-section-head"><p class="en-rwjp-kicker">2027 programme essentials</p><h2>The details you need before deciding</h2><p>These figures come from the confirmed 2027 RWJP programme data. Where annual arrangements can change, we say so.</p></div>
+      <dl class="en-rwjp-facts">
+        <div><dt>Programme</dt><dd>Ritsumeikan Winter Japanese Program (RWJP)</dd></div>
+        <div><dt>Dates</dt><dd>{programmeDates}</dd></div>
+        <div><dt>Campus</dt><dd>Kinugasa Campus, Kyoto</dd></div>
+        <div><dt>Programme fee</dt><dd>{programmeFee}</dd></div>
+        <div><dt>Application period</dt><dd>{applicationDates}</dd></div>
+        <div><dt>Japanese study</dt><dd>{japaneseHours}</dd></div>
+        <div><dt>Cultural activities</dt><dd>{cultureHours} · 11 sessions</dd></div>
+        <div><dt>Accommodation</dt><dd>Daishogun Dormitory · {dormFee} additional</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="en-rwjp-dorm">
+    <div class="site-shell en-rwjp-dorm__grid">
+      <div><p class="en-rwjp-kicker">Living in Kyoto</p><h2>Daishogun Dormitory</h2><p>The dormitory is separate from the programme fee. Rooms accommodate up to four students of the same gender, with shared showers, toilets and kitchen facilities. Wi-Fi and bedding are included; meals are not provided.</p><p>The usual walk to Kinugasa Campus is approximately 10–15 minutes. For safety reasons, participants may not use bicycles or other personal wheeled transport during the programme.</p></div>
+      <aside><span>2027 stay</span><strong>{dormDates}</strong><span>Additional accommodation fee</span><strong>{dormFee}</strong><p>Accommodation is subject to physical availability and is not guaranteed. Participants may arrange external accommodation at their own expense.</p></aside>
+    </div>
+  </section>
+
+  <section class="en-rwjp-evidence">
+    <div class="site-shell en-rwjp-evidence__grid">
+      <div><p class="en-rwjp-kicker">A programme with an international track record</p><h2>RWJP, in numbers</h2><p>Historical participation gives context, not a promise about the composition of any future cohort.</p></div>
+      <div class="en-rwjp-evidence__numbers"><div><strong>140</strong><span>participants</span></div><div><strong>18</strong><span>universities / institutions</span></div><div><strong>9</strong><span>countries / regions*</span></div></div>
+    </div>
+    <div class="site-shell"><p class="en-rwjp-footnote">2023–2026 RWJP participation. *Country / region refers to the location of the participant's university or institution, not nationality. Historical participation does not imply a current institutional partnership.</p></div>
+  </section>
+
+  <section class="en-rwjp-apply" id="apply">
+    <div class="site-shell en-rwjp-apply__card">
+      <div><p class="en-rwjp-kicker">Applications: {applicationDates}</p><h2>Ready to make Kyoto part of your winter?</h2><p>Read the eligibility and programme details carefully before submitting your application. Payment instructions are sent after admission. Missing the specified payment deadline results in loss of the place.</p></div>
+      <div class="en-rwjp-apply__actions"><a class="en-rwjp-button en-rwjp-button--primary" href={applicationUrl} target="_blank" rel="noopener noreferrer">Apply for 2027 RWJP</a><a class="en-rwjp-button en-rwjp-button--quiet" href="#essentials">Review programme details</a></div>
+    </div>
+  </section>
+</article>
