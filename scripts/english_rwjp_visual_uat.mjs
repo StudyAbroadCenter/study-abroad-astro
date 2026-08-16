@@ -10,13 +10,29 @@ const viewports=[
   {name:'mobile390',width:390,height:844},
   {name:'mobile320',width:320,height:720},
 ];
+
+const routeSource=await fs.readFile('src/pages/en/programs/rwjp/index.astro','utf8');
+const componentSource=await fs.readFile('src/components/EnglishRwjpFlagshipPage.astro','utf8');
+const retiredStyles=[
+  'english-rwjp.css',
+  'english-rwjp-layout-fixes.css',
+  'english-rwjp-art-direction.css',
+  'english-rwjp-art-fixes.css',
+  'rwjp-flagship.css',
+  'rwjp-professional-polish.css',
+  'global-learning-evidence.css',
+  'global-reach-network.css',
+];
+const legacyStyleReferences=retiredStyles.filter((name)=>routeSource.includes(name)||componentSource.includes(name));
+const singleRebuildStyle=routeSource.includes('english-rwjp-rebuild.css');
+
 await fs.mkdir(outputDir,{recursive:true});
 const browser=await chromium.launch({headless:true});
 const report=[];
-let failed=false;
+let failed=legacyStyleReferences.length>0||!singleRebuildStyle;
 
 for(const viewport of viewports){
-  const context=await browser.newContext({viewport:{width:viewport.width,height:viewport.height},reducedMotion:'reduce',colorScheme:'light'});
+  const context=await browser.newContext({viewport:{width:viewport.width,height:viewport.height},deviceScaleFactor:1,reducedMotion:'reduce',colorScheme:'light'});
   const page=await context.newPage();
   const pageErrors=[]; const consoleErrors=[]; const localResourceErrors=[];
   page.on('pageerror',(error)=>pageErrors.push(error.message));
@@ -28,8 +44,8 @@ for(const viewport of viewports){
     if(document.fonts?.ready)await document.fonts.ready;
     const imgs=[...document.querySelectorAll('img')];
     imgs.forEach((img)=>{img.loading='eager';});
-    const step=Math.max(480,Math.floor(window.innerHeight*.75));
-    for(let y=0;y<document.documentElement.scrollHeight;y+=step){window.scrollTo(0,y);await new Promise((resolve)=>setTimeout(resolve,80));}
+    const step=Math.max(480,Math.floor(window.innerHeight*.72));
+    for(let y=0;y<document.documentElement.scrollHeight;y+=step){window.scrollTo(0,y);await new Promise((resolve)=>setTimeout(resolve,70));}
     window.scrollTo(0,0);
     await Promise.race([
       Promise.all(imgs.map(async(img)=>{
@@ -38,7 +54,7 @@ for(const viewport of viewports){
       })),
       new Promise((resolve)=>setTimeout(resolve,12000)),
     ]);
-    await new Promise((resolve)=>setTimeout(resolve,300));
+    await new Promise((resolve)=>setTimeout(resolve,250));
   });
 
   const metrics=await page.evaluate(()=>{
@@ -48,62 +64,65 @@ for(const viewport of viewports){
     const end=apply?.getAttribute('data-end')||closed?.getAttribute('data-end')||'';
     const jstToday=new Date(Date.now()+9*60*60*1000).toISOString().slice(0,10);
     const shouldBeOpen=Boolean(start&&end&&jstToday>=start&&jstToday<=end);
+    const luminance=(value)=>{
+      const match=String(value).match(/rgba?\((\d+)[, ]+(\d+)[, ]+(\d+)/i);
+      if(!match)return -1;
+      const r=Number(match[1]),g=Number(match[2]),b=Number(match[3]);
+      return r*.299+g*.587+b*.114;
+    };
+    const overlap=(a,b)=>{
+      if(!a||!b)return 0;
+      const ar=a.getBoundingClientRect(),br=b.getBoundingClientRect();
+      return Math.round(Math.max(0,Math.min(ar.right,br.right)-Math.max(ar.left,br.left))*Math.max(0,Math.min(ar.bottom,br.bottom)-Math.max(ar.top,br.top)));
+    };
     const imageUpscaleRisk=[...document.querySelectorAll('main img')].map((img)=>{
       const rect=img.getBoundingClientRect();
-      const dpr=window.devicePixelRatio||1;
-      return {src:img.getAttribute('src')||'',naturalWidth:img.naturalWidth,renderedDeviceWidth:Math.round(rect.width*dpr),ratio:img.naturalWidth?Number((rect.width*dpr/img.naturalWidth).toFixed(2)):999};
+      return {src:img.getAttribute('src')||'',naturalWidth:img.naturalWidth,renderedWidth:Math.round(rect.width),ratio:img.naturalWidth?Number((rect.width/img.naturalWidth).toFixed(2)):999};
     }).filter((item)=>item.ratio>1.12);
-    const rectOverlap=(a,b)=>{
-      if(!a||!b)return 0;
-      const ar=a.getBoundingClientRect(); const br=b.getBoundingClientRect();
-      const w=Math.max(0,Math.min(ar.right,br.right)-Math.max(ar.left,br.left));
-      const h=Math.max(0,Math.min(ar.bottom,br.bottom)-Math.max(ar.top,br.top));
-      return Math.round(w*h);
-    };
-    const isLightRgb=(value)=>{
-      const match=String(value).match(/rgba?\((\d+)[, ]+(\d+)[, ]+(\d+)/i);
-      if(!match)return false;
-      const [,r,g,b]=match.map(Number);
-      return (r*0.299+g*0.587+b*0.114)>=190;
-    };
-    const stat=document.querySelector('.rwjp-en-study-stat .rwjp-flagship__switch-time');
-    const statCopy=document.querySelector('.rwjp-en-study-stat .rwjp-flagship__switch-grid > div');
-    const shell=document.querySelector('.rwjp-en .site-shell');
-    const shellRect=shell?.getBoundingClientRect();
-    const shellCenterDelta=shellRect?Math.abs(shellRect.left-(window.innerWidth-shellRect.right)):999;
-    const globeCenter=document.querySelector('.rwjp-en-globe .global-evidence__network-center');
-    const globeCenterText=globeCenter?.querySelector('strong');
-    const globeNode=document.querySelector('.rwjp-en-globe .global-evidence__network-node');
-    const study=document.querySelector('.rwjp-en-study');
-    const studyHeading=study?.querySelector('h2');
-    const globalSection=document.querySelector('.rwjp-en-global');
-    const globalLead=globalSection?.querySelector('.global-evidence__lead');
     const bodyText=document.body.innerText;
+    const mainText=document.querySelector('main')?.innerText||'';
+    const hero=document.querySelector('.rw26-hero');
+    const heroImage=document.querySelector('.rw26-hero__image');
+    const heroRect=hero?.getBoundingClientRect();
+    const storyNumber=document.querySelector('.rw26-load__number');
+    const pillars=document.querySelector('.rw26-pillars');
+    const map=document.querySelector('.rw26-global__map');
+    const globalPanel=document.querySelector('.rw26-global__panel');
+    const globalHeading=globalPanel?.querySelector('h2');
+    const wordmark=document.querySelector('.en-header__wordmark');
+    const wordmarkColor=wordmark?getComputedStyle(wordmark).color:'';
+    const globalBg=globalPanel?getComputedStyle(globalPanel).backgroundColor:'';
+    const globalHeadingColor=globalHeading?getComputedStyle(globalHeading).color:'';
     return {
       lang:document.documentElement.lang,
       title:document.title,
       robots:document.querySelector('meta[name="robots"]')?.getAttribute('content')||'',
-      bodyText:bodyText.trim().length,
+      bodyTextLength:bodyText.trim().length,
       overflowX:Math.max(0,Math.max(document.documentElement.scrollWidth,document.body.scrollWidth)-window.innerWidth),
-      h1:document.querySelector('.en-rwjp-cinematic-hero h1')?.textContent?.replace(/\s+/g,' ').trim()||'',
-      hero:Boolean(document.querySelector('.en-rwjp-cinematic-hero__image')),
-      globalReach:Boolean(document.querySelector('#global-reach .global-evidence__network')),
-      taishogun:bodyText.includes('Taishogun Dormitory'),
-      badRomanization:/\bDaishogun\b|\bDaihogun\b/i.test(bodyText),
+      h1:document.querySelector('.rw26-hero__title')?.textContent?.replace(/\s+/g,' ').trim()||'',
+      wordmark:wordmark?.textContent?.trim()||'',
+      wordmarkColor,
+      wordmarkIsRed:luminance(wordmarkColor)>35&&wordmarkColor.startsWith('rgb(')&&Number(wordmarkColor.match(/\d+/)?.[0]||0)>100,
+      hero:Boolean(heroImage),
+      heroWidthRatio:heroRect?Number((heroRect.width/window.innerWidth).toFixed(3)):0,
+      heroNaturalWidth:heroImage instanceof HTMLImageElement?heroImage.naturalWidth:0,
+      openingSpread:Boolean(document.querySelector('.rw26-load__grid')),
+      studyNumber:Boolean(storyNumber),
+      pillars:Boolean(pillars),
+      studyStatOverlapPx2:overlap(storyNumber,pillars),
+      globalReach:Boolean(document.querySelector('.rw26-global')),
+      globalMap:Boolean(document.querySelector('.rw26-global__network')),
+      globalMapPanelOverlapPx2:overlap(map,globalPanel),
+      globalPanelDark:luminance(globalBg)>=0&&luminance(globalBg)<100,
+      globalHeadingLight:luminance(globalHeadingColor)>=180,
+      evidenceValues:['293','21','81'].every((value)=>document.querySelector('.rw26-global__stats')?.textContent?.includes(value)),
+      taishogun:mainText.includes('Taishogun Dormitory'),
+      badRomanization:/\bDaishogun\b|\bDaihogun\b/i.test(mainText),
       essentials:Boolean(document.querySelector('#essentials')),
       applySection:Boolean(document.querySelector('#apply')),
-      japaneseLeak:[...document.querySelectorAll('main *')].map((el)=>el.textContent||'').find((text)=>/[ぁ-んァ-ン一-龯]/.test(text))||'',
+      japaneseLeak:/[ぁ-んァ-ン一-龯]/.test(mainText),
       unloadedImages:[...document.querySelectorAll('main img')].filter((img)=>!img.complete||img.naturalWidth===0).map((img)=>img.getAttribute('src')||'').filter(Boolean),
       imageUpscaleRisk,
-      studyStatOverlapPx2:rectOverlap(stat,statCopy),
-      shellCenterDeltaPx:Number(shellCenterDelta.toFixed(1)),
-      globeCenterTextColor:globeCenterText?getComputedStyle(globeCenterText).color:'',
-      globeCenterTextOpacity:globeCenterText?Number(getComputedStyle(globeCenterText).opacity):0,
-      globeNodeOpacity:globeNode?Number(getComputedStyle(globeNode).opacity):0,
-      studyHeadingLight:studyHeading?isLightRgb(getComputedStyle(studyHeading).color):false,
-      studyHasVisualBackground:study?getComputedStyle(study).backgroundImage!=='none':false,
-      globalLeadLight:globalLead?isLightRgb(getComputedStyle(globalLead).color):false,
-      globalHasVisualBackground:globalSection?getComputedStyle(globalSection).backgroundImage!=='none':false,
       shouldBeOpen,
       applyVisible:apply instanceof HTMLElement?!apply.hidden:false,
       closedVisible:closed instanceof HTMLElement?!closed.hidden:false,
@@ -113,17 +132,25 @@ for(const viewport of viewports){
 
   const applicationStateCorrect=metrics.shouldBeOpen?metrics.applyVisible&&!metrics.closedVisible:!metrics.applyVisible&&metrics.closedVisible;
   const headerLinksCorrect=metrics.headerLinks.every((href)=>href.includes('/en/#'));
-  const premiumLayoutCorrect=metrics.studyStatOverlapPx2===0&&metrics.shellCenterDeltaPx<=3&&metrics.globeCenterTextOpacity>=.99&&metrics.globeNodeOpacity>=.99&&metrics.studyHeadingLight&&metrics.studyHasVisualBackground&&metrics.globalLeadLight&&metrics.globalHasVisualBackground;
+  const mockupStructureCorrect=metrics.wordmark==='RITSUMEIKAN UNIVERSITY'&&metrics.wordmarkIsRed&&metrics.hero&&metrics.heroWidthRatio>=.99&&metrics.openingSpread&&metrics.studyNumber&&metrics.pillars&&metrics.studyStatOverlapPx2===0&&metrics.globalReach&&metrics.globalMap&&metrics.globalMapPanelOverlapPx2===0&&metrics.globalPanelDark&&metrics.globalHeadingLight&&metrics.evidenceValues;
   const status=response?.status()??0;
-  const routeFailed=status>=400||metrics.lang!=='en'||!metrics.title.includes('RWJP')||metrics.robots!=='noindex,nofollow'||metrics.bodyText<1500||metrics.overflowX>2||!metrics.h1.includes('Study Japanese')||!metrics.h1.includes('Live in Kyoto')||!metrics.hero||!metrics.globalReach||!metrics.taishogun||metrics.badRomanization||!metrics.essentials||!metrics.applySection||Boolean(metrics.japaneseLeak)||metrics.unloadedImages.length>0||metrics.imageUpscaleRisk.length>0||!applicationStateCorrect||!headerLinksCorrect||!premiumLayoutCorrect||pageErrors.length>0||consoleErrors.length>0||localResourceErrors.length>0;
+  const routeFailed=status>=400||metrics.lang!=='en'||!metrics.title.includes('RWJP')||metrics.robots!=='noindex,nofollow'||metrics.bodyTextLength<1800||metrics.overflowX>2||!metrics.h1.includes('Study Japanese')||!metrics.h1.includes('Live in Kyoto')||!metrics.taishogun||metrics.badRomanization||!metrics.essentials||!metrics.applySection||metrics.japaneseLeak||metrics.unloadedImages.length>0||metrics.imageUpscaleRisk.length>0||!applicationStateCorrect||!headerLinksCorrect||!mockupStructureCorrect||pageErrors.length>0||consoleErrors.length>0||localResourceErrors.length>0;
   if(routeFailed)failed=true;
+
   const screenshot=path.join(outputDir,`en-rwjp-${viewport.name}.jpg`);
-  await page.screenshot({path:screenshot,fullPage:true,type:'jpeg',quality:88});
-  report.push({viewport:viewport.name,httpStatus:status,...metrics,applicationStateCorrect,headerLinksCorrect,premiumLayoutCorrect,pageErrors,consoleErrors,localResourceErrors,screenshot,passed:!routeFailed});
+  await page.screenshot({path:screenshot,fullPage:true,type:'jpeg',quality:90});
+  if(viewport.name==='desktop'){
+    for(const [name,selector] of [['hero','.rw26-hero'],['opening','.rw26-load'],['global','.rw26-global']]){
+      const element=page.locator(selector).first();
+      if(await element.count())await element.screenshot({path:path.join(outputDir,`en-rwjp-${name}-desktop.jpg`),type:'jpeg',quality:92});
+    }
+  }
+  report.push({viewport:viewport.name,httpStatus:status,...metrics,applicationStateCorrect,headerLinksCorrect,mockupStructureCorrect,pageErrors,consoleErrors,localResourceErrors,screenshot,passed:!routeFailed});
   await context.close();
 }
 
 await browser.close();
-await fs.writeFile(path.join(outputDir,'report.json'),JSON.stringify({generatedAt:new Date().toISOString(),route,report},null,2));
-for(const item of report)console.log(`${item.passed?'PASS':'FAIL'} ${item.viewport} ${route} status=${item.httpStatus} overflowX=${item.overflowX}px images=${item.unloadedImages.length} upscaleRisk=${item.imageUpscaleRisk.length} statOverlap=${item.studyStatOverlapPx2}px2 centred=${item.shellCenterDeltaPx}px studyContrast=${item.studyHeadingLight} globalContrast=${item.globalLeadLight} globe=${item.globalReach} taishogun=${item.taishogun}`);
+await fs.writeFile(path.join(outputDir,'report.json'),JSON.stringify({generatedAt:new Date().toISOString(),route,legacyStyleReferences,singleRebuildStyle,report},null,2));
+console.log(`RWJP CSS architecture: ${singleRebuildStyle&&legacyStyleReferences.length===0?'PASS':'FAIL'} legacy=${legacyStyleReferences.join(',')||'none'}`);
+for(const item of report)console.log(`${item.passed?'PASS':'FAIL'} ${item.viewport} status=${item.httpStatus} overflow=${item.overflowX}px upscale=${item.imageUpscaleRisk.length} wordmark=${item.wordmarkIsRed} hero=${item.heroWidthRatio} statOverlap=${item.studyStatOverlapPx2}px2 globalOverlap=${item.globalMapPanelOverlapPx2}px2 globalDark=${item.globalPanelDark}`);
 if(failed){console.error('English RWJP visual UAT failed. Inspect english-rwjp-visual-uat/report.json and screenshots.');process.exit(1);}
