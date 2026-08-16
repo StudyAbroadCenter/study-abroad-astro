@@ -1,6 +1,7 @@
 ---
 import StudentRecruitmentLayout from '../../components/StudentRecruitmentLayout.astro';
 import ProgrammePageShell from '../../components/ProgrammePageShell.astro';
+import ProgrammeMvpFlagship from '../../components/ProgrammeMvpFlagship.astro';
 import RwjpFlagshipPage from '../../components/RwjpFlagshipPage.astro';
 import RwjpExpressFlagshipPage from '../../components/RwjpExpressFlagshipPage.astro';
 import RwjpExpressAcademicLoad from '../../components/RwjpExpressAcademicLoad.astro';
@@ -8,8 +9,10 @@ import InternationalLearningImpact from '../../components/InternationalLearningI
 import GlobalLearningEvidence from '../../components/GlobalLearningEvidence.astro';
 import CampusJourney from '../../components/CampusJourney.astro';
 import { programmePageDrafts, type ProgrammePageDraft } from '../../data/programme-page-drafts';
+import { programmes } from '../../data/programs';
 import { rwjp2027Facts, isKnownFact } from '../../data/rwjp/index';
 import '../../styles/rwjp-cinematic-hero.css';
+import '../../styles/programme-mvp-flagship.css';
 
 export function getStaticPaths() {
   return programmePageDrafts.map((programme) => ({ params: { id: programme.id }, props: { programme } }));
@@ -18,7 +21,9 @@ interface Props { programme: ProgrammePageDraft; }
 const { programme } = Astro.props;
 const isRwjp = programme.id === 'rwjp';
 const isRwjpExpress = programme.id === 'rwjp-express';
+const isMvpFlagship = programme.id === 'rdsp' || programme.id === 'rbmp';
 const isCustom = programme.id === 'custom-programs';
+const registryProgramme = programmes.find((item) => item.id === programme.id);
 const f = rwjp2027Facts;
 const title = isRwjp
   ? `2027 RWJP | ${isKnownFact(f.officialName) ? f.officialName.value : 'Ritsumeikan Winter Japanese Program'} | 立命館大学`
@@ -34,9 +39,13 @@ const description = isRwjp
   ? `2027 RWJP。${rwjpProgrammeDates}、冬の京都で日本語を学び、立命館の学生との交流機会を通じてキャンパスの国際教育にもつながる5週間の短期プログラム。参加費${rwjpFee}、応募期間${rwjpApplication}。2023–2026年のRWJP参加実績は140名、9か国・地域、18大学・機関。`
   : isRwjpExpress
     ? `${programme.title}。短期間に集中して日本語と日本文化を学ぶ冬期プログラム。2023–2026年のRWJP Express参加実績は71名、6か国・地域、15大学・機関。`
-    : isCustom
-      ? '海外大学・教育機関からの学生団体を対象に、教育目的、期間、内容、参加人数、実施キャンパス等を相談しながら設計する立命館大学のCustom Programs。留学サポートデスクでは英語での対応が可能です。'
-      : `${programme.title}のプログラムページを制作中です。確認済みの情報から順に掲載します。`;
+    : programme.id === 'rdsp'
+      ? '大阪いばらきキャンパス（OIC）で実施する専門テーマ型の短期プログラムRDSP。正式名称と年度ごとのテーマ、日程、費用、参加条件は確認後に掲載します。'
+      : programme.id === 'rbmp'
+        ? '大阪いばらきキャンパス（OIC）でビジネスとマネジメントを学ぶRitsumeikan Business Management Program。年度ごとの日程、費用、参加条件は正式確認後に掲載します。'
+        : isCustom
+          ? '海外大学・教育機関からの学生団体を対象に、教育目的、期間、内容、参加人数、実施キャンパス等を相談しながら設計する立命館大学のCustom Programs。留学サポートデスクでは英語での対応が可能です。'
+          : `${programme.title}のプログラムページを制作中です。確認済みの情報から順に掲載します。`;
 const photoDisclaimer = isRwjpExpress
   ? '掲載写真はレイアウト確認用の参考写真で、RWJP Express固有の実施写真ではありません　正式写真の確認後に差し替えます'
   : undefined;
@@ -54,6 +63,8 @@ const photoDisclaimer = isRwjpExpress
       <RwjpExpressAcademicLoad />
       <GlobalLearningEvidence context="rwjp-express" />
     </>
+  ) : isMvpFlagship && registryProgramme ? (
+    <ProgrammeMvpFlagship programme={registryProgramme} draft={programme} locale="ja" />
   ) : isCustom ? (
     <>
       <ProgrammePageShell programme={programme} />

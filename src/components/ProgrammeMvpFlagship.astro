@@ -1,0 +1,166 @@
+---
+import type { Programme } from '../data/programs';
+import type { ProgrammePageDraft } from '../data/programme-page-drafts';
+
+interface Props {
+  programme: Programme;
+  draft: ProgrammePageDraft;
+  locale: 'ja' | 'en';
+}
+
+const { programme, draft, locale } = Astro.props;
+const copy = programme.copy[locale];
+const isJa = locale === 'ja';
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const image = (path: string) => `${base}${path.replace(/^\//, '')}`;
+const routeBase = isJa ? `${base}programs/` : `${base}en/programs/`;
+const accentLabel = programme.id === 'rwjp-express'
+  ? (isJa ? 'WINTER · JAPANESE LANGUAGE & CULTURE' : 'WINTER · JAPANESE LANGUAGE & CULTURE')
+  : programme.id === 'rdsp'
+    ? (isJa ? 'THEMATIC STUDY · OSAKA IBARAKI CAMPUS' : 'THEMATIC STUDY · OSAKA IBARAKI CAMPUS')
+    : (isJa ? 'BUSINESS & MANAGEMENT · OSAKA IBARAKI CAMPUS' : 'BUSINESS & MANAGEMENT · OSAKA IBARAKI CAMPUS');
+
+const heroTitle = programme.id === 'rwjp-express'
+  ? (isJa ? ['短い冬を', '濃い学びに'] : ['Two weeks.', 'Make them count.'])
+  : programme.id === 'rdsp'
+    ? (isJa ? ['専門を深める', '問いを広げる'] : ['Go deeper.', 'Ask better questions.'])
+    : (isJa ? ['ビジネスを学ぶ', '動きを見る'] : ['Study business.', 'See it in motion.']);
+
+const heroLead = programme.id === 'rwjp-express'
+  ? (isJa ? '冬の京都で、日本語を中心に学ぶ短期集中プログラム。期間は短くても、教室・文化・人との出会いを一つの経験につなげます。' : 'A focused winter program in Kyoto built around Japanese-language learning, cultural encounters and time on a university campus in Japan.')
+  : programme.id === 'rdsp'
+    ? (isJa ? '大阪いばらきキャンパス（OIC）で、専門テーマを軸に学ぶ短期プログラム。正式名称と年度ごとのテーマ・条件は、確認できた情報から公開します。' : 'A specialist short-term program at Osaka Ibaraki Campus. The official program name, annual theme and offering details are published only after verification.')
+    : (isJa ? '大阪いばらきキャンパス（OIC）で、ビジネスとマネジメントを中心に学ぶ短期プログラム。教室の学びを、企業や社会を見る視点へつなげます。' : 'A short-term program at Osaka Ibaraki Campus focused on business and management, connecting academic learning with a broader view of business in practice.');
+
+const pillars = programme.id === 'rwjp-express'
+  ? [
+      [isJa ? '日本語' : 'Japanese', isJa ? '短い期間でも、日本語学習をプログラムの中心に置きます。' : 'Japanese-language study remains at the center of the program.'],
+      [isJa ? '文化' : 'Culture', isJa ? '日本にいるからこそ得られる文化的な学びを、授業の外にも広げます。' : 'Cultural learning adds context beyond the classroom.'],
+      [isJa ? '人' : 'People', isJa ? '大学という環境で、人と学ぶ機会をつくります。' : 'A university setting creates opportunities to learn with and around other people.'],
+      [isJa ? '京都' : 'Kyoto', isJa ? '衣笠キャンパスと京都で過ごす時間そのものも経験になります。' : 'Time at Kinugasa Campus and in Kyoto becomes part of the experience.'],
+    ]
+  : programme.id === 'rdsp'
+    ? [
+        [isJa ? 'テーマ' : 'Theme', isJa ? '専門テーマを軸に、短期間で集中して考えます。' : 'A focused theme gives the short program an academic center of gravity.'],
+        [isJa ? '問い' : 'Questions', isJa ? '知識を受け取るだけでなく、自分の問いを持つことを重視します。' : 'The aim is not only to receive information, but to develop your own questions.'],
+        [isJa ? 'OIC' : 'OIC', isJa ? '大阪いばらきキャンパスを学びの拠点とします。' : 'Osaka Ibaraki Campus is the program setting.'],
+        [isJa ? '年度情報' : 'Annual details', isJa ? 'テーマ・日程・費用・参加条件は確認後に公開します。' : 'Theme, dates, fees and eligibility are published after confirmation.'],
+      ]
+    : [
+        [isJa ? 'Business' : 'Business', isJa ? 'ビジネスを一つの答えではなく、動く仕組みとして考えます。' : 'Look at business as a moving system rather than a single answer.'],
+        [isJa ? 'Management' : 'Management', isJa ? '人・組織・意思決定を、マネジメントの視点から考えます。' : 'Consider people, organizations and decisions through a management lens.'],
+        [isJa ? 'OIC' : 'OIC', isJa ? '大阪いばらきキャンパスを学びの拠点とします。' : 'Osaka Ibaraki Campus provides the academic setting.'],
+        [isJa ? 'Beyond class' : 'Beyond class', isJa ? '教室で得た視点を、社会やビジネスを見る目につなげます。' : 'Carry classroom ideas into the way you look at business beyond class.'],
+      ];
+
+const decisionItems = programme.id === 'rdsp'
+  ? [
+      [isJa ? '正式名称' : 'Official name', isJa ? '確認中です。現時点では「RDSP」の略称のみを使用します。' : 'Under verification. This site currently uses the acronym “RDSP” only.'],
+      [isJa ? '実施キャンパス' : 'Campus', isJa ? '大阪いばらきキャンパス（OIC）' : 'Osaka Ibaraki Campus (OIC)'],
+      [isJa ? '年度テーマ' : 'Annual theme', isJa ? '正式確認後に掲載します。' : 'Published after official confirmation.'],
+      [isJa ? '日程・費用・参加条件' : 'Dates, fees & eligibility', isJa ? '年度ごとの正式情報を確認後に掲載します。' : 'Published only after the annual offering is verified.'],
+    ]
+  : programme.id === 'rbmp'
+    ? [
+        [isJa ? '正式名称' : 'Official name', 'Ritsumeikan Business Management Program'],
+        [isJa ? '実施キャンパス' : 'Campus', isJa ? '大阪いばらきキャンパス（OIC）' : 'Osaka Ibaraki Campus (OIC)'],
+        [isJa ? '学習分野' : 'Academic focus', isJa ? 'ビジネス・マネジメント' : 'Business and management'],
+        [isJa ? '日程・費用・参加条件' : 'Dates, fees & eligibility', isJa ? '年度ごとの正式情報を確認後に掲載します。' : 'Published only after the annual offering is verified.'],
+      ]
+    : [
+        [isJa ? 'プログラム' : 'Program', 'RWJP Express'],
+        [isJa ? '期間' : 'Duration', isJa ? '2週間' : '2 weeks'],
+        [isJa ? '実施キャンパス' : 'Campus', isJa ? '衣笠キャンパス・京都' : 'Kinugasa Campus · Kyoto'],
+        [isJa ? '日程・費用・参加条件' : 'Dates, fees & eligibility', isJa ? '年度ごとの正式情報を確認後に掲載します。' : 'Published only after the annual offering is verified.'],
+      ];
+
+const secondaryImages = programme.id === 'rwjp-express'
+  ? ['IMG_8178.JPG', 'IMG_5092.JPG']
+  : programme.id === 'rdsp'
+    ? ['IMG_3725.JPG', 'IMG_1687.JPG']
+    : ['IMG_6091.JPG', 'IMG_1687.JPG'];
+---
+<article class={`pmvp pmvp--${programme.id}`} lang={locale}>
+  <header class="pmvp__hero">
+    <img class="pmvp__hero-image" src={image(programme.image)} alt={copy.imageAlt} width="1600" height="1067" decoding="async" fetchpriority="high" />
+    <div class="pmvp__hero-overlay" aria-hidden="true"></div>
+    <div class="site-shell pmvp__hero-inner">
+      <p class="pmvp__eyebrow">{accentLabel}</p>
+      <h1>{heroTitle.map((line) => <span>{line}</span>)}</h1>
+      <p class="pmvp__hero-lead">{heroLead}</p>
+      <div class="pmvp__hero-meta">
+        <span>{copy.familyLabel}</span>
+        <span>{copy.campusLabel}</span>
+        {programme.id === 'rwjp-express' && <span>{isJa ? '2週間' : '2 weeks'}</span>}
+      </div>
+    </div>
+  </header>
+
+  <nav class="pmvp__nav" aria-label={isJa ? `${programme.code}ページ内ナビゲーション` : `${programme.code} page navigation`}>
+    <div class="site-shell pmvp__nav-inner">
+      <a href="#overview">{isJa ? 'プログラム' : 'Program'}</a>
+      <a href="#learning">{isJa ? '学び' : 'Learning'}</a>
+      <a href="#setting">{isJa ? '環境' : 'Setting'}</a>
+      <a href="#details">{isJa ? '確認事項' : 'Details'}</a>
+    </div>
+  </nav>
+
+  <section class="pmvp__opening" id="overview">
+    <div class="site-shell pmvp__opening-grid">
+      <div>
+        <p class="pmvp__kicker">{programme.code}</p>
+        <h2>{isJa ? draft.lead : copy.experienceLine}</h2>
+      </div>
+      <div class="pmvp__opening-copy">
+        <p>{isJa ? draft.emphasis : copy.summary}</p>
+        <p class="pmvp__boundary">{isJa ? '年度ごとの日程、費用、募集条件、応募方法などは、正式に確認できた情報だけを掲載します。未確認の内容を推測で補うことはありません。' : 'Dates, fees, eligibility and application instructions are published only after they are verified for the relevant offering. Unconfirmed details are not filled in by assumption.'}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="pmvp__learning" id="learning">
+    <div class="site-shell">
+      <div class="pmvp__section-head">
+        <p class="pmvp__kicker">{isJa ? '学びの輪郭' : 'How the learning is framed'}</p>
+        <h2>{isJa ? '短期だからこそ、何を学ぶかをはっきりさせる' : 'Short-term works best when the learning has a clear center.'}</h2>
+      </div>
+      <div class="pmvp__pillars">
+        {pillars.map(([title, text], index) => <article><span>0{index + 1}</span><h3>{title}</h3><p>{text}</p></article>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="pmvp__setting" id="setting">
+    <div class="site-shell pmvp__setting-grid">
+      <div class="pmvp__photo-stack">
+        <figure class="pmvp__photo pmvp__photo--large"><img src={image(secondaryImages[0])} alt={isJa ? '立命館大学の短期プログラムで学ぶ学生の様子' : 'Students learning in a Ritsumeikan short-term program setting'} loading="lazy" decoding="async" /></figure>
+        <figure class="pmvp__photo pmvp__photo--small"><img src={image(secondaryImages[1])} alt={isJa ? '立命館大学のキャンパスや学習環境の参考写真' : 'A Ritsumeikan campus or learning environment'} loading="lazy" decoding="async" /></figure>
+      </div>
+      <div class="pmvp__setting-copy">
+        <p class="pmvp__kicker">{isJa ? '学ぶ場所' : 'The setting'}</p>
+        <h2>{programme.campus === 'oic' ? (isJa ? '大阪いばらきキャンパスで学ぶ' : 'Study at Osaka Ibaraki Campus') : (isJa ? '京都・衣笠キャンパスで学ぶ' : 'Study at Kinugasa Campus in Kyoto')}</h2>
+        <p>{programme.campus === 'oic'
+          ? (isJa ? 'OICは大阪・茨木にある都市型キャンパスです。専門テーマの学びを、大学キャンパスという環境の中で組み立てます。' : 'OIC is Ritsumeikan’s urban campus in Ibaraki, Osaka. It provides the university setting for focused thematic study.')
+          : (isJa ? '衣笠キャンパスは京都にあります。教室での学びと、日本で過ごす日常を短い期間の中でつなげていきます。' : 'Kinugasa Campus is in Kyoto. The program places classroom learning inside the experience of spending everyday time in Japan.')}</p>
+        <p class="pmvp__photo-note">{isJa ? '掲載写真には過去の実施例・関連プログラムの参考写真を含みます。年度ごとの授業・活動内容を保証するものではありません。' : 'Photographs may show past or related short-term program settings. They do not guarantee the exact classes or activities of a future offering.'}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="pmvp__details" id="details">
+    <div class="site-shell">
+      <div class="pmvp__section-head pmvp__section-head--light">
+        <p class="pmvp__kicker">{isJa ? '参加を考える前に' : 'Before you decide'}</p>
+        <h2>{isJa ? '確認すべきことを、曖昧にしない' : 'The important details should be easy to find—and accurate.'}</h2>
+      </div>
+      <dl class="pmvp__detail-grid">
+        {decisionItems.map(([label, value]) => <div><dt>{label}</dt><dd>{value}</dd></div>)}
+      </dl>
+      <div class="pmvp__next">
+        <div><strong>{isJa ? '年度情報の公開方針' : 'Annual information policy'}</strong><p>{isJa ? '日程、費用、参加資格、宿泊、応募方法は、正式な年度情報を確認した後にこのページへ反映します。' : 'Dates, fees, eligibility, accommodation and application instructions will be added to this page after the official annual information is verified.'}</p></div>
+        <a href={`${routeBase}`} class="pmvp__back">{isJa ? 'プログラム一覧へ戻る' : 'Back to programs'} <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+</article>

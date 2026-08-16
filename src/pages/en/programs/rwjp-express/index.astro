@@ -1,0 +1,16 @@
+---
+import EnglishStudentRecruitmentLayout from '../../../../components/EnglishStudentRecruitmentLayout.astro';
+import ProgrammeMvpFlagship from '../../../../components/ProgrammeMvpFlagship.astro';
+import { programmes } from '../../../../data/programs';
+import { getProgrammePageDraft } from '../../../../data/programme-page-drafts';
+import '../../../../styles/programme-mvp-flagship.css';
+
+const programme = programmes.find((item) => item.id === 'rwjp-express');
+const draft = getProgrammePageDraft('rwjp-express');
+if (!programme || !draft) throw new Error('RWJP Express programme data is missing');
+const title = 'RWJP Express | Ritsumeikan University Short-Term Programs';
+const description = 'A focused two-week winter program at Kinugasa Campus in Kyoto, centered on Japanese-language learning and cultural experience. Annual dates, fees and eligibility are published after verification.';
+---
+<EnglishStudentRecruitmentLayout title={title} description={description} robots="noindex,nofollow" japaneseHref="/programs/rwjp-express/">
+  <ProgrammeMvpFlagship programme={programme} draft={draft} locale="en" />
+</EnglishStudentRecruitmentLayout>

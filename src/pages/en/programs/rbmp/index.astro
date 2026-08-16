@@ -1,0 +1,16 @@
+---
+import EnglishStudentRecruitmentLayout from '../../../../components/EnglishStudentRecruitmentLayout.astro';
+import ProgrammeMvpFlagship from '../../../../components/ProgrammeMvpFlagship.astro';
+import { programmes } from '../../../../data/programs';
+import { getProgrammePageDraft } from '../../../../data/programme-page-drafts';
+import '../../../../styles/programme-mvp-flagship.css';
+
+const programme = programmes.find((item) => item.id === 'rbmp');
+const draft = getProgrammePageDraft('rbmp');
+if (!programme || !draft) throw new Error('RBMP programme data is missing');
+const title = 'Ritsumeikan Business Management Program | Ritsumeikan University';
+const description = 'A short-term business and management program at Osaka Ibaraki Campus. Annual dates, fees and eligibility are published only after verification.';
+---
+<EnglishStudentRecruitmentLayout title={title} description={description} robots="noindex,nofollow" japaneseHref="/programs/rbmp/">
+  <ProgrammeMvpFlagship programme={programme} draft={draft} locale="en" />
+</EnglishStudentRecruitmentLayout>

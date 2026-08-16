@@ -1,0 +1,16 @@
+---
+import EnglishStudentRecruitmentLayout from '../../../../components/EnglishStudentRecruitmentLayout.astro';
+import ProgrammeMvpFlagship from '../../../../components/ProgrammeMvpFlagship.astro';
+import { programmes } from '../../../../data/programs';
+import { getProgrammePageDraft } from '../../../../data/programme-page-drafts';
+import '../../../../styles/programme-mvp-flagship.css';
+
+const programme = programmes.find((item) => item.id === 'rdsp');
+const draft = getProgrammePageDraft('rdsp');
+if (!programme || !draft) throw new Error('RDSP programme data is missing');
+const title = 'RDSP | Ritsumeikan University Short-Term Programs';
+const description = 'A specialist short-term program at Osaka Ibaraki Campus. The official program name, annual theme, dates, fees and eligibility are published only after verification.';
+---
+<EnglishStudentRecruitmentLayout title={title} description={description} robots="noindex,nofollow" japaneseHref="/programs/rdsp/">
+  <ProgrammeMvpFlagship programme={programme} draft={draft} locale="en" />
+</EnglishStudentRecruitmentLayout>
