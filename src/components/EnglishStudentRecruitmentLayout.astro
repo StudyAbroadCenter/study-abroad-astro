@@ -6,6 +6,7 @@ import '../styles/typography-final.css';
 import '../styles/global-reach-fiveweek.css';
 import '../styles/homepage-final-fixes.css';
 import '../styles/english-home.css';
+import '../styles/english-brand.css';
 
 interface Props {
   title: string;
@@ -47,8 +48,8 @@ const jaTarget = japaneseHref.startsWith('/') ? `${base}${japaneseHref.slice(1)}
     <header class="en-header">
       <div class="site-shell en-header__inner">
         <a class="en-header__brand" href={enHome} aria-label="Ritsumeikan University Short-Term Programs home">
-          <strong>Ritsumeikan University</strong>
-          <span>Short-Term Programs</span>
+          <span class="en-header__wordmark">RITSUMEIKAN UNIVERSITY</span>
+          <span class="en-header__brand-sub">SHORT-TERM PROGRAMS</span>
         </a>
         <nav class="en-header__nav" aria-label="Primary navigation">
           <a href={`${enHome}#program-finder`}>Programs</a>
