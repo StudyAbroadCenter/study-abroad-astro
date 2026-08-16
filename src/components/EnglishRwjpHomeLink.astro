@@ -1,0 +1,8 @@
+---
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+---
+<a class="en-rwjp-home-link" href={`${base}en/programs/rwjp/`} aria-label="View the 2027 Ritsumeikan Winter Japanese Program details">View 2027 RWJP details <span aria-hidden="true">→</span></a>
+<style>
+.en-rwjp-home-link{display:inline-flex;align-items:center;gap:.55rem;margin-top:1rem;color:#16273b;font-size:.86rem;font-weight:700;text-decoration:none}.en-rwjp-home-link span{transition:transform .18s ease}.en-rwjp-home-link:hover span{transform:translateX(.2rem)}
+</style>
