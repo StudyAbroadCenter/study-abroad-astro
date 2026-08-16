@@ -4,6 +4,13 @@
     ['MORE THAN A LANGUAGE PROGRAMME', '語学だけでは終わらない'],
     ['LEARN JAPANESE', '日本語を学ぶ'], ['LEARN WITH STUDENTS', '学生と学ぶ'],
     ['ABOUT THIS MVP', 'このサイトについて'], ['FAQ', 'よくある質問'], ['CONTACT', 'お問い合わせ'],
+    ['REAL SCENES · RITSUMEIKAN / KYOTO', '実際の風景 · 立命館と京都'],
+    ['CAMPUS', 'キャンパス'], ['CONNECT', '交流'], ['SHARE', '伝える'], ['CULTURE', '文化'], ['KYOTO', '京都'],
+    ['A DAY THAT CHANGES YOUR VIEW', '学びがつながる一日'],
+    ['YOUR DAY AT RITSUMEIKAN', '立命館で過ごす一日'],
+    ['START', 'はじまり'], ['CLASS', '授業'], ['BREAK', '休憩'], ['AFTER', '授業後'],
+    ['DISCOVER', '体験'], ['EXPLORE', '街へ'],
+    ['THIS MOMENT CHANGES', 'この場面で変わること'], ['NOT JUST A SCHEDULE', '予定表だけではない'],
 
     ['MAIN QUEST: JAPANESE · SIDE QUEST: KYOTO', '日本語を学ぶ · 京都で暮らす'],
     ['FIVE WEEKS, YOUR STORY', '5週間を 自分の物語に'],
@@ -78,11 +85,6 @@
     if (translated) node.textContent = translated;
   });
 
-  document.querySelectorAll('.rwjp-day__rail-label').forEach((node) => {
-    if (node.textContent?.trim() === 'START') node.textContent = 'はじまり';
-    if (node.textContent?.trim() === 'NEXT') node.textContent = 'つぎへ';
-  });
-
   const switchTime = document.querySelector('.rwjp-flagship__switch-time');
   if (switchTime) switchTime.textContent = '授業終了';
 
@@ -91,10 +93,13 @@
     '.rwjp-flagship h1', '.rwjp-flagship h2', '.rwjpx h1', '.rwjpx h2', '.rdsp h1', '.rdsp h2'
   ].join(','));
   headings.forEach((heading) => {
-    const last = heading.lastChild;
-    if (last?.nodeType === Node.TEXT_NODE && last.textContent) {
-      last.textContent = last.textContent.replace(/[。、！!？?]+\s*$/, '');
-    }
+    const strip = (node) => {
+      if (node?.nodeType === Node.TEXT_NODE && node.textContent) {
+        node.textContent = node.textContent.replace(/[。、！!？?]+\s*$/, '');
+      }
+    };
+    strip(heading.lastChild);
+    heading.querySelectorAll('span, strong, em').forEach((part) => strip(part.lastChild));
   });
 
   const overlays = [
