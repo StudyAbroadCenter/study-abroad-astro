@@ -21,6 +21,8 @@ For programme-facing work, also read the relevant specification in `docs/handboo
 
 For multilingual, translation, locale-routing, or language-specific content work, also read and apply `docs/handbook/22_LOCALISATION_SPEC.md`.
 
+For English localisation work, also read and apply `docs/handbook/23_ENGLISH_LOCALISATION_SPEC.md`. English must be authored as a natural English edition from the Japanese master intent and shared verified facts, not produced by sentence-by-sentence translation.
+
 A factual conflict is a blocker. Do not choose the value that appears most plausible.
 
 ## 1. Read Before Editing
@@ -135,6 +137,8 @@ Where practical, use shared structured data for:
 - eligibility.
 
 UI components display programme facts; they should not become independent fact stores.
+
+For multilingual work, locale-specific copy must not become a separate factual source. A verified date, fee, eligibility rule, campus, status, or other programme condition should be maintained in shared canonical data wherever practical and then rendered/localised for each published language.
 
 ## 9. CMS
 
