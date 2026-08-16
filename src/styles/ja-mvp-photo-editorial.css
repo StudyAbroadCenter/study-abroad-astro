@@ -160,6 +160,16 @@
     bottom: 1rem;
   }
 
+  .participant-day__intro h2 {
+    font-size: clamp(2.05rem, 10vw, 3rem) !important;
+    line-height: 1.12 !important;
+    letter-spacing: -0.045em !important;
+  }
+
+  .participant-day__intro h2 span {
+    white-space: nowrap;
+  }
+
   .rwjp-flagship__hero-photo {
     aspect-ratio: 5 / 4;
   }
