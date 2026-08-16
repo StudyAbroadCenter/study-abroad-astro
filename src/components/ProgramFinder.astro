@@ -5,221 +5,26 @@ import '../styles/programme-architecture.css';
 
 const rawBase = import.meta.env.BASE_URL;
 const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
-const optimizedImage = (path: string, width: number) => {
-  const stem = path.replace(/^\//, '').replace(/\.[^.]+$/, '');
-  return `${base}images/optimized/${stem}-${width}.webp`;
-};
-const responsiveCardImages = (path: string) => ({
-  src: optimizedImage(path, 960),
-  srcset: `${optimizedImage(path, 640)} 640w, ${optimizedImage(path, 960)} 960w`,
-});
+const optimizedImage = (path: string, width: number) => { const stem = path.replace(/^\//, '').replace(/\.[^.]+$/, ''); return `${base}images/optimized/${stem}-${width}.webp`; };
+const responsiveCardImages = (path: string) => ({ src: optimizedImage(path, 960), srcset: `${optimizedImage(path, 640)} 640w, ${optimizedImage(path, 960)} 960w` });
 const programmeHref = (id: string) => `${base}programs/${id}/`;
 const studentProgrammes = programmes.filter((programme) => programme.audience === 'individual');
 const partnerProgramme = programmes.find((programme) => programme.audience === 'partner');
 const partnerDescriptor = partnerProgramme ? getProgrammePublicDescriptor(partnerProgramme.id) : undefined;
-const customThemes = [
-  'MBA',
-  'Business',
-  'Marketing',
-  'Entrepreneurship',
-  'Data Science',
-  'AI',
-  'Film & Media',
-  'Pop Culture',
-];
+const customThemes = ['MBA','ビジネス','マーケティング','アントレプレナーシップ','データサイエンス','AI','映像・メディア','ポップカルチャー'];
 ---
-<section class="programme-finder programme-finder--reframed" id="program-finder" aria-labelledby="finder-title">
-  <div class="site-shell">
-    <div class="section-intro programme-finder__intro">
-      <p class="section-kicker">PROGRAM FINDER</p>
-      <h2 id="finder-title">何が好き？ 何を学ぶ？</h2>
-      <div class="programme-finder__intro-copy">
-        <p>日本語と文化。専門テーマ。大学オリジナル。入口は3つです。</p>
-        <small>まずは、気になるところから。</small>
-      </div>
-    </div>
-
-    <div class="programme-pathways" aria-label="プログラムの3つの入口">
-      <article>
-        <span>01</span>
-        <p>JAPANESE LANGUAGE & CULTURE</p>
-        <h3>日本語・日本文化</h3>
-        <small>RSJP / RSJP Express / RWJP / RWJP Express</small>
-      </article>
-      <article>
-        <span>02</span>
-        <p>THEMATIC STUDY</p>
-        <h3>専門テーマ</h3>
-        <small>RDSP / RBMP</small>
-      </article>
-      <article>
-        <span>03</span>
-        <p>FOR UNIVERSITY PARTNERS</p>
-        <h3>Custom Programs</h3>
-        <small>教育目的からオーダーメード</small>
-      </article>
-    </div>
-
-    <form class="finder-controls" data-finder-form>
-      <fieldset>
-        <legend><span>01</span>学びたい内容</legend>
-        <div class="finder-options finder-options--programme-family">
-          <label><input type="radio" name="goal" value="all" checked /><span>すべて見る</span></label>
-          <label><input type="radio" name="goal" value="japanese-culture" /><span>日本語・日本文化</span></label>
-          <label><input type="radio" name="goal" value="specialist" /><span>専門テーマ</span></label>
-        </div>
-      </fieldset>
-
-      <fieldset class="finder-controls__fact-note">
-        <legend><span>02</span>年度別の条件</legend>
-        <p>季節・期間・キャンパス・日程・費用は、確認済みの情報だけを詳細ページで案内します。</p>
-      </fieldset>
-    </form>
-
-    <div class="finder-results-heading">
-      <p>個人応募向け <strong data-result-count>{studentProgrammes.length}</strong>件</p>
-      <small>まず学びたい内容で絞り、気になるプログラムの詳細を確認してください。</small>
-    </div>
-
-    <div class="programme-grid" data-programme-grid>
-      {studentProgrammes.map((programme) => {
-        const copy = programme.copy.ja;
-        const publicCopy = getProgrammePublicDescriptor(programme.id);
-        const name = publicCopy?.name ?? programme.code;
-        const summary = publicCopy?.summary ?? '詳細情報を確認中です。';
-        const status = publicCopy?.status ?? '詳細確認中';
-        const experienceLine = publicCopy?.experienceLine;
-        const sources = responsiveCardImages(programme.image);
-        const href = programmeHref(programme.id);
-        return (
-          <article
-            class={`programme-card programme-card--${programme.goals[0]}`}
-            data-programme-card
-            data-goals={programme.goals.join(' ')}
-          >
-            <a class="programme-card__visual" href={href} aria-label={`${name}の詳細ページを見る`}>
-              <img
-                src={sources.src}
-                srcset={sources.srcset}
-                sizes="(min-width: 900px) 380px, (min-width: 560px) 50vw, 100vw"
-                alt={`${name}のプログラムイメージ`}
-                width="960"
-                height="640"
-                loading="lazy"
-                decoding="async"
-              />
-              <span>{programme.code}</span>
-              <small>{copy.familyLabel}</small>
-            </a>
-            <div class="programme-card__body">
-              <div class="programme-card__meta programme-card__meta--status">
-                <span>{status}</span>
-              </div>
-              <h3><a href={href}>{name}</a></h3>
-              <p>{summary}</p>
-              {experienceLine && <p class="programme-card__experience">{experienceLine}</p>}
-              <a class="programme-card__link" href={href} aria-label={`${name}の詳細ページを見る`}>
-                詳細を見る <span>→</span>
-              </a>
-            </div>
-          </article>
-        );
-      })}
-    </div>
-
-    <p class="finder-empty" data-finder-empty hidden>この内容では見つかりませんでした。「すべて見る」に戻してみてください。</p>
-
-    {partnerProgramme && (
-      <aside class="partner-programme partner-programme--expanded" id="custom-programs" aria-labelledby="partner-programme-title">
-        <div class="partner-programme__label">FOR UNIVERSITY PARTNERS · CUSTOM PROGRAMS</div>
-        <div class="partner-programme__content">
-          <div class="partner-programme__lead">
-            <p class="section-kicker">BUILT AROUND YOUR ACADEMIC PURPOSE</p>
-            <h2 id="partner-programme-title">大学の目的から ひとつの学びをつくる</h2>
-            <p>{partnerDescriptor?.summary ?? '教育目的から設計する大学・機関向けプログラムです。'}</p>
-            <p class="partner-programme__promise">テーマを持ってきてください。授業・共修・文化体験・訪問・宿泊を、一つのプログラムとして組み立てます。</p>
-          </div>
-
-          <div class="partner-programme__process" aria-label="Custom Programsの設計プロセス">
-            <div><span>01</span><strong>LISTEN</strong><p>テーマ、学習成果、期間、人数、希望を聞く。</p></div>
-            <div><span>02</span><strong>DESIGN</strong><p>授業、共修、訪問、文化体験を一つの流れへ。</p></div>
-            <div><span>03</span><strong>ARRANGE</strong><p>講師、学生、施設、宿泊、移動を整える。</p></div>
-            <div><span>04</span><strong>DELIVER</strong><p>大学単位の学びとして立命館で実施する。</p></div>
-          </div>
-
-          <div class="partner-programme__themes">
-            <p>PAST PROGRAMME THEMES</p>
-            <ul aria-label="過去の実施テーマ例">
-              {customThemes.map((theme) => <li>{theme}</li>)}
-            </ul>
-          </div>
-
-          <div class="partner-programme__footer">
-            <p>実施キャンパスは教育目的と内容から決定します。主な実施拠点は衣笠・大阪いばらきキャンパスです。一部の特定プログラムはびわこ・くさつキャンパスで実施します。</p>
-            <a class="action-button action-button--dark" href={programmeHref(partnerProgramme.id)}>大学担当者向けページを見る</a>
-          </div>
-        </div>
-      </aside>
-    )}
-  </div>
-</section>
-
-<style>
-  .finder-controls__fact-note {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .finder-controls__fact-note p {
-    margin: 0;
-    max-width: 32rem;
-    font-size: 0.94rem;
-    line-height: 1.75;
-    color: #635953;
-  }
-
-  .programme-card__meta--status {
-    display: flex;
-    justify-content: flex-start;
-  }
-
-  .programme-card__meta--status span {
-    max-width: 100%;
-    white-space: normal;
-    line-height: 1.45;
-  }
-
-  @media (max-width: 760px) {
-    .finder-controls__fact-note p {
-      font-size: 0.9rem;
-    }
-  }
-</style>
-
+<section class="programme-finder programme-finder--reframed" id="program-finder" aria-labelledby="finder-title"><div class="site-shell">
+  <div class="section-intro programme-finder__intro"><p class="section-kicker">プログラムを探す</p><h2 id="finder-title">何が好き？ 何を学ぶ？</h2><div class="programme-finder__intro-copy"><p>日本語と文化　専門テーマ　大学オリジナル　入口は3つです</p><small>まずは気になるところから</small></div></div>
+  <div class="programme-pathways" aria-label="プログラムの3つの入口"><article><span>01</span><p>日本語と文化を学ぶ</p><h3>日本語・日本文化</h3><small>RSJP / RSJP Express / RWJP / RWJP Express</small></article><article><span>02</span><p>専門分野から学ぶ</p><h3>専門テーマ</h3><small>RDSP / RBMP</small></article><article><span>03</span><p>大学・機関の目的からつくる</p><h3>カスタムプログラム</h3><small>教育目的からオーダーメード</small></article></div>
+  <form class="finder-controls" data-finder-form><fieldset><legend><span>01</span>学びたい内容</legend><div class="finder-options finder-options--programme-family"><label><input type="radio" name="goal" value="all" checked /><span>すべて見る</span></label><label><input type="radio" name="goal" value="japanese-culture" /><span>日本語・日本文化</span></label><label><input type="radio" name="goal" value="specialist" /><span>専門テーマ</span></label></div></fieldset><fieldset class="finder-controls__fact-note"><legend><span>02</span>年度別の条件</legend><p>季節・期間・キャンパス・日程・費用は、確認済みの情報だけを詳細ページで案内します。</p></fieldset></form>
+  <div class="finder-results-heading"><p>個人応募向け <strong data-result-count>{studentProgrammes.length}</strong>件</p><small>学びたい内容で絞り、気になるプログラムの詳細を確認してください。</small></div>
+  <div class="programme-grid" data-programme-grid>{studentProgrammes.map((programme) => { const copy = programme.copy.ja; const publicCopy = getProgrammePublicDescriptor(programme.id); const name = publicCopy?.name ?? programme.code; const summary = publicCopy?.summary ?? '詳細情報を確認中です。'; const status = publicCopy?.status ?? '詳細確認中'; const experienceLine = publicCopy?.experienceLine; const sources = responsiveCardImages(programme.image); const href = programmeHref(programme.id); return (<article class={`programme-card programme-card--${programme.goals[0]}`} data-programme-card data-goals={programme.goals.join(' ')}><a class="programme-card__visual" href={href} aria-label={`${name}の詳細ページを見る`}><img src={sources.src} srcset={sources.srcset} sizes="(min-width: 900px) 380px, (min-width: 560px) 50vw, 100vw" alt={`${name}のプログラムイメージ`} width="960" height="640" loading="lazy" decoding="async" /><span>{programme.code}</span><small>{copy.familyLabel}</small></a><div class="programme-card__body"><div class="programme-card__meta programme-card__meta--status"><span>{status}</span></div><h3><a href={href}>{name}</a></h3><p>{summary}</p>{experienceLine && <p class="programme-card__experience">{experienceLine}</p>}<a class="programme-card__link" href={href} aria-label={`${name}の詳細ページを見る`}>詳細を見る <span>→</span></a></div></article>); })}</div>
+  <p class="finder-empty" data-finder-empty hidden>この内容では見つかりませんでした。「すべて見る」に戻してみてください。</p>
+  {partnerProgramme && (<aside class="partner-programme partner-programme--expanded" id="custom-programs" aria-labelledby="partner-programme-title"><div class="partner-programme__label">大学・機関向け カスタムプログラム</div><div class="partner-programme__content"><div class="partner-programme__lead"><p class="section-kicker">教育目的から設計する</p><h2 id="partner-programme-title">大学の目的から 一つの学びをつくる</h2><p>{partnerDescriptor?.summary ?? '教育目的から設計する大学・機関向けプログラムです。'}</p><p class="partner-programme__promise">テーマをお聞かせください。授業・共修・文化体験・訪問・宿泊を、一つのプログラムとして組み立てます。</p></div><div class="partner-programme__process" aria-label="カスタムプログラムの設計プロセス"><div><span>01</span><strong>目的を聞く</strong><p>テーマ、学習成果、期間、人数、希望を確認します。</p></div><div><span>02</span><strong>学びを設計する</strong><p>授業、共修、訪問、文化体験を一つの流れにします。</p></div><div><span>03</span><strong>実施を整える</strong><p>講師、学生、施設、宿泊、移動を調整します。</p></div><div><span>04</span><strong>立命館で学ぶ</strong><p>大学単位の短期プログラムとして実施します。</p></div></div><div class="partner-programme__themes"><p>これまでの実施テーマ例</p><ul aria-label="過去の実施テーマ例">{customThemes.map((theme) => <li>{theme}</li>)}</ul></div><div class="partner-programme__footer"><p>実施キャンパスは教育目的と内容から決定します。主な実施拠点は衣笠・大阪いばらきキャンパスです。一部の特定プログラムはびわこ・くさつキャンパスで実施します。</p><a class="action-button action-button--dark" href={programmeHref(partnerProgramme.id)}>大学担当者向けページを見る</a></div></div></aside>)}
+</div></section>
+<style>.finder-controls__fact-note{display:flex;flex-direction:column;justify-content:center}.finder-controls__fact-note p{margin:0;max-width:32rem;font-size:.94rem;line-height:1.75;color:#635953}.programme-card__meta--status{display:flex;justify-content:flex-start}.programme-card__meta--status span{max-width:100%;white-space:normal;line-height:1.45}@media(max-width:760px){.finder-controls__fact-note p{font-size:.9rem}}</style>
 <script>
-  const form = document.querySelector('[data-finder-form]');
-  const cards = Array.from(document.querySelectorAll('[data-programme-card]'));
-  const count = document.querySelector('[data-result-count]');
-  const empty = document.querySelector('[data-finder-empty]');
-
-  const updateResults = () => {
-    if (!(form instanceof HTMLFormElement)) return;
-    const data = new FormData(form);
-    const goal = String(data.get('goal') ?? 'all');
-    let visibleCount = 0;
-
-    cards.forEach((card) => {
-      if (!(card instanceof HTMLElement)) return;
-      const goals = card.dataset.goals?.split(' ') ?? [];
-      const matchesGoal = goal === 'all' || goals.includes(goal);
-      card.hidden = !matchesGoal;
-      if (matchesGoal) visibleCount += 1;
-    });
-
-    if (count) count.textContent = String(visibleCount);
-    if (empty instanceof HTMLElement) empty.hidden = visibleCount !== 0;
-  };
-
-  form?.addEventListener('change', updateResults);
+  const form=document.querySelector('[data-finder-form]'); const cards=Array.from(document.querySelectorAll('[data-programme-card]')); const count=document.querySelector('[data-result-count]'); const empty=document.querySelector('[data-finder-empty]');
+  const updateResults=()=>{ if(!(form instanceof HTMLFormElement)) return; const data=new FormData(form); const goal=String(data.get('goal')??'all'); let visibleCount=0; cards.forEach((card)=>{ if(!(card instanceof HTMLElement)) return; const goals=(card.dataset.goals??'').split(' '); const visible=goal==='all'||goals.includes(goal); card.hidden=!visible; if(visible) visibleCount+=1; }); if(count) count.textContent=String(visibleCount); if(empty instanceof HTMLElement) empty.hidden=visibleCount!==0; };
+  form?.addEventListener('change',updateResults); updateResults();
 </script>
