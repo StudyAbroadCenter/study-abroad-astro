@@ -22,6 +22,35 @@
   .en-rwjp-subnav .rwjp-flagship__nav-inner > a:last-child { margin-left: 0; }
 }
 
+/* Study section: legacy styles must never flatten the intended navy stage. */
+.rwjp-en .rwjp-en-study.rwjp-flagship__morning {
+  background:
+    radial-gradient(circle at 84% 20%, rgba(170, 36, 50, .3), transparent 28rem),
+    linear-gradient(135deg, #071a2e 0%, #102c4d 62%, #0a2038 100%) !important;
+  color: #fff !important;
+}
+.rwjp-en .rwjp-en-study .rwjp-flagship__section-head h2,
+.rwjp-en .rwjp-en-study .rwjp-flagship__section-head p,
+.rwjp-en .rwjp-en-study .rwjp-flagship__study-line strong,
+.rwjp-en .rwjp-en-study .rwjp-flagship__study-line p {
+  color: #fff !important;
+}
+.rwjp-en .rwjp-en-study .rwjp-flagship__section-head > p:last-child,
+.rwjp-en .rwjp-en-study .rwjp-flagship__study-line p {
+  color: rgba(255,255,255,.84) !important;
+}
+.rwjp-en .rwjp-en-study .rwjp-flagship__kicker,
+.rwjp-en .rwjp-en-study .rwjp-flagship__study-line span {
+  color: #ffb0b8 !important;
+}
+.rwjp-en .rwjp-en-study .rwjp-flagship__study-line {
+  border-color: rgba(255,255,255,.22) !important;
+}
+.rwjp-en .rwjp-en-study .rwjp-flagship__study-line > div {
+  background: transparent !important;
+  border-color: rgba(255,255,255,.17) !important;
+}
+
 /* Keep the academic-load number and explanatory copy in distinct paint boxes. */
 .rwjp-en-study-stat .rwjp-flagship__switch-time,
 .rwjp-en-study-stat .rwjp-flagship__switch-grid > div {
@@ -37,17 +66,59 @@
   background: rgba(245, 233, 233, .84);
 }
 
+/* Global Reach: enforce the split editorial stage shown in the approved art direction. */
+.rwjp-en .rwjp-en-global.global-evidence {
+  background: linear-gradient(90deg, #f1f4f2 0 45%, #0d2947 45% 100%) !important;
+}
+.rwjp-en .rwjp-en-global .global-evidence__intro {
+  position: relative;
+}
+.rwjp-en .rwjp-en-global .global-evidence__lead-wrap {
+  background: rgba(7, 26, 46, .9) !important;
+  border-color: rgba(255,255,255,.18) !important;
+}
+.rwjp-en .rwjp-en-global .global-evidence__lead,
+.rwjp-en .rwjp-en-global .global-evidence__source-note {
+  color: #fff !important;
+}
+.rwjp-en .rwjp-en-global .global-evidence__visual-grid,
+.rwjp-en .rwjp-en-global .global-evidence__stats {
+  position: relative;
+  z-index: 2;
+}
+
 /* The globe must remain legible even if legacy network styles load earlier. */
 .rwjp-en-globe .global-evidence__network-center {
   color: #fff !important;
+  background: radial-gradient(circle at 35% 30%, #d04d59, #a61f2d 52%, #71101a 100%) !important;
+  box-shadow: 0 18px 50px rgba(117, 20, 30, .34) !important;
 }
 .rwjp-en-globe .global-evidence__network-center * {
   color: #fff !important;
   opacity: 1 !important;
+  text-shadow: 0 1px 4px rgba(0,0,0,.28) !important;
 }
 .rwjp-en-globe .global-evidence__network-node,
 .rwjp-en-globe .global-evidence__network-node * {
   opacity: 1 !important;
+}
+.rwjp-en-globe .global-evidence__network-node {
+  background: rgba(255,255,255,.99) !important;
+  border-color: rgba(44,52,48,.16) !important;
+}
+.rwjp-en-globe .global-evidence__network-node strong,
+.rwjp-en-globe .global-evidence__network-node small,
+.rwjp-en-globe .global-evidence__network-node span {
+  color: #17211d !important;
+}
+.rwjp-en-globe .global-evidence__network-node b {
+  color: #a61f2d !important;
+}
+
+@media (max-width: 800px) {
+  .rwjp-en .rwjp-en-global.global-evidence {
+    background: linear-gradient(180deg, #f1f4f2 0 38%, #0d2947 38% 100%) !important;
+  }
 }
 
 @media (max-width: 600px) {
