@@ -18,8 +18,8 @@ const evidence = shortTermParticipationEvidence;
   <div class="recruitment-hero__overlay" aria-hidden="true"></div>
   <div class="site-shell recruitment-hero__content en-hero__content">
     <p class="recruitment-hero__location">Study at Ritsumeikan. Live Japan.</p>
-    <h1 id="en-hero-title"><span>More than</span><span>time in class.</span></h1>
-    <p class="recruitment-hero__lead">Learn on campus. Meet students here. Use Japan as part of the classroom.<br />Short-term study at Ritsumeikan University.</p>
+    <h1 id="en-hero-title"><span>Study beyond</span><span>the classroom.</span></h1>
+    <p class="recruitment-hero__lead">Learn on campus. Meet students here. Let everyday Japan become part of what you study.<br />Short-term study at Ritsumeikan University.</p>
     <div class="recruitment-hero__actions">
       <a class="action-button action-button--primary" href="#program-finder">Find your program</a>
       <a class="action-button action-button--glass" href="#why-ritsumeikan">See what the experience includes</a>
@@ -46,7 +46,7 @@ const evidence = shortTermParticipationEvidence;
       <article><span>02</span><p>Study through a specialist theme</p><h3>Thematic Study</h3><small>RDSP / RBMP</small></article>
     </div>
     <div class="finder-controls en-finder__note"><div><span>01</span><strong>Start with what you want to study</strong><p>Compare the six individual programs below. Confirmed dates, fees, eligibility and application details will appear on each English program page as those pages are released.</p></div></div>
-    <div class="finder-results-heading"><p>Individual programs <strong>{studentProgrammes.length}</strong></p><small>No unverified annual dates or fees are shown here.</small></div>
+    <div class="finder-results-heading"><p>Individual programs <strong>{studentProgrammes.length}</strong></p><small>Annual details are shown only after they are verified.</small></div>
     <div class="programme-grid">
       {studentProgrammes.map((programme) => {
         const copy = programme.copy.en;
@@ -57,7 +57,7 @@ const evidence = shortTermParticipationEvidence;
               <span>{programme.code}</span><small>{copy.familyLabel}</small>
             </div>
             <div class="programme-card__body">
-              <div class="programme-card__meta programme-card__meta--status"><span>{copy.seasonLabel}</span><span>{copy.duration}</span></div>
+              <div class="programme-card__meta programme-card__meta--status"><span>{copy.campusLabel}</span></div>
               <h3>{copy.name}</h3><p>{copy.summary}</p>{copy.experienceLine && <p class="programme-card__experience">{copy.experienceLine}</p>}
               <p class="en-programme-card__pending">English program details are being localised page by page.</p>
             </div>
