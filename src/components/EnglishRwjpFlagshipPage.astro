@@ -6,6 +6,9 @@ import {
   isJourneyLinkReady,
 } from '../data/rwjp/index';
 import { participationByProgramme, summarizeParticipation } from '../data/participation-history';
+import '../styles/rwjp-flagship.css';
+import '../styles/rwjp-day-story.css';
+import '../styles/rwjp-professional-polish.css';
 
 const f = rwjp2027Facts;
 const rawBase = import.meta.env.BASE_URL;
@@ -29,131 +32,84 @@ const inquiryLink = rwjp2027JourneyLinks.inquiry;
 const applicationReady = isJourneyLinkReady(applicationLink) && Boolean(applicationLink.url);
 const rwjpEvidence = summarizeParticipation(participationByProgramme('RWJP'));
 ---
-<article class="en-rwjp">
-  <header class="en-rwjp-hero">
-    <div class="site-shell en-rwjp-hero__grid">
-      <div class="en-rwjp-hero__copy">
-        <p class="en-rwjp-eyebrow">Ritsumeikan Winter Japanese Program · 2027</p>
+<article class="rwjp-flagship rwjp-en">
+  <header class="rwjp-flagship__hero en-rwjp-hero">
+    <div class="site-shell rwjp-flagship__hero-grid">
+      <div class="rwjp-flagship__hero-copy">
+        <p class="rwjp-flagship__eyebrow">Ritsumeikan Winter Japanese Program · 2027</p>
         <h1>Study Japanese.<br /><em>Live in Kyoto.</em></h1>
-        <p class="en-rwjp-hero__lead">Five weeks is long enough for Kyoto to become more than a place you visit. Build your Japanese in class, meet students at Ritsumeikan, and let the city become part of your everyday life.</p>
-        <div class="en-rwjp-hero__actions">
-          <a class="en-rwjp-button en-rwjp-button--primary" href="#essentials">See the 2027 details</a>
-          <a class="en-rwjp-button en-rwjp-button--quiet" href="#fit">Is RWJP right for me?</a>
-        </div>
-        <p class="en-rwjp-hero__micro">Japanese language · Campus life · Kyoto in winter</p>
+        <p class="rwjp-flagship__lead">Spend five weeks studying Japanese at Ritsumeikan and building a daily life in Kyoto. Class gives the program its academic center; the time around it gives you room to make the city your own.</p>
+        <p class="rwjp-flagship__micro">Japanese language · Campus life · Kyoto in winter</p>
       </div>
-      <figure class="en-rwjp-hero__media">
-        <img src={asset('rwjp-kyoto-winter.webp')} alt="Winter in Kyoto during a short-term study program" width="1600" height="1067" decoding="async" />
-        <figcaption>Kyoto is not just the setting for RWJP. For five weeks, it is where you live.</figcaption>
+      <figure class="rwjp-flagship__hero-photo en-rwjp-hero-photo">
+        <img class="crop-winter" src={asset('rwjp-kyoto-winter.webp')} alt="Winter in Kyoto during a Ritsumeikan short-term study program" width="1600" height="1067" decoding="async" />
+        <figcaption>For five weeks, Kyoto is more than the place around the program. It is where you live.</figcaption>
       </figure>
     </div>
   </header>
 
-  <nav class="en-rwjp-subnav" aria-label="RWJP page navigation">
-    <div class="site-shell en-rwjp-subnav__inner">
-      <a href="#story">The experience</a><a href="#learn">Japanese</a><a href="#life">Life in Kyoto</a><a href="#fit">Who it suits</a><a href="#essentials">2027 details</a><a href="#apply">How to apply</a>
+  <nav class="rwjp-flagship__nav en-rwjp-subnav" aria-label="RWJP page navigation">
+    <div class="site-shell rwjp-flagship__nav-inner">
+      <a href="#five-weeks">Five weeks</a><a href="#experience">The experience</a><a href="#study">Study</a><a href="#kyoto">Kyoto</a><a href="#fit">Is it for me?</a><a href="#essentials">2027 details</a><a href="#apply">Apply</a>
     </div>
   </nav>
 
-  <section class="en-rwjp-intro" id="story">
-    <div class="site-shell en-rwjp-intro__grid">
-      <div><p class="en-rwjp-kicker">Five weeks, not five days</p><h2>Stay long enough to find your own Kyoto</h2></div>
-      <div class="en-rwjp-prose"><p>A short visit gives you landmarks. Five weeks gives you routines: the walk to campus, a favorite lunch spot, classmates you recognize, and Japanese you tried yesterday becoming Japanese you can use today.</p><p>RWJP combines structured language study with the independence of living abroad. The program gives you a framework. What you make of the time around it is yours.</p></div>
+  <section class="rwjp-flagship__opening" id="five-weeks">
+    <div class="site-shell rwjp-flagship__opening-grid">
+      <div><p class="rwjp-flagship__kicker">Five weeks to make it yours</p><h2>Stay long enough to find your own Kyoto</h2></div>
+      <div class="rwjp-flagship__prose"><p>A short visit gives you landmarks. Five weeks gives you routines: the walk to campus, a place you return to for lunch, classmates you begin to know, and Japanese from class turning up in everyday conversations.</p><p>RWJP gives you a structured academic program without scripting every hour around it. You study seriously, take part in the program, and still have the independence to decide how you spend your time in Kyoto.</p></div>
     </div>
   </section>
 
-  <section class="en-rwjp-split" id="learn">
-    <div class="site-shell en-rwjp-split__grid">
-      <figure class="en-rwjp-split__media"><img src={realAsset('rwjp-real-japanese-class.webp')} alt="Students taking a Japanese language class at Ritsumeikan University" width="960" height="640" loading="lazy" decoding="async" /></figure>
-      <div class="en-rwjp-split__copy"><p class="en-rwjp-kicker">Learn with purpose</p><h2>Japanese is at the center of RWJP</h2><p>On days with Japanese classes, study is concentrated mainly in the morning. Presentations, quizzes and examinations help you build and check your progress, while student interaction gives you opportunities to use what you learn beyond class.</p><div class="en-rwjp-statline"><strong>{japaneseHours}</strong><span>of Japanese language study in the 2027 program</span></div><p class="en-rwjp-note">Classes use a direct-method approach and are taught primarily in Japanese. Academic performance is recorded in a transcript.</p></div>
+  <section class="rwjp-persona rwjp-en-persona" id="fit" aria-labelledby="en-rwjp-fit-title">
+    <div class="site-shell rwjp-persona__grid">
+      <div class="rwjp-persona__card"><p class="rwjp-flagship__kicker">Before you decide</p><p class="rwjp-persona__meta">University & graduate students · Beginners welcome · Individual applications accepted</p><h2 id="en-rwjp-fit-title">Could five weeks in Kyoto work for me?</h2><p class="rwjp-persona__lead">You do not need to arrive as an advanced Japanese speaker. You do need to be ready to study, participate fully and handle the everyday independence that comes with living abroad.</p><p class="rwjp-persona__decision">Complete beginners may apply. JLPT N1 holders are not eligible. Before the program begins, every participant must be able to read hiragana and katakana.</p></div>
+      <div class="rwjp-persona__note"><p><strong>Enrollment requirement</strong></p><p>You must remain enrolled at a university or graduate school from application through participation. Part-time students are eligible.</p></div>
     </div>
   </section>
 
-  <section class="en-rwjp-life" id="life">
+  <section class="rwjp-day rwjp-en-experience" id="experience" aria-labelledby="en-rwjp-experience-title">
+    <div class="site-shell rwjp-day__intro"><p class="rwjp-flagship__kicker">What fills the five weeks</p><h2 id="en-rwjp-experience-title">Class. Conversation. Culture. And time that is yours.</h2><p>RWJP combines confirmed program elements with ordinary time that participants manage for themselves. The order below is not a sample timetable; it is a way to understand the rhythm of the program without inventing a fictional day.</p></div>
+    <div class="site-shell rwjp-en-story-grid">
+      <article class="rwjp-en-story-card rwjp-en-story-card--wide"><div><p class="rwjp-day__time">Program · Japanese</p><h3>Start with serious language study</h3><p>Japanese is the academic center of RWJP. On class days, study is concentrated mainly in the morning, with presentations, quizzes and examinations helping you build and check your progress.</p><p class="rwjp-day__fact">Your academic performance is recorded in a transcript.</p></div><figure><img src={realAsset('rwjp-real-japanese-class.webp')} alt="Students studying Japanese in a Ritsumeikan University classroom" width="960" height="640" loading="lazy" decoding="async" /></figure></article>
+      <article class="rwjp-en-story-card"><div><p class="rwjp-day__time">Program · Student interaction</p><h3>Use what you learn with people</h3><p>Opportunities to interact with Ritsumeikan students can give you a reason to try new Japanese and talk about university life. The format and frequency follow the official arrangements for the year.</p></div><figure><img src={realAsset('rwjp-real-learning-hub.webp')} alt="Students sharing ideas in a university learning space" width="960" height="640" loading="lazy" decoding="async" /></figure></article>
+      <article class="rwjp-en-story-card"><div><p class="rwjp-day__time">Program · Culture</p><h3>Take part, not just look</h3><p>The 2027 program includes {cultureSessions ?? 11} cultural sessions. Activities may include tea ceremony, calligraphy or Zen meditation; exact content is finalized through annual arrangements.</p></div><figure><img src={realAsset('rwjp-real-culture-tatami.webp')} alt="Students taking part in a Japanese cultural activity" width="960" height="640" loading="lazy" decoding="async" /></figure></article>
+    </div>
+  </section>
+
+  <section class="rwjp-flagship__morning" id="study">
     <div class="site-shell">
-      <div class="en-rwjp-section-head"><p class="en-rwjp-kicker">Beyond the classroom</p><h2>The program has a schedule.<br />Your five weeks have a life.</h2><p>RWJP includes language classes, cultural activities and opportunities to interact with Ritsumeikan students. Around those organized elements, there is also ordinary time — meals, walks, study, conversations and your own exploration of Kyoto.</p></div>
-      <div class="en-rwjp-life__cards">
-        <article><img src={realAsset('rwjp-real-learning-hub.webp')} alt="Students sharing learning in a university setting" loading="lazy" decoding="async" /><div><span>Meet</span><h3>Use Japanese with people, not only exercises</h3><p>Student interaction creates opportunities to try what you have learned and talk about university life. The format and frequency follow the official arrangements for the year.</p></div></article>
-        <article><img src={realAsset('rwjp-real-culture-tatami.webp')} alt="Students taking part in a Japanese cultural activity" loading="lazy" decoding="async" /><div><span>Take part</span><h3>Culture is something you do</h3><p>The 2027 program includes {cultureSessions ?? 11} cultural sessions. Activities may include tea ceremony, calligraphy or Zen meditation; the exact content is finalized through annual arrangements.</p></div></article>
-        <article><img src={realAsset('rwjp-real-kyoto-field.webp')} alt="Students taking part in an activity in Kyoto" loading="lazy" decoding="async" /><div><span>Explore</span><h3>Make the city part of your learning</h3><p>History, neighborhoods, cafés, contemporary culture or simply a familiar route home: how you use your free time changes the Kyoto you come to know.</p></div></article>
-      </div>
-      <p class="en-rwjp-life__fact">2027 cultural program: <strong>{cultureHours}</strong>{cultureSessions && <> across <strong>{cultureSessions} sessions</strong></>}. Specific activities and dates may vary.</p>
+      <div class="rwjp-flagship__section-head"><p class="rwjp-flagship__kicker">Japanese at the center</p><h2>Study it. Use it. Check your progress.</h2><p>Classes use a direct-method approach and are taught primarily in Japanese. The aim is not to promise fluency in five weeks, but to create a concentrated period in which Japanese becomes the language you study, hear and try to use every day.</p></div>
+      <div class="rwjp-flagship__study-line"><div><span>01</span><strong>Learn</strong><p>Structured Japanese language classes form the academic core.</p></div><div><span>02</span><strong>Use</strong><p>Presentations and interaction create opportunities to put Japanese into practice.</p></div><div><span>03</span><strong>Check</strong><p>Quizzes and examinations help you see what you have understood.</p></div><div><span>04</span><strong>Record</strong><p>Academic performance is documented in a transcript.</p></div></div>
     </div>
   </section>
 
-  <section class="en-rwjp-fit" id="fit">
-    <div class="site-shell en-rwjp-fit__grid">
-      <div><p class="en-rwjp-kicker">A useful question before you apply</p><h2>Is RWJP the right kind of five weeks for you?</h2><p>You do not need to arrive as an advanced Japanese speaker. You do need to be ready to study seriously, take part in the program and manage the everyday independence that comes with living abroad.</p></div>
-      <div class="en-rwjp-fit__list">
-        <article><span>01</span><div><h3>You want Japanese to be your academic focus</h3><p>Complete beginners may apply. JLPT N1 holders are not eligible. Before the program begins, all participants must be able to read hiragana and katakana.</p></div></article>
-        <article><span>02</span><div><h3>You want more than a packaged tour</h3><p>Classes and program activities are organized; your free time is not scripted. RWJP works best when you are willing to make choices and discover the city for yourself.</p></div></article>
-        <article><span>03</span><div><h3>You are currently a university student</h3><p>You must remain enrolled at a university or graduate school from application through participation. Part-time students are eligible; applicants who have not yet entered university or have already graduated are not.</p></div></article>
-      </div>
+  <section class="rwjp-flagship__switch rwjp-en-study-stat">
+    <div class="site-shell rwjp-flagship__switch-grid"><p class="rwjp-flagship__switch-time">{japaneseHours}<span>Japanese language study · 2027</span></p><div><p>Five weeks gives the program room to build a learning rhythm rather than compress everything into a few days. Cultural learning adds another {cultureHours}{cultureSessions ? ` across ${cultureSessions} sessions` : ''}.</p><small>CONFIRMED 2027 ACADEMIC LOAD</small></div></div>
+  </section>
+
+  <section class="rwjp-flagship__kyoto" id="kyoto">
+    <div class="site-shell"><div class="rwjp-flagship__kyoto-intro"><p class="rwjp-flagship__kicker">Living in Kyoto</p><h2>The program has a schedule. Your five weeks have a life.</h2><p>Classes and organized activities are only part of the experience. Meals, walks, study, errands, conversations and your own exploration of Kyoto fill the time around them. That ordinary time is not an organized itinerary, and that is exactly why it matters.</p></div>
+      <div class="rwjp-flagship__photo-story rwjp-en-kyoto-story"><figure class="rwjp-flagship__photo-story-main"><img src={asset('rwjp-winter-life.webp')} alt="Daily life in Kyoto during winter" loading="lazy" decoding="async" /><figcaption>Daily routines are part of what turns a five-week stay into something different from a short visit.</figcaption></figure><div class="rwjp-flagship__kyoto-notes"><p><strong>CAMPUS</strong><span>Kinugasa Campus in north-west Kyoto.</span></p><p><strong>DORM</strong><span>Daishogun Dormitory is approximately a 10–15 minute walk from campus.</span></p><p><strong>FREE TIME</strong><span>How you use time outside program activities is your decision.</span></p><p><strong>WINTER</strong><span>Kyoto in January and February can be cold. Come prepared for winter.</span></p></div></div>
     </div>
   </section>
 
-  <section class="en-rwjp-essentials" id="essentials">
-    <div class="site-shell">
-      <div class="en-rwjp-section-head"><p class="en-rwjp-kicker">2027 program essentials</p><h2>The details you need before deciding</h2><p>These figures come from confirmed 2027 RWJP data. Where annual arrangements can change, we say so.</p></div>
-      <dl class="en-rwjp-facts">
-        <div><dt>Official name</dt><dd>Ritsumeikan Winter Japanese Program</dd></div>
-        <div><dt>Dates</dt><dd>{programmeDates}</dd></div>
-        <div><dt>Campus</dt><dd>Kinugasa Campus, Kyoto</dd></div>
-        <div><dt>Program fee</dt><dd>{programmeFee}</dd></div>
-        <div><dt>Application period</dt><dd>{applicationDates}</dd></div>
-        <div><dt>Japanese study</dt><dd>{japaneseHours}</dd></div>
-        <div><dt>Cultural activities</dt><dd>{cultureHours}{cultureSessions ? ` · ${cultureSessions} sessions` : ''}</dd></div>
-        <div><dt>Accommodation</dt><dd>Daishogun Dormitory · {dormFee} additional</dd></div>
-      </dl>
-      <div class="en-rwjp-policy-grid">
-        <article><p class="en-rwjp-kicker">Payment</p><h3>Pay after admission</h3><p>Payment instructions are sent after you are admitted. The program fee, and the dormitory fee if applicable, must be paid in full by the specified deadline. If payment is not completed by the deadline, your place is automatically forfeited.</p></article>
-        <article><p class="en-rwjp-kicker">Cancellation & refunds</p><h3>Know the deductions before you pay</h3><p>There is no cancellation charge before payment. After payment, {refundAmount ? `a ${refundAmount} administrative fee` : 'an administrative fee'} is deducted, together with any non-refundable costs already incurred for arrangements. The remaining balance is refunded.</p></article>
-      </div>
-    </div>
+  <section class="rwjp-flagship__future rwjp-en-dorm">
+    <div class="site-shell rwjp-flagship__future-inner"><p class="rwjp-flagship__kicker">Daishogun Dormitory</p><h2>A base for everyday life</h2><p>Rooms accommodate up to four students and are assigned by gender. Showers, toilets and kitchen facilities are shared. Wi-Fi and bedding are included; meals are not provided. Participants may also arrange external accommodation at their own expense.</p><div class="rwjp-flagship__future-path"><span>{dormDates}</span><i>·</i><span>{dormFee} additional</span><i>·</i><span>Subject to availability</span></div><p class="rwjp-flagship__future-line">The program does not promise a private room or a specific roommate.</p></div>
   </section>
 
-  <section class="en-rwjp-dorm">
-    <div class="site-shell en-rwjp-dorm__grid">
-      <div><p class="en-rwjp-kicker">Living in Kyoto</p><h2>Daishogun Dormitory</h2><p>The dormitory is separate from the program fee. Rooms accommodate up to four students and are assigned by gender. Showers, toilets and kitchen facilities are shared. Wi-Fi and bedding are included; meals are not provided.</p><p>The usual walk to Kinugasa Campus is approximately 10–15 minutes. For safety reasons, participants may not use bicycles or other personal wheeled transport during the program.</p></div>
-      <aside><span>2027 stay</span><strong>{dormDates}</strong><span>Additional accommodation fee</span><strong>{dormFee}</strong><p>The specified dormitory dates are required if you stay at Daishogun Dormitory. Accommodation is subject to physical availability and is not guaranteed. You may arrange external accommodation at your own expense.</p></aside>
-    </div>
+  <section class="rwjp-flagship__facts" id="essentials">
+    <div class="site-shell"><p class="rwjp-flagship__kicker">2027 program essentials</p><h2>Check the facts before you decide</h2><p class="rwjp-flagship__facts-intro">These details come from confirmed 2027 RWJP data. When an annual arrangement is not yet final, we do not fill the gap with an assumption.</p><dl>
+      <div><dt>Official name</dt><dd>Ritsumeikan Winter Japanese Program</dd></div><div><dt>Program dates</dt><dd>{programmeDates}</dd></div><div><dt>Application period</dt><dd>{applicationDates}</dd></div><div><dt>Campus</dt><dd>Kinugasa Campus, Kyoto</dd></div><div><dt>Program fee</dt><dd>{programmeFee}</dd></div><div><dt>Japanese study</dt><dd>{japaneseHours}</dd></div><div><dt>Cultural activities</dt><dd>{cultureHours}{cultureSessions ? ` · ${cultureSessions} sessions` : ''}</dd></div><div><dt>Accommodation</dt><dd>Daishogun Dormitory · {dormFee} additional</dd></div>
+    </dl></div>
   </section>
 
-  <section class="en-rwjp-evidence">
-    <div class="site-shell en-rwjp-evidence__grid">
-      <div><p class="en-rwjp-kicker">An international track record</p><h2>RWJP, in numbers</h2><p>Historical participation gives context, not a promise about the composition of any future cohort.</p></div>
-      <div class="en-rwjp-evidence__numbers"><div><strong>{rwjpEvidence.participants}</strong><span>participants</span></div><div><strong>{rwjpEvidence.institutions}</strong><span>universities / institutions</span></div><div><strong>{rwjpEvidence.countries}</strong><span>countries / regions*</span></div></div>
-    </div>
-    <div class="site-shell"><p class="en-rwjp-footnote">2023–2026 RWJP participation. *Country / region refers to the location of the participant's university or institution, not nationality. Historical participation does not imply a current institutional partnership.</p></div>
-  </section>
+  <section class="rwjp-en-policy"><div class="site-shell rwjp-en-policy-grid"><article><p class="rwjp-flagship__kicker">Payment</p><h2>Pay after admission</h2><p>Payment instructions are sent after admission. The program fee, and the dormitory fee if applicable, must be paid in full by the specified deadline. If payment is not completed by the deadline, your place is automatically forfeited.</p></article><article><p class="rwjp-flagship__kicker">Cancellation & refunds</p><h2>Know the deductions before you pay</h2><p>There is no cancellation charge before payment. After payment, {refundAmount ? `a ${refundAmount} administrative fee` : 'an administrative fee'} is deducted, together with any non-refundable costs already incurred for arrangements. The remaining balance is refunded.</p></article></div></section>
 
-  <section class="en-rwjp-apply" id="apply">
-    <div class="site-shell">
-      <div class="en-rwjp-apply__intro"><p class="en-rwjp-kicker">How to apply</p><h2>Three steps before you send your application</h2><p>RWJP accepts direct applications, but some home universities coordinate applications or require nomination. Check locally first.</p></div>
-      <ol class="en-rwjp-application-steps">
-        <li><span>01</span><div><h3>Check with your home university</h3><p>Ask whether your university requires nomination, recommendation or another internal process before you apply directly.</p></div></li>
-        <li><span>02</span><div><h3>Apply during the official application period</h3><p>If your university gives no separate instruction, submit the official web application during the application period: {applicationDates}.</p></div></li>
-        <li><span>03</span><div><h3>Watch your email for the result</h3><p>Selection results are sent to applicants by email. The notification date is published only after it is formally confirmed.</p></div></li>
-      </ol>
-      <div class="en-rwjp-apply__card">
-        <div>
-          <p class="en-rwjp-kicker">Applications: {applicationDates}</p>
-          <h2>Ready to make Kyoto part of your winter?</h2>
-          <p>Read the eligibility, fees and accommodation conditions carefully before applying.</p>
-          <p class="en-rwjp-application-status" data-rwjp-en-status data-start={applicationStart ?? undefined} data-end={applicationEnd ?? undefined}>Application period: {applicationDates}</p>
-          {isJourneyLinkReady(inquiryLink) && inquiryLink.url && <p class="en-rwjp-contact">Questions? <a href={inquiryLink.url}>rsjprwjp@st.ritsumei.ac.jp</a>{inquiryLink.phone && <> · <a href="tel:+81754663009">+81-75-466-3009</a></>}</p>}
-        </div>
-        <div class="en-rwjp-apply__actions">
-          {applicationReady && applicationLink.url && applicationStart && applicationEnd ? (
-            <>
-              <a class="en-rwjp-button en-rwjp-button--primary" href={applicationLink.url} target="_blank" rel="noopener noreferrer" data-rwjp-en-apply data-start={applicationStart} data-end={applicationEnd} hidden>Apply for 2027 RWJP</a>
-              <span class="en-rwjp-button en-rwjp-button--disabled" aria-disabled="true" data-rwjp-en-closed data-start={applicationStart} data-end={applicationEnd}>Applications are not currently open</span>
-            </>
-          ) : <span class="en-rwjp-button en-rwjp-button--disabled" aria-disabled="true">Application form not yet published</span>}
-          <a class="en-rwjp-button en-rwjp-button--quiet" href="#essentials">Review the 2027 details</a>
-        </div>
-      </div>
-    </div>
+  <section class="rwjp-en-evidence"><div class="site-shell rwjp-en-evidence-grid"><div><p class="rwjp-flagship__kicker">2023–2026 RWJP participation</p><h2>An international track record, with context</h2><p>Historical participation helps show the scale and reach of RWJP. It is not a promise about the composition of a future cohort.</p></div><dl><div><dt>{rwjpEvidence.participants}</dt><dd>participants</dd></div><div><dt>{rwjpEvidence.institutions}</dt><dd>universities / institutions</dd></div><div><dt>{rwjpEvidence.countries}</dt><dd>countries / regions*</dd></div></dl></div><div class="site-shell"><p class="rwjp-en-footnote">*Country / region refers to the location of the participant's university or institution, not nationality. Historical participation does not imply a current institutional partnership.</p></div></section>
+
+  <section class="rwjp-flagship__apply en-rwjp-apply" id="apply">
+    <div class="site-shell rwjp-flagship__apply-grid"><div><p class="rwjp-flagship__kicker">How to apply</p><h2>Start with your home university</h2><p>RWJP accepts direct applications, but some universities coordinate applications or require nomination. Ask your home university first. If there is no separate institutional process, submit the official web application during {applicationDates}.</p><ol class="rwjp-en-apply-steps"><li><strong>01</strong><span>Check whether your home university has an internal process.</span></li><li><strong>02</strong><span>Apply through the official web form during the application period.</span></li><li><strong>03</strong><span>Watch your email for the selection result.</span></li></ol></div><div><p class="rwjp-flagship__closing">2027 RWJP · APPLICATION</p><p class="rwjp-flagship__status" data-rwjp-en-status data-start={applicationStart ?? undefined} data-end={applicationEnd ?? undefined}>Application period: {applicationDates}</p><div class="rwjp-en-apply-actions">{applicationReady && applicationLink.url && applicationStart && applicationEnd ? (<><a class="rwjp-en-apply-button" href={applicationLink.url} target="_blank" rel="noopener noreferrer" data-rwjp-en-apply data-start={applicationStart} data-end={applicationEnd} hidden>Apply for 2027 RWJP</a><span class="rwjp-en-apply-button rwjp-en-apply-button--disabled" aria-disabled="true" data-rwjp-en-closed data-start={applicationStart} data-end={applicationEnd}>Applications are not currently open</span></>) : <span class="rwjp-en-apply-button rwjp-en-apply-button--disabled" aria-disabled="true">Application form not yet published</span>}</div>{isJourneyLinkReady(inquiryLink) && inquiryLink.url && <p class="rwjp-en-contact">Questions: <a href={inquiryLink.url}>rsjprwjp@st.ritsumei.ac.jp</a>{inquiryLink.phone && <> · <a href="tel:+81754663009">+81-75-466-3009</a></>}</p>}</div></div>
   </section>
 </article>
 
