@@ -58,7 +58,8 @@
     border-radius:999px;
     padding:.58rem .88rem;
     background:rgba(4,18,31,.42);
-    font-size:.69rem;
+    font-size:.72rem;
+    font-weight:800;
     letter-spacing:.02em;
     box-shadow:inset 0 0 0 1px rgba(255,255,255,.04);
   }
@@ -337,7 +338,7 @@
     .pmvp[lang="en"] .pmvp__hero-inner{width:calc(100% - 1.5rem);padding-top:14rem;padding-bottom:3rem}
     .pmvp[lang="en"] .pmvp__hero h1{max-width:9.5ch;font-size:clamp(3.15rem,15vw,4.4rem);line-height:.92}
     .pmvp[lang="en"] .pmvp__hero-lead{font-size:.94rem;line-height:1.7}
-    .pmvp[lang="en"] .pmvp__hero-meta span{font-size:.64rem;padding:.52rem .72rem}
+    .pmvp[lang="en"] .pmvp__hero-meta span{font-size:.72rem;font-weight:850;padding:.54rem .76rem}
     .pmvp[lang="en"] .pmvp__opening,.pmvp[lang="en"] .pmvp__learning,.pmvp[lang="en"] .pmvp__setting,.pmvp[lang="en"] .pmvp__details{padding-block:4.7rem}
     .pmvp[lang="en"] .pmvp__opening h2,.pmvp[lang="en"] .pmvp__section-head h2,.pmvp[lang="en"] .pmvp__setting-copy h2{font-size:clamp(2.2rem,11vw,3.1rem)}
     .pmvp[lang="en"] .pmvp__opening::before{right:-1rem;top:1rem;font-size:14rem}
