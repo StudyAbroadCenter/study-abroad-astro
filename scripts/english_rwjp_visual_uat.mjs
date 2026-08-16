@@ -53,13 +53,18 @@ for(const viewport of viewports){
       const dpr=window.devicePixelRatio||1;
       return {src:img.getAttribute('src')||'',naturalWidth:img.naturalWidth,renderedDeviceWidth:Math.round(rect.width*dpr),ratio:img.naturalWidth?Number((rect.width*dpr/img.naturalWidth).toFixed(2)):999};
     }).filter((item)=>item.ratio>1.12);
+    const bodyText=document.body.innerText;
     return {
       lang:document.documentElement.lang,
       title:document.title,
       robots:document.querySelector('meta[name="robots"]')?.getAttribute('content')||'',
-      bodyText:document.body.innerText.trim().length,
+      bodyText:bodyText.trim().length,
       overflowX:Math.max(0,Math.max(document.documentElement.scrollWidth,document.body.scrollWidth)-window.innerWidth),
-      h1:document.querySelector('.en-rwjp-hero h1')?.textContent?.replace(/\s+/g,' ').trim()||'',
+      h1:document.querySelector('.en-rwjp-cinematic-hero h1')?.textContent?.replace(/\s+/g,' ').trim()||'',
+      hero:Boolean(document.querySelector('.en-rwjp-cinematic-hero__image')),
+      globalReach:Boolean(document.querySelector('#global-reach .global-evidence__network')),
+      taishogun:bodyText.includes('Taishogun Dormitory'),
+      badRomanization:/\bDaishogun\b|\bDaihogun\b/i.test(bodyText),
       essentials:Boolean(document.querySelector('#essentials')),
       applySection:Boolean(document.querySelector('#apply')),
       japaneseLeak:[...document.querySelectorAll('main *')].map((el)=>el.textContent||'').find((text)=>/[ぁ-んァ-ン一-龯]/.test(text))||'',
@@ -75,15 +80,15 @@ for(const viewport of viewports){
   const applicationStateCorrect=metrics.shouldBeOpen?metrics.applyVisible&&!metrics.closedVisible:!metrics.applyVisible&&metrics.closedVisible;
   const headerLinksCorrect=metrics.headerLinks.every((href)=>href.includes('/en/#'));
   const status=response?.status()??0;
-  const routeFailed=status>=400||metrics.lang!=='en'||!metrics.title.includes('RWJP')||metrics.robots!=='noindex,nofollow'||metrics.bodyText<1500||metrics.overflowX>2||!metrics.h1.includes('Study Japanese')||!metrics.h1.includes('Live in Kyoto')||!metrics.essentials||!metrics.applySection||Boolean(metrics.japaneseLeak)||metrics.unloadedImages.length>0||metrics.imageUpscaleRisk.length>0||!applicationStateCorrect||!headerLinksCorrect||pageErrors.length>0||consoleErrors.length>0||localResourceErrors.length>0;
+  const routeFailed=status>=400||metrics.lang!=='en'||!metrics.title.includes('RWJP')||metrics.robots!=='noindex,nofollow'||metrics.bodyText<1500||metrics.overflowX>2||!metrics.h1.includes('Study Japanese')||!metrics.h1.includes('Live in Kyoto')||!metrics.hero||!metrics.globalReach||!metrics.taishogun||metrics.badRomanization||!metrics.essentials||!metrics.applySection||Boolean(metrics.japaneseLeak)||metrics.unloadedImages.length>0||metrics.imageUpscaleRisk.length>0||!applicationStateCorrect||!headerLinksCorrect||pageErrors.length>0||consoleErrors.length>0||localResourceErrors.length>0;
   if(routeFailed)failed=true;
   const screenshot=path.join(outputDir,`en-rwjp-${viewport.name}.jpg`);
-  await page.screenshot({path:screenshot,fullPage:true,type:'jpeg',quality:80});
+  await page.screenshot({path:screenshot,fullPage:true,type:'jpeg',quality:82});
   report.push({viewport:viewport.name,httpStatus:status,...metrics,applicationStateCorrect,headerLinksCorrect,pageErrors,consoleErrors,localResourceErrors,screenshot,passed:!routeFailed});
   await context.close();
 }
 
 await browser.close();
 await fs.writeFile(path.join(outputDir,'report.json'),JSON.stringify({generatedAt:new Date().toISOString(),route,report},null,2));
-for(const item of report)console.log(`${item.passed?'PASS':'FAIL'} ${item.viewport} ${route} status=${item.httpStatus} overflowX=${item.overflowX}px images=${item.unloadedImages.length} upscaleRisk=${item.imageUpscaleRisk.length} applicationState=${item.applicationStateCorrect}`);
+for(const item of report)console.log(`${item.passed?'PASS':'FAIL'} ${item.viewport} ${route} status=${item.httpStatus} overflowX=${item.overflowX}px images=${item.unloadedImages.length} upscaleRisk=${item.imageUpscaleRisk.length} globe=${item.globalReach} taishogun=${item.taishogun}`);
 if(failed){console.error('English RWJP visual UAT failed. Inspect english-rwjp-visual-uat/report.json and screenshots.');process.exit(1);}
