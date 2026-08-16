@@ -11,12 +11,15 @@ interface Props {
   title: string;
   description: string;
   robots?: string;
+  japaneseHref?: string;
 }
 
-const { title, description, robots = 'noindex,nofollow' } = Astro.props;
+const { title, description, robots = 'noindex,nofollow', japaneseHref = '/' } = Astro.props;
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astro.url;
 const rawBase = import.meta.env.BASE_URL;
 const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const enHome = `${base}en/`;
+const jaTarget = japaneseHref.startsWith('/') ? `${base}${japaneseHref.slice(1)}` : `${base}${japaneseHref}`;
 ---
 <!doctype html>
 <html lang="en">
@@ -26,7 +29,7 @@ const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
     <meta name="description" content={description} />
     <meta name="robots" content={robots} />
     <link rel="canonical" href={canonical} />
-    <link rel="alternate" hreflang="ja" href={Astro.site ? new URL('/', Astro.site) : `${base}`} />
+    <link rel="alternate" hreflang="ja" href={Astro.site ? new URL(japaneseHref, Astro.site) : jaTarget} />
     <link rel="alternate" hreflang="en" href={canonical} />
     <meta name="theme-color" content="#fffdfa" />
     <meta property="og:type" content="website" />
@@ -43,16 +46,16 @@ const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
     <a class="en-skip-link" href="#main-content">Skip to main content</a>
     <header class="en-header">
       <div class="site-shell en-header__inner">
-        <a class="en-header__brand" href={`${base}en/`} aria-label="Ritsumeikan University Short-Term Programs home">
+        <a class="en-header__brand" href={enHome} aria-label="Ritsumeikan University Short-Term Programs home">
           <strong>Ritsumeikan University</strong>
           <span>Short-Term Programs</span>
         </a>
         <nav class="en-header__nav" aria-label="Primary navigation">
-          <a href="#program-finder">Programs</a>
-          <a href="#why-ritsumeikan">Why Ritsumeikan</a>
-          <a href="#global-reach">Global Reach</a>
-          <a href="#support">Support</a>
-          <a class="en-header__language" href={base} lang="ja" hreflang="ja">日本語</a>
+          <a href={`${enHome}#program-finder`}>Programs</a>
+          <a href={`${enHome}#why-ritsumeikan`}>Why Ritsumeikan</a>
+          <a href={`${enHome}#global-reach`}>Global Reach</a>
+          <a href={`${enHome}#support`}>Support</a>
+          <a class="en-header__language" href={jaTarget} lang="ja" hreflang="ja">日本語</a>
         </nav>
       </div>
     </header>
