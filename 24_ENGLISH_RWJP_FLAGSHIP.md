@@ -1,61 +1,167 @@
 # English RWJP Flagship Standard
 
-Status: visual-redesign baseline for English programme-detail localisation.
+Status: **REBUILD DRAFT — DO NOT MERGE**
 
-## Purpose
+## 1. Purpose
 
-RWJP is the first English programme-detail page and the reference model for later English programme pages. It is not a sentence-by-sentence translation of the Japanese page.
+RWJP is the first English programme-detail flagship and the quality reference for later English programme pages.
 
-The Japanese Master remains both the verified programme-meaning reference and the visual/UX master. Canonical data modules remain the source for changeable facts. English owns its editorial voice, line breaks, calls to action and explanatory emphasis, but it should still feel unmistakably like the same Ritsumeikan website when a user changes language.
+The goal is not to translate the Japanese page and not to imitate a generic English-language university landing page. The goal is to create a Ritsumeikan page that feels art-directed for an international audience while remaining factually identical to the Japanese master where facts are concerned.
 
-## Core model
+## 2. Two sources of truth
 
-**Japanese Visual Master × Native English Editorial × Verified Canonical Facts**
+### Facts
 
-The English site should not invent a separate visual identity merely because the language changes. Reuse the Japanese site's strongest composition, spacing, card hierarchy, photography rhythm and information architecture, then tune them for English line length and reading behaviour.
+**Canonical RWJP data is the factual source of truth.**
 
-## Editorial standard
+Dates, fees, academic load, eligibility, accommodation, application period, payment and refund rules must come from authoritative data or verified Japanese master content. English copy must never become a second factual database.
 
-- Write for an international university student reading an English-language university website.
-- Prefer concrete verbs and specific programme value over generic study-abroad advertising language.
-- Do not translate Japanese wordplay literally when it produces unnatural English.
-- Keep institutional facts calm and precise; allow more personality in student-facing headings.
-- Avoid unsupported promises about transformation, fluency, friendship, outcomes or access.
-- Distinguish organised programme elements from participant free time.
-- State annual uncertainty where arrangements can vary.
-- Use the site's established `Program` / `Center` naming consistently.
+### Visual direction
 
-## RWJP English narrative
+**The approved English RWJP mockup is the visual source of truth.**
 
-Core idea: **Study Japanese. Live in Kyoto.**
+Its defining elements are:
 
-This interprets the Japanese idea that five weeks combines serious Japanese study with the experience of living in Kyoto. It is not a claim that the program provides a complete residential or tourism experience.
+- red `RITSUMEIKAN UNIVERSITY` wordmark with restrained Short-Term Programs sublabel;
+- a cinematic, full-width Kyoto landscape hero;
+- large white editorial serif typography over photography;
+- a thin Ritsumeikan-red accent rather than decorative clutter;
+- a clean white sticky programme navigation with a strong red application CTA;
+- an integrated opening spread combining the five-week story, `57.5 HOURS`, and four learning pillars;
+- warm paper / blush neutrals balanced by deep navy and Ritsumeikan red;
+- a Global Reach composition built as **map / network on light ground + evidence on deep navy**, not a collage of cards;
+- large evidence numbers with calm institutional labels;
+- strong rhythm between photographic, editorial, factual and decision-making sections.
 
-Supporting narrative:
+The live implementation should be judged against this composition and tone, not against the previous PR #56 iterations.
 
-1. Five weeks gives participants time to develop routines rather than only visit Kyoto.
-2. Japanese language study is the academic center of RWJP.
-3. Student interaction and cultural activities add contexts in which participants can encounter Japanese beyond exercises.
-4. Free time belongs to the participant and must not be represented as an organized itinerary.
-5. Eligibility, dates, fees, accommodation and application rules come from canonical facts, not English copy.
+## 3. Core design model
 
-## Visual standard
+**Approved Mockup Art Direction × Native English Editorial × Verified Canonical Facts**
 
-English RWJP should inherit the Japanese RWJP visual system:
+The Japanese site remains the programme-meaning and factual reference. It is no longer a rigid layout template for this English flagship. English may use its own hierarchy, line breaks, typography scale and section composition when that improves native readability and visual quality.
 
-- warm neutral hero and restrained Ritsumeikan red accent;
-- strong but not oversized editorial typography;
-- alternating light/dark content sections;
-- generous whitespace and clear fact hierarchy;
-- photography used at a size justified by source resolution;
-- high-resolution photography for large visual surfaces;
-- smaller source photographs constrained to card-sized or editorial placements rather than enlarged;
-- mobile layouts tuned for English line length instead of inheriting Japanese breaks.
+## 4. No CSS accretion rule
 
-A photograph that looks soft or pixelated at its intended rendered size must be reduced, replaced or removed. Visual mood never overrides image quality.
+The previous approach failed because successive compatibility and art-direction styles were stacked on top of legacy Japanese RWJP styles.
 
-## Multilingual reuse
+That approach is prohibited for this flagship.
 
-Future English programme pages should reuse this page as a quality model, not as a rigid template. Korean, Simplified Chinese and Traditional Chinese localisation must return to canonical facts, the Japanese visual master and programme meaning rather than translating this English copy.
+The English RWJP route must:
 
-A fact change must be made in the authoritative data source and then verified across every published locale. Localised prose must never become a second factual source.
+- use an isolated `rw26-*` component namespace;
+- import **one RWJP page stylesheet only**: `english-rwjp-rebuild.css`;
+- not import `rwjp-flagship.css`, `rwjp-professional-polish.css`, `global-learning-evidence.css`, or `global-reach-network.css` from the RWJP component;
+- not import the retired `english-rwjp.css`, `english-rwjp-layout-fixes.css`, `english-rwjp-art-direction.css`, or `english-rwjp-art-fixes.css` from the route;
+- solve layout problems in the new DOM/CSS rather than adding another override layer.
+
+## 5. English editorial standard
+
+- Write for university students who naturally read English.
+- Interpret the Japanese idea; do not translate Japanese copy line by line.
+- Prefer concrete language over generic study-abroad claims.
+- Keep institutional facts calm and exact.
+- Allow student-facing headings to have rhythm and personality.
+- Avoid unsupported promises about fluency, friendship, transformation, access or outcomes.
+- Distinguish organized programme elements from participant free time.
+- State annual uncertainty where arrangements may change.
+- Use `Program` / `Center` consistently in the English public interface.
+
+### Core RWJP line
+
+**Study Japanese. Live in Kyoto.**
+
+It expresses the verified combination of Japanese study and a five-week stay in Kyoto without promising a residential, tourism or transformation outcome.
+
+## 6. Page choreography
+
+The flagship should have visible changes of pace rather than one long flat column.
+
+1. **Brand + Kyoto Hero** — Ritsumeikan first, Kyoto immediately visible, one strong message.
+2. **Sticky programme nav** — orientation and application path.
+3. **Five-week editorial spread** — story + `57.5 HOURS` + Learn / Use / Check / Record.
+4. **Experience** — restrained real programme photography at a size justified by source resolution.
+5. **Living in Kyoto** — one immersive human / winter scene and practical life notes.
+6. **Is it for me?** — eligibility written as a decision aid, not legalistic fine print.
+7. **Taishogun Dormitory** — concise accommodation facts.
+8. **Global Reach** — illustrated world network + deep-navy evidence panel.
+9. **2027 Essentials** — calm factual table.
+10. **Payment / Refund** — explicit decision information.
+11. **Application** — clear three-step route and JST-aware application state.
+
+## 7. Photography quality gate
+
+Photography is part of the design, not decoration.
+
+- A large hero must use a source image that remains sharp at the rendered width.
+- A small programme photograph must never be enlarged merely to fill a layout box.
+- If the source photograph cannot support the intended size, reduce the design footprint, replace it, or remove it.
+- Visual UAT must fail when rendered image width exceeds the accepted source-resolution threshold.
+- Generated mockup imagery may guide composition but must not silently be presented as documentary programme photography.
+- Photo provenance rules remain mandatory.
+
+## 8. Brand rule
+
+The English header must visibly identify Ritsumeikan before the user reads programme copy.
+
+The approved mockup uses a red `RITSUMEIKAN UNIVERSITY` wordmark treatment with `SHORT-TERM PROGRAMS` beneath it. Do not substitute a generic dark text label. If an official approved graphic logo asset is later supplied, it may replace the text wordmark without changing the surrounding hierarchy.
+
+## 9. Global Reach rule
+
+Historical participation evidence must remain exact:
+
+- 293 participants;
+- 21 countries / regions;
+- 81 universities / institutions;
+- reporting period 2023–2026;
+- RSJP + RWJP five-week programmes only;
+- country / region means university or institution location, not nationality;
+- historical participation does not imply a current partnership.
+
+The network graphic is an editorial visualization of geographic reach. It must not invent additional participant counts or partnership claims.
+
+## 10. Application rule
+
+The application CTA must respect the confirmed application period in Japan Standard Time.
+
+Before the period: show when applications open and do not expose the live application action as available.
+
+During the period: enable the official application link.
+
+After the period: show that applications are closed.
+
+## 11. UAT / merge gate
+
+PR #56 remains Draft until all of the following pass:
+
+- Astro check / production build;
+- Japanese Visual UAT regression;
+- English Top Visual UAT regression;
+- English RWJP Desktop 1536px;
+- English RWJP Mobile 390px;
+- English RWJP Mobile 320px;
+- no horizontal overflow;
+- no missing or unloaded local images;
+- no image upscaling beyond the agreed threshold;
+- no `Daishogun` / `Daihogun` public text;
+- `Taishogun Dormitory` present;
+- Ritsumeikan wordmark present;
+- hero, academic-load spread and Global Reach composition present;
+- no overlap between `57.5 HOURS` and learning pillars;
+- correct pre-open / open / closed application behaviour;
+- final screenshots reviewed visually against the approved mockup.
+
+**Green CI is necessary but not sufficient. The final merge decision requires visual comparison with the approved mockup.**
+
+## 12. Multilingual reuse
+
+RWJP English becomes a quality model, not a sentence template.
+
+Future Korean, Simplified Chinese and Traditional Chinese pages must return to:
+
+1. Canonical facts;
+2. Japanese programme meaning;
+3. the shared Ritsumeikan visual language;
+4. native editorial localization for that language.
+
+English copy must not become the translation source for other languages.
