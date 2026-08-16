@@ -15,9 +15,15 @@ interface Props {
   title: string;
   description: string;
   robots?: string;
+  photoDisclaimer?: string;
 }
 
-const { title, description, robots = 'index,follow' } = Astro.props;
+const {
+  title,
+  description,
+  robots = 'index,follow',
+  photoDisclaimer = '掲載写真には過去の実施例・関連プログラムの参考写真を含みます　授業・交流・文化体験等の内容はプログラムにより異なります',
+} = Astro.props;
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astro.url;
 ---
 <!doctype html>
@@ -50,7 +56,7 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astro.u
           <p>短期受入プログラム</p>
         </div>
         <div class="recruitment-footer__legal">
-          <p>掲載写真は過去の実施例です　授業・交流・文化体験等の内容はプログラムにより異なります</p>
+          <p>{photoDisclaimer}</p>
           <small>© Ritsumeikan University. All Rights Reserved.</small>
         </div>
       </div>
