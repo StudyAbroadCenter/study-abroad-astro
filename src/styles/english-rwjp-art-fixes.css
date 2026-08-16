@@ -1,0 +1,60 @@
+/* Final specificity-safe corrections for the premium English RWJP layer. */
+
+.en-rwjp-subnav .rwjp-flagship__nav-inner > a:last-child {
+  margin-left: auto;
+  padding: .7rem 1rem;
+  border-radius: 2px;
+  background: var(--rwjp-en-red);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(125, 20, 31, .18);
+}
+.en-rwjp-subnav .rwjp-flagship__nav-inner > a:last-child::after { display: none; }
+.en-rwjp-subnav .rwjp-flagship__nav-inner > a:last-child:hover,
+.en-rwjp-subnav .rwjp-flagship__nav-inner > a:last-child:focus-visible {
+  background: var(--rwjp-en-red-dark);
+}
+
+@media (max-width: 1000px) {
+  .rwjp-en .site-shell { width: min(calc(100% - 2.4rem), 1240px); }
+}
+@media (max-width: 800px) {
+  .rwjp-en .site-shell { width: min(calc(100% - 2rem), 1240px); }
+  .en-rwjp-subnav .rwjp-flagship__nav-inner > a:last-child { margin-left: 0; }
+}
+
+/* Keep the academic-load number and explanatory copy in distinct paint boxes. */
+.rwjp-en-study-stat .rwjp-flagship__switch-time,
+.rwjp-en-study-stat .rwjp-flagship__switch-grid > div {
+  position: relative;
+  z-index: 2;
+  isolation: isolate;
+}
+.rwjp-en-study-stat .rwjp-flagship__switch-time {
+  overflow-wrap: normal;
+  word-break: keep-all;
+}
+.rwjp-en-study-stat .rwjp-flagship__switch-grid > div {
+  background: rgba(245, 233, 233, .84);
+}
+
+/* The globe must remain legible even if legacy network styles load earlier. */
+.rwjp-en-globe .global-evidence__network-center {
+  color: #fff !important;
+}
+.rwjp-en-globe .global-evidence__network-center * {
+  color: #fff !important;
+  opacity: 1 !important;
+}
+.rwjp-en-globe .global-evidence__network-node,
+.rwjp-en-globe .global-evidence__network-node * {
+  opacity: 1 !important;
+}
+
+@media (max-width: 600px) {
+  .en-rwjp-subnav .rwjp-flagship__nav-inner > a:last-child {
+    padding: .65rem .85rem;
+  }
+  .rwjp-en-study-stat .rwjp-flagship__switch-grid > div {
+    background: transparent;
+  }
+}
