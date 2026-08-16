@@ -58,8 +58,8 @@ const partnerProgrammes = programmes.filter((programme) => programme.audience ==
             const publicCopy = getProgrammePublicDescriptor(programme.id);
             return (
               <article>
-                <p class="section-kicker">{programme.code}</p>
-                <h3>{publicCopy?.name ?? programme.code}</h3>
+                <p class="section-kicker">大学・機関向け</p>
+                <h3>{publicCopy?.name ?? 'Custom Programs'}</h3>
                 <p>{publicCopy?.summary ?? '大学・機関向けに相談しながら設計するプログラムです。'}</p>
                 <p><strong>個人申込対象外</strong></p>
                 <a href={hrefFor(programme.id)}>大学・機関向けページを見る →</a>
