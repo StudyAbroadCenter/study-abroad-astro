@@ -1,0 +1,179 @@
+/* Japanese MVP — photographic editorial hierarchy
+ * Reference principles: large editorial images, varied ratios, restrained framing,
+ * and short Japanese copy over selected photography. Keep programme identities distinct.
+ */
+
+[data-ja-overlay] {
+  position: relative;
+  overflow: hidden;
+}
+
+[data-ja-overlay]::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(8, 16, 22, 0.02) 38%, rgba(8, 16, 22, 0.68) 100%);
+}
+
+[data-ja-overlay]::after {
+  content: attr(data-ja-overlay);
+  position: absolute;
+  z-index: 2;
+  left: clamp(1rem, 3vw, 2rem);
+  right: clamp(1rem, 3vw, 2rem);
+  bottom: clamp(1rem, 3vw, 1.8rem);
+  color: #fff;
+  font-family: 'Zen Kaku Gothic New', 'Noto Sans JP', sans-serif;
+  font-size: clamp(1.1rem, 2.15vw, 1.8rem);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.38);
+}
+
+/* RWJP — calm, cinematic Kyoto photography. */
+.rwjp-flagship__hero-photo,
+.rwjp-flagship__photo-story-main,
+.rwjp-flagship__people-photo figure {
+  border-radius: clamp(18px, 2.2vw, 28px);
+}
+
+.rwjp-flagship__hero-photo img,
+.rwjp-flagship__photo-story-main img,
+.rwjp-flagship__people-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.rwjp-flagship__hero-photo {
+  aspect-ratio: 4 / 3;
+}
+
+.rwjp-flagship__photo-story-main {
+  min-height: clamp(360px, 48vw, 620px);
+}
+
+.rwjp-flagship__photo-story-main figcaption,
+.rwjp-flagship__people-photo figcaption,
+.rwjp-flagship__hero-photo figcaption {
+  position: relative;
+  z-index: 3;
+}
+
+.rwjp-flagship__photo-grid {
+  align-items: stretch;
+}
+
+.rwjp-flagship__photo-grid figure {
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.rwjp-flagship__photo-grid figure:nth-child(2) {
+  transform: translateY(clamp(0px, 1.3vw, 16px));
+}
+
+/* RWJP Express — keep social energy but give images a more editorial rhythm. */
+.rwjpx__visual-stack figure,
+.rwjpx__solo-photo,
+.rwjpx__weekend-photo,
+.rwjpx__feed article,
+.rwjpx__photo-library figure {
+  overflow: hidden;
+  border-radius: 18px;
+}
+
+.rwjpx__visual-stack figure:first-child {
+  aspect-ratio: 4 / 5;
+}
+
+.rwjpx__visual-stack figure:last-child {
+  aspect-ratio: 5 / 4;
+}
+
+.rwjpx__visual-stack img,
+.rwjpx__solo-photo img,
+.rwjpx__weekend-photo img,
+.rwjpx__feed img,
+.rwjpx__photo-library img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.rwjpx__solo-photo,
+.rwjpx__weekend-photo {
+  min-height: clamp(340px, 42vw, 560px);
+}
+
+.rwjpx__feed article:nth-child(3n + 1) {
+  transform: rotate(-0.7deg);
+}
+
+.rwjpx__feed article:nth-child(3n + 2) {
+  transform: translateY(10px) rotate(0.55deg);
+}
+
+/* RDSP — technical visual language, softened by real photography. */
+.rdsp__viz,
+.rdsp__future-stage,
+.rdsp__xp-photo,
+.rdsp__topic-photo {
+  border-radius: clamp(16px, 2vw, 24px);
+  overflow: hidden;
+}
+
+.rdsp__hero-photo,
+.rdsp__future-stage > img,
+.rdsp__xp-photo img,
+.rdsp__topic-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.rdsp__viz {
+  min-height: clamp(430px, 52vw, 680px);
+}
+
+.rdsp__future-stage {
+  min-height: clamp(420px, 50vw, 650px);
+}
+
+/* Japanese decorative labels should read as secondary information, not shout. */
+.rwjp-flagship__kicker,
+.rwjp-day__time,
+.rwjp-day__aside,
+.rwjpx__kicker,
+.rwjpx__micro,
+.rdsp__kicker {
+  letter-spacing: 0.08em !important;
+  text-transform: none !important;
+}
+
+@media (max-width: 720px) {
+  [data-ja-overlay]::after {
+    font-size: clamp(1rem, 5.5vw, 1.35rem);
+    bottom: 1rem;
+  }
+
+  .rwjp-flagship__hero-photo {
+    aspect-ratio: 5 / 4;
+  }
+
+  .rwjp-flagship__photo-grid figure:nth-child(2),
+  .rwjpx__feed article:nth-child(3n + 1),
+  .rwjpx__feed article:nth-child(3n + 2) {
+    transform: none;
+  }
+
+  .rwjpx__solo-photo,
+  .rwjpx__weekend-photo,
+  .rdsp__viz,
+  .rdsp__future-stage {
+    min-height: 0;
+  }
+}
