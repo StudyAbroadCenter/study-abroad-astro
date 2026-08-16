@@ -1,5 +1,10 @@
 <script>
   const translations = new Map([
+    ['PROGRAMMES', 'プログラム一覧'], ['FOR PARTNERS', '大学・機関向け'],
+    ['MORE THAN A LANGUAGE PROGRAMME', '語学だけでは終わらない'],
+    ['LEARN JAPANESE', '日本語を学ぶ'], ['LEARN WITH STUDENTS', '学生と学ぶ'],
+    ['ABOUT THIS MVP', 'このサイトについて'], ['FAQ', 'よくある質問'], ['CONTACT', 'お問い合わせ'],
+
     ['MAIN QUEST: JAPANESE · SIDE QUEST: KYOTO', '日本語を学ぶ · 京都で暮らす'],
     ['FIVE WEEKS, YOUR STORY', '5週間を 自分の物語に'],
     ['BEFORE YOU COME', '参加する前に'],
@@ -29,6 +34,10 @@
     ['SEE WHAT COMES NEXT', '次の学びへ'],
     ['VISIT KYOTO? NOT THIS TIME', '観光だけでは終わらない'],
     ['YOU ARE THE MAIN CHARACTER', '主役はあなた'],
+    ['2027 RWJP · DECISION FACTS', '2027 RWJP · 参加判断に必要な情報'],
+    ['IS RWJP FOR YOU?', 'RWJPはこんな人に'], ['BEFORE YOU APPLY', '応募前に確認'],
+    ['CO-LEARNING', '共に学ぶ'], ['GLOBAL AT HOME', 'キャンパスで国際交流'],
+    ['LANGUAGE CONFIDENCE', 'ことばを使う自信'], ['INTERCULTURAL UNDERSTANDING', '異文化を理解する'],
 
     ['PACK LIGHT · COME SOLO · START NOW', '身軽に · 一人でも · 今から'],
     ['WHY EXPRESS?', 'なぜ2週間なのか'],
@@ -49,6 +58,7 @@
     ['THE DETAILS', '基本情報'],
     ['TWO WEEKS CAN FIT.', '2週間なら 選択肢にできる'],
     ['TEMPORARY VISUAL MOCK · SOCIAL-STYLE, NOT AN ACTUAL APP', '表示イメージ · 実在するSNS画面ではありません'],
+    ['FEB · KYOTO · PHOTO LIBRARY', '2月 · 京都 · 写真記録'],
 
     ['WHY RDSP?', 'RDSPで学ぶ理由'], ['TOPICS', '学ぶテーマ'], ['EXPERIENCE', '体験'], ['SCENES', '学びの風景'], ['INSTRUCTORS', '担当教員'], ['OIC LIFE', 'OICでの生活'], ['DETAILS', '基本情報'],
     ['ENGLISH ONLY', '授業は英語'], ['NO JAPANESE REQUIRED', '日本語力不問'],
@@ -60,18 +70,8 @@
     ['PLANNED EXPERIENCE', '予定している体験'], ['MEET RITSUMEIKAN', '立命館の学生と交流']
   ]);
 
-  const selectors = [
-    '.rwjp-flagship__kicker', '.rwjp-flagship__micro', '.rwjp-persona__meta',
-    '.rwjp-day__time', '.rwjp-day__aside', '.rwjp-flagship__study-line strong',
-    '.rwjp-flagship figcaption strong', '.rwjp-flagship__kyoto-notes strong', '.rwjp-flagship__closing',
-    '.rwjpx__kicker', '.rwjpx__micro', '.rwjpx__mock-label', '.rwjpx__three article > span',
-    '.rwjpx__restart-line span', '.rwjpx__tempo-grid span', '.rwjpx__weekend-options span',
-    '.rwjpx__supporters-grid article > span', '.rwjpx__next-path span',
-    '.rdsp__kicker', '.rdsp__nav a', '.rdsp__hero-badges span', '.rdsp__pillars h3',
-    '.rdsp__topic-grid > article > span', '.rdsp__future-note', '.rdsp__xp-card > div > span'
-  ];
-
-  document.querySelectorAll(selectors.join(',')).forEach((node) => {
+  document.querySelectorAll('p, span, strong, small, b, a, dt, dd, h1, h2, h3').forEach((node) => {
+    if (node.childElementCount > 0) return;
     const text = node.textContent?.trim();
     if (!text) return;
     const translated = translations.get(text);
@@ -91,7 +91,6 @@
     '.rwjp-flagship h1', '.rwjp-flagship h2', '.rwjpx h1', '.rwjpx h2', '.rdsp h1', '.rdsp h2'
   ].join(','));
   headings.forEach((heading) => {
-    heading.querySelectorAll('br').forEach(() => {});
     const last = heading.lastChild;
     if (last?.nodeType === Node.TEXT_NODE && last.textContent) {
       last.textContent = last.textContent.replace(/[。、！!？?]+\s*$/, '');
