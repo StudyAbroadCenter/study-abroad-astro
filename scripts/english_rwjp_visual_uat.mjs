@@ -12,19 +12,20 @@ const viewports=[
 ];
 
 const routeSource=await fs.readFile('src/pages/en/programs/rwjp/index.astro','utf8');
-const componentSource=await fs.readFile('src/components/EnglishRwjpFlagshipPage.astro','utf8');
+const componentSource=await fs.readFile('src/components/EnglishRwjp2027Page.astro','utf8');
 const retiredStyles=[
   'english-rwjp.css',
   'english-rwjp-layout-fixes.css',
   'english-rwjp-art-direction.css',
   'english-rwjp-art-fixes.css',
+  'english-rwjp-rebuild.css',
   'rwjp-flagship.css',
   'rwjp-professional-polish.css',
   'global-learning-evidence.css',
   'global-reach-network.css',
 ];
 const legacyStyleReferences=retiredStyles.filter((name)=>routeSource.includes(name)||componentSource.includes(name));
-const singleRebuildStyle=routeSource.includes('english-rwjp-rebuild.css');
+const singleRebuildStyle=routeSource.includes('english-rwjp-2027.css');
 
 await fs.mkdir(outputDir,{recursive:true});
 const browser=await chromium.launch({headless:true});
@@ -64,11 +65,13 @@ for(const viewport of viewports){
     const end=apply?.getAttribute('data-end')||closed?.getAttribute('data-end')||'';
     const jstToday=new Date(Date.now()+9*60*60*1000).toISOString().slice(0,10);
     const shouldBeOpen=Boolean(start&&end&&jstToday>=start&&jstToday<=end);
-    const luminance=(value)=>{
+    const rgb=(value)=>{
       const match=String(value).match(/rgba?\((\d+)[, ]+(\d+)[, ]+(\d+)/i);
-      if(!match)return -1;
-      const r=Number(match[1]),g=Number(match[2]),b=Number(match[3]);
-      return r*.299+g*.587+b*.114;
+      return match?{r:Number(match[1]),g:Number(match[2]),b:Number(match[3])}:null;
+    };
+    const luminance=(value)=>{
+      const c=rgb(value); if(!c)return -1;
+      return c.r*.299+c.g*.587+c.b*.114;
     };
     const overlap=(a,b)=>{
       if(!a||!b)return 0;
@@ -84,6 +87,8 @@ for(const viewport of viewports){
     const hero=document.querySelector('.rw26-hero');
     const heroImage=document.querySelector('.rw26-hero__image');
     const heroRect=hero?.getBoundingClientRect();
+    const heroTitle=document.querySelector('.rw26-hero__title');
+    const storyTitle=document.querySelector('.rw26-story h2');
     const storyNumber=document.querySelector('.rw26-load__number');
     const pillars=document.querySelector('.rw26-pillars');
     const map=document.querySelector('.rw26-global__map');
@@ -91,6 +96,7 @@ for(const viewport of viewports){
     const globalHeading=globalPanel?.querySelector('h2');
     const wordmark=document.querySelector('.en-header__wordmark');
     const wordmarkColor=wordmark?getComputedStyle(wordmark).color:'';
+    const wordmarkRgb=rgb(wordmarkColor);
     const globalBg=globalPanel?getComputedStyle(globalPanel).backgroundColor:'';
     const globalHeadingColor=globalHeading?getComputedStyle(globalHeading).color:'';
     return {
@@ -99,17 +105,21 @@ for(const viewport of viewports){
       robots:document.querySelector('meta[name="robots"]')?.getAttribute('content')||'',
       bodyTextLength:bodyText.trim().length,
       overflowX:Math.max(0,Math.max(document.documentElement.scrollWidth,document.body.scrollWidth)-window.innerWidth),
-      h1:document.querySelector('.rw26-hero__title')?.textContent?.replace(/\s+/g,' ').trim()||'',
+      h1:heroTitle?.textContent?.replace(/\s+/g,' ').trim()||'',
+      heroTitleSegments:heroTitle?.querySelectorAll(':scope > span').length||0,
+      storyTitleSegments:storyTitle?.querySelectorAll(':scope > span').length||0,
       wordmark:wordmark?.textContent?.trim()||'',
       wordmarkColor,
-      wordmarkIsRed:luminance(wordmarkColor)>35&&wordmarkColor.startsWith('rgb(')&&Number(wordmarkColor.match(/\d+/)?.[0]||0)>100,
+      wordmarkIsRed:Boolean(wordmarkRgb&&wordmarkRgb.r>130&&wordmarkRgb.r>wordmarkRgb.g*1.8&&wordmarkRgb.r>wordmarkRgb.b*1.25),
       hero:Boolean(heroImage),
       heroWidthRatio:heroRect?Number((heroRect.width/window.innerWidth).toFixed(3)):0,
       heroNaturalWidth:heroImage instanceof HTMLImageElement?heroImage.naturalWidth:0,
       openingSpread:Boolean(document.querySelector('.rw26-load__grid')),
       studyNumber:Boolean(storyNumber),
+      cultureStat:Boolean(document.querySelector('.rw26-load__culture-stat')),
       pillars:Boolean(pillars),
       studyStatOverlapPx2:overlap(storyNumber,pillars),
+      dormWalk:Boolean(document.querySelector('.rw26-dorm__walk')),
       globalReach:Boolean(document.querySelector('.rw26-global')),
       globalMap:Boolean(document.querySelector('.rw26-global__network')),
       globalMapPanelOverlapPx2:overlap(map,globalPanel),
@@ -132,7 +142,7 @@ for(const viewport of viewports){
 
   const applicationStateCorrect=metrics.shouldBeOpen?metrics.applyVisible&&!metrics.closedVisible:!metrics.applyVisible&&metrics.closedVisible;
   const headerLinksCorrect=metrics.headerLinks.every((href)=>href.includes('/en/#'));
-  const mockupStructureCorrect=metrics.wordmark==='RITSUMEIKAN UNIVERSITY'&&metrics.wordmarkIsRed&&metrics.hero&&metrics.heroWidthRatio>=.99&&metrics.openingSpread&&metrics.studyNumber&&metrics.pillars&&metrics.studyStatOverlapPx2===0&&metrics.globalReach&&metrics.globalMap&&metrics.globalMapPanelOverlapPx2===0&&metrics.globalPanelDark&&metrics.globalHeadingLight&&metrics.evidenceValues;
+  const mockupStructureCorrect=metrics.wordmark==='RITSUMEIKAN UNIVERSITY'&&metrics.wordmarkIsRed&&metrics.hero&&metrics.heroWidthRatio>=.99&&metrics.heroTitleSegments===2&&metrics.storyTitleSegments===3&&metrics.openingSpread&&metrics.studyNumber&&metrics.cultureStat&&metrics.pillars&&metrics.studyStatOverlapPx2===0&&metrics.dormWalk&&metrics.globalReach&&metrics.globalMap&&metrics.globalMapPanelOverlapPx2===0&&metrics.globalPanelDark&&metrics.globalHeadingLight&&metrics.evidenceValues;
   const status=response?.status()??0;
   const routeFailed=status>=400||metrics.lang!=='en'||!metrics.title.includes('RWJP')||metrics.robots!=='noindex,nofollow'||metrics.bodyTextLength<1800||metrics.overflowX>2||!metrics.h1.includes('Study Japanese')||!metrics.h1.includes('Live in Kyoto')||!metrics.taishogun||metrics.badRomanization||!metrics.essentials||!metrics.applySection||metrics.japaneseLeak||metrics.unloadedImages.length>0||metrics.imageUpscaleRisk.length>0||!applicationStateCorrect||!headerLinksCorrect||!mockupStructureCorrect||pageErrors.length>0||consoleErrors.length>0||localResourceErrors.length>0;
   if(routeFailed)failed=true;
@@ -140,7 +150,7 @@ for(const viewport of viewports){
   const screenshot=path.join(outputDir,`en-rwjp-${viewport.name}.jpg`);
   await page.screenshot({path:screenshot,fullPage:true,type:'jpeg',quality:90});
   if(viewport.name==='desktop'){
-    for(const [name,selector] of [['hero','.rw26-hero'],['opening','.rw26-load'],['global','.rw26-global']]){
+    for(const [name,selector] of [['hero','.rw26-hero'],['opening','.rw26-load'],['dorm','.rw26-dorm'],['global','.rw26-global']]){
       const element=page.locator(selector).first();
       if(await element.count())await element.screenshot({path:path.join(outputDir,`en-rwjp-${name}-desktop.jpg`),type:'jpeg',quality:92});
     }
@@ -152,5 +162,5 @@ for(const viewport of viewports){
 await browser.close();
 await fs.writeFile(path.join(outputDir,'report.json'),JSON.stringify({generatedAt:new Date().toISOString(),route,legacyStyleReferences,singleRebuildStyle,report},null,2));
 console.log(`RWJP CSS architecture: ${singleRebuildStyle&&legacyStyleReferences.length===0?'PASS':'FAIL'} legacy=${legacyStyleReferences.join(',')||'none'}`);
-for(const item of report)console.log(`${item.passed?'PASS':'FAIL'} ${item.viewport} status=${item.httpStatus} overflow=${item.overflowX}px upscale=${item.imageUpscaleRisk.length} wordmark=${item.wordmarkIsRed} hero=${item.heroWidthRatio} statOverlap=${item.studyStatOverlapPx2}px2 globalOverlap=${item.globalMapPanelOverlapPx2}px2 globalDark=${item.globalPanelDark}`);
+for(const item of report)console.log(`${item.passed?'PASS':'FAIL'} ${item.viewport} status=${item.httpStatus} overflow=${item.overflowX}px upscale=${item.imageUpscaleRisk.length} wordmark=${item.wordmarkIsRed} hero=${item.heroWidthRatio} heroLines=${item.heroTitleSegments} storyLines=${item.storyTitleSegments} statOverlap=${item.studyStatOverlapPx2}px2 globalOverlap=${item.globalMapPanelOverlapPx2}px2 globalDark=${item.globalPanelDark}`);
 if(failed){console.error('English RWJP visual UAT failed. Inspect english-rwjp-visual-uat/report.json and screenshots.');process.exit(1);}
