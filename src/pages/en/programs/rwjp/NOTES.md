@@ -1,1 +1,0 @@
-English editorial presentation may evolve independently. Programme dates, fees, eligibility, accommodation and application rules must continue to come from canonical RWJP data and verified programme-owner information.
