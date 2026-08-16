@@ -37,8 +37,11 @@ const description = isRwjp
     : isCustom
       ? '海外大学・教育機関からの学生団体を対象に、教育目的、期間、内容、参加人数、実施キャンパス等を相談しながら設計する立命館大学のCustom Programs。留学サポートデスクでは英語での対応が可能です。'
       : `${programme.title}のプログラムページを制作中です。確認済みの情報から順に掲載します。`;
+const photoDisclaimer = isRwjpExpress
+  ? '掲載写真はレイアウト確認用の参考写真で、RWJP Express固有の実施写真ではありません　正式写真の確認後に差し替えます'
+  : undefined;
 ---
-<StudentRecruitmentLayout title={title} description={description} robots="noindex,nofollow">
+<StudentRecruitmentLayout title={title} description={description} robots="noindex,nofollow" photoDisclaimer={photoDisclaimer}>
   {programme.id === 'rwjp' ? (
     <>
       <RwjpFlagshipPage programme={programme} />
