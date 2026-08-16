@@ -60,6 +60,12 @@ for(const viewport of viewports){
       const h=Math.max(0,Math.min(ar.bottom,br.bottom)-Math.max(ar.top,br.top));
       return Math.round(w*h);
     };
+    const isLightRgb=(value)=>{
+      const match=String(value).match(/rgba?\((\d+)[, ]+(\d+)[, ]+(\d+)/i);
+      if(!match)return false;
+      const [,r,g,b]=match.map(Number);
+      return (r*0.299+g*0.587+b*0.114)>=190;
+    };
     const stat=document.querySelector('.rwjp-en-study-stat .rwjp-flagship__switch-time');
     const statCopy=document.querySelector('.rwjp-en-study-stat .rwjp-flagship__switch-grid > div');
     const shell=document.querySelector('.rwjp-en .site-shell');
@@ -68,6 +74,10 @@ for(const viewport of viewports){
     const globeCenter=document.querySelector('.rwjp-en-globe .global-evidence__network-center');
     const globeCenterText=globeCenter?.querySelector('strong');
     const globeNode=document.querySelector('.rwjp-en-globe .global-evidence__network-node');
+    const study=document.querySelector('.rwjp-en-study');
+    const studyHeading=study?.querySelector('h2');
+    const globalSection=document.querySelector('.rwjp-en-global');
+    const globalLead=globalSection?.querySelector('.global-evidence__lead');
     const bodyText=document.body.innerText;
     return {
       lang:document.documentElement.lang,
@@ -90,6 +100,10 @@ for(const viewport of viewports){
       globeCenterTextColor:globeCenterText?getComputedStyle(globeCenterText).color:'',
       globeCenterTextOpacity:globeCenterText?Number(getComputedStyle(globeCenterText).opacity):0,
       globeNodeOpacity:globeNode?Number(getComputedStyle(globeNode).opacity):0,
+      studyHeadingLight:studyHeading?isLightRgb(getComputedStyle(studyHeading).color):false,
+      studyHasVisualBackground:study?getComputedStyle(study).backgroundImage!=='none':false,
+      globalLeadLight:globalLead?isLightRgb(getComputedStyle(globalLead).color):false,
+      globalHasVisualBackground:globalSection?getComputedStyle(globalSection).backgroundImage!=='none':false,
       shouldBeOpen,
       applyVisible:apply instanceof HTMLElement?!apply.hidden:false,
       closedVisible:closed instanceof HTMLElement?!closed.hidden:false,
@@ -99,7 +113,7 @@ for(const viewport of viewports){
 
   const applicationStateCorrect=metrics.shouldBeOpen?metrics.applyVisible&&!metrics.closedVisible:!metrics.applyVisible&&metrics.closedVisible;
   const headerLinksCorrect=metrics.headerLinks.every((href)=>href.includes('/en/#'));
-  const premiumLayoutCorrect=metrics.studyStatOverlapPx2===0&&metrics.shellCenterDeltaPx<=3&&metrics.globeCenterTextOpacity>=.99&&metrics.globeNodeOpacity>=.99;
+  const premiumLayoutCorrect=metrics.studyStatOverlapPx2===0&&metrics.shellCenterDeltaPx<=3&&metrics.globeCenterTextOpacity>=.99&&metrics.globeNodeOpacity>=.99&&metrics.studyHeadingLight&&metrics.studyHasVisualBackground&&metrics.globalLeadLight&&metrics.globalHasVisualBackground;
   const status=response?.status()??0;
   const routeFailed=status>=400||metrics.lang!=='en'||!metrics.title.includes('RWJP')||metrics.robots!=='noindex,nofollow'||metrics.bodyText<1500||metrics.overflowX>2||!metrics.h1.includes('Study Japanese')||!metrics.h1.includes('Live in Kyoto')||!metrics.hero||!metrics.globalReach||!metrics.taishogun||metrics.badRomanization||!metrics.essentials||!metrics.applySection||Boolean(metrics.japaneseLeak)||metrics.unloadedImages.length>0||metrics.imageUpscaleRisk.length>0||!applicationStateCorrect||!headerLinksCorrect||!premiumLayoutCorrect||pageErrors.length>0||consoleErrors.length>0||localResourceErrors.length>0;
   if(routeFailed)failed=true;
@@ -111,5 +125,5 @@ for(const viewport of viewports){
 
 await browser.close();
 await fs.writeFile(path.join(outputDir,'report.json'),JSON.stringify({generatedAt:new Date().toISOString(),route,report},null,2));
-for(const item of report)console.log(`${item.passed?'PASS':'FAIL'} ${item.viewport} ${route} status=${item.httpStatus} overflowX=${item.overflowX}px images=${item.unloadedImages.length} upscaleRisk=${item.imageUpscaleRisk.length} statOverlap=${item.studyStatOverlapPx2}px2 centred=${item.shellCenterDeltaPx}px globe=${item.globalReach} taishogun=${item.taishogun}`);
+for(const item of report)console.log(`${item.passed?'PASS':'FAIL'} ${item.viewport} ${route} status=${item.httpStatus} overflowX=${item.overflowX}px images=${item.unloadedImages.length} upscaleRisk=${item.imageUpscaleRisk.length} statOverlap=${item.studyStatOverlapPx2}px2 centred=${item.shellCenterDeltaPx}px studyContrast=${item.studyHeadingLight} globalContrast=${item.globalLeadLight} globe=${item.globalReach} taishogun=${item.taishogun}`);
 if(failed){console.error('English RWJP visual UAT failed. Inspect english-rwjp-visual-uat/report.json and screenshots.');process.exit(1);}
