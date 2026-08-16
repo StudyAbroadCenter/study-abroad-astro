@@ -4,209 +4,312 @@
 
 ## 1. Purpose
 
-This specification defines how the RSJP Experience System is authored and maintained in Japanese, English, and Korean.
+This specification defines how the Study Abroad / short-term inbound programme website is authored and maintained across languages.
 
-The Japanese website is the **master product experience**. It is the baseline for information architecture, verified programme meaning, page structure, visual direction, photography, component behaviour, and editorial decisions.
+The Japanese website is the **master product experience**. It is the baseline for information architecture, verified programme meaning, page structure, visual direction, photography, component behaviour, and editorial intent.
 
-English and Korean are not secondary-quality translations. They are professionally localised versions derived from the approved Japanese master and the same verified programme facts.
+Other languages are not secondary-quality translations. They are professionally localised editions derived from the approved Japanese master and the same verified programme facts.
 
-The goal is one RSJP product family with three natural language experiences, not one original page plus two machine translations.
+The goal is one multilingual product family with natural language experiences for each audience, not one original page plus machine-translated copies.
 
-## 2. Master Site and Delivery Order
+## 2. Language Roadmap and Delivery Order
 
-Development and editorial approval shall proceed in this order:
+Current delivery order:
 
-1. Japanese — master version
-2. English — localised from the approved Japanese master and verified facts
-3. Korean — localised after Japanese and English are stable
+1. Japanese (`ja`) — master version, canonical at unprefixed URLs
+2. English (`en`) — active localisation phase
+3. Korean (`ko`) — next planned localisation
+4. Simplified Chinese (`zh-CN`) — future localisation
+5. Traditional Chinese (`zh-TW`) — future localisation, including Taiwan-facing wording where appropriate
 
-Do not develop all three languages simultaneously while programme facts, structure, photography, UX, or visual direction are still changing.
+Do not develop all locales simultaneously while programme facts, structure, photography, UX, or visual direction are still changing.
 
-A major page should normally pass the Japanese completion gate before English localisation begins.
+A language must not be published merely because a route exists. It must pass its editorial, factual, responsive, metadata, and accessibility gates.
 
 ## 3. Canonical URL Architecture
 
-Japanese is the main public site and therefore uses **unprefixed canonical URLs**.
+Japanese is the main public site and uses **unprefixed canonical URLs**.
 
-Canonical routes:
+Canonical route pattern:
 
 - Japanese home: `/`
 - Japanese pages: `/<page>/`
 - Japanese programme pages: `/programs/<id>/`
-- English home: `/en/`
-- English pages: `/en/<page>/`
-- Korean home: `/ko/`
-- Korean pages: `/ko/<page>/`
+- English: `/en/...`
+- Korean: `/ko/...`
+- Simplified Chinese: `/zh-cn/...`
+- Traditional Chinese: `/zh-tw/...`
 
-### 3.1 Japanese Must Not Use `/ja/` as the Canonical Route
+Japanese must not use `/ja/` as its canonical route. Legacy `/ja/` URLs may remain only as redirects to the equivalent unprefixed route.
 
-Do not expose `/ja/` as the normal Japanese URL.
-
-Legacy `/ja/` URLs may remain only as redirects for backward compatibility. They must redirect to the equivalent unprefixed Japanese URL.
-
-Examples:
-
-- `/ja/` → `/`
-- `/ja/programs/rdsp/` → `/programs/rdsp/`
-
-Do not create new links, canonical tags, sitemap entries, or navigation paths that point to `/ja/`.
-
-### 3.2 Root Behaviour
-
-`/` is Japanese by project decision.
-
-Do not automatically redirect `/` to English based on browser language.
-
-Browser language may later be used to suggest another locale, but explicit user choice always wins.
-
-Changing the root language away from Japanese requires an explicit project-level decision and this specification must be updated first.
+Do not automatically redirect `/` based on browser language. Browser language may later support a locale suggestion, but explicit user choice must win.
 
 ## 4. What the Japanese Master Controls
 
-The approved Japanese site is the baseline for:
+The approved Japanese site controls:
 
-- site information architecture,
+- information architecture,
 - page hierarchy,
 - programme discovery flow,
 - section order and core story,
+- verified factual meaning,
 - visual system,
-- typography hierarchy,
-- photography and media direction,
+- photography direction,
 - component behaviour,
 - CTA placement,
 - mobile interaction patterns,
 - intended meaning of explanatory content.
 
-English and Korean should normally preserve this product experience.
+Localised editions should preserve the same product intent and hierarchy, but may change wording, paragraph length, heading wording, line breaks, CTA wording, explanatory order inside a section, and culturally necessary clarification.
 
-Localisation may change wording, paragraph length, heading wording, line breaks, explanatory order inside a section, CTA wording, and culturally necessary clarification when this improves natural communication without changing facts or product intent.
+**Do not preserve Japanese sentence structure merely for visual symmetry.**
 
 ## 5. Core Rule: Same Facts, Different Writing
 
-All languages must preserve the same verified programme facts.
+All published languages must preserve the same verified programme facts.
 
-The following must not differ between locales unless the programme itself explicitly has language-specific conditions:
+The following must not drift between locales unless an explicitly verified language-specific condition exists:
 
 - programme name and code,
 - dates,
 - fees,
 - application periods and deadlines,
 - eligibility,
-- minimum and maximum enrolment,
+- enrolment conditions,
 - programme status,
 - accommodation conditions,
 - campus/location,
 - academic requirements,
 - language requirements,
 - credit status,
-- cancellation or refund conditions,
+- cancellation/refund conditions,
 - application procedure,
-- contact destination.
+- contact destination,
+- participation evidence and its defined scope.
 
-Preserve facts and intent, not sentence structure.
+Preserve **facts and intent**, not sentence structure.
 
-## 6. Japanese Editorial Standard
+## 6. Canonical Facts Architecture
 
-Japanese is the master editorial version.
+Programme facts must not be maintained independently in each language.
 
-Japanese copy should be professional, friendly, concise, student-centred, and understandable without knowledge of Japanese university administration.
+Where practical, locale-neutral facts must live in one shared structured source and be rendered into every locale. Examples include:
 
-Avoid internal terminology unless necessary, excessive administrative formality, long noun chains, vague promotional claims, unexplained abbreviations, and unnecessary English inside Japanese prose.
+- ISO dates and date ranges,
+- application windows,
+- fee amounts and currency,
+- duration,
+- campus identifiers,
+- accommodation dates and amounts,
+- academic/contact hours,
+- eligibility flags,
+- programme status,
+- refund/management fee amounts,
+- application URLs,
+- historical participation counts and evidence scope.
 
-English terms may remain when they are official programme names, recognised technical terms, deliberate short visual labels, or clearer than an artificial Japanese translation.
+Locale-specific files should contain **language**, not independent factual truth.
 
-Decorative English and actual English-language content must not be confused.
+A localised sentence may include a fact for readability, but the fact must be derived from or verified against the canonical source. Do not create separate English, Korean, Simplified Chinese, and Traditional Chinese fact stores.
 
-## 7. English Localisation Standard
+### 6.1 Change Propagation Rule
+
+When a programme fact changes:
+
+1. verify the authoritative source,
+2. update the shared canonical fact,
+3. identify every page and locale affected,
+4. update Japanese editorial prose where the changed fact is embedded in copy,
+5. update all published localised prose where required,
+6. run cross-locale factual checks,
+7. run locale-specific visual UAT,
+8. publish only after all affected live locales are consistent.
+
+A date or fee update is therefore **one factual change with multilingual impact**, not a series of unrelated translations.
+
+### 6.2 Factual Conflict Rule
+
+If Japanese copy, localised copy, repository data, and an authoritative source disagree, do not choose the most plausible value.
+
+Stop the factual change, surface the conflict, and resolve the source of truth first.
+
+## 7. Japanese Editorial Standard
+
+Japanese is the master editorial edition.
+
+It should be professional, friendly, concise, student-centred, and understandable without knowledge of Japanese university administration.
+
+Official information is short and strong. Student-facing copy may play. Facts never play.
+
+Avoid unnecessary decorative English, vague promotional claims, unexplained abbreviations, and internal administrative wording.
+
+## 8. English Localisation Standard
 
 English must not be produced by sentence-by-sentence translation of Japanese.
 
-The English version must read as if it were originally written in English for prospective international university students.
+The English edition must read as if it were originally written in English for prospective international university students and, where relevant, overseas university staff.
 
-Prefer short sentences, direct verbs, familiar international English, clear headings, explicit dates and conditions, and practical explanations before promotional language.
+### 8.1 English Voice
 
-Avoid literal Japanese sentence order, bureaucratic university English, generic AI marketing copy, exaggerated claims, and slogans created only to mirror Japanese wordplay.
+For student-facing pages:
 
-### Native-Natural Gate
+- clear,
+- warm,
+- confident,
+- practical,
+- internationally understandable,
+- lightly energetic without sounding like advertising copy.
 
-Before an English page is approved, ask:
+For institutional / Custom Programs pages:
 
-> Would an English-speaking prospective student reasonably believe this page was written for them in English rather than translated from Japanese?
+- professional,
+- calm,
+- specific,
+- collaborative,
+- suitable for study abroad advisers, faculty members, and international education staff.
+
+For rules, eligibility, fees, deadlines, refunds, accommodation, and application guidance:
+
+- direct,
+- literal about conditions,
+- easy to scan,
+- free of playful wording.
+
+### 8.2 English Writing Rules
+
+Prefer:
+
+- short sentences,
+- direct verbs,
+- familiar international English,
+- concise headings,
+- explicit dates and conditions,
+- useful nouns over abstract marketing language,
+- natural CTA labels such as `Explore programs`, `See program details`, `Check eligibility`, and `How to apply` where context supports them.
+
+Avoid:
+
+- Japanese sentence order in English,
+- bureaucratic university English,
+- overuse of passive voice,
+- generic AI marketing copy,
+- exaggerated claims,
+- slogans created only to mirror Japanese wordplay,
+- repeated use of `global`, `transformative`, `unique`, `once-in-a-lifetime`, or `experience Japan` when a specific statement is stronger.
+
+### 8.3 English Copy Is Allowed to Recompose
+
+A Japanese headline may become a different English headline if the English communicates the same intent more naturally.
+
+English may:
+
+- combine two Japanese lines into one,
+- split one Japanese sentence into two,
+- change the order of explanation inside a section,
+- shorten labels,
+- use a different rhythm,
+- change line breaks,
+- adjust text length for English typography.
+
+English may not:
+
+- add an unverified benefit,
+- make a provisional fact sound confirmed,
+- strengthen eligibility or service guarantees,
+- invent partnership status,
+- imply that students choose a campus when they do not,
+- turn historical participation into a current partnership claim.
+
+### 8.4 Native-Natural Gate
+
+Before approving an English page, ask:
+
+> Would an English-speaking prospective student or university staff member reasonably believe this page was written for them in English rather than translated from Japanese?
 
 If not, rewrite it. Do not merely polish the translation.
 
-Naturalisation must never change programme facts.
+## 9. Korean Localisation Standard
 
-## 8. Korean Localisation Standard
+Korean is authored after the Japanese master and English localisation are stable enough to serve as references.
 
-Korean is authored after the Japanese master and English version are stable.
+Do not mechanically translate the English edition alone. Use the Japanese master, approved English localisation, and verified canonical facts together.
 
-Do not mechanically translate the English version alone.
+Korean should read naturally to Korean university students and university staff considering short-term study in Japan. Japanese administrative phrasing should not be carried into Korean when clearer Korean communication is available.
 
-Use the approved Japanese master, approved English localisation, and verified programme facts as controlled references.
+## 10. Simplified Chinese and Traditional Chinese
 
-Korean should read naturally to Korean university students considering short-term study in Japan. Avoid carrying Japanese administrative phrasing directly into Korean when a clearer Korean explanation is available.
+Simplified Chinese and Traditional Chinese are separate localisation targets, not a character-conversion task.
 
-Programme facts must remain identical to the verified source data.
+Both must use the Japanese master and canonical facts as primary controlled references. Approved English and Korean may be consulted for intent, but must not become independent factual sources.
 
-## 9. Language Switcher
+### 10.1 Simplified Chinese (`zh-CN`)
 
-Do not show a language option that leads to a missing, misleading, or substantially unfinished locale.
+Use natural wording suitable for readers accustomed to Simplified Chinese. Terminology, punctuation, date presentation, and institutional phrasing should be reviewed as Chinese-language content rather than converted mechanically from Japanese or English.
 
-During the Japanese-completion phase, it is acceptable to hide English and Korean links.
+### 10.2 Traditional Chinese (`zh-TW`)
 
-When English is ready, enable English navigation to `/en/` and equivalent English routes.
+Use Traditional Chinese and Taiwan-appropriate terminology where that improves natural communication without changing meaning. Do not assume that Simplified Chinese converted to Traditional characters is an acceptable Taiwan-facing localisation.
 
-When Korean is ready, enable Korean navigation to `/ko/` and equivalent Korean routes.
+Terminology differences must be controlled in the glossary.
 
-From English or Korean, the Japanese option must point to the equivalent **unprefixed** Japanese route, never `/ja/`.
+## 11. Language Switcher
+
+Do not show a locale option that leads to a missing, misleading, or substantially unfinished edition.
+
+Enable languages only after their required routes pass completion gates.
+
+From every localised page, Japanese must point to the equivalent unprefixed Japanese route, never `/ja/`.
 
 The switcher must be keyboard accessible and must not rely on client-side text replacement.
 
-## 10. Shared Facts vs Localised Copy
+## 12. Localised Copy Structure
 
-Do not maintain programme facts independently inside three page implementations.
-
-Where practical, separate locale-neutral facts such as codes, dates, fees, capacity, campus identifiers, deadlines, status, credit status, and accommodation availability from locale-specific copy such as headings, lead paragraphs, FAQ wording, CTA wording, captions, and alt text.
-
-Do not create three independent fact stores.
-
-## 11. Source-of-Truth Hierarchy
-
-For programme-facing content, use this order:
-
-1. verified programme source documents/data,
-2. approved structured programme facts in the repository,
-3. approved Japanese master editorial copy and page intent,
-4. approved English localisation,
-5. approved Korean localisation.
-
-The Japanese master controls editorial intent and product structure, but it never overrides a verified factual source.
-
-If sources conflict, stop and surface the conflict.
-
-## 12. Content Structure and IDs
-
-Use stable semantic identifiers for localised content when localisation data is separated from presentation.
-
-Prefer identifiers representing meaning or page role, for example:
+When localisation data is separated from presentation, use stable semantic keys such as:
 
 - `programme.hero.title`
 - `programme.hero.lead`
 - `programme.facts.fee_label`
 - `programme.application.cta`
+- `customPrograms.hero.title`
 
-Avoid keys derived from full Japanese sentences.
+Avoid keys derived from entire Japanese sentences.
 
-Keep content grouped by page or domain so programme staff can audit it without navigating one huge translation file.
+Group copy by page/domain rather than maintaining one enormous translation file.
 
-## 13. Visual Design Across Languages
+## 13. Controlled Terminology and Proper Nouns
 
-The Japanese master defines the design baseline.
+Maintain a controlled glossary for:
 
-English and Korean should preserve the overall visual identity, component family, spacing logic, imagery, colour system, interaction model, and information hierarchy.
+- official programme names,
+- programme abbreviations,
+- university name,
+- campus names,
+- accommodation names,
+- application systems,
+- offices/support desks,
+- academic terminology,
+- recurring CTA and status language.
 
-Exact line breaks must not be forced to match Japanese. Layouts must tolerate English and Korean text expansion.
+Where an official English name exists, use it. Do not invent an official-sounding translation.
+
+A glossary entry may have locale-specific preferred terms, but the underlying entity must remain the same.
+
+## 14. Visual Design Across Languages
+
+The Japanese master defines the visual identity and hierarchy, not fixed line breaks.
+
+Every locale may require changes to:
+
+- heading width,
+- line length,
+- button width,
+- card height,
+- navigation spacing,
+- font size within the established hierarchy,
+- text wrapping,
+- paragraph measure.
+
+Do not force English, Korean, or Chinese text into Japanese line-break patterns.
 
 Review at minimum:
 
@@ -215,145 +318,114 @@ Review at minimum:
 - tablet,
 - desktop.
 
-Check especially navigation, buttons, badges, cards, headings, tables/fact grids, captions, and the language switcher.
+Check navigation, buttons, badges, cards, headings, tables/fact grids, captions, footer text, and the language switcher.
 
-## 14. Typography
+## 15. Typography
 
-Use font stacks that fully support the required scripts.
+Use locale-appropriate font stacks with full script support while preserving the hierarchy established by the Japanese master.
 
-Do not solve Korean or Japanese rendering problems with visibly inconsistent fallback fonts.
+Do not use visibly inconsistent fallback fonts. Do not reduce text excessively merely to make a translated label fit.
 
-Typography may use locale-appropriate font stacks while preserving the hierarchy established by the Japanese master.
+## 16. SEO, Metadata, and `hreflang`
 
-## 15. SEO, Canonical, and `hreflang`
+Each locale must have language-specific:
 
-Each locale must have language-specific page title, meta description, Open Graph text where applicable, canonical URL, and document `lang`.
+- page title,
+- meta description,
+- Open Graph text where applicable,
+- canonical URL,
+- document `lang`,
+- `hreflang` relationships to equivalent published pages.
 
-Japanese canonical URLs are unprefixed.
+Do not include unfinished locales in `hreflang` or sitemap coverage.
 
-Examples:
+Japanese alternates point to unprefixed routes.
 
-- Japanese canonical: `/programs/rdsp/`
-- English canonical: `/en/programs/rdsp/`
-- Korean canonical: `/ko/programs/rdsp/`
-
-Use `hreflang` relationships between equivalent pages. The Japanese alternate must point to the unprefixed route.
-
-Legacy `/ja/` redirect routes must not be canonical or appear as sitemap targets.
-
-## 16. Accessibility
+## 17. Accessibility
 
 Declare the correct document language for every locale.
 
-Alt text must be authored naturally in the page language. Do not mechanically reuse Japanese alt text for English or Korean.
+Alt text must be authored naturally in the page language. It must not be mechanically translated solely to satisfy coverage.
 
 Language controls must be keyboard accessible and clearly labelled.
 
-Decorative English inside Japanese pages must not create misleading accessibility output.
+## 18. Source-of-Truth Hierarchy
 
-## 17. Programme Names and Proper Nouns
+For programme-facing content, use this order:
 
-Maintain a controlled glossary for official programme names, campus names, university names, college/faculty names, staff titles, accommodation names, application-system names, and recurring technical terms.
+1. verified authoritative programme source documents/data,
+2. approved structured canonical programme facts in the repository,
+3. approved Japanese master editorial copy and page intent,
+4. approved locale-specific localisation.
 
-Where an official English name exists, use it rather than inventing a translation.
+No localised edition becomes a new factual source of truth.
 
-Do not allow the same proper noun to drift between pages.
+## 19. Review Gates
 
-## 18. Review Gates
+### Gate A — Japanese Master
 
-### Gate A — Japanese Master Complete
+Before localisation begins for a page:
 
-Before English authoring begins for a page:
-
-- programme facts are verified,
-- Japanese information architecture is stable,
+- relevant facts are verified or explicitly marked pending,
+- information architecture is stable,
 - Japanese copy is reviewed,
 - visual design is approved,
-- photography/media choices are approved or clearly provisional,
-- placeholders are removed or explicitly tracked,
-- CTA and navigation behaviour are complete,
-- mobile layout is acceptable at 320px and 390px,
-- no known factual conflict remains,
-- canonical URL uses the unprefixed Japanese route.
+- provisional imagery is clearly identified,
+- CTA/navigation behaviour is complete,
+- 320px and 390px layouts are acceptable,
+- no known factual conflict remains.
 
-### Gate B — English Complete
+### Gate B — Locale Editorial Completion
 
-Before English is approved:
+Before a localised page is approved:
 
-- facts match the verified source,
-- product intent and hierarchy match the Japanese master,
-- English is naturally rewritten rather than literally translated,
+- facts match canonical data,
+- product intent matches the Japanese master,
+- prose is naturally authored for the locale,
 - headings and CTAs are idiomatic,
-- responsive layout is checked,
 - metadata is localised,
-- no accidental Japanese placeholder prose remains.
+- accidental source-language placeholders are absent.
 
-### Gate C — Korean Complete
+### Gate C — Locale Visual/UAT Completion
 
-Before Korean is approved:
+Before publication:
 
-- facts match the verified source,
-- product intent and hierarchy match the Japanese master,
-- Korean reads as natural Korean communication,
-- terminology is consistent,
-- responsive layout is checked,
-- metadata is localised,
-- no accidental Japanese or English placeholder prose remains.
+- 320px, 390px, tablet, and desktop are checked,
+- no horizontal overflow,
+- no broken navigation or CTA,
+- no local resource errors,
+- text does not require unnatural shrinking,
+- language switcher behaviour is correct,
+- canonical/hreflang metadata is correct for published locales.
 
-## 19. AI and Automated Translation
+## 20. AI and Automated Translation
 
-AI may assist with drafting and comparison, but AI output is not automatically approved content.
+AI may assist with drafting, localisation comparison, terminology checks, and editorial alternatives, but AI output is not automatically approved content.
 
-AI must not invent missing facts, silently resolve conflicting facts, turn historical or provisional content into current information, invent official names, change programme conditions for fluency, or independently redesign a locale without a documented reason.
-
-Use AI for language production only after the factual source and Japanese master intent are controlled.
-
-## 20. Change Management
-
-When a programme fact changes:
-
-1. update the verified shared fact/source,
-2. identify every affected locale,
-3. update the Japanese master where prose or layout is affected,
-4. update English,
-5. update Korean,
-6. verify all published locales before treating the change as complete.
-
-When a design or information-architecture change is proposed, implement and approve it in the Japanese master first, then assess and apply the localisation impact.
+AI must not invent missing facts, silently resolve factual conflicts, turn historical or provisional content into current information, invent official names, change conditions for fluency, or treat machine translation as final localisation.
 
 ## 21. Completion Definition
 
-A locale is not complete merely because a language switcher exists.
+A locale is not complete because its pages exist.
 
-A locale is complete only when required pages exist, facts are verified, prose is natural, navigation and CTAs work, metadata is localised, responsive behaviour is verified, accessibility basics are verified, and accidental source-language placeholders are gone.
-
-The Japanese master is complete only when it is strong enough to serve as the controlled baseline for English and Korean localisation.
+A locale is complete only when required routes exist, facts are consistent, prose is natural, navigation and CTAs work, metadata is localised, responsive behaviour is verified, accessibility basics are verified, and accidental source-language placeholders are gone.
 
 ## 22. Required Delivery Sequence
 
-1. Make the Japanese site canonical at `/` and other unprefixed routes.
-2. Redirect legacy `/ja/` routes to their unprefixed Japanese equivalents.
-3. Complete and audit the Japanese home page.
-4. Complete and audit every Japanese programme page.
-5. Complete Japanese support, FAQ, application guidance, contact, and other required journeys.
-6. Remove or isolate obsolete prototype pages that conflict with the Japanese-master architecture.
-7. Stabilise Japanese information architecture, photography, UX, and visual design.
-8. Remove factual duplication from UI components where practical.
-9. Implement `/en/` and localise English page by page.
-10. Perform English native-natural editorial review.
-11. Implement `/ko/` and localise Korean page by page.
-12. Perform Korean natural-language editorial review.
-13. Add full locale metadata, canonical alternates, `hreflang`, and sitemap coverage.
-14. Perform cross-language fact audit.
-15. Perform 320px / 390px / tablet / desktop UAT in all published locales.
-16. Only then treat multilingual V1 as complete.
+1. Keep Japanese canonical and FIXED except for verified fact updates or genuine defects.
+2. Maintain shared canonical facts separately from locale-specific copy.
+3. Implement English page by page.
+4. Perform English native-natural editorial review and English Visual UAT.
+5. Stabilise English before Korean authoring.
+6. Implement and review Korean.
+7. Add Simplified Chinese and Traditional Chinese only after the source architecture is stable enough to avoid duplicated fact maintenance.
+8. For every future factual update, propagate the change across all published locales before considering the update complete.
+9. Perform cross-language fact audit before multilingual V1 is declared complete.
 
 ## 23. Final Principle
 
-**Japanese is the main site and master product experience. Its canonical URLs do not carry `/ja/`.**
+**Japanese is the controlled master product experience, but factual truth belongs to verified canonical data.**
 
-English communicates the same verified meaning naturally to international readers under `/en/`.
+Each language communicates that same truth in writing that feels native to its intended readers.
 
-Korean communicates the same verified meaning naturally to Korean readers under `/ko/`.
-
-The three versions must feel like one RSJP product family, with Japanese as the controlled master and each additional language professionally localised for its audience.
+Do not translate the interface word for word. Do not localise the facts. Localise the communication.
