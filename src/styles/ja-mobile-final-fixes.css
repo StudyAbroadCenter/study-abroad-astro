@@ -1,0 +1,15 @@
+/* Final Japanese mobile readability fixes.
+   Keep meaning units together rather than letting short display copy fragment
+   character-by-character on narrow viewports. */
+@media (max-width: 559px) {
+  html[lang="ja"] .participant-day__intro h2 {
+    font-size: clamp(2rem, 8.6vw, 2.5rem);
+    line-height: 1.24;
+    text-wrap: wrap;
+  }
+
+  html[lang="ja"] .participant-day__intro h2 > span {
+    display: block;
+    white-space: nowrap;
+  }
+}

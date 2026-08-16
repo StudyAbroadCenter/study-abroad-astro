@@ -27,15 +27,15 @@ const campuses = campusPlaces.map((place) => {
 <section class="campus-journey" id="campus-journey" aria-labelledby="campus-journey-title" data-campus-journey>
   <div class="site-shell campus-journey__intro">
     <div>
-      <p class="campus-journey__kicker">EACH PROGRAMME HAS ITS PLACE</p>
+      <p class="campus-journey__kicker">実施キャンパスを相談する</p>
       <h2 id="campus-journey-title">
-        <span>学ぶ内容で</span>
-        <span>場所も変わる</span>
+        <span>プログラムに合わせて</span>
+        <span>学ぶ場所も設計する</span>
       </h2>
     </div>
     <div class="campus-journey__intro-copy">
-      <p>日本語と文化は京都。データやビジネスは大阪。特定テーマは滋賀。実施場所も、教育設計の一部です。</p>
-      <small>参加者が3キャンパスから自由に選ぶ仕組みではありません。プログラムごとの実施場所をご覧ください。</small>
+      <p>Custom Programsでは、教育目的、内容、施設、宿泊、日程等を確認し、衣笠・大阪いばらき・びわこ・くさつの3キャンパスから実施候補を検討します。</p>
+      <small>参加学生がキャンパスを自由に選択する仕組みではありません。海外大学・教育機関の担当者と立命館大学が相談して決定します。</small>
     </div>
   </div>
 
@@ -69,8 +69,8 @@ const campuses = campusPlaces.map((place) => {
       <div class="campus-atlas__grid" aria-hidden="true"></div>
 
       <div class="site-shell campus-atlas__toolbar">
-        <p>PROGRAMME LOCATION <strong data-campus-counter>01 / 03</strong></p>
-        <div class="campus-atlas__tabs" aria-label="キャンパスとプログラムの関係を見る">
+        <p>実施候補 <strong data-campus-counter>01 / 03</strong></p>
+        <div class="campus-atlas__tabs" aria-label="Custom Programsの実施候補キャンパスを見る">
           {campuses.map((campus, index) => (
             <button
               type="button"
@@ -88,12 +88,12 @@ const campuses = campusPlaces.map((place) => {
       </div>
 
       <div class="site-shell campus-atlas__identity">
-        <p class="campus-atlas__prefecture" data-campus-prefecture>{campuses[0].prefecture}</p>
-        <p class="campus-atlas__city" data-campus-city aria-hidden="true">{campuses[0].city}</p>
+        <p class="campus-atlas__prefecture" data-campus-prefecture>{campuses[0].prefectureJa}</p>
+        <p class="campus-atlas__city" data-campus-city aria-hidden="true">{campuses[0].cityJa}</p>
         <div class="campus-atlas__stage-copy">
           <p data-campus-theme>{campuses[0].theme}</p>
           <h3 data-campus-headline>{campuses[0].headline}</h3>
-          <span data-campus-name>{campuses[0].campus}</span>
+          <span data-campus-name>{campuses[0].campusJa}</span>
         </div>
       </div>
 
@@ -103,7 +103,7 @@ const campuses = campusPlaces.map((place) => {
           {campuses.map((campus, index) => (
             <li class={index === 0 ? 'is-active' : ''} data-campus-route-node data-campus-index={index}>
               <span></span>
-              <b>{campus.city}</b>
+              <b>{campus.cityJa}</b>
             </li>
           ))}
         </ol>
@@ -119,11 +119,11 @@ const campuses = campusPlaces.map((place) => {
             id={`campus-scene-${campus.id}`}
             data-campus-scene
             data-campus-index={index}
-            data-city={campus.city}
-            data-prefecture={campus.prefecture}
+            data-city={campus.cityJa}
+            data-prefecture={campus.prefectureJa}
             data-theme={campus.theme}
             data-headline={campus.headline}
-            data-campus-name={campus.campus}
+            data-campus-name={campus.campusJa}
             data-accent={campus.accent}
             data-accent-soft={campus.accentSoft}
             style={`--campus-accent: ${campus.accent}; --campus-accent-soft: ${campus.accentSoft}; --campus-focus: ${campus.focus}`}
@@ -145,8 +145,8 @@ const campuses = campusPlaces.map((place) => {
               <div class="campus-scene__card">
                 <div class="campus-scene__meta">
                   <span>{String(index + 1).padStart(2, '0')} / {String(campuses.length).padStart(2, '0')}</span>
-                  <strong>{campus.city}</strong>
-                  <b>{campus.cityJa}</b>
+                  <strong>{campus.cityJa}</strong>
+                  <b>{campus.prefectureJa}</b>
                 </div>
                 <p class="campus-scene__theme">{campus.theme}</p>
                 <h3>{campus.headline}</h3>
@@ -155,11 +155,11 @@ const campuses = campusPlaces.map((place) => {
                   {campus.lenses.map((lens) => <li>{lens}</li>)}
                 </ul>
                 <div class="campus-scene__contribution">
-                  <small>PROGRAMMES AT THIS CAMPUS</small>
+                  <small>このキャンパスで考えられる学び</small>
                   <strong>{campus.contribution}</strong>
                 </div>
                 <div class="campus-scene__footer">
-                  <span>{campus.campus} · {campus.locality}</span>
+                  <span>{campus.campusJa} · {campus.locality}</span>
                   <p>{campus.afterClass}</p>
                 </div>
               </div>
@@ -172,19 +172,19 @@ const campuses = campusPlaces.map((place) => {
 
   <div class="site-shell campus-journey__outro">
     <div class="campus-journey__outro-copy">
-      <p class="campus-journey__kicker">THE PROGRAMME SHAPES THE PLACE</p>
-      <h2>学びが変わる 場所も変わる</h2>
+      <p class="campus-journey__kicker">場所から決めるのではなく 学びから考える</p>
+      <h2>目的が決まると 実施場所が見えてくる</h2>
     </div>
     <div class="campus-journey__comparison">
       {campuses.map((campus, index) => (
         <div style={`--campus-accent: ${campus.accent}`}>
           <span>{String(index + 1).padStart(2, '0')}</span>
-          <strong>{campus.city}</strong>
+          <strong>{campus.cityJa}</strong>
           <p>{campus.contribution}</p>
         </div>
       ))}
     </div>
-    <p class="campus-journey__note">実施場所と活動内容はプログラムごとに定めます。Custom Programsは教育目的と内容から実施場所を提案します。写真は過去の実施例またはキャンパスイメージです。</p>
+    <p class="campus-journey__note">Custom Programsの実施キャンパスは、教育目的、内容、施設、宿泊、日程等を踏まえ、海外大学・教育機関の担当者との協議により決定します。写真は過去の実施例またはキャンパスイメージです。</p>
   </div>
 </section>
 

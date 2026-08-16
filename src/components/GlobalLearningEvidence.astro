@@ -70,38 +70,38 @@ const rwjpCultureSessions = isKnownFact(rwjp2027Facts.cultureSessions)
 
 const copy = isRwjp
   ? {
-      kicker: 'RITSUMEIKAN · 5-WEEK JAPANESE PROGRAMMES',
+      kicker: '立命館の5週間 日本語プログラム',
       title: '世界21か国・地域から\n立命館の5週間へ',
       lead: '2023–2026年、RSJP・RWJPに293名。21か国・地域、81大学・機関から学生が参加しました。夏と冬、5週間の日本語プログラムがつくる広がりです。',
       imageA: 'programs/rwjp/rwjp-student-interaction.webp',
       imageAAlt: '短期日本語プログラムで参加者同士や学生が交流する様子',
-      imageACaption: 'CONNECT — 世界から立命館へ',
+      imageACaption: '交流 — 世界から立命館へ',
       imageB: 'programs/rwjp/rwjp-japanese-class.webp',
       imageBAlt: '短期日本語プログラムの日本語授業の様子',
-      imageBCaption: 'STUDY — 5週間の中心に日本語',
+      imageBCaption: '学ぶ — 5週間の中心に日本語',
     }
   : isExpress
     ? {
-        kicker: 'RWJP EXPRESS · GLOBAL REACH',
+        kicker: 'RWJP Express · 世界から立命館へ',
         title: '6か国・地域から\n冬の2週間へ',
         lead: '2023–2026年のRWJP Expressには、6か国・地域、15大学・機関から71名が参加しました。2024年度は中止のため参加者0名です。',
         imageA: 'programs/rwjp/rwjp-student-interaction.webp',
         imageAAlt: '日本語プログラムで学生が交流する様子',
-        imageACaption: 'CONNECT — 短期でも 学びは人へ',
+        imageACaption: '交流 — 短期でも 学びは人へ',
         imageB: 'programs/rwjp/rwjp-presentation.webp',
         imageBAlt: '日本語学習で発表する学生',
-        imageBCaption: 'OUTPUT — 学んだことばを使う',
+        imageBCaption: '発信 — 学んだことばを使う',
       }
     : {
-        kicker: 'RITSUMEIKAN · INBOUND PROGRAMME PORTFOLIO',
+        kicker: '立命館の短期受入プログラム',
         title: '27か国・地域から\n522名が立命館へ',
         lead: '2023–2026年、検証済みの定型4プログラムに522名、27か国・地域、114大学・機関から参加がありました。5週間、Express、Custom Programs。それぞれ違う入口があります。',
         imageA: 'IMG_1588.JPG',
         imageAAlt: '立命館大学の短期プログラムに参加する学生たち',
-        imageACaption: 'PEOPLE — 国や大学を越えて学ぶ',
+        imageACaption: '人 — 国や大学を越えて学ぶ',
         imageB: 'hero/hero-kinugasa-clocktower.jpg',
         imageBAlt: '立命館大学衣笠キャンパスの時計台',
-        imageBCaption: 'PLACE — キャンパスが出会いの舞台になる',
+        imageBCaption: '場所 — キャンパスが出会いの舞台になる',
       };
 ---
 <section id={`global-evidence-${context}`} class={`global-evidence global-evidence--${context}`} aria-labelledby={`global-evidence-title-${context}`}>
@@ -115,7 +115,7 @@ const copy = isRwjp
     <div class="global-evidence__lead-wrap">
       <p class="global-evidence__lead">{copy.lead}</p>
       <p class="global-evidence__source-note">
-        集計期間：{participationHistorySource.period} ／ 出典：短期受入プログラム参加実績の統合データ。国・地域は参加者の国籍ではなく、大学・機関の所在地で整理しています。{isRwjp ? ' RSJP・RWJPのみを合算し、Expressは含みません。' : !isProgramme ? ' 522名の集計はRSJP・RSJP Express・RWJP・RWJP Expressのみで、Custom Programmeは別集計です。' : ''}
+        集計期間：{participationHistorySource.period} ／ 出典：短期受入プログラム参加実績の統合データ。国・地域は参加者の国籍ではなく、大学・機関の所在地で整理しています。{isRwjp ? ' RSJP・RWJPのみを合算し、Expressは含みません。' : !isProgramme ? ' 522名の集計はRSJP・RSJP Express・RWJP・RWJP Expressのみで、Custom Programsは別集計です。' : ''}
       </p>
     </div>
   </div>
@@ -136,9 +136,9 @@ const copy = isRwjp
           ))}
         </svg>
         <div class="global-evidence__network-center">
-          <span>{isRwjp ? 'RSJP + RWJP · 5 WEEKS' : 'RWJP EXPRESS'}</span>
-          <strong>RITSUMEIKAN</strong>
-          <b>GLOBAL LEARNING</b>
+          <span>{isRwjp ? 'RSJP + RWJP · 5週間' : 'RWJP EXPRESS'}</span>
+          <strong>立命館</strong>
+          <b>世界と学ぶ</b>
           <small>{networkSummary.participants}名 · {networkSummary.countries}か国・地域 · {networkSummary.institutions}大学・機関</small>
         </div>
         {programmeNetwork.map((country) => (
@@ -149,7 +149,7 @@ const copy = isRwjp
         ))}
         {minorNetworkRegions.length > 0 && (
           <div class="global-evidence__network-more" aria-label="その他の参加国・地域">
-            <span>AND MORE</span>
+            <span>その他の国・地域</span>
             <div>
               {minorNetworkRegions.map((country) => (
                 <small><i aria-hidden="true">{country.flag}</i>{country.countryOrRegion}<b>{country.participants}</b></small>
@@ -161,21 +161,21 @@ const copy = isRwjp
     ) : (
       <div class="global-evidence__portfolio" aria-label="立命館の短期受入プログラム群">
         <article>
-          <p>5-WEEK JAPANESE</p>
+          <p>5週間 日本語プログラム</p>
           <div class="global-evidence__portfolio-flags" aria-hidden="true">🇦🇺 🇺🇸 🇰🇷 🇨🇦 🇳🇿 🇬🇧</div>
           <strong>{fiveWeekJapaneseProgrammeEvidence.participants}名</strong>
           <span>{fiveWeekJapaneseProgrammeEvidence.countriesOrRegions}か国・地域 · {fiveWeekJapaneseProgrammeEvidence.institutions}大学・機関</span>
           <small>RSJP + RWJP / 5週間</small>
         </article>
         <article>
-          <p>EXPRESS</p>
+          <p>Express</p>
           <div class="global-evidence__portfolio-flags" aria-hidden="true">{expressProgrammeEvidence.representativeFlags.join(' ')}</div>
           <strong>{expressProgrammeEvidence.participants}名</strong>
           <span>{expressProgrammeEvidence.countriesOrRegions}か国・地域 · {expressProgrammeEvidence.institutions}大学・機関</span>
           <small>RSJP Express + RWJP Express</small>
         </article>
         <article class="global-evidence__portfolio-custom">
-          <p>CUSTOM / PARTNER-BASED</p>
+          <p>大学・機関向け Custom Programs</p>
           <div class="global-evidence__portfolio-flags" aria-hidden="true">🤝 🌏 🏫</div>
           <strong>大学ごとに設計</strong>
           <span>地域・人数・期間は案件ごとに異なるため別集計</span>
@@ -193,29 +193,29 @@ const copy = isRwjp
   {isRwjp ? (
     <>
       <dl class="site-shell global-evidence__stats" aria-label="2023年から2026年のRSJP・RWJP 5週間日本語プログラム参加実績">
-        <div><dt>参加者</dt><dd>{fiveWeekJapaneseProgrammeEvidence.participants.toLocaleString('ja-JP')}名</dd><span>PARTICIPANTS</span></div>
-        <div><dt>国・地域</dt><dd>{fiveWeekJapaneseProgrammeEvidence.countriesOrRegions}</dd><span>COUNTRIES / REGIONS</span></div>
-        <div><dt>大学・機関</dt><dd>{fiveWeekJapaneseProgrammeEvidence.institutions}</dd><span>INSTITUTIONS</span></div>
+        <div><dt>参加者</dt><dd>{fiveWeekJapaneseProgrammeEvidence.participants.toLocaleString('ja-JP')}名</dd><span>参加者</span></div>
+        <div><dt>国・地域</dt><dd>{fiveWeekJapaneseProgrammeEvidence.countriesOrRegions}</dd><span>国・地域</span></div>
+        <div><dt>大学・機関</dt><dd>{fiveWeekJapaneseProgrammeEvidence.institutions}</dd><span>大学・機関</span></div>
       </dl>
       <p class="site-shell global-evidence__scope-note">※ 2023–2026年（コロナ後の再開期）のRSJP・RWJP実績を合算。両プログラムはいずれも5週間の日本語プログラムです。Express系は含みません。</p>
     </>
   ) : isExpress && historical ? (
     <dl class="site-shell global-evidence__stats" aria-label="RWJP Expressの2023年から2026年の参加実績">
-      <div><dt>参加者</dt><dd>{historical.participants.toLocaleString('ja-JP')}名</dd><span>PARTICIPANTS</span></div>
-      <div><dt>国・地域</dt><dd>{historical.countries}</dd><span>COUNTRIES / REGIONS</span></div>
-      <div><dt>大学・機関</dt><dd>{historical.institutions}</dd><span>INSTITUTIONS</span></div>
+      <div><dt>参加者</dt><dd>{historical.participants.toLocaleString('ja-JP')}名</dd><span>参加者</span></div>
+      <div><dt>国・地域</dt><dd>{historical.countries}</dd><span>国・地域</span></div>
+      <div><dt>大学・機関</dt><dd>{historical.institutions}</dd><span>大学・機関</span></div>
     </dl>
   ) : (
     <dl class="site-shell global-evidence__stats" aria-label="2023年から2026年の検証済み定型短期受入プログラム参加実績">
-      <div><dt>参加者</dt><dd>{shortTermParticipationEvidence.participants.toLocaleString('ja-JP')}名</dd><span>STANDARD PROGRAMMES</span></div>
-      <div><dt>国・地域</dt><dd>{shortTermParticipationEvidence.countriesOrRegions}</dd><span>COUNTRIES / REGIONS</span></div>
-      <div><dt>大学・機関</dt><dd>{shortTermParticipationEvidence.institutions}</dd><span>INSTITUTIONS</span></div>
+      <div><dt>参加者</dt><dd>{shortTermParticipationEvidence.participants.toLocaleString('ja-JP')}名</dd><span>定型プログラム</span></div>
+      <div><dt>国・地域</dt><dd>{shortTermParticipationEvidence.countriesOrRegions}</dd><span>国・地域</span></div>
+      <div><dt>大学・機関</dt><dd>{shortTermParticipationEvidence.institutions}</dd><span>大学・機関</span></div>
     </dl>
   )}
 
   {isRwjp && (
     <div class="site-shell global-evidence__current-design" aria-label="2027 RWJPの確定学習設計">
-      <p>2027 PROGRAMME DESIGN</p>
+      <p>2027年度 プログラム設計</p>
       <dl>
         <div><dt>期間</dt><dd>5週間</dd></div>
         <div><dt>日本語学習</dt><dd>{rwjpJapaneseHours !== null ? `${rwjpJapaneseHours}時間` : '確認中'}</dd></div>
@@ -228,7 +228,7 @@ const copy = isRwjp
     <div class="site-shell global-evidence__directory" data-participation-directory>
       <div class="global-evidence__directory-heading">
         <div>
-          <p>{isRwjp ? 'RWJP ONLY · 2023–2026' : 'FIND YOUR COUNTRY / UNIVERSITY'}</p>
+          <p>{isRwjp ? 'RWJP単独 · 2023–2026' : '国・地域・大学から探す'}</p>
           <h3>{isRwjp ? 'RWJPの参加実績を探す' : '自分の国・地域や大学を探す'}</h3>
           <span>{isRwjp ? `ここからはRWJP単独：140名・9か国・地域・18大学・機関。` : ''} 過去の参加実績は、現在の募集対象・提携関係を意味するものではありません。</span>
         </div>

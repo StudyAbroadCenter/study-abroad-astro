@@ -34,6 +34,7 @@ const mobileCritical = new Set([
   'rwjp',
   'rwjp-express',
   'rdsp',
+  'custom-programs',
   'faq',
   'contact',
 ]);
@@ -73,8 +74,6 @@ for (const viewport of viewports) {
     page.on('console', (message) => {
       if (message.type() !== 'error') return;
       const text = message.text();
-      // Resource failures are classified with response/requestfailed handlers, where
-      // the failing URL is available. Other JavaScript console errors remain fatal.
       if (!text.startsWith('Failed to load resource')) consoleErrors.push(text);
     });
 
@@ -94,10 +93,6 @@ for (const viewport of viewports) {
     const response = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30_000 });
     await page.evaluate(async () => {
       if (document.fonts?.ready) await document.fonts.ready;
-
-      // Full-page screenshots do not scroll naturally, so below-the-fold lazy images
-      // can otherwise remain as placeholders. Promote ordinary lazy images to eager
-      // for the audit, then wait briefly for them to settle before measuring/capturing.
       const images = [...document.querySelectorAll('img[loading="lazy"]')];
       images.forEach((img) => { img.loading = 'eager'; });
       const imageReady = Promise.all(images.map((img) => {

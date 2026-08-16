@@ -21,15 +21,15 @@ export interface ExperienceSectionCopy {
 
 export const experiencePillars = {
   ja: {
-    kicker: 'MORE THAN A LANGUAGE PROGRAMME',
+    kicker: '語学だけでは終わらない',
     title: '日本語を学ぶ\n日本で学ぶ',
     lead: '日本語を軸に、学生との共修、文化体験、街での学びへ。教室の外まで、学びをつなげます。',
-    question: '見るだけじゃ、もったいない。使う。話す。やってみる。',
+    question: '見るだけじゃ もったいない　使う　話す　やってみる',
     pillars: [
       {
         id: 'language',
         number: '01',
-        eyebrow: 'LEARN JAPANESE',
+        eyebrow: '日本語を学ぶ',
         title: '学んだことばを 使ってみる',
         body: '授業で学び、キャンパスや街で使う。覚えた日本語を、伝えるためのことばへつなげます。',
         examples: ['日本語授業', '大学院生によるレッスン', 'バディとの会話', 'キャンパスでの実践', '京都で使う日本語'],
@@ -37,7 +37,7 @@ export const experiencePillars = {
       {
         id: 'colearning',
         number: '02',
-        eyebrow: 'LEARN WITH STUDENTS',
+        eyebrow: '学生と学ぶ',
         title: '会うだけでなく 共に学ぶ',
         body: '学生との活動や共修を通して、考えを伝え、違いを知る。交流を学びへつなげます。',
         examples: ['茶道', '和太鼓', '邦楽', '陸上ホッケー', '野球', '学生ガイド', '留学生との交流', 'バディとPBL', 'VR体験', 'グリーンスクリーン', 'Microsoft Base', 'カルタ・折り紙'],
@@ -46,7 +46,7 @@ export const experiencePillars = {
       {
         id: 'culture',
         number: '03',
-        eyebrow: 'EXPERIENCE CULTURAL KYOTO',
+        eyebrow: '京都の文化を体験する',
         title: '京都を 見るだけで終わらせない',
         body: '手を動かす。背景を知る。自分の文化と比べる。文化体験を、考える時間へ変えます。',
         examples: ['坐禅', '書道', '京友禅', '清水焼', '舞妓', '日本料理', '漫画家との体験', '二条城', '漢字ミュージアム', '堂本印象美術館'],
@@ -55,13 +55,13 @@ export const experiencePillars = {
       {
         id: 'field',
         number: '04',
-        eyebrow: 'EXPLORE BEYOND THE CLASSROOM',
+        eyebrow: '教室の外へ',
         title: '街も 社会も 教室になる',
         body: '寺社、文化施設、企業、地域へ。現場に出ると、授業で得た視点が立体になります。',
         examples: ['伏見稲荷', '龍安寺', '北野天満宮', '仁和寺', '妙心寺', '天龍寺', '企業訪問', '姉妹都市訪問', 'カップヌードルミュージアム', '太秦映画村', '郊外学習'],
       },
     ],
-    outroKicker: 'TAKE THE CLASSROOM WITH YOU',
+    outroKicker: '教室を持って 街へ出る',
     outroTitle: '教室を出る 学びが動き出す',
     outroBody: '場所が変わると、問いも変わる。人と街と社会に出会いながら、自分のことばで日本を考えます。',
   } satisfies ExperienceSectionCopy,

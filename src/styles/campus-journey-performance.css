@@ -1,9 +1,15 @@
-.campus-journey__intro,
-.campus-journey__outro,
 .mvp-preview,
 .recruitment-footer {
   content-visibility: auto;
   contain-intrinsic-size: auto 760px;
+}
+
+/* Campus Journey now appears only on the institutional Custom Programs page.
+   Keep its intro/outro fully rendered so full-page visual UAT captures the
+   actual content instead of an intrinsic-size placeholder. */
+.campus-journey__intro,
+.campus-journey__outro {
+  content-visibility: visible;
 }
 
 .campus-atlas__picture {
