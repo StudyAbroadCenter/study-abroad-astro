@@ -112,3 +112,23 @@ jobs:
           name: english-rwjp-visual-uat
           path: english-rwjp-visual-uat
           retention-days: 7
+
+      - name: Run English programme MVP visual UAT
+        if: github.event_name == 'pull_request'
+        env:
+          VISUAL_BASE_URL: http://127.0.0.1:4176
+          EN_PROGRAMMES_VISUAL_OUTPUT_DIR: english-programmes-visual-uat
+        run: |
+          python -m http.server 4176 --directory dist > /tmp/astro-preview-en-programmes.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID' EXIT
+          sleep 3
+          node scripts/english_programmes_visual_uat.mjs
+
+      - name: Upload English programme MVP visual UAT
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: english-programmes-visual-uat
+          path: english-programmes-visual-uat
+          retention-days: 7
