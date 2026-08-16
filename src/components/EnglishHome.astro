@@ -5,10 +5,6 @@ import { shortTermParticipationEvidence } from '../data/participation-history';
 const rawBase = import.meta.env.BASE_URL;
 const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
 const image = (path: string) => `${base}images/${path.replace(/^\//, '')}`;
-const optimizedImage = (path: string, width: number) => {
-  const stem = path.replace(/^\//, '').replace(/\.[^.]+$/, '');
-  return `${base}images/optimized/${stem}-${width}.webp`;
-};
 const studentProgrammes = programmes.filter((programme) => programme.audience === 'individual');
 const customProgramme = programmes.find((programme) => programme.audience === 'partner');
 const evidence = shortTermParticipationEvidence;
@@ -53,7 +49,7 @@ const evidence = shortTermParticipationEvidence;
         return (
           <article class={`programme-card programme-card--${programme.goals[0]}`}>
             <div class="programme-card__visual en-programme-card__visual">
-              <img src={optimizedImage(programme.image, 960)} srcset={`${optimizedImage(programme.image, 640)} 640w, ${optimizedImage(programme.image, 960)} 960w`} sizes="(min-width: 900px) 380px, (min-width: 560px) 50vw, 100vw" alt={copy.imageAlt} width="960" height="640" loading="lazy" decoding="async" />
+              <img src={image(programme.image)} alt={copy.imageAlt} width="960" height="640" loading="lazy" decoding="async" />
               <span>{programme.code}</span><small>{copy.familyLabel}</small>
             </div>
             <div class="programme-card__body">
@@ -113,9 +109,9 @@ const evidence = shortTermParticipationEvidence;
 <section class="en-photo-story" aria-labelledby="en-photo-title"><div class="site-shell">
   <div class="section-intro"><p class="section-kicker">Campus and community</p><h2 id="en-photo-title">See what everyday learning can look like</h2><p class="en-section-lead">The balance of classes, interaction and activities differs by program. These photographs show past short-term program settings at Ritsumeikan.</p></div>
   <div class="en-photo-story__grid">
-    <figure><img src={optimizedImage('IMG_8178.JPG', 960)} srcset={`${optimizedImage('IMG_8178.JPG', 640)} 640w, ${optimizedImage('IMG_8178.JPG', 960)} 960w`} sizes="(min-width: 900px) 42vw, 100vw" alt="Students learning together during a Ritsumeikan short-term program" loading="lazy" decoding="async" width="960" height="640" /><figcaption>Learning together on campus.</figcaption></figure>
-    <figure><img src={optimizedImage('IMG_5092.JPG', 960)} srcset={`${optimizedImage('IMG_5092.JPG', 640)} 640w, ${optimizedImage('IMG_5092.JPG', 960)} 960w`} sizes="(min-width: 900px) 29vw, 100vw" alt="Students taking part in a cultural activity in Kyoto" loading="lazy" decoding="async" width="960" height="640" /><figcaption>Culture and place as part of the experience.</figcaption></figure>
-    <figure><img src={optimizedImage('IMG_1687.JPG', 960)} srcset={`${optimizedImage('IMG_1687.JPG', 640)} 640w, ${optimizedImage('IMG_1687.JPG', 960)} 960w`} sizes="(min-width: 900px) 29vw, 100vw" alt="Ritsumeikan University campus environment" loading="lazy" decoding="async" width="960" height="640" /><figcaption>Time on a university campus in Japan.</figcaption></figure>
+    <figure><img src={image('IMG_8178.JPG')} alt="Students learning together during a Ritsumeikan short-term program" loading="lazy" decoding="async" width="1200" height="800" /><figcaption>Learning together on campus.</figcaption></figure>
+    <figure><img src={image('IMG_5092.JPG')} alt="Students taking part in a cultural activity in Kyoto" loading="lazy" decoding="async" width="1200" height="800" /><figcaption>Culture and place as part of the experience.</figcaption></figure>
+    <figure><img src={image('IMG_1687.JPG')} alt="Ritsumeikan University campus environment" loading="lazy" decoding="async" width="1200" height="800" /><figcaption>Time on a university campus in Japan.</figcaption></figure>
   </div>
 </div></section>
 
