@@ -1,8 +1,9 @@
 @layer components {
+  /* Keep the editorial intro/outro visible so full-page visual UAT captures
+     the real Japanese headings instead of an intrinsic-size placeholder. */
   .participant-day__intro,
   .participant-day__outro {
-    content-visibility: auto;
-    contain-intrinsic-size: auto 760px;
+    content-visibility: visible;
   }
 
   .day-scene__picture {
