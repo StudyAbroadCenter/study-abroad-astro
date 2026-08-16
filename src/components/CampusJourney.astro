@@ -88,12 +88,12 @@ const campuses = campusPlaces.map((place) => {
       </div>
 
       <div class="site-shell campus-atlas__identity">
-        <p class="campus-atlas__prefecture" data-campus-prefecture>{campuses[0].prefecture}</p>
-        <p class="campus-atlas__city" data-campus-city aria-hidden="true">{campuses[0].city}</p>
+        <p class="campus-atlas__prefecture" data-campus-prefecture>{campuses[0].prefectureJa}</p>
+        <p class="campus-atlas__city" data-campus-city aria-hidden="true">{campuses[0].cityJa}</p>
         <div class="campus-atlas__stage-copy">
           <p data-campus-theme>{campuses[0].theme}</p>
           <h3 data-campus-headline>{campuses[0].headline}</h3>
-          <span data-campus-name>{campuses[0].campus}</span>
+          <span data-campus-name>{campuses[0].campusJa}</span>
         </div>
       </div>
 
@@ -120,10 +120,10 @@ const campuses = campusPlaces.map((place) => {
             data-campus-scene
             data-campus-index={index}
             data-city={campus.cityJa}
-            data-prefecture={campus.prefecture}
+            data-prefecture={campus.prefectureJa}
             data-theme={campus.theme}
             data-headline={campus.headline}
-            data-campus-name={campus.campus}
+            data-campus-name={campus.campusJa}
             data-accent={campus.accent}
             data-accent-soft={campus.accentSoft}
             style={`--campus-accent: ${campus.accent}; --campus-accent-soft: ${campus.accentSoft}; --campus-focus: ${campus.focus}`}
@@ -146,7 +146,7 @@ const campuses = campusPlaces.map((place) => {
                 <div class="campus-scene__meta">
                   <span>{String(index + 1).padStart(2, '0')} / {String(campuses.length).padStart(2, '0')}</span>
                   <strong>{campus.cityJa}</strong>
-                  <b>{campus.prefecture}</b>
+                  <b>{campus.prefectureJa}</b>
                 </div>
                 <p class="campus-scene__theme">{campus.theme}</p>
                 <h3>{campus.headline}</h3>
@@ -159,7 +159,7 @@ const campuses = campusPlaces.map((place) => {
                   <strong>{campus.contribution}</strong>
                 </div>
                 <div class="campus-scene__footer">
-                  <span>{campus.campus} · {campus.locality}</span>
+                  <span>{campus.campusJa} · {campus.locality}</span>
                   <p>{campus.afterClass}</p>
                 </div>
               </div>
