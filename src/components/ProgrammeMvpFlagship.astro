@@ -13,7 +13,10 @@ const copy = programme.copy[locale];
 const isJa = locale === 'ja';
 const rawBase = import.meta.env.BASE_URL;
 const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
-const image = (path: string) => `${base}${path.replace(/^\//, '')}`;
+const optimizedImage = (path: string, width = 1920) => {
+  const stem = path.replace(/^\//, '').replace(/\.[^.]+$/, '');
+  return `${base}images/optimized/${stem}-${width}.webp`;
+};
 const routeBase = isJa ? `${base}programs/` : `${base}en/programs/`;
 const accentLabel = programme.id === 'rwjp-express'
   ? (isJa ? 'WINTER · JAPANESE LANGUAGE & CULTURE' : 'WINTER · JAPANESE LANGUAGE & CULTURE')
@@ -83,7 +86,7 @@ const secondaryImages = programme.id === 'rwjp-express'
 ---
 <article class={`pmvp pmvp--${programme.id}`} lang={locale}>
   <header class="pmvp__hero">
-    <img class="pmvp__hero-image" src={image(programme.image)} alt={copy.imageAlt} width="1600" height="1067" decoding="async" fetchpriority="high" />
+    <img class="pmvp__hero-image" src={optimizedImage(programme.image, 1920)} alt={copy.imageAlt} width="1920" height="1280" decoding="async" fetchpriority="high" />
     <div class="pmvp__hero-overlay" aria-hidden="true"></div>
     <div class="site-shell pmvp__hero-inner">
       <p class="pmvp__eyebrow">{accentLabel}</p>
@@ -134,8 +137,8 @@ const secondaryImages = programme.id === 'rwjp-express'
   <section class="pmvp__setting" id="setting">
     <div class="site-shell pmvp__setting-grid">
       <div class="pmvp__photo-stack">
-        <figure class="pmvp__photo pmvp__photo--large"><img src={image(secondaryImages[0])} alt={isJa ? '立命館大学の短期プログラムで学ぶ学生の様子' : 'Students learning in a Ritsumeikan short-term program setting'} loading="lazy" decoding="async" /></figure>
-        <figure class="pmvp__photo pmvp__photo--small"><img src={image(secondaryImages[1])} alt={isJa ? '立命館大学のキャンパスや学習環境の参考写真' : 'A Ritsumeikan campus or learning environment'} loading="lazy" decoding="async" /></figure>
+        <figure class="pmvp__photo pmvp__photo--large"><img src={optimizedImage(secondaryImages[0], 1280)} alt={isJa ? '立命館大学の短期プログラムで学ぶ学生の様子' : 'Students learning in a Ritsumeikan short-term program setting'} loading="lazy" decoding="async" /></figure>
+        <figure class="pmvp__photo pmvp__photo--small"><img src={optimizedImage(secondaryImages[1], 960)} alt={isJa ? '立命館大学のキャンパスや学習環境の参考写真' : 'A Ritsumeikan campus or learning environment'} loading="lazy" decoding="async" /></figure>
       </div>
       <div class="pmvp__setting-copy">
         <p class="pmvp__kicker">{isJa ? '学ぶ場所' : 'The setting'}</p>
