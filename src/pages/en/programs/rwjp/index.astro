@@ -10,7 +10,7 @@ const dates = isKnownFact(f.programmeDates)
   ? `${f.programmeDates.value.start} to ${f.programmeDates.value.end}`
   : 'dates to be confirmed';
 const fee = isKnownFact(f.programmeFee) ? `¥${f.programmeFee.value.toLocaleString('en-US')}` : 'fee to be confirmed';
-const description = `2027 Ritsumeikan Winter Japanese Program in Kyoto: ${dates}. Study Japanese, live in Kyoto and take part in university life at Kinugasa Campus. Programme fee ${fee}.`;
+const description = `2027 Ritsumeikan Winter Japanese Program in Kyoto: ${dates}. Study Japanese, live in Kyoto and experience university life at Kinugasa Campus. Program fee ${fee}.`;
 ---
 <EnglishStudentRecruitmentLayout title={title} description={description} robots="noindex,nofollow" japaneseHref="/programs/rwjp">
   <EnglishRwjpFlagshipPage />
