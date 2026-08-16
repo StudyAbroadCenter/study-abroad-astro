@@ -1,14 +1,6 @@
 ---
-import {
-  rwjp2027Facts,
-  isKnownFact,
-  rwjp2027JourneyLinks,
-  isJourneyLinkReady,
-} from '../data/rwjp/index';
-import {
-  fiveWeekJapaneseProgrammeEvidence,
-  participationHistorySource,
-} from '../data/participation-history';
+import { rwjp2027Facts, isKnownFact, rwjp2027JourneyLinks, isJourneyLinkReady } from '../data/rwjp/index';
+import { fiveWeekJapaneseProgrammeEvidence, participationHistorySource } from '../data/participation-history';
 
 const f = rwjp2027Facts;
 const rawBase = import.meta.env.BASE_URL;
@@ -17,19 +9,10 @@ const asset = (name: string) => `${base}images/programs/rwjp/${name}`;
 const realAsset = (name: string) => `${base}images/programs/rwjp/real/${name}`;
 const longDate = (iso: string) => new Intl.DateTimeFormat('en-CA', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(`${iso}T00:00:00`));
 const shortDate = (iso: string) => new Intl.DateTimeFormat('en-CA', { month: 'short', day: 'numeric' }).format(new Date(`${iso}T00:00:00`));
-
-const programmeDates = isKnownFact(f.programmeDates)
-  ? `${longDate(f.programmeDates.value.start)} – ${longDate(f.programmeDates.value.end)}`
-  : 'To be confirmed';
-const heroDates = isKnownFact(f.programmeDates)
-  ? `${shortDate(f.programmeDates.value.start)} – ${shortDate(f.programmeDates.value.end)}, ${f.programmeDates.value.end.slice(0, 4)}`
-  : 'Dates to be confirmed';
-const applicationDates = isKnownFact(f.applicationPeriod)
-  ? `${longDate(f.applicationPeriod.value.start)} – ${longDate(f.applicationPeriod.value.end)}`
-  : 'To be confirmed';
-const dormDates = isKnownFact(f.accommodationDates)
-  ? `${longDate(f.accommodationDates.value.checkIn)} – ${longDate(f.accommodationDates.value.checkOut)}`
-  : 'To be confirmed';
+const programmeDates = isKnownFact(f.programmeDates) ? `${longDate(f.programmeDates.value.start)} – ${longDate(f.programmeDates.value.end)}` : 'To be confirmed';
+const heroDates = isKnownFact(f.programmeDates) ? `${shortDate(f.programmeDates.value.start)} – ${shortDate(f.programmeDates.value.end)}, ${f.programmeDates.value.end.slice(0, 4)}` : 'Dates to be confirmed';
+const applicationDates = isKnownFact(f.applicationPeriod) ? `${longDate(f.applicationPeriod.value.start)} – ${longDate(f.applicationPeriod.value.end)}` : 'To be confirmed';
+const dormDates = isKnownFact(f.accommodationDates) ? `${longDate(f.accommodationDates.value.checkIn)} – ${longDate(f.accommodationDates.value.checkOut)}` : 'To be confirmed';
 const programmeFee = isKnownFact(f.programmeFee) ? `¥${f.programmeFee.value.toLocaleString('en-US')}` : 'To be confirmed';
 const dormFee = isKnownFact(f.accommodationFee) ? `¥${f.accommodationFee.value.toLocaleString('en-US')}` : 'To be confirmed';
 const refundAmount = isKnownFact(f.refundAmount) ? `¥${f.refundAmount.value.toLocaleString('en-US')}` : null;
@@ -48,318 +31,112 @@ const officialCommunicationMarkUrl = 'https://www.ritsumei.ac.jp/image.jsp?id=22
 ---
 <article class="rw26">
   <section class="rw26-hero" aria-labelledby="rw26-title">
-    <img
-      class="rw26-hero__image"
-      src={asset('rwjp-winter-life.webp')}
-      alt="Kyoto in winter"
-      width="1600"
-      height="900"
-      decoding="async"
-      fetchpriority="high"
-    />
+    <img class="rw26-hero__image" src={asset('rwjp-winter-life.webp')} alt="Kyoto in winter" width="1600" height="900" decoding="async" fetchpriority="high" />
     <div class="rw26-hero__veil" aria-hidden="true"></div>
     <div class="rw26-shell rw26-hero__inner">
       <p class="rw26-eyebrow rw26-eyebrow--light">2027 Ritsumeikan Winter Japanese Program</p>
-      <h1 id="rw26-title" class="rw26-hero__title">
-        <span>Study Japanese.</span>
-        <span>Live in Kyoto.</span>
-      </h1>
+      <h1 id="rw26-title" class="rw26-hero__title"><span>Study Japanese.</span><span>Live in Kyoto.</span></h1>
       <span class="rw26-red-rule" aria-hidden="true"></span>
       <p class="rw26-hero__lead">Five weeks of serious Japanese study, university life and enough time in Kyoto for daily routines to become part of the experience.</p>
       <div class="rw26-hero__facts" aria-label="Key program details">
-        <span>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3v3M19 3v3M4 8h16M5 5h14a1 1 0 0 1 1 1v14H4V6a1 1 0 0 1 1-1Z" /></svg>
-          {heroDates}
-        </span>
-        <span>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s6-5.2 6-11a6 6 0 1 0-12 0c0 5.8 6 11 6 11Z" /><circle cx="12" cy="10" r="2" /></svg>
-          Kinugasa Campus
-        </span>
-        <span>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>
-          Five weeks
-        </span>
+        <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3v3M19 3v3M4 8h16M5 5h14a1 1 0 0 1 1 1v14H4V6a1 1 0 0 1 1-1Z" /></svg>{heroDates}</span>
+        <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s6-5.2 6-11a6 6 0 1 0-12 0c0 5.8 6 11 6 11Z" /><circle cx="12" cy="10" r="2" /></svg>Kinugasa Campus</span>
+        <span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>Five weeks</span>
       </div>
     </div>
   </section>
 
-  <nav class="rw26-subnav" aria-label="RWJP page navigation">
-    <div class="rw26-shell rw26-subnav__inner">
-      <a class="is-active" href="#five-weeks">Five weeks</a>
-      <a href="#experience">Experience</a>
-      <a href="#study">Study</a>
-      <a href="#kyoto">Kyoto</a>
-      <a href="#fit">Is it for me?</a>
-      <a href="#global-reach">Global reach</a>
-      <a href="#essentials">2027 details</a>
-      <a class="rw26-subnav__apply" href="#apply">Apply 2027 <span aria-hidden="true">→</span></a>
-    </div>
-  </nav>
+  <nav class="rw26-subnav" aria-label="RWJP page navigation"><div class="rw26-shell rw26-subnav__inner">
+    <a class="is-active" href="#five-weeks">Five weeks</a><a href="#experience">Experience</a><a href="#study">Study</a><a href="#kyoto">Kyoto</a><a href="#fit">Is it for me?</a><a href="#global-reach">Global reach</a><a href="#essentials">2027 details</a><a class="rw26-subnav__apply" href="#apply">Apply 2027 <span aria-hidden="true">→</span></a>
+  </div></nav>
 
   <section class="rw26-load" id="five-weeks" aria-labelledby="rw26-story-title">
     <div class="rw26-load__wash" aria-hidden="true"></div>
     <div class="rw26-shell rw26-load__grid">
       <div class="rw26-story">
         <p class="rw26-eyebrow">Five weeks to make it yours</p>
-        <h2 id="rw26-story-title">
-          <span>Stay long enough</span>
-          <span>to make <em>Kyoto</em></span>
-          <span>part of your story.</span>
-        </h2>
+        <h2 id="rw26-story-title"><span>Stay long enough</span><span>to make <em>Kyoto</em></span><span>part of your story.</span></h2>
         <p>A short visit gives you landmarks. Five weeks gives you routines: the walk to campus, a place you return to for lunch, classmates you begin to know, and your own pace in the city.</p>
       </div>
-
       <div class="rw26-load__number" aria-label={`${japaneseHours} of Japanese language study`}>
-        <strong>{japaneseHoursNumber ?? 'TBC'}</strong>
-        {japaneseHoursNumber && <span class="rw26-load__hours-label">HOURS</span>}
-        <small>Japanese language study</small>
-        <b>Confirmed 2027 academic load</b>
-        {cultureHoursNumber && (
-          <div class="rw26-load__culture-stat">
-            <i>+</i>
-            <p><strong>{cultureHoursNumber}</strong> hours</p>
-            <small>{cultureSessions ? `${cultureSessions} cultural sessions` : 'cultural learning'}</small>
-          </div>
-        )}
+        <strong>{japaneseHoursNumber ?? 'TBC'}</strong>{japaneseHoursNumber && <span class="rw26-load__hours-label">HOURS</span>}
+        <small>Japanese language study</small><b>Confirmed 2027 academic load</b>
+        {cultureHoursNumber && <div class="rw26-load__culture-stat"><i>+</i><p><strong>{cultureHoursNumber}</strong> hours</p><small>{cultureSessions ? `${cultureSessions} cultural sessions` : 'cultural learning'}</small></div>}
       </div>
-
       <div class="rw26-pillars" id="study" aria-label="How Japanese learning is structured">
-        <article>
-          <span class="rw26-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 8.5c4-2 7-1.7 11 1.1v16c-4-2.8-7-3-11-1.1v-16Zm22 0c-4-2-7-1.7-11 1.1v16c4-2.8 7-3 11-1.1v-16Z" /></svg></span>
-          <h3>Learn</h3>
-          <p>Structured Japanese language classes form the academic core.</p>
-        </article>
-        <article>
-          <span class="rw26-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 6h16v12H11l-5 4v-4H5V6Zm12 16h5l5 4v-4h1V11h-3" /></svg></span>
-          <h3>Use</h3>
-          <p>Presentations and interaction create opportunities to put Japanese into practice.</p>
-        </article>
-        <article>
-          <span class="rw26-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="5" y="5" width="22" height="22" rx="2" /><path d="m10 16 4 4 8-9" /></svg></span>
-          <h3>Check</h3>
-          <p>Quizzes and examinations help you see what you have understood.</p>
-        </article>
-        <article>
-          <span class="rw26-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M8 4h12l5 5v19H8V4Zm12 0v6h6M12 15h9M12 20h9" /></svg></span>
-          <h3>Record</h3>
-          <p>Academic performance is documented in a transcript.</p>
-        </article>
+        <article><span class="rw26-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 8.5c4-2 7-1.7 11 1.1v16c-4-2.8-7-3-11-1.1v-16Zm22 0c-4-2-7-1.7-11 1.1v16c4-2.8 7-3 11-1.1v-16Z" /></svg></span><h3>Learn</h3><p>Structured Japanese language classes form the academic core.</p></article>
+        <article><span class="rw26-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 6h16v12H11l-5 4v-4H5V6Zm12 16h5l5 4v-4h1V11h-3" /></svg></span><h3>Use</h3><p>Presentations and interaction create opportunities to put Japanese into practice.</p></article>
+        <article><span class="rw26-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="5" y="5" width="22" height="22" rx="2" /><path d="m10 16 4 4 8-9" /></svg></span><h3>Check</h3><p>Quizzes and examinations help you see what you have understood.</p></article>
+        <article><span class="rw26-icon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M8 4h12l5 5v19H8V4Zm12 0v6h6M12 15h9M12 20h9" /></svg></span><h3>Record</h3><p>Academic performance is documented in a transcript.</p></article>
       </div>
     </div>
   </section>
 
-  <section class="rw26-experience" id="experience" aria-labelledby="rw26-experience-title">
-    <div class="rw26-shell">
-      <div class="rw26-section-head rw26-section-head--split">
-        <div>
-          <p class="rw26-eyebrow">What fills the five weeks</p>
-          <h2 id="rw26-experience-title">Language at the center.<br />People and culture around it.</h2>
-        </div>
-        <p>RWJP combines confirmed Japanese language study with cultural sessions and opportunities for student interaction. Exact activities and formats follow the official arrangements for the year.</p>
-      </div>
-      <div class="rw26-moments">
-        <article class="rw26-moment">
-          <figure><img src={realAsset('rwjp-real-japanese-class.webp')} alt="Students studying Japanese in a Ritsumeikan classroom" loading="lazy" decoding="async" /></figure>
-          <div><span>01 · Japanese</span><h3>Serious study, every week.</h3><p>Classes, presentations, quizzes and examinations give the five weeks an academic rhythm.</p></div>
-        </article>
-        <article class="rw26-moment">
-          <figure><img src={realAsset('rwjp-real-learning-hub.webp')} alt="Students sharing ideas in a university learning space" loading="lazy" decoding="async" /></figure>
-          <div><span>02 · Interaction</span><h3>Use Japanese with people.</h3><p>Interaction with Ritsumeikan students can create another context for Japanese and university life.</p></div>
-        </article>
-        <article class="rw26-moment">
-          <figure><img src={realAsset('rwjp-real-culture-tatami.webp')} alt="Students taking part in a Japanese cultural activity" loading="lazy" decoding="async" /></figure>
-          <div><span>03 · Culture</span><h3>Take part, not just look.</h3><p>The 2027 program includes {cultureSessions ?? 11} cultural sessions; exact content is finalized through annual arrangements.</p></div>
-        </article>
-      </div>
-
-      <div class="rw26-snapshots" aria-label="More scenes from past or related short-term programs">
-        <figure>
-          <img src={realAsset('rwjp-real-academic-presentation.webp')} alt="A student academic presentation" loading="lazy" decoding="async" />
-          <figcaption><strong>Present</strong><span>Put learning into words.</span></figcaption>
-        </figure>
-        <figure>
-          <img src={realAsset('rwjp-real-kyoto-field.webp')} alt="Students learning outside the classroom in Kyoto" loading="lazy" decoding="async" />
-          <figcaption><strong>Explore</strong><span>See Kyoto beyond the classroom.</span></figcaption>
-        </figure>
-        <p class="rw26-photo-note">Photographs show past or related short-term program scenes. Activities and formats vary by year.</p>
-      </div>
+  <section class="rw26-experience" id="experience" aria-labelledby="rw26-experience-title"><div class="rw26-shell">
+    <div class="rw26-section-head rw26-section-head--split"><div><p class="rw26-eyebrow">What fills the five weeks</p><h2 id="rw26-experience-title">Language at the center.<br />People and culture around it.</h2></div><p>RWJP combines confirmed Japanese language study with cultural sessions and opportunities for student interaction. Exact activities and formats follow the official arrangements for the year.</p></div>
+    <div class="rw26-moments">
+      <article class="rw26-moment"><figure><img src={realAsset('rwjp-real-japanese-class.webp')} alt="Students studying Japanese in a Ritsumeikan classroom" loading="lazy" decoding="async" /></figure><div><span>01 · Japanese</span><h3>Serious study, every week.</h3><p>Classes, presentations, quizzes and examinations give the five weeks an academic rhythm.</p></div></article>
+      <article class="rw26-moment"><figure><img src={realAsset('rwjp-real-learning-hub.webp')} alt="Students sharing ideas in a university learning space" loading="lazy" decoding="async" /></figure><div><span>02 · Interaction</span><h3>Use Japanese with people.</h3><p>Interaction with Ritsumeikan students can create another context for Japanese and university life.</p></div></article>
+      <article class="rw26-moment"><figure><img src={realAsset('rwjp-real-culture-tatami.webp')} alt="Students taking part in a Japanese cultural activity" loading="lazy" decoding="async" /></figure><div><span>03 · Culture</span><h3>Take part, not just look.</h3><p>The 2027 program includes {cultureSessions ?? 11} cultural sessions; exact content is finalized through annual arrangements.</p></div></article>
     </div>
-  </section>
+    <div class="rw26-snapshots" aria-label="More scenes from past or related short-term programs">
+      <figure><img src={asset('rwjp-presentation.webp')} alt="A Japanese-language presentation in a university classroom" loading="lazy" decoding="async" /><figcaption><strong>Present</strong><span>Put learning into words.</span></figcaption></figure>
+      <figure><img src={asset('rwjp-student-interaction.webp')} alt="Students taking part in a campus interaction activity" loading="lazy" decoding="async" /><figcaption><strong>Connect</strong><span>Learn alongside people on campus.</span></figcaption></figure>
+      <p class="rw26-photo-note">Photographs show past or related short-term program scenes. Activities and formats vary by year.</p>
+    </div>
+  </div></section>
 
   <section class="rw26-kyoto" id="kyoto" aria-labelledby="rw26-kyoto-title">
-    <div class="rw26-kyoto__media">
-      <img src={asset('rwjp-kyoto-winter.webp')} alt="RWJP participants walking through Kyoto in winter" loading="lazy" decoding="async" />
-    </div>
+    <div class="rw26-kyoto__media"><img src={asset('rwjp-kyoto-winter.webp')} alt="RWJP participants walking through Kyoto in winter" loading="lazy" decoding="async" /></div>
     <div class="rw26-shell rw26-kyoto__grid">
-      <div class="rw26-kyoto__copy">
-        <p class="rw26-eyebrow rw26-eyebrow--light">Living in Kyoto</p>
-        <p class="rw26-kyoto__stamp">KYOTO · WINTER · FIVE WEEKS</p>
-        <h2 id="rw26-kyoto-title">The program has a schedule.<br />Your five weeks have a life.</h2>
-        <p>Classes and organized activities are only part of the experience. Meals, walks, study, errands, conversations and your own exploration of Kyoto fill the time around them.</p>
-      </div>
-      <dl class="rw26-kyoto__notes">
-        <div><dt>Campus</dt><dd>Kinugasa Campus in north-west Kyoto.</dd></div>
-        <div><dt>Dorm</dt><dd>Taishogun Dormitory is approximately a 10–15 minute walk from campus.</dd></div>
-        <div><dt>Free time</dt><dd>How you use time outside program activities is your decision.</dd></div>
-        <div><dt>Winter</dt><dd>Kyoto in January and February can be cold. Come prepared for winter.</dd></div>
-      </dl>
+      <div class="rw26-kyoto__copy"><p class="rw26-eyebrow rw26-eyebrow--light">Living in Kyoto</p><p class="rw26-kyoto__stamp">KYOTO · WINTER · FIVE WEEKS</p><h2 id="rw26-kyoto-title">The program has a schedule.<br />Your five weeks have a life.</h2><p>Classes and organized activities are only part of the experience. Meals, walks, study, errands, conversations and your own exploration of Kyoto fill the time around them.</p></div>
+      <dl class="rw26-kyoto__notes"><div><dt>Campus</dt><dd>Kinugasa Campus in north-west Kyoto.</dd></div><div><dt>Dorm</dt><dd>Taishogun Dormitory is approximately a 10–15 minute walk from campus.</dd></div><div><dt>Free time</dt><dd>How you use time outside program activities is your decision.</dd></div><div><dt>Winter</dt><dd>Kyoto in January and February can be cold. Come prepared for winter.</dd></div></dl>
     </div>
   </section>
 
-  <section class="rw26-fit" id="fit" aria-labelledby="rw26-fit-title">
-    <div class="rw26-shell rw26-fit__grid">
-      <div class="rw26-fit__lead">
-        <p class="rw26-eyebrow">Before you decide</p>
-        <h2 id="rw26-fit-title">Start where you are.<br />Know what RWJP asks of you.</h2>
-        <p>You do not need to arrive as an advanced Japanese speaker. You do need to be ready to study, participate fully and handle the everyday independence that comes with living abroad.</p>
-      </div>
-      <div class="rw26-fit__rules">
-        <article><span>01</span><div><h3>Beginners may apply</h3><p>Complete beginners are eligible.</p></div></article>
-        <article><span>02</span><div><h3>Read the basics before arrival</h3><p>Before the program begins, every participant must be able to read hiragana and katakana.</p></div></article>
-        <article><span>03</span><div><h3>JLPT N1 holders are not eligible</h3><p>RWJP is not open to students who already hold JLPT N1.</p></div></article>
-        <article><span>04</span><div><h3>Remain enrolled</h3><p>You must remain enrolled at a university or graduate school from application through participation. Part-time students are eligible.</p></div></article>
-      </div>
-    </div>
-  </section>
+  <section class="rw26-fit" id="fit" aria-labelledby="rw26-fit-title"><div class="rw26-shell rw26-fit__grid">
+    <div class="rw26-fit__lead"><p class="rw26-eyebrow">Before you decide</p><h2 id="rw26-fit-title">Start where you are.<br />Know what RWJP asks of you.</h2><p>You do not need to arrive as an advanced Japanese speaker. You do need to be ready to study, participate fully and handle the everyday independence that comes with living abroad.</p></div>
+    <div class="rw26-fit__rules"><article><span>01</span><div><h3>Beginners may apply</h3><p>Complete beginners are eligible.</p></div></article><article><span>02</span><div><h3>Read the basics before arrival</h3><p>Before the program begins, every participant must be able to read hiragana and katakana.</p></div></article><article><span>03</span><div><h3>JLPT N1 holders are not eligible</h3><p>RWJP is not open to students who already hold JLPT N1.</p></div></article><article><span>04</span><div><h3>Remain enrolled</h3><p>You must remain enrolled at a university or graduate school from application through participation. Part-time students are eligible.</p></div></article></div>
+  </div></section>
 
-  <section class="rw26-dorm" aria-labelledby="rw26-dorm-title">
-    <div class="rw26-shell rw26-dorm__grid">
-      <div class="rw26-dorm__copy">
-        <p class="rw26-eyebrow">Taishogun Dormitory</p>
-        <h2 id="rw26-dorm-title">A base for everyday life.</h2>
-        <p>Rooms accommodate up to four students and are assigned by gender. Showers, toilets and kitchen facilities are shared. Wi-Fi and bedding are included; meals are not provided. Participants may also arrange external accommodation at their own expense.</p>
-      </div>
-      <div class="rw26-dorm__walk" aria-label="Taishogun Dormitory is approximately a 10 to 15 minute walk from Kinugasa Campus">
-        <strong>10–15</strong>
-        <span>MIN WALK</span>
-        <small>Taishogun → Kinugasa Campus</small>
-      </div>
-      <dl class="rw26-dorm__facts">
-        <div><dt>Stay</dt><dd>{dormDates}</dd></div>
-        <div><dt>Fee</dt><dd>{dormFee} additional</dd></div>
-        <div><dt>Room</dt><dd>Up to four students</dd></div>
-        <div><dt>Important</dt><dd>Private rooms and specific roommates are not guaranteed.</dd></div>
-      </dl>
-    </div>
-  </section>
+  <section class="rw26-dorm" aria-labelledby="rw26-dorm-title"><div class="rw26-shell rw26-dorm__grid">
+    <div class="rw26-dorm__copy"><p class="rw26-eyebrow">Taishogun Dormitory</p><h2 id="rw26-dorm-title">A base for everyday life.</h2><p>Rooms accommodate up to four students and are assigned by gender. Showers, toilets and kitchen facilities are shared. Wi-Fi and bedding are included; meals are not provided. Participants may also arrange external accommodation at their own expense.</p></div>
+    <div class="rw26-dorm__walk" aria-label="Taishogun Dormitory is approximately a 10 to 15 minute walk from Kinugasa Campus"><strong>10–15</strong><span>MIN WALK</span><small>Taishogun → Kinugasa Campus</small></div>
+    <dl class="rw26-dorm__facts"><div><dt>Stay</dt><dd>{dormDates}</dd></div><div><dt>Fee</dt><dd>{dormFee} additional</dd></div><div><dt>Room</dt><dd>Up to four students</dd></div><div><dt>Important</dt><dd>Private rooms and specific roommates are not guaranteed.</dd></div></dl>
+  </div></section>
 
   <section class="rw26-global" id="global-reach" aria-labelledby="rw26-global-title">
     <div class="rw26-global__map">
       <p class="rw26-global__map-kicker">Historical participation · 2023–2026</p>
       <svg class="rw26-global__network" viewBox="0 0 800 430" role="img" aria-label="Illustrated global network with Kyoto as the focal point">
-        <defs>
-          <radialGradient id="rw26Glow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#b31f2b" stop-opacity=".22"/><stop offset="1" stop-color="#b31f2b" stop-opacity="0"/></radialGradient>
-        </defs>
+        <defs><radialGradient id="rw26Glow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#b31f2b" stop-opacity=".22"/><stop offset="1" stop-color="#b31f2b" stop-opacity="0"/></radialGradient></defs>
         <g class="rw26-map-world">
-          <g class="rw26-map-land">
-            <path d="M55 104c31-38 78-47 116-31 24 10 44 32 70 38 15 4 28 18 17 32-15 20-50 11-62 28-8 12 2 27-11 35-20 12-36-13-55-10-22 4-36 29-56 18-18-10-11-35-26-45-14-10-18-44 7-65Z"/>
-            <path d="M224 220c20-6 42 11 48 31 7 23-5 43-13 64-8 20-9 48-29 62-13 9-28-3-29-18-2-20 13-36 10-56-3-23-25-43-17-65 5-12 17-16 30-18Z"/>
-            <path d="M351 96c24-20 56-24 82-15 14 5 22 20 36 22 25 5 50-14 74-5 19 7 29 27 47 35 22 10 50 1 70 15 13 9 17 30 3 40-14 11-35 2-48 15-12 12-6 33-22 42-19 11-37-9-56-7-22 3-39 26-61 18-16-6-19-26-34-34-20-10-44 3-63-7-21-11-18-38-8-57 8-15 26-20 29-37 2-12-14-20-22-29-10-12-3-28 5-36 13-13 33-2 46-10 13-9 4-29-7-38-9-8-19-14-15-28 3-11 21-10 32-8Z"/>
-            <path d="M411 226c24-9 52 4 61 27 8 22-4 44-3 67 1 18 12 36 2 52-10 17-36 18-49 4-13-14-6-37-19-50-13-13-35-17-39-36-5-25 21-49 47-64Z"/>
-            <path d="M620 285c25-17 62-16 85 4 16 14 13 41-4 53-18 13-42 3-62 9-19 6-42-3-47-23-5-18 12-33 28-43Z"/>
-            <path d="M704 348c10-5 23 0 27 10 3 10-6 21-17 21-10 0-19-10-16-20 1-5 3-8 6-11Z"/>
-          </g>
-          <g class="rw26-map-grid">
-            <ellipse cx="415" cy="215" rx="340" ry="158"/>
-            <path d="M75 215h680M415 57v316M120 130c130 60 460 60 590 0M120 300c130-60 460-60 590 0"/>
-          </g>
+          <g class="rw26-map-land"><path d="M55 104c31-38 78-47 116-31 24 10 44 32 70 38 15 4 28 18 17 32-15 20-50 11-62 28-8 12 2 27-11 35-20 12-36-13-55-10-22 4-36 29-56 18-18-10-11-35-26-45-14-10-18-44 7-65Z"/><path d="M224 220c20-6 42 11 48 31 7 23-5 43-13 64-8 20-9 48-29 62-13 9-28-3-29-18-2-20 13-36 10-56-3-23-25-43-17-65 5-12 17-16 30-18Z"/><path d="M351 96c24-20 56-24 82-15 14 5 22 20 36 22 25 5 50-14 74-5 19 7 29 27 47 35 22 10 50 1 70 15 13 9 17 30 3 40-14 11-35 2-48 15-12 12-6 33-22 42-19 11-37-9-56-7-22 3-39 26-61 18-16-6-19-26-34-34-20-10-44 3-63-7-21-11-18-38-8-57 8-15 26-20 29-37 2-12-14-20-22-29-10-12-3-28 5-36 13-13 33-2 46-10 13-9 4-29-7-38-9-8-19-14-15-28 3-11 21-10 32-8Z"/><path d="M411 226c24-9 52 4 61 27 8 22-4 44-3 67 1 18 12 36 2 52-10 17-36 18-49 4-13-14-6-37-19-50-13-13-35-17-39-36-5-25 21-49 47-64Z"/><path d="M620 285c25-17 62-16 85 4 16 14 13 41-4 53-18 13-42 3-62 9-19 6-42-3-47-23-5-18 12-33 28-43Z"/><path d="M704 348c10-5 23 0 27 10 3 10-6 21-17 21-10 0-19-10-16-20 1-5 3-8 6-11Z"/></g>
+          <g class="rw26-map-grid"><ellipse cx="415" cy="215" rx="340" ry="158"/><path d="M75 215h680M415 57v316M120 130c130 60 460 60 590 0M120 300c130-60 460-60 590 0"/></g>
           <circle cx="626" cy="161" r="76" fill="url(#rw26Glow)"/>
-          <g class="rw26-map-lines">
-            <path d="M626 161Q390 10 154 106"/><path d="M626 161Q385 48 148 151"/><path d="M626 161Q510 57 394 112"/><path d="M626 161Q590 120 552 151"/><path d="M626 161Q620 145 607 148"/><path d="M626 161Q613 170 602 181"/><path d="M626 161Q638 250 650 320"/><path d="M626 161Q680 260 713 357"/>
-          </g>
-          <g class="rw26-map-points">
-            <circle cx="154" cy="106" r="5"/><circle cx="148" cy="151" r="5"/><circle cx="394" cy="112" r="5"/><circle cx="552" cy="151" r="5"/><circle cx="607" cy="148" r="5"/><circle cx="602" cy="181" r="5"/><circle cx="650" cy="320" r="5"/><circle cx="713" cy="357" r="5"/>
-          </g>
-          <g class="rw26-map-labels" aria-hidden="true">
-            <text x="105" y="77">NORTH AMERICA</text>
-            <text x="365" y="77">EUROPE</text>
-            <text x="574" y="116">ASIA · KYOTO</text>
-            <text x="645" y="386">OCEANIA</text>
-          </g>
+          <g class="rw26-map-lines"><path d="M626 161Q390 10 154 106"/><path d="M626 161Q385 48 148 151"/><path d="M626 161Q510 57 394 112"/><path d="M626 161Q590 120 552 151"/><path d="M626 161Q620 145 607 148"/><path d="M626 161Q613 170 602 181"/><path d="M626 161Q638 250 650 320"/><path d="M626 161Q680 260 713 357"/></g>
+          <g class="rw26-map-points"><circle cx="154" cy="106" r="5"/><circle cx="148" cy="151" r="5"/><circle cx="394" cy="112" r="5"/><circle cx="552" cy="151" r="5"/><circle cx="607" cy="148" r="5"/><circle cx="602" cy="181" r="5"/><circle cx="650" cy="320" r="5"/><circle cx="713" cy="357" r="5"/></g>
+          <g class="rw26-map-labels" aria-hidden="true"><text x="105" y="77">NORTH AMERICA</text><text x="365" y="77">EUROPE</text><text x="574" y="116">ASIA · KYOTO</text><text x="645" y="386">OCEANIA</text></g>
           <g class="rw26-map-origin" transform="translate(626 161)"><circle r="12"/></g>
         </g>
       </svg>
-      <div class="rw26-global__brand-pin" aria-label="Ritsumeikan University, Kyoto">
-        <span class="rw26-global__brand-fallback">RITSUMEIKAN</span>
-        <img src={officialCommunicationMarkUrl} alt="" loading="lazy" decoding="async" data-rwjp-official-logo />
-        <small>KYOTO · JAPAN</small>
-      </div>
+      <div class="rw26-global__brand-pin" aria-label="Ritsumeikan University, Kyoto"><span class="rw26-global__brand-fallback">RITSUMEIKAN</span><img src={officialCommunicationMarkUrl} alt="" loading="lazy" decoding="async" data-rwjp-official-logo onerror="this.hidden=true" /><small>KYOTO · JAPAN</small></div>
       <p class="rw26-global__map-caption"><strong>Ritsumeikan · Kyoto</strong><span>Historical participation connects universities and institutions across regions.</span></p>
     </div>
-    <div class="rw26-global__panel">
-      <div class="rw26-global__panel-inner">
-        <p class="rw26-eyebrow rw26-eyebrow--light">Global reach, global classroom</p>
-        <h2 id="rw26-global-title">From 21 countries and regions<br />to five weeks at Ritsumeikan.</h2>
-        <p class="rw26-global__lead">From 2023 to 2026, {evidence.participants} students from {evidence.institutions} universities and institutions took part in the five-week RSJP and RWJP programs.</p>
-        <dl class="rw26-global__stats">
-          <div><dd>{evidence.participants}</dd><dt>Participants</dt><span>2023–2026</span></div>
-          <div><dd>{evidence.countriesOrRegions}</dd><dt>Countries / regions</dt><span>Institution location</span></div>
-          <div><dd>{evidence.institutions}</dd><dt>Universities / institutions</dt><span>Historical participation</span></div>
-        </dl>
-        <p class="rw26-global__note">Reporting period: {participationHistorySource.period}. Country / region refers to the location of the participant's university or institution, not nationality. Express programs are not included.</p>
-      </div>
-    </div>
+    <div class="rw26-global__panel"><div class="rw26-global__panel-inner"><p class="rw26-eyebrow rw26-eyebrow--light">Global reach, global classroom</p><h2 id="rw26-global-title">From 21 countries and regions<br />to five weeks at Ritsumeikan.</h2><p class="rw26-global__lead">From 2023 to 2026, {evidence.participants} students from {evidence.institutions} universities and institutions took part in the five-week RSJP and RWJP programs.</p><dl class="rw26-global__stats"><div><dd>{evidence.participants}</dd><dt>Participants</dt><span>2023–2026</span></div><div><dd>{evidence.countriesOrRegions}</dd><dt>Countries / regions</dt><span>Institution location</span></div><div><dd>{evidence.institutions}</dd><dt>Universities / institutions</dt><span>Historical participation</span></div></dl><p class="rw26-global__note">Reporting period: {participationHistorySource.period}. Country / region refers to the location of the participant's university or institution, not nationality. Express programs are not included.</p></div></div>
   </section>
 
-  <section class="rw26-essentials" id="essentials" aria-labelledby="rw26-essentials-title">
-    <div class="rw26-shell">
-      <div class="rw26-section-head rw26-section-head--split">
-        <div><p class="rw26-eyebrow">2027 program essentials</p><h2 id="rw26-essentials-title">The facts, without the fine-print maze.</h2></div>
-        <p>These details come from confirmed 2027 RWJP data. When an annual arrangement is not final, the site does not fill the gap with an assumption.</p>
-      </div>
-      <dl class="rw26-essentials__list">
-        <div><dt>Official name</dt><dd>Ritsumeikan Winter Japanese Program</dd></div>
-        <div><dt>Program dates</dt><dd>{programmeDates}</dd></div>
-        <div><dt>Application period</dt><dd>{applicationDates}</dd></div>
-        <div><dt>Campus</dt><dd>Kinugasa Campus, Kyoto</dd></div>
-        <div><dt>Program fee</dt><dd>{programmeFee}</dd></div>
-        <div><dt>Japanese study</dt><dd>{japaneseHours}</dd></div>
-        <div><dt>Cultural learning</dt><dd>{cultureHours}{cultureSessions ? ` · ${cultureSessions} sessions` : ''}</dd></div>
-        <div><dt>Accommodation</dt><dd>Taishogun Dormitory · {dormFee} additional</dd></div>
-        <div><dt>Dormitory stay</dt><dd>{dormDates}</dd></div>
-        <div><dt>Eligibility</dt><dd>University or graduate-school students enrolled from application through participation; part-time students are eligible.</dd></div>
-        <div><dt>Japanese level</dt><dd>Complete beginners may apply. JLPT N1 holders are not eligible. Hiragana and katakana reading is required before the program begins.</dd></div>
-        <div><dt>Refund administration fee</dt><dd>{refundAmount ?? 'To be confirmed'}</dd></div>
-      </dl>
-    </div>
-  </section>
+  <section class="rw26-essentials" id="essentials" aria-labelledby="rw26-essentials-title"><div class="rw26-shell">
+    <div class="rw26-section-head rw26-section-head--split"><div><p class="rw26-eyebrow">2027 program essentials</p><h2 id="rw26-essentials-title">The facts, without the fine-print maze.</h2></div><p>These details come from confirmed 2027 RWJP data. When an annual arrangement is not final, the site does not fill the gap with an assumption.</p></div>
+    <dl class="rw26-essentials__list"><div><dt>Official name</dt><dd>Ritsumeikan Winter Japanese Program</dd></div><div><dt>Program dates</dt><dd>{programmeDates}</dd></div><div><dt>Application period</dt><dd>{applicationDates}</dd></div><div><dt>Campus</dt><dd>Kinugasa Campus, Kyoto</dd></div><div><dt>Program fee</dt><dd>{programmeFee}</dd></div><div><dt>Japanese study</dt><dd>{japaneseHours}</dd></div><div><dt>Cultural learning</dt><dd>{cultureHours}{cultureSessions ? ` · ${cultureSessions} sessions` : ''}</dd></div><div><dt>Accommodation</dt><dd>Taishogun Dormitory · {dormFee} additional</dd></div><div><dt>Dormitory stay</dt><dd>{dormDates}</dd></div><div><dt>Eligibility</dt><dd>University or graduate-school students enrolled from application through participation; part-time students are eligible.</dd></div><div><dt>Japanese level</dt><dd>Complete beginners may apply. JLPT N1 holders are not eligible. Hiragana and katakana reading is required before the program begins.</dd></div><div><dt>Refund administration fee</dt><dd>{refundAmount ?? 'To be confirmed'}</dd></div></dl>
+  </div></section>
 
-  <section class="rw26-policy">
-    <div class="rw26-shell rw26-policy__grid">
-      <article><p class="rw26-eyebrow">Payment</p><h2>Pay after admission.</h2><p>Payment instructions are sent after admission. The program fee, and the dormitory fee if applicable, must be paid in full by the specified deadline. If payment is not completed by the deadline, your place is automatically forfeited.</p></article>
-      <article><p class="rw26-eyebrow">Cancellation & refunds</p><h2>Know the deductions before you pay.</h2><p>There is no cancellation charge before payment. After payment, {refundAmount ? `a ${refundAmount} administrative fee` : 'an administrative fee'} is deducted, together with any non-refundable costs already incurred for arrangements. The remaining balance is refunded.</p></article>
-    </div>
-  </section>
+  <section class="rw26-policy"><div class="rw26-shell rw26-policy__grid"><article><p class="rw26-eyebrow">Payment</p><h2>Pay after admission.</h2><p>Payment instructions are sent after admission. The program fee, and the dormitory fee if applicable, must be paid in full by the specified deadline. If payment is not completed by the deadline, your place is automatically forfeited.</p></article><article><p class="rw26-eyebrow">Cancellation & refunds</p><h2>Know the deductions before you pay.</h2><p>There is no cancellation charge before payment. After payment, {refundAmount ? `a ${refundAmount} administrative fee` : 'an administrative fee'} is deducted, together with any non-refundable costs already incurred for arrangements. The remaining balance is refunded.</p></article></div></section>
 
-  <section class="rw26-apply" id="apply" aria-labelledby="rw26-apply-title">
-    <div class="rw26-shell rw26-apply__grid">
-      <div>
-        <p class="rw26-eyebrow rw26-eyebrow--light">How to apply</p>
-        <h2 id="rw26-apply-title">Start with your home university.</h2>
-        <p>RWJP accepts direct applications, but some universities coordinate applications or require nomination. Ask your home university first.</p>
-        <ol class="rw26-apply__steps">
-          <li><strong>01</strong><span>Check whether your home university requires nomination or an internal process.</span></li>
-          <li><strong>02</strong><span>If no separate instruction applies, submit the official web application during {applicationDates}.</span></li>
-          <li><strong>03</strong><span>Watch your email for the selection result and follow the payment instructions after admission.</span></li>
-        </ol>
-      </div>
-      <aside class="rw26-apply__action">
-        <p class="rw26-apply__window">Applications · {applicationDates}</p>
-        <p class="rw26-apply__status" data-rwjp-en-status data-start={applicationStart ?? undefined} data-end={applicationEnd ?? undefined}>Application period: {applicationDates}</p>
-        {applicationReady && applicationLink.url && applicationStart && applicationEnd ? (
-          <>
-            <a class="rw26-button" href={applicationLink.url} target="_blank" rel="noopener noreferrer" data-rwjp-en-apply data-start={applicationStart} data-end={applicationEnd} hidden>Apply for 2027 RWJP <span aria-hidden="true">→</span></a>
-            <span class="rw26-button rw26-button--disabled" aria-disabled="true" data-rwjp-en-closed data-start={applicationStart} data-end={applicationEnd}>Applications are not currently open</span>
-          </>
-        ) : (
-          <span class="rw26-button rw26-button--disabled" aria-disabled="true">Application form not yet published</span>
-        )}
-        {isJourneyLinkReady(inquiryLink) && inquiryLink.url && (
-          <p class="rw26-apply__contact">Questions? <a href={inquiryLink.url}>rsjprwjp@st.ritsumei.ac.jp</a>{inquiryLink.phone && <> · <a href="tel:+81754663009">+81-75-466-3009</a></>}</p>
-        )}
-      </aside>
-    </div>
-  </section>
+  <section class="rw26-apply" id="apply" aria-labelledby="rw26-apply-title"><div class="rw26-shell rw26-apply__grid">
+    <div><p class="rw26-eyebrow rw26-eyebrow--light">How to apply</p><h2 id="rw26-apply-title">Start with your home university.</h2><p>RWJP accepts direct applications, but some universities coordinate applications or require nomination. Ask your home university first.</p><ol class="rw26-apply__steps"><li><strong>01</strong><span>Check whether your home university requires nomination or an internal process.</span></li><li><strong>02</strong><span>If no separate instruction applies, submit the official web application during {applicationDates}.</span></li><li><strong>03</strong><span>Watch your email for the selection result and follow the payment instructions after admission.</span></li></ol></div>
+    <aside class="rw26-apply__action"><p class="rw26-apply__window">Applications · {applicationDates}</p><p class="rw26-apply__status" data-rwjp-en-status data-start={applicationStart ?? undefined} data-end={applicationEnd ?? undefined}>Application period: {applicationDates}</p>{applicationReady && applicationLink.url && applicationStart && applicationEnd ? <><a class="rw26-button" href={applicationLink.url} target="_blank" rel="noopener noreferrer" data-rwjp-en-apply data-start={applicationStart} data-end={applicationEnd} hidden>Apply for 2027 RWJP <span aria-hidden="true">→</span></a><span class="rw26-button rw26-button--disabled" aria-disabled="true" data-rwjp-en-closed data-start={applicationStart} data-end={applicationEnd}>Applications are not currently open</span></> : <span class="rw26-button rw26-button--disabled" aria-disabled="true">Application form not yet published</span>}{isJourneyLinkReady(inquiryLink) && inquiryLink.url && <p class="rw26-apply__contact">Questions? <a href={inquiryLink.url}>rsjprwjp@st.ritsumei.ac.jp</a>{inquiryLink.phone && <> · <a href="tel:+81754663009">+81-75-466-3009</a></>}</p>}</aside>
+  </div></section>
 </article>
 
 <script is:inline>
@@ -374,16 +151,7 @@ const officialCommunicationMarkUrl = 'https://www.ritsumei.ac.jp/image.jsp?id=22
     const open = jstToday >= start && jstToday <= end;
     const format = (iso) => new Intl.DateTimeFormat('en-CA', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(`${iso}T00:00:00`));
     if (apply instanceof HTMLElement) apply.hidden = !open;
-    if (closed instanceof HTMLElement) {
-      closed.hidden = open;
-      closed.textContent = jstToday < start ? `Applications open on ${format(start)}` : 'Applications for 2027 RWJP are closed';
-    }
-    if (status) {
-      status.textContent = jstToday < start
-        ? `Applications open on ${format(start)}.`
-        : open
-          ? `Applications are open until ${format(end)}.`
-          : 'Applications for 2027 RWJP are closed.';
-    }
+    if (closed instanceof HTMLElement) { closed.hidden = open; closed.textContent = jstToday < start ? `Applications open on ${format(start)}` : 'Applications for 2027 RWJP are closed'; }
+    if (status) status.textContent = jstToday < start ? `Applications open on ${format(start)}.` : open ? `Applications are open until ${format(end)}.` : 'Applications for 2027 RWJP are closed.';
   })();
 </script>
