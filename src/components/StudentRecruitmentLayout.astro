@@ -35,10 +35,7 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astro.u
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://www.ritsumei.ac.jp" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@600&display=swap"
-    />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@600&display=swap" />
     <title>{title}</title>
   </head>
   <body>
@@ -47,10 +44,13 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astro.u
     <footer class="recruitment-footer">
       <div class="site-shell recruitment-footer__inner">
         <div>
-          <strong>Ritsumeikan Study Abroad Center</strong>
-          <p>立命館大学 短期受入プログラム</p>
+          <strong>立命館大学 Study Abroad Center</strong>
+          <p>短期受入プログラム</p>
         </div>
-        <p>掲載している授業・交流・文化体験等は過去実施例です。実施内容はプログラムにより異なります。</p>
+        <div class="recruitment-footer__legal">
+          <p>掲載写真は過去の実施例です　授業・交流・文化体験等の内容はプログラムにより異なります</p>
+          <small>© Ritsumeikan University. All Rights Reserved.</small>
+        </div>
       </div>
     </footer>
   </body>
