@@ -17,8 +17,8 @@ const transparentPixel = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAA
 
 const scenes = [
   {
-    time: 'START',
-    label: 'CAMPUS',
+    time: 'はじまり',
+    label: 'キャンパス',
     title: '知らないキャンパスが 自分の場所になる',
     text: '教室を探し、同じプログラムの参加者と挨拶を交わす。旅先だった日本が、少しずつ「通う場所」に変わります。',
     shift: '訪問者から キャンパスで学ぶ人へ',
@@ -27,8 +27,8 @@ const scenes = [
     focus: 'center 46%',
   },
   {
-    time: 'CLASS',
-    label: 'LEARN',
+    time: '授業',
+    label: '学ぶ',
     title: '教室で学ぶ その先で使う',
     text: '日本語や専門テーマを学び、質問し、考え、伝える。授業で得た視点は、交流や街での発見にもつながります。',
     shift: '知識から 使える経験へ',
@@ -37,8 +37,8 @@ const scenes = [
     focus: 'center 42%',
   },
   {
-    time: 'BREAK',
-    label: 'CONNECT',
+    time: '休憩',
+    label: '交流',
     title: '何気ない会話も 学びになる',
     text: '休憩や活動の中で、参加者や立命館の学生と話す機会が生まれることがあります。完璧なことばでなくても、まず伝えてみる。',
     shift: '教室の外へ 会話が広がる',
@@ -47,8 +47,8 @@ const scenes = [
     focus: 'center 58%',
   },
   {
-    time: 'TRY',
-    label: 'DISCOVER',
+    time: '体験',
+    label: '発見',
     title: '見るだけじゃ もったいない',
     text: '文化、地域、企業、フィールドワーク。背景を知り、実際に体験し、自分の文化と比べて考える。',
     shift: '知っている日本から 考える日本へ',
@@ -57,8 +57,8 @@ const scenes = [
     focus: 'center 52%',
   },
   {
-    time: 'AFTER',
-    label: 'EXPLORE',
+    time: '授業後',
+    label: '街へ',
     title: '授業のあとも 街へ出る',
     text: '自由時間の過ごし方は自分次第。電車に乗る。店に入る。道を歩く。日常の小さな経験も、短期留学の一部です。',
     shift: 'キャンパスから 自分の世界へ',
@@ -70,7 +70,7 @@ const scenes = [
 ---
 <section class="participant-day" id="participant-day" aria-labelledby="participant-day-title" data-participant-day>
   <div class="site-shell participant-day__intro">
-    <p class="participant-day__kicker">A DAY THAT CHANGES YOUR VIEW</p>
+    <p class="participant-day__kicker">学びがつながる一日</p>
     <h2 id="participant-day-title">
       <span>一日の中で</span>
       <span>学びがつながる</span>
@@ -109,7 +109,7 @@ const scenes = [
       </div>
       <div class="day-stage__shade"></div>
       <div class="day-stage__hud">
-        <p class="day-stage__eyebrow">YOUR DAY AT RITSUMEIKAN</p>
+        <p class="day-stage__eyebrow">立命館で過ごす一日</p>
         <p class="day-stage__clock" data-day-clock>{scenes[0].time}</p>
         <p class="day-stage__label" data-day-label>{scenes[0].label}</p>
         <div class="day-stage__progress" aria-hidden="true"><span data-day-progress></span></div>
@@ -156,7 +156,7 @@ const scenes = [
               <h3>{scene.title}</h3>
               <p>{scene.text}</p>
               <div class="day-scene__shift">
-                <small>THIS MOMENT CHANGES</small>
+                <small>この場面で変わること</small>
                 <strong>{scene.shift}</strong>
               </div>
             </div>
@@ -169,7 +169,7 @@ const scenes = [
   <div class="site-shell participant-day__outro">
     <p class="participant-day__outro-mark" aria-hidden="true">“</p>
     <div>
-      <p class="participant-day__kicker">NOT JUST A SCHEDULE</p>
+      <p class="participant-day__kicker">予定表だけではない</p>
       <h2>持ち帰るのは 知識だけじゃない</h2>
       <p>使ってみたことば。誰かと交わした会話。自分の足で歩いた街。短期留学には、予定表に収まらない学びがあります。</p>
     </div>
