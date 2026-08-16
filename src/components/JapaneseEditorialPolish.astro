@@ -93,7 +93,7 @@
     '.rwjp-flagship h1', '.rwjp-flagship h2', '.rwjpx h1', '.rwjpx h2', '.rdsp h1', '.rdsp h2'
   ].join(','));
   headings.forEach((heading) => {
-    const strip = (node) => {
+    const strip = (node: ChildNode | null) => {
       if (node?.nodeType === Node.TEXT_NODE && node.textContent) {
         node.textContent = node.textContent.replace(/[。、！!？?]+\s*$/, '');
       }
