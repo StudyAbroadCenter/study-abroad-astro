@@ -1,0 +1,298 @@
+---
+import StudentRecruitmentLayout from '../components/StudentRecruitmentLayout.astro';
+import { fiveWeekJapaneseProgrammeEvidence } from '../data/participation-history';
+import '../styles/buddy.css';
+import '../styles/buddy-globe-focus.css';
+
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const image = (path: string) => `${base}images/${path}`;
+
+const opportunities = [
+  {
+    number: '01',
+    title: '日本語講座で話す',
+    body: '留学生と一緒に学びながら 日本語で会話を楽しむ',
+    note: '英語に自信がなくても大丈夫',
+  },
+  {
+    number: '02',
+    title: '文化体験を楽しむ',
+    body: '日本文化を一緒に体験して 違いを知る',
+    note: '1回だけの参加からでも大丈夫',
+  },
+  {
+    number: '03',
+    title: 'キャンパスでつながる',
+    body: '授業やランチ 学内活動から自然な交流をつくる',
+    note: '世界への入口はキャンパスにもある',
+  },
+];
+
+const journey = [
+  ['Meet', '出会う', 'キャンパスで留学生と出会う'],
+  ['Learn', '共に学ぶ', 'ことばと文化の違いを知る'],
+  ['Go Abroad', '海外へ行く', '交流が留学への一歩になる'],
+  ['Meet Again', '再会する', '海外や日本でまた会える'],
+  ['Stay Connected', 'つながり続ける', '出会いが一生の人的財産になる'],
+];
+
+const countryLabels: Record<string, string> = {
+  Australia: 'オーストラリア',
+  'United States': 'アメリカ',
+  'South Korea': '韓国',
+  Canada: 'カナダ',
+  'New Zealand': 'ニュージーランド',
+  'United Kingdom': 'イギリス',
+  China: '中国',
+  Taiwan: '台湾',
+  Macau: 'マカオ',
+  Singapore: 'シンガポール',
+  Qatar: 'カタール',
+  Romania: 'ルーマニア',
+  Azerbaijan: 'アゼルバイジャン',
+  Finland: 'フィンランド',
+  'Hong Kong': '香港',
+  Japan: '日本',
+  Mexico: 'メキシコ',
+  Netherlands: 'オランダ',
+  Poland: 'ポーランド',
+  'Saudi Arabia': 'サウジアラビア',
+  Turkmenistan: 'トルクメニスタン',
+};
+
+const markerPositions = [
+  [72, 74], [12, 39], [61, 37], [13, 25], [84, 80], [31, 22], [55, 41],
+  [61, 49], [58, 53], [59, 65], [43, 55], [38, 32], [45, 36], [34, 16],
+  [59, 47], [55, 45], [13, 58], [33, 26], [37, 29], [42, 58], [48, 41],
+] as const;
+
+const verifiedRegions = fiveWeekJapaneseProgrammeEvidence.regions.map((region, index) => ({
+  ...region,
+  label: countryLabels[region.countryOrRegion] ?? region.countryOrRegion,
+  x: markerPositions[index]?.[0] ?? 50,
+  y: markerPositions[index]?.[1] ?? 50,
+}));
+---
+<StudentRecruitmentLayout
+  title="Buddy & Global Connections | 立命館大学 Study Abroad Center"
+  description="立命館大学の学生向け国際交流・国際共修ページ 日本語講座や文化体験 キャンパス交流を通じて留学生と出会い 共に学び 次の留学や長期的なつながりへ広げます"
+  photoDisclaimer="掲載写真には過去の実施例・関連プログラムの参考写真を含みます　募集内容・実施内容は学期・プログラムにより異なります"
+>
+  <section class="buddy-hero" aria-labelledby="buddy-title">
+    <div class="buddy-hero__media" aria-hidden="true">
+      <img src={image('hero/hero-kinugasa-clocktower.jpg')} alt="" loading="eager" decoding="async" fetchpriority="high" />
+    </div>
+    <div class="buddy-hero__sky" aria-hidden="true"></div>
+    <div class="buddy-hero__veil"></div>
+    <div class="site-shell buddy-hero__content">
+      <p class="buddy-hero__eyebrow">BUDDY & GLOBAL CONNECTIONS</p>
+      <h1 id="buddy-title"><span>世界への最初の一歩は</span><span>キャンパスの中にある</span></h1>
+      <p class="buddy-hero__lead"><span>交流が留学を生み</span><span>留学が再交流を生む</span></p>
+      <div class="buddy-hero__actions">
+        <a class="action-button action-button--primary" href="#join">参加のしかたを見る</a>
+        <a class="action-button action-button--glass" href="#journey">その先を見る</a>
+      </div>
+      <p class="buddy-hero__note">英語力は問いません　1回から参加できます</p>
+    </div>
+  </section>
+
+  <section class="buddy-intro" aria-labelledby="buddy-intro-title">
+    <div class="site-shell buddy-intro__grid">
+      <div>
+        <p class="buddy-section-kicker">INTERCULTURAL LEARNING</p>
+        <h2 id="buddy-intro-title"><span>交流をもっと日常に</span><span>世界をもっと身近に</span></h2>
+      </div>
+      <div class="buddy-intro__copy">
+        <p>短期留学生を迎えることは 立命館の学生にとっても学びのチャンス</p>
+        <p>まず一度 同じテーブルに座ることから始めよう</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="buddy-photo-ribbon" aria-label="国際交流の風景">
+    <figure class="buddy-photo-ribbon__main">
+      <img src={image('programs/rwjp/real/rwjp-real-japanese-class.webp')} alt="教室で日本語を学ぶ短期受入プログラムの学生たち" loading="lazy" decoding="async" />
+      <figcaption><span>LEARN TOGETHER</span><strong>一緒に学ぶ</strong></figcaption>
+    </figure>
+    <figure>
+      <img src={image('programs/rwjp/real/rwjp-real-culture-tatami.webp')} alt="畳の部屋で日本文化を学ぶ学生たち" loading="lazy" decoding="async" />
+      <figcaption><span>SHARE CULTURE</span><strong>文化を共有する</strong></figcaption>
+    </figure>
+    <figure>
+      <img src={image('programs/rwjp/real/rwjp-real-kyoto-field.webp')} alt="京都でグループ活動を行う学生たち" loading="lazy" decoding="async" />
+      <figcaption><span>GO BEYOND CAMPUS</span><strong>街へ出る</strong></figcaption>
+    </figure>
+  </section>
+
+  <section class="buddy-opportunities" aria-labelledby="buddy-opportunities-title">
+    <div class="site-shell">
+      <header class="buddy-opportunities__header">
+        <div>
+          <p class="buddy-section-kicker">START SMALL</p>
+          <h2 id="buddy-opportunities-title"><span>ちょっと参加したい</span><span>その気持ちからでいい</span></h2>
+        </div>
+        <p>最初から留学を決めなくていい　国際交流を日常の選択肢に</p>
+      </header>
+      <div class="buddy-opportunities__list">
+        {opportunities.map((item) => (
+          <article class="buddy-opportunity">
+            <span class="buddy-opportunity__number">{item.number}</span>
+            <div>
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+              <small>{item.note}</small>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="journey" class="buddy-journey" aria-labelledby="buddy-journey-title">
+    <div class="site-shell buddy-journey__intro">
+      <p class="buddy-section-kicker">FROM ONE ENCOUNTER TO A LIFELONG CONNECTION</p>
+      <h2 id="buddy-journey-title"><span>交流が留学を生み</span><span>留学が再交流を生む</span></h2>
+      <p>海外から学生が来る　立命館の学生も海外へ行く　出会いが世界との距離を変えていく</p>
+    </div>
+
+    <div class="site-shell buddy-journey__track" role="list">
+      {journey.map(([en, ja, body], index) => (
+        <article class="buddy-journey__step" role="listitem">
+          <div class="buddy-journey__index">{String(index + 1).padStart(2, '0')}</div>
+          <p class="buddy-journey__english">{en}</p>
+          <h3>{ja}</h3>
+          <p>{body}</p>
+        </article>
+      ))}
+    </div>
+
+    <div class="site-shell buddy-journey__statement">
+      <p>世界中に また会いたい人がいる</p>
+      <strong><span>そのつながりは</span><span>一生の人的財産になる</span></strong>
+    </div>
+  </section>
+
+  <section class="buddy-global" aria-labelledby="buddy-global-title">
+    <div class="site-shell buddy-global__header">
+      <div>
+        <p class="buddy-section-kicker">A CAMPUS CONNECTED TO THE WORLD</p>
+        <h2 id="buddy-global-title"><span>世界から立命館へ</span><span>立命館から世界へ</span></h2>
+      </div>
+      <p>2023–2026年の5週間日本語プログラムでは 21の国・地域に所在する大学・機関から学生が参加</p>
+    </div>
+
+    <div class="site-shell buddy-global__scene">
+      <div class="buddy-global__globe" aria-label="世界各地と立命館大学のつながりを示す地球イメージ">
+        <div class="buddy-global__sun" aria-hidden="true"></div>
+        <svg class="buddy-global__sphere" viewBox="0 0 640 640" role="img" aria-label="日本と立命館を中心にしたデフォルメ地球儀">
+          <defs>
+            <radialGradient id="ocean" cx="48%" cy="40%" r="78%">
+              <stop offset="0%" stop-color="#b8efff" />
+              <stop offset="45%" stop-color="#55b9ef" />
+              <stop offset="100%" stop-color="#1768bf" />
+            </radialGradient>
+            <linearGradient id="land" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#ddf8bd" />
+              <stop offset="100%" stop-color="#69c985" />
+            </linearGradient>
+            <marker id="routeArrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+              <path d="M0 0 L10 5 L0 10 Z" fill="#fff" />
+            </marker>
+          </defs>
+
+          <circle cx="320" cy="320" r="286" fill="url(#ocean)" />
+
+          <g class="buddy-global__globe-grid">
+            <ellipse cx="320" cy="320" rx="286" ry="105" fill="none" stroke="rgba(255,255,255,.34)" stroke-width="3" />
+            <ellipse cx="320" cy="320" rx="286" ry="205" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="2" />
+            <ellipse cx="320" cy="320" rx="118" ry="286" fill="none" stroke="rgba(255,255,255,.24)" stroke-width="2" />
+            <ellipse cx="320" cy="320" rx="220" ry="286" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="2" />
+          </g>
+
+          <g class="buddy-global__lands" aria-hidden="true">
+            <path d="M72 236 C118 182 180 172 226 194 C246 212 232 239 246 260 C218 272 193 300 158 298 C128 284 101 264 80 260 Z" fill="url(#land)" />
+            <path d="M175 311 C211 296 248 315 243 350 C231 393 216 425 198 466 C174 438 165 391 156 349 Z" fill="url(#land)" />
+            <path d="M264 175 C329 135 451 146 529 210 C505 235 462 239 439 269 C408 257 371 264 345 286 C311 263 271 234 264 175 Z" fill="url(#land)" />
+            <path d="M331 288 C374 274 414 292 432 330 C411 357 391 397 363 438 C335 405 314 353 317 315 Z" fill="url(#land)" />
+            <path d="M456 405 C493 386 540 401 556 437 C530 462 487 469 452 451 Z" fill="url(#land)" />
+            <path class="buddy-global__japan" d="M374 255 C382 266 379 280 386 291 C380 302 373 312 368 325 C361 317 362 305 357 296 C361 286 365 274 364 264 Z" fill="#fff" stroke="#9f2238" stroke-width="4" />
+          </g>
+
+          <g class="buddy-global__routes" marker-end="url(#routeArrow)" aria-hidden="true">
+            <path class="buddy-global__route" d="M92 250 Q205 145 354 300" />
+            <path class="buddy-global__route" d="M116 182 Q232 120 354 300" />
+            <path class="buddy-global__route" d="M210 150 Q294 154 354 300" />
+            <path class="buddy-global__route" d="M267 182 Q322 204 354 300" />
+            <path class="buddy-global__route" d="M504 218 Q430 220 354 300" />
+            <path class="buddy-global__route" d="M520 332 Q444 306 354 300" />
+            <path class="buddy-global__route" d="M490 448 Q414 395 354 300" />
+            <path class="buddy-global__route" d="M398 500 Q365 407 354 300" />
+            <path class="buddy-global__route" d="M250 470 Q292 390 354 300" />
+          </g>
+
+          <circle class="buddy-global__ritsumeikan-ring" cx="354" cy="300" r="29" fill="none" stroke="rgba(255,255,255,.92)" stroke-width="4" />
+          <circle cx="354" cy="300" r="20" fill="#fff" stroke="#9f2238" stroke-width="5" />
+          <text x="354" y="307" text-anchor="middle" fill="#9f2238" font-size="21" font-weight="900">R</text>
+          <text class="buddy-global__hub-label buddy-global__hub-label--main" x="354" y="350" text-anchor="middle">立命館大学</text>
+          <text class="buddy-global__hub-label buddy-global__hub-label--sub" x="354" y="372" text-anchor="middle">RITSUMEIKAN</text>
+        </svg>
+
+        {verifiedRegions.map((region) => (
+          <span
+            class="buddy-global__marker"
+            style={`--x:${region.x}%; --y:${region.y}%`}
+            title={`${region.label} ${region.participants}名 ${region.institutions}大学・機関`}
+          >
+            <i aria-hidden="true"></i>
+            <b>{region.label}</b>
+          </span>
+        ))}
+
+        <p class="buddy-global__connection-caption">世界の出会いが立命館に集まり　また世界へ広がっていく</p>
+      </div>
+
+      <div class="buddy-global__legend" aria-label="2023–2026年 5週間日本語プログラム参加大学・機関の所在地">
+        <div class="buddy-global__evidence">
+          <span>2023–2026</span>
+          <strong>{fiveWeekJapaneseProgrammeEvidence.countriesOrRegions}</strong>
+          <p>国・地域</p>
+          <small>大学・機関の所在地で整理</small>
+        </div>
+        <div class="buddy-global__countries">
+          {verifiedRegions.map((region) => (
+            <span>{region.flag} {region.label}</span>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="buddy-support" aria-labelledby="buddy-support-title">
+    <div class="site-shell buddy-support__grid">
+      <div>
+        <p class="buddy-section-kicker">SUPPORTED BY STUDY ABROAD CENTER</p>
+        <h2 id="buddy-support-title"><span>英語の不安も</span><span>事務局が支える</span></h2>
+      </div>
+      <div class="buddy-support__copy">
+        <p>Study Abroad Centerが英語での連絡や留学生との調整をサポート</p>
+        <p>英語に自信がなくても 国際交流の最初の一歩を踏み出せる</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="join" class="buddy-join" aria-labelledby="buddy-join-title">
+    <div class="site-shell buddy-join__panel">
+      <div>
+        <p class="buddy-section-kicker">JOIN THE NEXT OPPORTUNITY</p>
+        <h2 id="buddy-join-title"><span>次の出会いを</span><span>ここから始めよう</span></h2>
+        <p>半期ごとに日本語講座 文化体験 キャンパス交流などを案内します</p>
+      </div>
+      <div class="buddy-join__status">
+        <span>COMING SOON</span>
+        <strong>次回募集情報は準備中</strong>
+        <p>募集期間 対象 申込方法は確認後に掲載します</p>
+      </div>
+    </div>
+  </section>
+</StudentRecruitmentLayout>
