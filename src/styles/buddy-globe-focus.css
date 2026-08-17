@@ -2,66 +2,64 @@
   position: relative;
   min-height: 620px;
   overflow: hidden;
-  background: #cfefff;
+  background: #dcefff;
   color: #13283d;
 }
 
 .buddy-top__map,
-.buddy-top__veil { position: absolute; inset: 0; }
+.buddy-top__veil {
+  position: absolute;
+  inset: 0;
+}
 
 .buddy-top__map {
   z-index: 0;
   overflow: hidden;
-  background-color: #87cdef;
+  background: #8ccfec;
+}
+
+.buddy-top__map::before {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  bottom: 0;
+  left: -37.5%;
+  width: 200%;
   background-image:
-    linear-gradient(rgba(190,230,250,.24), rgba(190,230,250,.24)),
+    linear-gradient(rgba(205,235,249,.18), rgba(205,235,249,.18)),
     url('https://commons.wikimedia.org/wiki/Special:Redirect/file/Equirectangular-projection.jpg?width=2048');
-  background-size: cover;
+  background-size: 50% 100%;
+  background-repeat: repeat-x;
+  background-position: 0 0;
+  filter: saturate(.92) brightness(1.04);
+}
+
+.buddy-top__map::after {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201200%20620%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cmarker%20id%3D%22a%22%20markerWidth%3D%227%22%20markerHeight%3D%227%22%20refX%3D%226%22%20refY%3D%223.5%22%20orient%3D%22auto%22%3E%3Cpath%20d%3D%22M0%200L7%203.5L0%207Z%22%20fill%3D%22white%22%2F%3E%3C%2Fmarker%3E%3C%2Fdefs%3E%3Cpath%20d%3D%22M647.1%2C431.5%20Q624.8%2C144.4%20602.6%2C189.4%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C.78%29%22%20stroke-width%3D%221.3%22%20stroke-linecap%3D%22round%22%20stroke-dasharray%3D%227%2011%22%20marker-end%3D%22url%28%23a%29%22%3E%3Canimate%20attributeName%3D%22stroke-dashoffset%22%20from%3D%220%22%20to%3D%22-72%22%20dur%3D%224.20s%22%20repeatCount%3D%22indefinite%22%2F%3E%3C%2Fpath%3E%3Cpath%20d%3D%22M1093.2%2C176.0%20Q847.9%2C107.1%20602.6%2C189.4%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C.78%29%22%20stroke-width%3D%221.3%22%20stroke-linecap%3D%22round%22%20stroke-dasharray%3D%227%2011%22%20marker-end%3D%22url%28%23a%29%22%3E%3Canimate%20attributeName%3D%22stroke-dashoffset%22%20from%3D%220%22%20to%3D%22-72%22%20dur%3D%224.75s%22%20repeatCount%3D%22indefinite%22%2F%3E%3C%2Fpath%3E%3Cpath%20d%3D%22M573.3%2C180.6%20Q587.9%2C115.6%20602.6%2C189.4%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C.78%29%22%20stroke-width%3D%221.3%22%20stroke-linecap%3D%22round%22%20stroke-dasharray%3D%227%2011%22%20marker-end%3D%22url%28%23a%29%22%3E%3Canimate%20attributeName%3D%22stroke-dashoffset%22%20from%3D%220%22%20to%3D%22-72%22%20dur%3D%225.30s%22%20repeatCount%3D%22indefinite%22%2F%3E%3C%2Fpath%3E%3Cpath%20d%3D%22M1097.7%2C153.6%20Q850.1%2C94.1%20602.6%2C189.4%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C.78%29%22%20stroke-width%3D%221.3%22%20stroke-linecap%3D%22round%22%20stroke-dasharray%3D%227%2011%22%20marker-end%3D%22url%28%23a%29%22%3E%3Canimate%20attributeName%3D%22stroke-dashoffset%22%20from%3D%220%22%20to%3D%22-72%22%20dur%3D%225.85s%22%20repeatCount%3D%22indefinite%22%2F%3E%3C%2Fpath%3E%3Cpath%20d%3D%22M732.6%2C452.2%20Q667.6%2C134.4%20602.6%2C189.4%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C.78%29%22%20stroke-width%3D%221.3%22%20stroke-linecap%3D%22round%22%20stroke-dasharray%3D%227%2011%22%20marker-end%3D%22url%28%23a%29%22%3E%3Canimate%20attributeName%3D%22stroke-dashoffset%22%20from%3D%220%22%20to%3D%22-72%22%20dur%3D%224.20s%22%20repeatCount%3D%22indefinite%22%2F%3E%3C%2Fpath%3E%3Cpath%20d%3D%22M149.6%2C132.6%20Q376.1%2C58.2%20602.6%2C189.4%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C.78%29%22%20stroke-width%3D%221.3%22%20stroke-linecap%3D%22round%22%20stroke-dasharray%3D%227%2011%22%20marker-end%3D%22url%28%23a%29%22%3E%3Canimate%20attributeName%3D%22stroke-dashoffset%22%20from%3D%220%22%20to%3D%22-72%22%20dur%3D%224.75s%22%20repeatCount%3D%22indefinite%22%2F%3E%3C%2Fpath%3E%3Cpath%20d%3D%22M538.0%2C172.6%20Q570.3%2C127.6%20602.6%2C189.4%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C.78%29%22%20stroke-width%3D%221.3%22%20stroke-linecap%3D%22round%22%20stroke-dasharray%3D%227%2011%22%20marker-end%3D%22url%28%23a%29%22%3E%3Canimate%20attributeName%3D%22stroke-dashoffset%22%20from%3D%220%22%20to%3D%22-72%22%20dur%3D%225.30s%22%20repeatCount%3D%22indefinite%22%2F%3E%3C%2Fpath%3E%3Cpath%20d%3D%22M555.2%2C223.8%20Q578.9%2C134.4%20602.6%2C189.4%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C.78%29%22%20stroke-width%3D%221.3%22%20stroke-linecap%3D%22round%22%20stroke-dasharray%3D%227%2011%22%20marker-end%3D%22url%28%23a%29%22%3E%3Canimate%20attributeName%3D%22stroke-dashoffset%22%20from%3D%220%22%20to%3D%22-72%22%20dur%3D%225.85s%22%20repeatCount%3D%22indefinite%22%2F%3E%3C%2Fpath%3E%3Cpath%20d%3D%22M528.5%2C233.5%20Q565.5%2C124.4%20602.6%2C189.4%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C.78%29%22%20stroke-width%3D%221.3%22%20stroke-linecap%3D%22round%22%20stroke-dasharray%3D%227%2011%22%20marker-end%3D%22url%28%23a%29%22%3E%3Canimate%20attributeName%3D%22stroke-dashoffset%22%20from%3D%220%22%20to%3D%22-72%22%20dur%3D%224.20s%22%20repeatCount%3D%22indefinite%22%2F%3E%3C%2Fpath%3E%3Cpath%20d%3D%22M496.1%2C305.4%20Q549.3%2C144.4%20602.6%2C189.4%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C.78%29%22%20stroke-width%3D%221.3%22%20stroke-linecap%3D%22round%22%20stroke-dasharray%3D%227%2011%22%20marker-end%3D%22url%28%23a%29%22%3E%3Canimate%20attributeName%3D%22stroke-dashoffset%22%20from%3D%220%22%20to%3D%22-72%22%20dur%3D%224.75s%22%20repeatCount%3D%22indefinite%22%2F%3E%3C%2Fpath%3E%3Cpath%20d%3D%22M321.8%2C222.9%20Q462.2%2C134.4%20602.6%2C189.4%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C.78%29%22%20stroke-width%3D%221.3%22%20stroke-linecap%3D%22round%22%20stroke-dasharray%3D%227%2011%22%20marker-end%3D%22url%28%23a%29%22%3E%3Canimate%20attributeName%3D%22stroke-dashoffset%22%20from%3D%220%22%20to%3D%22-72%22%20dur%3D%225.30s%22%20repeatCount%3D%22indefinite%22%2F%3E%3C%2Fpath%3E%3Cpath%20d%3D%22M237.0%2C157.0%20Q419.8%2C92.0%20602.6%2C189.4%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C.78%29%22%20stroke-width%3D%221.3%22%20stroke-linecap%3D%22round%22%20stroke-dasharray%3D%227%2011%22%20marker-end%3D%22url%28%23a%29%22%3E%3Canimate%20attributeName%3D%22stroke-dashoffset%22%20from%3D%220%22%20to%3D%22-72%22%20dur%3D%225.85s%22%20repeatCount%3D%22indefinite%22%2F%3E%3C%2Fpath%3E%3Cpath%20d%3D%22M316.2%2C170.8%20Q459.4%2C125.8%20602.6%2C189.4%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C.78%29%22%20stroke-width%3D%221.3%22%20stroke-linecap%3D%22round%22%20stroke-dasharray%3D%227%2011%22%20marker-end%3D%22url%28%23a%29%22%3E%3Canimate%20attributeName%3D%22stroke-dashoffset%22%20from%3D%220%22%20to%3D%22-72%22%20dur%3D%224.20s%22%20repeatCount%3D%22indefinite%22%2F%3E%3C%2Fpath%3E%3Cpath%20d%3D%22M233.1%2C102.7%20Q417.9%2C47.7%20602.6%2C189.4%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C.78%29%22%20stroke-width%3D%221.3%22%20stroke-linecap%3D%22round%22%20stroke-dasharray%3D%227%2011%22%20marker-end%3D%22url%28%23a%29%22%3E%3Canimate%20attributeName%3D%22stroke-dashoffset%22%20from%3D%220%22%20to%3D%22-72%22%20dur%3D%224.75s%22%20repeatCount%3D%22indefinite%22%2F%3E%3C%2Fpath%3E%3Cpath%20d%3D%22M530.6%2C233.1%20Q566.6%2C124.4%20602.6%2C189.4%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C.78%29%22%20stroke-width%3D%221.3%22%20stroke-linecap%3D%22round%22%20stroke-dasharray%3D%227%2011%22%20marker-end%3D%22url%28%23a%29%22%3E%3Canimate%20attributeName%3D%22stroke-dashoffset%22%20from%3D%220%22%20to%3D%22-72%22%20dur%3D%225.30s%22%20repeatCount%3D%22indefinite%22%2F%3E%3C%2Fpath%3E%3Cpath%20d%3D%22M1019.6%2C243.1%20Q811.1%2C129.4%20602.6%2C189.4%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C.78%29%22%20stroke-width%3D%221.3%22%20stroke-linecap%3D%22round%22%20stroke-dasharray%3D%227%2011%22%20marker-end%3D%22url%28%23a%29%22%3E%3Canimate%20attributeName%3D%22stroke-dashoffset%22%20from%3D%220%22%20to%3D%22-72%22%20dur%3D%225.85s%22%20repeatCount%3D%22indefinite%22%2F%3E%3C%2Fpath%3E%3Cpath%20d%3D%22M166.3%2C129.6%20Q384.5%2C57.3%20602.6%2C189.4%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C.78%29%22%20stroke-width%3D%221.3%22%20stroke-linecap%3D%22round%22%20stroke-dasharray%3D%227%2011%22%20marker-end%3D%22url%28%23a%29%22%3E%3Canimate%20attributeName%3D%22stroke-dashoffset%22%20from%3D%220%22%20to%3D%22-72%22%20dur%3D%224.20s%22%20repeatCount%3D%22indefinite%22%2F%3E%3C%2Fpath%3E%3Cpath%20d%3D%22M220.0%2C130.1%20Q411.3%2C84.2%20602.6%2C189.4%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C.78%29%22%20stroke-width%3D%221.3%22%20stroke-linecap%3D%22round%22%20stroke-dasharray%3D%227%2011%22%20marker-end%3D%22url%28%23a%29%22%3E%3Canimate%20attributeName%3D%22stroke-dashoffset%22%20from%3D%220%22%20to%3D%22-72%22%20dur%3D%224.75s%22%20repeatCount%3D%22indefinite%22%2F%3E%3C%2Fpath%3E%3Cpath%20d%3D%22M305.7%2C224.9%20Q454.2%2C134.4%20602.6%2C189.4%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C.78%29%22%20stroke-width%3D%221.3%22%20stroke-linecap%3D%22round%22%20stroke-dasharray%3D%227%2011%22%20marker-end%3D%22url%28%23a%29%22%3E%3Canimate%20attributeName%3D%22stroke-dashoffset%22%20from%3D%220%22%20to%3D%22-72%22%20dur%3D%225.30s%22%20repeatCount%3D%22indefinite%22%2F%3E%3C%2Fpath%3E%3Cpath%20d%3D%22M344.6%2C179.2%20Q473.6%2C114.2%20602.6%2C189.4%22%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C.78%29%22%20stroke-width%3D%221.3%22%20stroke-linecap%3D%22round%22%20stroke-dasharray%3D%227%2011%22%20marker-end%3D%22url%28%23a%29%22%3E%3Canimate%20attributeName%3D%22stroke-dashoffset%22%20from%3D%220%22%20to%3D%22-72%22%20dur%3D%225.85s%22%20repeatCount%3D%22indefinite%22%2F%3E%3C%2Fpath%3E%3C%2Fsvg%3E");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
   background-position: center;
 }
 
-.buddy-top__map svg { width: 100%; height: 100%; display: block; }
-.buddy-top__map svg > rect,
-.buddy-top__lands,
-.buddy-top__grid { opacity: 0; }
+.buddy-top__map > svg {
+  opacity: 0;
+  pointer-events: none;
+}
 
 .buddy-top__veil {
   z-index: 1;
   pointer-events: none;
   background:
-    linear-gradient(90deg, rgba(238,249,255,.93) 0%, rgba(238,249,255,.78) 18%, rgba(238,249,255,.08) 34%, transparent 49%),
-    linear-gradient(270deg, rgba(238,249,255,.92) 0%, rgba(238,249,255,.74) 13%, rgba(238,249,255,.06) 27%, transparent 41%),
-    linear-gradient(180deg, rgba(215,242,255,.18), rgba(255,255,255,.02) 64%, rgba(220,245,255,.2));
+    linear-gradient(90deg, rgba(240,250,255,.96) 0%, rgba(240,250,255,.80) 18%, rgba(240,250,255,.10) 35%, transparent 48%),
+    linear-gradient(270deg, rgba(240,250,255,.95) 0%, rgba(240,250,255,.80) 15%, rgba(240,250,255,.10) 31%, transparent 44%),
+    linear-gradient(180deg, rgba(220,244,255,.12), rgba(255,255,255,.02) 66%, rgba(220,244,255,.16));
 }
-
-.buddy-top__route {
-  fill: none;
-  stroke: rgba(255,255,255,.94);
-  stroke-width: 1.45;
-  stroke-linecap: round;
-  stroke-dasharray: 7 10;
-  filter: drop-shadow(0 0 3px rgba(255,255,255,.72));
-  animation: buddy-top-route-flow 4.6s linear infinite;
-}
-.buddy-top__route:nth-of-type(2n) { animation-duration: 5.2s; opacity: .82; }
-.buddy-top__route:nth-of-type(3n) { animation-duration: 5.8s; opacity: .7; }
-
-.buddy-top__hub-ring {
-  stroke: rgba(255,255,255,.96);
-  stroke-width: 3;
-  transform-origin: 656px 263px;
-  animation: buddy-top-hub-pulse 2.9s ease-out infinite;
-}
-.buddy-top__hub-main,
-.buddy-top__hub-sub {
-  font-family: inherit;
-  font-weight: 900;
-  paint-order: stroke;
-  stroke: rgba(255,255,255,.95);
-  stroke-linejoin: round;
-}
-.buddy-top__hub-main { fill: #9f2238; font-size: 16px; stroke-width: 5px; }
-.buddy-top__hub-sub { fill: #18324a; font-size: 10px; letter-spacing: .08em; stroke-width: 4px; }
 
 .buddy-top__city {
   position: absolute;
@@ -74,13 +72,30 @@
   transform: translate(-50%, -50%);
   white-space: nowrap;
 }
-.buddy-top__city i { width: 7px; height: 7px; flex: 0 0 auto; border: 2px solid #fff; border-radius: 50%; background: #ff675f; box-shadow: 0 2px 8px rgba(19,54,84,.26); }
-.buddy-top__city b { padding: 4px 7px; border: 1px solid rgba(255,255,255,.86); border-radius: 999px; background: rgba(255,255,255,.9); color: #18324a; font-size: .61rem; line-height: 1; font-weight: 850; box-shadow: 0 5px 16px rgba(19,70,110,.11); backdrop-filter: blur(7px); }
-.buddy-top__city.is-japan { z-index: 6; }
-.buddy-top__city.is-japan i { width: 11px; height: 11px; background: #9f2238; box-shadow: 0 0 0 5px rgba(255,255,255,.75), 0 0 20px rgba(159,34,56,.48); }
-.buddy-top__city.is-japan b { display: none; }
 
-/* Pacific-centred capital positions: Kyoto is the visual hub. */
+.buddy-top__city i {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 auto;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: #ef675d;
+  box-shadow: 0 2px 8px rgba(19,54,84,.26);
+}
+
+.buddy-top__city b {
+  padding: 4px 7px;
+  border: 1px solid rgba(255,255,255,.9);
+  border-radius: 999px;
+  background: rgba(255,255,255,.91);
+  color: #18324a;
+  font-size: .60rem;
+  line-height: 1;
+  font-weight: 850;
+  box-shadow: 0 5px 14px rgba(19,70,110,.10);
+  backdrop-filter: blur(7px);
+}
+
 .buddy-top__city[title^='Australia '] { --x:53.9%!important; --y:69.6%!important; }
 .buddy-top__city[title^='United States '] { --x:91.1%!important; --y:28.4%!important; }
 .buddy-top__city[title^='South Korea '] { --x:47.8%!important; --y:29.1%!important; }
@@ -103,25 +118,152 @@
 .buddy-top__city[title^='Saudi Arabia '] { --x:25.5%!important; --y:36.3%!important; }
 .buddy-top__city[title^='Turkmenistan '] { --x:28.7%!important; --y:28.9%!important; }
 
-.buddy-top__copy { position: relative; z-index: 3; width: min(340px, calc(100% - 48px)); margin-left: max(36px, calc((100vw - 1220px) / 2)); padding-top: 94px; }
-.buddy-top__eyebrow { margin: 0 0 18px; color: #0f4ba8; font-size: .67rem; font-weight: 900; letter-spacing: .18em; }
-.buddy-top h1 { margin: 0; font-size: clamp(2rem, 3vw, 3.2rem); line-height: 1.2; letter-spacing: -.035em; }
-.buddy-top h1 span { display: none; }
-.buddy-top h1::before { content: '世界から立命館へ\A立命館から世界へ'; white-space: pre-line; }
-.buddy-top__lead { margin: 28px 0 0; font-size: 1rem; line-height: 1.72; font-weight: 700; }
-.buddy-top__lead span { display: block; }
-.buddy-top__cta { display: inline-flex; align-items: center; gap: 28px; margin-top: 28px; padding: 14px 22px; border-radius: 12px; background: #a4213a; color: #fff; font-size: .93rem; font-weight: 850; text-decoration: none; box-shadow: 0 12px 28px rgba(164,33,58,.22); transition: transform .2s ease, box-shadow .2s ease; }
-.buddy-top__cta:hover { transform: translateY(-2px); box-shadow: 0 16px 34px rgba(164,33,58,.28); }
+.buddy-top__city[title^='Taiwan '] b { transform: translate(6px, 10px); }
+.buddy-top__city[title^='Hong Kong '] b { transform: translate(-4px, -10px); }
+.buddy-top__city[title^='Macau '] b { transform: translate(-12px, 10px); }
+.buddy-top__city[title^='Netherlands '] b { transform: translate(0, -11px); }
+.buddy-top__city[title^='Poland '] b { transform: translate(8px, 10px); }
+.buddy-top__city[title^='United Kingdom '] b { transform: translate(-6px, 10px); }
 
-.buddy-top__evidence { position: absolute; z-index: 4; right: max(28px, calc((100vw - 1220px) / 2)); top: 54px; width: 215px; }
-.buddy-top__evidence > span,.buddy-top__evidence > strong,.buddy-top__evidence > p,.buddy-top__evidence > small { display:block; }
+.buddy-top__city.is-japan {
+  z-index: 7;
+  flex-direction: column;
+  gap: 5px;
+}
+.buddy-top__city.is-japan i {
+  position: relative;
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border: 4px solid #a4213a;
+  background: #fff;
+  box-shadow: 0 0 0 7px rgba(255,255,255,.70), 0 0 24px rgba(164,33,58,.35);
+}
+.buddy-top__city.is-japan i::after {
+  content: 'R';
+  color: #a4213a;
+  font-size: 1.1rem;
+  font-weight: 900;
+}
+.buddy-top__city.is-japan b { display: none; }
+.buddy-top__city.is-japan::after {
+  content: '立命館大学\A関西・京都';
+  white-space: pre;
+  padding: 3px 6px;
+  color: #9f2238;
+  font-size: .78rem;
+  line-height: 1.28;
+  font-weight: 900;
+  text-align: center;
+  text-shadow:
+    -2px -2px 0 rgba(255,255,255,.95),
+    2px -2px 0 rgba(255,255,255,.95),
+    -2px 2px 0 rgba(255,255,255,.95),
+    2px 2px 0 rgba(255,255,255,.95);
+}
+
+.buddy-top__copy {
+  position: relative;
+  z-index: 5;
+  width: min(410px, calc(100% - 48px));
+  margin-left: max(36px, calc((100vw - 1220px) / 2));
+  padding-top: 92px;
+}
+.buddy-top__eyebrow {
+  margin: 0 0 17px;
+  color: #0f4ba8;
+  font-size: .67rem;
+  font-weight: 900;
+  letter-spacing: .18em;
+}
+.buddy-top h1 {
+  margin: 0;
+  font-size: clamp(2rem, 2.7vw, 2.75rem);
+  line-height: 1.22;
+  letter-spacing: -.035em;
+}
+.buddy-top h1 span { display: none; }
+.buddy-top h1::before {
+  content: '世界から立命館へ\A立命館から世界へ';
+  white-space: pre;
+}
+.buddy-top__lead {
+  margin: 27px 0 0;
+  font-size: .98rem;
+  line-height: 1.70;
+  font-weight: 700;
+}
+.buddy-top__lead span { display: block; }
+.buddy-top__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 28px;
+  margin-top: 28px;
+  padding: 14px 22px;
+  border-radius: 12px;
+  background: #a4213a;
+  color: #fff;
+  font-size: .93rem;
+  font-weight: 850;
+  text-decoration: none;
+  box-shadow: 0 12px 28px rgba(164,33,58,.22);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.buddy-top__cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 34px rgba(164,33,58,.28);
+}
+
+.buddy-top__evidence {
+  position: absolute;
+  z-index: 5;
+  right: max(28px, calc((100vw - 1220px) / 2));
+  top: 52px;
+  width: 226px;
+  padding: 16px 16px 14px;
+  border: 1px solid rgba(255,255,255,.72);
+  border-radius: 18px;
+  background: rgba(244,251,255,.78);
+  box-shadow: 0 14px 34px rgba(17,67,105,.10);
+  backdrop-filter: blur(8px);
+}
+.buddy-top__evidence > span,
+.buddy-top__evidence > strong,
+.buddy-top__evidence > p,
+.buddy-top__evidence > small { display: block; }
 .buddy-top__evidence > span { color:#1851b9; font-size:.66rem; font-weight:900; letter-spacing:.14em; }
-.buddy-top__evidence > strong { margin-top:7px; font-size:3.2rem; line-height:.95; letter-spacing:-.06em; }
+.buddy-top__evidence > strong { margin-top:7px; font-size:3rem; line-height:.95; letter-spacing:-.06em; }
 .buddy-top__evidence > p { margin:4px 0 0; font-weight:850; }
 .buddy-top__evidence > small { margin-top:7px; color:rgba(19,40,61,.65); line-height:1.45; }
-.buddy-top__chips { display:flex; flex-wrap:wrap; gap:6px; margin-top:17px; }
-.buddy-top__chips em { padding:6px 8px; border:1px solid rgba(19,40,61,.08); border-radius:999px; background:rgba(255,255,255,.9); color:#18324a; font-size:.62rem; font-style:normal; font-weight:750; box-shadow:0 5px 14px rgba(19,70,110,.06); }
-.buddy-top__caption { position:absolute; z-index:4; left:50%; bottom:13px; transform:translateX(-50%); margin:0; padding:8px 15px; border-radius:999px; background:rgba(255,255,255,.82); color:#18324a; font-size:.75rem; font-weight:850; letter-spacing:.04em; backdrop-filter:blur(8px); }
+.buddy-top__chips { display:flex; flex-wrap:wrap; gap:6px; margin-top:14px; }
+.buddy-top__chips em {
+  padding:6px 8px;
+  border:1px solid rgba(19,40,61,.08);
+  border-radius:999px;
+  background:rgba(255,255,255,.92);
+  color:#18324a;
+  font-size:.61rem;
+  font-style:normal;
+  font-weight:750;
+}
+
+.buddy-top__caption {
+  position:absolute;
+  z-index:5;
+  left:50%;
+  bottom:13px;
+  transform:translateX(-50%);
+  margin:0;
+  padding:8px 15px;
+  border-radius:999px;
+  background:rgba(255,255,255,.82);
+  color:#18324a;
+  font-size:.75rem;
+  font-weight:850;
+  letter-spacing:.04em;
+  backdrop-filter:blur(8px);
+}
 
 .buddy-story { padding: 34px 0 48px; background:#fff; }
 .buddy-story h2 { margin:0 0 22px; text-align:center; font-size:1.45rem; letter-spacing:.03em; }
@@ -142,10 +284,40 @@
 .buddy-story__card.is-blue .buddy-story__title span,.buddy-story__card.is-blue .buddy-story__title strong{color:#2e85e8}.buddy-story__card.is-blue .buddy-story__title span{background:#3d91ed;color:#fff}
 .buddy-story__card.is-violet .buddy-story__title span,.buddy-story__card.is-violet .buddy-story__title strong{color:#9355e8}.buddy-story__card.is-violet .buddy-story__title span{background:#9c62ea;color:#fff}
 
-@keyframes buddy-top-route-flow { to { stroke-dashoffset:-72; } }
-@keyframes buddy-top-hub-pulse { 0%{opacity:.9;transform:scale(.82)}70%,100%{opacity:0;transform:scale(1.8)} }
-@media (prefers-reduced-motion:reduce){.buddy-top__route,.buddy-top__hub-ring{animation:none}}
+@media (prefers-reduced-motion: reduce) {
+  .buddy-top__map::after { background-image: none; }
+}
 
-@media(max-width:1080px){.buddy-top{min-height:600px}.buddy-top__copy{margin-left:30px;width:300px}.buddy-top__evidence{right:24px;width:195px}.buddy-top__city b{font-size:.56rem;padding:4px 6px}}
-@media(max-width:820px){.buddy-top{min-height:auto;padding:38px 0 24px}.buddy-top__map,.buddy-top__veil{position:relative}.buddy-top__map{height:430px;order:2;margin-top:24px;overflow:hidden;background-position:center}.buddy-top__veil{display:none}.buddy-top__copy{width:auto;margin:0 24px;padding:0}.buddy-top__evidence{position:relative;inset:auto;width:auto;margin:22px 24px 0;padding:18px;border-radius:18px;background:rgba(255,255,255,.86)}.buddy-top__chips{margin-top:12px}.buddy-top__caption{position:relative;left:auto;bottom:auto;transform:none;width:max-content;max-width:calc(100% - 40px);margin:-52px auto 18px;text-align:center}.buddy-top__city b{font-size:.51rem}.buddy-story__grid{grid-template-columns:1fr 1fr}.buddy-story__arrow{display:none}}
-@media(max-width:520px){.buddy-top h1{font-size:2rem}.buddy-top__lead{font-size:.95rem}.buddy-top__map{height:390px}.buddy-top__city b{display:none}.buddy-top__city i{width:7px;height:7px}.buddy-top__city.is-japan i{display:block}.buddy-top__evidence>strong{font-size:2.7rem}.buddy-story{padding-top:30px}.buddy-story__grid{grid-template-columns:1fr}.buddy-story__image{aspect-ratio:16/8}.buddy-story__body{padding:13px 15px 15px}}
+@media (max-width:1080px) {
+  .buddy-top { min-height:600px; }
+  .buddy-top__copy { margin-left:30px; width:360px; }
+  .buddy-top__evidence { right:24px; width:205px; }
+  .buddy-top__city b { font-size:.55rem; padding:4px 6px; }
+}
+
+@media (max-width:820px) {
+  .buddy-top { min-height:auto; padding:38px 0 24px; }
+  .buddy-top__map,.buddy-top__veil { position:relative; }
+  .buddy-top__map { height:430px; order:2; margin-top:24px; overflow:hidden; }
+  .buddy-top__veil { display:none; }
+  .buddy-top__copy { width:auto; margin:0 24px; padding:0; }
+  .buddy-top__evidence { position:relative; inset:auto; width:auto; margin:22px 24px 0; }
+  .buddy-top__chips { margin-top:12px; }
+  .buddy-top__caption { position:relative; left:auto; bottom:auto; transform:none; width:max-content; max-width:calc(100% - 40px); margin:-52px auto 18px; text-align:center; }
+  .buddy-top__city b { font-size:.50rem; }
+  .buddy-story__grid { grid-template-columns:1fr 1fr; }
+  .buddy-story__arrow { display:none; }
+}
+
+@media (max-width:520px) {
+  .buddy-top h1 { font-size:2rem; }
+  .buddy-top__lead { font-size:.95rem; }
+  .buddy-top__map { height:390px; }
+  .buddy-top__city b { display:none; }
+  .buddy-top__city i { width:7px; height:7px; }
+  .buddy-top__city.is-japan i { display:grid; width:32px; height:32px; }
+  .buddy-top__city.is-japan::after { font-size:.68rem; }
+  .buddy-top__evidence>strong { font-size:2.7rem; }
+  .buddy-story { padding-top:30px; }
+  .buddy-story__grid { grid-template-columns:1fr; }
+}
