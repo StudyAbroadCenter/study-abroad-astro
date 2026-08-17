@@ -1,52 +1,82 @@
-.buddy-global__globe {
-  min-height: 610px;
+.buddy-global__globe--mercator {
+  position: relative;
+  min-height: 0;
+  aspect-ratio: 1200 / 620;
+  overflow: hidden;
+  border-radius: 32px;
   background:
-    radial-gradient(circle at 73% 14%, rgba(255,247,181,.9), transparent 16%),
+    radial-gradient(circle at 12% 10%, rgba(255,255,255,.76), transparent 18%),
     linear-gradient(180deg, #7fd2ff 0%, #d9f3ff 58%, #f8fdff 100%);
+  box-shadow: 0 30px 80px rgba(29,85,150,.16);
 }
 
-.buddy-global__sphere {
-  width: min(91%, 610px);
-  transform: translate(-50%, -49%);
-  filter: drop-shadow(0 34px 48px rgba(25,101,170,.24));
+.buddy-global__globe--mercator::before,
+.buddy-global__globe--mercator::after {
+  display: none;
 }
 
-.buddy-global__globe-grid {
-  transform-origin: 320px 320px;
-  animation: buddy-globe-breathe 12s ease-in-out infinite alternate;
+.buddy-global__mercator {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: none;
+  filter: none;
+}
+
+.buddy-global__sun {
+  z-index: 2;
+  width: 160px;
+  height: 160px;
+  right: 4%;
+  top: 1%;
+  opacity: .8;
+}
+
+.buddy-global__map-grid path {
+  fill: none;
+  stroke: rgba(255,255,255,.2);
+  stroke-width: 1.5;
+}
+
+.buddy-global__map-lands {
+  filter: drop-shadow(0 5px 8px rgba(17,95,145,.12));
+}
+
+.buddy-global__japan {
+  fill: #fff;
+  stroke: #9f2238;
+  stroke-width: 3;
+  filter: drop-shadow(0 0 9px rgba(255,255,255,.95));
 }
 
 .buddy-global__route {
   fill: none;
-  stroke: rgba(255,255,255,.9);
+  stroke: rgba(255,255,255,.93);
   stroke-width: 4;
   stroke-linecap: round;
-  stroke-dasharray: 10 13;
-  filter: drop-shadow(0 0 7px rgba(255,255,255,.85));
-  animation: buddy-route-flow 3.8s linear infinite;
+  stroke-dasharray: 10 12;
+  filter: drop-shadow(0 0 6px rgba(255,255,255,.8));
+  animation: buddy-route-flow 4.2s linear infinite;
 }
 
 .buddy-global__route:nth-of-type(2n) {
-  animation-duration: 4.6s;
+  animation-duration: 5s;
   opacity: .78;
 }
 
 .buddy-global__route:nth-of-type(3n) {
-  animation-duration: 5.2s;
+  animation-duration: 5.8s;
   opacity: .68;
 }
 
-.buddy-global__route-head {
-  fill: #fff;
-  filter: drop-shadow(0 0 7px rgba(255,255,255,.95));
-}
-
-.buddy-global__japan {
-  filter: drop-shadow(0 0 12px rgba(255,255,255,.9));
+.buddy-global__hub {
+  transform-origin: 656px 263px;
 }
 
 .buddy-global__ritsumeikan-ring {
-  transform-origin: 354px 300px;
+  transform-origin: 656px 263px;
   animation: buddy-hub-pulse 2.8s ease-out infinite;
 }
 
@@ -55,8 +85,8 @@
   font-weight: 900;
   letter-spacing: .05em;
   paint-order: stroke;
-  stroke: rgba(255,255,255,.88);
-  stroke-width: 7px;
+  stroke: rgba(255,255,255,.9);
+  stroke-width: 6px;
   stroke-linejoin: round;
 }
 
@@ -68,11 +98,21 @@
 .buddy-global__hub-label--sub {
   fill: #173653;
   font-size: 13px;
-  letter-spacing: .13em;
+  letter-spacing: .08em;
 }
 
 .buddy-global__marker {
   z-index: 4;
+}
+
+.buddy-global__marker i {
+  background: #ff6b63;
+}
+
+.buddy-global__marker b {
+  background: rgba(255,255,255,.88);
+  border-color: rgba(255,255,255,.92);
+  box-shadow: 0 4px 14px rgba(18,84,140,.12);
 }
 
 .buddy-global__marker[title^="日本 "] {
@@ -94,14 +134,14 @@
   position: absolute;
   z-index: 5;
   left: 50%;
-  bottom: 22px;
+  bottom: 16px;
   transform: translateX(-50%);
   width: max-content;
   max-width: calc(100% - 40px);
   padding: 10px 15px;
-  border: 1px solid rgba(255,255,255,.72);
+  border: 1px solid rgba(255,255,255,.8);
   border-radius: 999px;
-  background: rgba(255,255,255,.72);
+  background: rgba(255,255,255,.78);
   box-shadow: 0 10px 30px rgba(26,91,146,.12);
   color: #173653;
   font-size: .77rem;
@@ -112,12 +152,7 @@
 }
 
 @keyframes buddy-route-flow {
-  to { stroke-dashoffset: -92; }
-}
-
-@keyframes buddy-globe-breathe {
-  from { transform: rotate(-1.2deg) scale(1); }
-  to { transform: rotate(1.2deg) scale(1.012); }
+  to { stroke-dashoffset: -88; }
 }
 
 @keyframes buddy-hub-pulse {
@@ -126,31 +161,68 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .buddy-global__globe-grid,
   .buddy-global__route,
   .buddy-global__ritsumeikan-ring {
     animation: none;
   }
 }
 
-@media (max-width: 759px) {
-  .buddy-global__globe {
-    min-height: 500px;
+@media (max-width: 900px) {
+  .buddy-global__globe--mercator {
+    aspect-ratio: 1.55;
   }
 
-  .buddy-global__sphere {
-    width: 108%;
+  .buddy-global__mercator {
+    width: 116%;
+    left: -8%;
+  }
+
+  .buddy-global__marker b {
+    font-size: .55rem;
+    padding: 3px 5px;
+  }
+}
+
+@media (max-width: 759px) {
+  .buddy-global__globe--mercator {
+    min-height: 430px;
+    aspect-ratio: auto;
+  }
+
+  .buddy-global__mercator {
+    width: 150%;
+    left: -25%;
+    object-fit: cover;
+  }
+
+  .buddy-global__marker b {
+    font-size: .51rem;
+  }
+
+  .buddy-global__marker i {
+    width: 7px;
+    height: 7px;
   }
 
   .buddy-global__connection-caption {
-    bottom: 14px;
-    font-size: .68rem;
+    bottom: 12px;
+    font-size: .67rem;
   }
 }
 
 @media (max-width: 420px) {
-  .buddy-global__globe {
-    min-height: 430px;
+  .buddy-global__globe--mercator {
+    min-height: 390px;
+    border-radius: 24px;
+  }
+
+  .buddy-global__mercator {
+    width: 170%;
+    left: -35%;
+  }
+
+  .buddy-global__marker:nth-of-type(n+15) b {
+    display: none;
   }
 
   .buddy-global__hub-label--main {
