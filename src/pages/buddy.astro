@@ -1,0 +1,184 @@
+---
+import StudentRecruitmentLayout from '../components/StudentRecruitmentLayout.astro';
+import '../styles/buddy.css';
+
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const image = (path: string) => `${base}images/${path}`;
+
+const opportunities = [
+  {
+    number: '01',
+    title: '日本語講座で話す',
+    body: '留学生の日本語学習をサポートしながら、ことばの壁を越えて話す経験をつくります。',
+    note: '英語に自信がなくても参加できます。',
+  },
+  {
+    number: '02',
+    title: '文化体験を一緒に楽しむ',
+    body: '日本文化を「教える側・教わる側」に分けず、一緒に体験し、違いを知る時間にします。',
+    note: '1回だけの参加からでも大丈夫です。',
+  },
+  {
+    number: '03',
+    title: 'キャンパスでつながる',
+    body: '特別なイベントだけでなく、授業、ランチ、学内活動を通して自然に交流のきっかけを増やします。',
+    note: '海外に行かなくても、世界はキャンパスにあります。',
+  },
+];
+
+const journey = [
+  ['Meet', '出会う', 'キャンパスで留学生と出会う。'],
+  ['Learn', '共に学ぶ', 'ことばや文化の違いを、実際の関わりから知る。'],
+  ['Go Abroad', '海外へ行く', '交流がきっかけで、留学や海外への関心が生まれる。'],
+  ['Meet Again', '再会する', '協定校、交換留学、大学院進学、旅行などでまた会える。'],
+  ['Stay Connected', 'つながり続ける', 'その出会いが、卒業後も続く一生の人的財産になる。'],
+];
+---
+<StudentRecruitmentLayout
+  title="Buddy & Global Connections | 立命館大学 Study Abroad Center"
+  description="立命館大学の学生向け国際交流・国際共修ページ。日本語講座、文化体験、キャンパス交流などを通じて、世界から来た留学生と出会い、共に学び、次の留学や長期的なつながりへ広げます。"
+  photoDisclaimer="掲載写真には過去の実施例・関連プログラムの参考写真を含みます。募集内容・実施内容は学期・プログラムにより異なります。"
+>
+  <section class="buddy-hero" aria-labelledby="buddy-title">
+    <div class="buddy-hero__media" aria-hidden="true">
+      <img src={image('programs/rwjp/real/rwjp-real-learning-hub.webp')} alt="" loading="eager" decoding="async" />
+    </div>
+    <div class="buddy-hero__veil"></div>
+    <div class="site-shell buddy-hero__content">
+      <p class="buddy-hero__eyebrow">BUDDY & GLOBAL CONNECTIONS</p>
+      <h1 id="buddy-title">世界への最初の一歩は、<br />キャンパスの中にある。</h1>
+      <p class="buddy-hero__lead">留学生と話す。共に学ぶ。文化を楽しむ。小さな出会いが、留学や再会、そして一生続く世界とのつながりへ広がっていきます。</p>
+      <div class="buddy-hero__actions">
+        <a class="action-button action-button--primary" href="#join">参加のしかたを見る</a>
+        <a class="action-button action-button--glass" href="#journey">その先のストーリー</a>
+      </div>
+      <p class="buddy-hero__note">英語力は問いません。1回だけの参加からでも始められます。</p>
+    </div>
+  </section>
+
+  <section class="buddy-intro" aria-labelledby="buddy-intro-title">
+    <div class="site-shell buddy-intro__grid">
+      <div>
+        <p class="buddy-section-kicker">INTERCULTURAL LEARNING</p>
+        <h2 id="buddy-intro-title">交流を、特別な体験で終わらせない。</h2>
+      </div>
+      <div class="buddy-intro__copy">
+        <p>短期留学生を迎えることは、留学生だけの学びではありません。立命館の学生にとっても、異なる言語・文化・価値観と出会い、共に学ぶ機会です。</p>
+        <p>日本語講座、文化体験、キャンパス交流。まず一度、同じテーブルに座ることから始めてみませんか。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="buddy-photo-ribbon" aria-label="国際交流の風景">
+    <figure class="buddy-photo-ribbon__main">
+      <img src={image('programs/rwjp/real/rwjp-real-japanese-class.webp')} alt="教室で日本語を学ぶ短期受入プログラムの学生たち" loading="lazy" decoding="async" />
+      <figcaption><span>LEARN TOGETHER</span><strong>一緒に学ぶ</strong></figcaption>
+    </figure>
+    <figure>
+      <img src={image('programs/rwjp/real/rwjp-real-culture-tatami.webp')} alt="畳の部屋で日本文化を学ぶ学生たち" loading="lazy" decoding="async" />
+      <figcaption><span>SHARE CULTURE</span><strong>文化を共有する</strong></figcaption>
+    </figure>
+    <figure>
+      <img src={image('programs/rwjp/real/rwjp-real-kyoto-field.webp')} alt="京都でグループ活動を行う学生たち" loading="lazy" decoding="async" />
+      <figcaption><span>GO BEYOND CAMPUS</span><strong>街へ出る</strong></figcaption>
+    </figure>
+  </section>
+
+  <section class="buddy-opportunities" aria-labelledby="buddy-opportunities-title">
+    <div class="site-shell">
+      <header class="buddy-opportunities__header">
+        <div>
+          <p class="buddy-section-kicker">START SMALL</p>
+          <h2 id="buddy-opportunities-title">「ちょっと参加してみたい」でいい。</h2>
+        </div>
+        <p>最初から留学を決めている必要はありません。国際交流への入口を、もっと日常に近づけます。</p>
+      </header>
+      <div class="buddy-opportunities__list">
+        {opportunities.map((item) => (
+          <article class="buddy-opportunity">
+            <span class="buddy-opportunity__number">{item.number}</span>
+            <div>
+              <h3>{item.title}</h3>
+              <p>{item.body}</p>
+              <small>{item.note}</small>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="journey" class="buddy-journey" aria-labelledby="buddy-journey-title">
+    <div class="site-shell buddy-journey__intro">
+      <p class="buddy-section-kicker">FROM ONE ENCOUNTER TO A LIFELONG CONNECTION</p>
+      <h2 id="buddy-journey-title">交流が留学を生み、<br />留学が再交流を生む。</h2>
+      <p>協定校から学生が来る。立命館の学生も海外へ行く。そこで生まれた関係が、在学中だけでなく卒業後も続いていく。ひとつの出会いが、世界との距離を変えていきます。</p>
+    </div>
+
+    <div class="site-shell buddy-journey__track" role="list">
+      {journey.map(([en, ja, body], index) => (
+        <article class="buddy-journey__step" role="listitem">
+          <div class="buddy-journey__index">{String(index + 1).padStart(2, '0')}</div>
+          <p class="buddy-journey__english">{en}</p>
+          <h3>{ja}</h3>
+          <p>{body}</p>
+        </article>
+      ))}
+    </div>
+
+    <div class="site-shell buddy-journey__statement">
+      <p>世界中に、また会いたい人がいる。</p>
+      <strong>そのつながりは、一生の人的財産になる。</strong>
+    </div>
+  </section>
+
+  <section class="buddy-global" aria-labelledby="buddy-global-title">
+    <div class="site-shell buddy-global__grid">
+      <div class="buddy-global__copy">
+        <p class="buddy-section-kicker">A CAMPUS CONNECTED TO THE WORLD</p>
+        <h2 id="buddy-global-title">出会いの向こうに、<br />世界が広がっている。</h2>
+        <p>立命館大学には、世界各地の大学とのネットワークがあります。海外から来た学生との出会いが、いつか自分が海外へ行くきっかけになるかもしれません。</p>
+        <p>留学生が交換留学生として戻ってくる。大学院進学で再び立命館に来る。卒業後、現地で再会する。国や地域を越えて続く関係を育てます。</p>
+      </div>
+      <div class="buddy-global__globe" aria-label="世界との広がりを示すイメージ">
+        <div class="buddy-global__orbit buddy-global__orbit--one"></div>
+        <div class="buddy-global__orbit buddy-global__orbit--two"></div>
+        <div class="buddy-global__core"><span>RITSUMEIKAN</span><strong>GLOBAL<br />CONNECTIONS</strong></div>
+        <span class="buddy-global__place buddy-global__place--na">North America</span>
+        <span class="buddy-global__place buddy-global__place--eu">Europe</span>
+        <span class="buddy-global__place buddy-global__place--asia">Asia</span>
+        <span class="buddy-global__place buddy-global__place--oceania">Oceania</span>
+      </div>
+    </div>
+    <p class="site-shell buddy-global__note">国・地域名や参加実績は、確認済みデータに基づいて今後掲載します。個人を特定できる情報は公開しません。</p>
+  </section>
+
+  <section class="buddy-support" aria-labelledby="buddy-support-title">
+    <div class="site-shell buddy-support__grid">
+      <div>
+        <p class="buddy-section-kicker">SUPPORTED BY STUDY ABROAD CENTER</p>
+        <h2 id="buddy-support-title">国際交流を、事務局が支えます。</h2>
+      </div>
+      <div class="buddy-support__copy">
+        <p>Study Abroad Centerが、英語でのコミュニケーション、参加案内、留学生との調整、当日の運営をサポートします。</p>
+        <p>「英語に自信がない」「何を話せばいいか分からない」という学生も参加しやすいよう、最初の一歩を支えます。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="join" class="buddy-join" aria-labelledby="buddy-join-title">
+    <div class="site-shell buddy-join__panel">
+      <div>
+        <p class="buddy-section-kicker">JOIN THE NEXT OPPORTUNITY</p>
+        <h2 id="buddy-join-title">次の出会いを、ここから。</h2>
+        <p>募集は原則として半期ごとに行い、日本語講座、文化体験、キャンパス交流などの参加機会をこのページで案内します。</p>
+      </div>
+      <div class="buddy-join__status">
+        <span>COMING SOON</span>
+        <strong>次回募集情報は準備中です</strong>
+        <p>正式な募集期間・対象・申込方法は、確認後に掲載します。</p>
+      </div>
+    </div>
+  </section>
+</StudentRecruitmentLayout>
