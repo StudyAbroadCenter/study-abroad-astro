@@ -31,28 +31,30 @@ const countryLabels: Record<string, string> = {
   Turkmenistan: 'トルクメニスタン',
 };
 
-const mapPositions: Record<string, { x: number; y: number }> = {
-  Australia: { x: 64, y: 78 },
-  'United States': { x: 88, y: 40 },
-  'South Korea': { x: 51, y: 40 },
-  Canada: { x: 87, y: 28 },
-  'New Zealand': { x: 73, y: 87 },
-  'United Kingdom': { x: 24, y: 31 },
-  China: { x: 47, y: 44 },
-  Taiwan: { x: 52, y: 50 },
-  Macau: { x: 49, y: 54 },
-  Singapore: { x: 47, y: 67 },
-  Qatar: { x: 35, y: 57 },
-  Romania: { x: 31, y: 37 },
-  Azerbaijan: { x: 36, y: 44 },
-  Finland: { x: 29, y: 21 },
-  'Hong Kong': { x: 50, y: 52 },
-  Japan: { x: 55, y: 45 },
-  Mexico: { x: 89, y: 58 },
-  Netherlands: { x: 25, y: 32 },
-  Poland: { x: 29, y: 33 },
-  'Saudi Arabia': { x: 36, y: 60 },
-  Turkmenistan: { x: 40, y: 45 },
+// Coordinates follow the Pacific-centred equirectangular map used in the hero.
+// The dot stays on the actual country/region; dx/dy only moves the text label to avoid collisions.
+const mapPositions: Record<string, { x: number; y: number; dx?: number; dy?: number }> = {
+  Australia: { x: 54.7, y: 63.9, dx: 8, dy: 4 },
+  'United States': { x: 90.3, y: 28.3, dx: 8, dy: 2 },
+  'South Korea': { x: 53.0, y: 30.0, dx: 10, dy: -13 },
+  Canada: { x: 88.1, y: 18.9, dx: 8, dy: -2 },
+  'New Zealand': { x: 66.1, y: 72.8, dx: 8, dy: 4 },
+  'United Kingdom': { x: 16.9, y: 20.0, dx: -54, dy: -12 },
+  China: { x: 46.4, y: 30.6, dx: -38, dy: 7 },
+  Taiwan: { x: 51.1, y: 36.8, dx: 10, dy: 10 },
+  Macau: { x: 49.0, y: 37.7, dx: -47, dy: 30 },
+  Singapore: { x: 46.3, y: 49.3, dx: -16, dy: 10 },
+  Qatar: { x: 31.7, y: 35.9, dx: -28, dy: -9 },
+  Romania: { x: 24.4, y: 24.4, dx: 34, dy: 21 },
+  Azerbaijan: { x: 30.7, y: 27.7, dx: 24, dy: 14 },
+  Finland: { x: 24.7, y: 14.4, dx: 30, dy: -8 },
+  'Hong Kong': { x: 49.2, y: 37.6, dx: -49, dy: 11 },
+  Japan: { x: 55.2, y: 30.5 },
+  Mexico: { x: 89.2, y: 36.9, dx: 8, dy: 5 },
+  Netherlands: { x: 19.0, y: 21.1, dx: -13, dy: 19 },
+  Poland: { x: 22.8, y: 21.1, dx: 26, dy: -4 },
+  'Saudi Arabia': { x: 30.0, y: 36.7, dx: -18, dy: 19 },
+  Turkmenistan: { x: 33.9, y: 28.3, dx: 23, dy: -8 },
 };
 
 const verifiedRegions = fiveWeekJapaneseProgrammeEvidence.regions.map((region) => ({
@@ -61,15 +63,16 @@ const verifiedRegions = fiveWeekJapaneseProgrammeEvidence.regions.map((region) =
   ...(mapPositions[region.countryOrRegion] ?? { x: 50, y: 50 }),
 }));
 
+const kyotoHub = { x: 55.2, y: 30.5 };
 const routePaths = verifiedRegions
   .filter((region) => region.countryOrRegion !== 'Japan')
   .map((region, index) => {
     const sx = region.x * 10;
     const sy = region.y * 5.6;
-    const tx = 550;
-    const ty = 252;
+    const tx = kyotoHub.x * 10;
+    const ty = kyotoHub.y * 5.6;
     const midX = (sx + tx) / 2;
-    const lift = Math.max(55, Math.abs(sx - tx) * 0.14) + (index % 3) * 12;
+    const lift = Math.max(42, Math.abs(sx - tx) * 0.12) + (index % 3) * 9;
     return `M${sx} ${sy} Q${midX} ${Math.min(sy, ty) - lift} ${tx} ${ty}`;
   });
 
@@ -104,16 +107,20 @@ const firstSteps = [
           </div>
           <div class="buddy-new__map-wash" aria-hidden="true"></div>
           <svg class="buddy-new__routes" viewBox="0 0 1000 560" preserveAspectRatio="none" aria-hidden="true">
-            <defs><marker id="buddy-new-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="rgba(255,255,255,.94)" /></marker></defs>
+            <defs><marker id="buddy-new-arrow" markerWidth="6" markerHeight="6" refX="5.4" refY="3" orient="auto"><path d="M0 0L6 3L0 6Z" fill="rgba(255,255,255,.94)" /></marker></defs>
             {routePaths.map((path) => <path d={path} marker-end="url(#buddy-new-arrow)" />)}
           </svg>
           {verifiedRegions.filter((region) => region.countryOrRegion !== 'Japan').map((region) => (
-            <span class="buddy-new__marker" style={`--x:${region.x}%;--y:${region.y}%`}><i aria-hidden="true"></i><b>{region.label}</b></span>
+            <span class="buddy-new__marker" style={`--x:${region.x}%;--y:${region.y}%;--dx:${region.dx ?? 7}px;--dy:${region.dy ?? 0}px`}>
+              <i aria-hidden="true"></i><b>{region.label}</b>
+            </span>
           ))}
-          <div class="buddy-new__hub" aria-label="立命館大学 関西・京都"><span>R</span><strong>立命館大学</strong><small>関西・京都</small></div>
+          <div class="buddy-new__hub" style={`--x:${kyotoHub.x}%;--y:${kyotoHub.y}%`} aria-label="立命館大学 京都">
+            <i aria-hidden="true"></i><strong>立命館大学</strong><small>京都</small>
+          </div>
           <div class="buddy-new__hero-copy">
             <p class="buddy-new__eyebrow">BUDDY &amp; GLOBAL CONNECTIONS</p>
-            <h1 id="buddy-title">世界から立命館へ<br />立命館から世界へ</h1>
+            <h1 id="buddy-title"><span>世界から立命館へ</span><span>立命館から世界へ</span></h1>
             <p class="buddy-new__hero-story">交流が留学を生み<br />留学が再交流を生む<br /><strong>そのつながりは 一生の人的財産になる</strong></p>
             <a class="buddy-new__cta" href="#first-step">Buddyに参加する <span>→</span></a>
           </div>
@@ -141,7 +148,7 @@ const firstSteps = [
 
     <section id="first-step" class="buddy-new__first-step" aria-labelledby="buddy-first-title">
       <div class="buddy-new__first-grid">
-        <div class="buddy-new__first-copy"><p class="buddy-new__eyebrow">START SMALL</p><h2 id="buddy-first-title">ちょっとした勇気でいい。<br />学生の今、世界へ一歩。</h2><p>最初から留学を決めなくていい。まずは同じキャンパスにいる留学生と話してみる。学生時代だからこそできる、小さくて大きな一歩です。</p></div>
+        <div class="buddy-new__first-copy"><p class="buddy-new__eyebrow">START SMALL</p><h2 id="buddy-first-title"><span>ちょっとした勇気でいい。</span><span>学生の今、世界へ一歩。</span></h2><p>最初から留学を決めなくていい。まずは同じキャンパスにいる留学生と話してみる。学生時代だからこそできる、小さくて大きな一歩です。</p></div>
         <div class="buddy-new__first-cards">{firstSteps.map(([title, body], index) => <article><span>{String(index + 1).padStart(2, '0')}</span><h3>{title}</h3><p>{body}</p></article>)}</div>
       </div>
     </section>
@@ -149,7 +156,7 @@ const firstSteps = [
     <section class="buddy-new__lifelong" aria-labelledby="buddy-life-title">
       <div class="buddy-new__lifelong-inner">
         <p class="buddy-new__eyebrow">FROM ONE ENCOUNTER TO A LIFELONG CONNECTION</p>
-        <h2 id="buddy-life-title">交流が留学を生み<br />留学が再交流を生む</h2>
+        <h2 id="buddy-life-title"><span>交流が留学を生み</span><span>留学が再交流を生む</span></h2>
         <p>海外から学生が来る。立命館の学生も海外へ行く。学生時代の出会いが、世界との距離を変えていく。</p>
         <div class="buddy-new__life-line">{story.map((step) => <div><span>{step.en}</span><strong>{step.ja}</strong></div>)}</div>
         <div class="buddy-new__lifelong-message"><span>世界中に また会いたい人がいる</span><strong>そのつながりは<br />一生の人的財産になる</strong></div>
