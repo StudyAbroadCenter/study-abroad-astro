@@ -1,159 +1,184 @@
-.rwjp-flagship__hero{
-  position:relative;
-  min-height:clamp(40rem,82svh,56rem);
-  padding:0;
-  overflow:hidden;
-  background:#111;
-  color:#fff;
-  isolation:isolate;
+/* RWJP hero — isolated clean rebuild.
+   This stylesheet intentionally owns only the RWJP hero and is loaded after legacy RWJP styles. */
+
+.rwjp-flagship__hero {
+  position: relative;
+  min-height: clamp(38rem, calc(100svh - 5rem), 50rem);
+  padding: 0;
+  overflow: hidden;
+  background: #111;
+  color: #fff;
+  isolation: isolate;
 }
 
-.rwjp-flagship__hero-grid{
-  position:relative;
-  min-height:inherit;
-  display:flex;
-  align-items:flex-end;
-  padding-top:clamp(7rem,13vh,10rem);
-  padding-bottom:clamp(3.5rem,7vh,5.25rem);
+.rwjp-flagship__hero-grid {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: inherit;
+  align-items: center;
+  padding-top: clamp(5.5rem, 10vh, 7.5rem);
+  padding-bottom: clamp(4rem, 8vh, 6rem);
 }
 
-.rwjp-flagship__hero-photo{
-  position:absolute;
-  inset:0;
-  z-index:-2;
-  width:100%;
-  height:100%;
-  overflow:hidden;
+/* The figure currently lives inside .site-shell.
+   Expand it to the viewport without transform-based centring so the image is truly full bleed. */
+.rwjp-flagship__hero-photo {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(50% - 50vw);
+  right: calc(50% - 50vw);
+  z-index: -1;
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: hidden;
 }
 
-.rwjp-flagship__hero-photo::after{
-  content:"";
-  position:absolute;
-  inset:0;
+/* Suppress the old JA overlay label. The real hero copy is the accessible heading. */
+.rwjp-flagship__hero-photo::before {
+  display: none !important;
+  content: none !important;
+}
+
+.rwjp-flagship__hero-photo::after {
+  position: absolute;
+  inset: 0;
+  content: "";
   background:
-    linear-gradient(90deg,rgba(8,12,16,.78) 0%,rgba(8,12,16,.58) 34%,rgba(8,12,16,.18) 68%,rgba(8,12,16,.06) 100%),
-    linear-gradient(0deg,rgba(8,12,16,.62) 0%,rgba(8,12,16,.06) 52%);
+    linear-gradient(90deg, rgba(8, 12, 16, .76) 0%, rgba(8, 12, 16, .54) 34%, rgba(8, 12, 16, .16) 66%, rgba(8, 12, 16, .03) 100%),
+    linear-gradient(0deg, rgba(8, 12, 16, .42) 0%, rgba(8, 12, 16, 0) 50%);
 }
 
-.rwjp-flagship__hero-photo img{
-  display:block;
-  width:100%;
-  height:100%;
-  max-width:none;
-  aspect-ratio:auto;
-  object-fit:cover;
-  object-position:center 54%;
+.rwjp-flagship__hero-photo img,
+.rwjp-flagship__hero-photo img.crop-winter {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  aspect-ratio: auto;
+  object-fit: cover;
+  object-position: center 54%;
+  transform: none;
+  animation: none;
 }
 
-.rwjp-flagship__hero-photo figcaption{
-  position:absolute;
-  right:clamp(1rem,3vw,2.25rem);
-  bottom:1rem;
-  z-index:2;
-  max-width:24rem;
-  margin:0;
-  color:rgba(255,255,255,.72);
-  font-size:.68rem;
-  line-height:1.5;
-  text-align:right;
-  text-shadow:0 1px 8px rgba(0,0,0,.35);
+.rwjp-flagship__hero-photo figcaption {
+  position: absolute;
+  right: clamp(1rem, 3vw, 2.25rem);
+  bottom: 1rem;
+  z-index: 2;
+  max-width: 24rem;
+  margin: 0;
+  color: rgba(255, 255, 255, .72);
+  font-size: .68rem;
+  line-height: 1.5;
+  text-align: right;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, .35);
 }
 
-.rwjp-flagship__hero-copy{
-  position:relative;
-  z-index:2;
-  width:min(100%,46rem);
-  padding:0;
+.rwjp-flagship__hero-copy {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 44rem);
+  padding: 0;
 }
 
-.rwjp-flagship__hero .rwjp-flagship__eyebrow{
-  margin-bottom:1rem;
-  color:rgba(255,255,255,.84);
-  text-shadow:0 1px 12px rgba(0,0,0,.34);
+.rwjp-flagship__hero .rwjp-flagship__eyebrow {
+  margin: 0 0 1rem;
+  color: rgba(255, 255, 255, .86);
+  text-shadow: 0 1px 12px rgba(0, 0, 0, .38);
 }
 
-.rwjp-flagship__hero h1{
-  max-width:10ch;
-  margin:0;
-  color:#fff;
-  font-size:clamp(3.35rem,7vw,6.2rem);
-  line-height:.98;
-  letter-spacing:-.055em;
-  text-wrap:balance;
-  text-shadow:0 .1em .8em rgba(0,0,0,.3);
+.rwjp-flagship__hero h1,
+.rwjp-flagship__hero-copy h1 {
+  max-width: 11ch;
+  margin: 0;
+  color: #fff;
+  font-size: clamp(3rem, 6vw, 5.6rem);
+  line-height: 1;
+  letter-spacing: -.05em;
+  text-wrap: balance;
+  text-shadow: 0 .1em .8em rgba(0, 0, 0, .32);
 }
 
-.rwjp-flagship__hero h1 em{
-  color:#fff;
+.rwjp-flagship__hero h1 br {
+  display: block;
 }
 
-.rwjp-flagship__hero .rwjp-flagship__lead{
-  max-width:39rem;
-  margin-top:1.35rem;
-  color:#fff;
-  font-size:clamp(1rem,1.55vw,1.2rem);
-  line-height:1.78;
-  text-shadow:0 1px 12px rgba(0,0,0,.45);
+.rwjp-flagship__hero h1 em {
+  color: #fff;
+  font-style: normal;
 }
 
-.rwjp-flagship__hero .rwjp-flagship__micro{
-  margin-top:1.35rem;
-  color:rgba(255,255,255,.74);
-  letter-spacing:.14em;
+.rwjp-flagship__hero .rwjp-flagship__lead {
+  max-width: 37rem;
+  margin: 1.35rem 0 0;
+  color: #fff;
+  font-size: clamp(1rem, 1.4vw, 1.16rem);
+  line-height: 1.78;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, .5);
 }
 
-.rwjp-flagship__hero-copy::after{
-  content:"SCROLL TO START  ↓";
-  display:block;
-  margin-top:clamp(2rem,5vh,3.2rem);
-  color:rgba(255,255,255,.7);
-  font-size:.62rem;
-  font-weight:800;
-  letter-spacing:.17em;
+.rwjp-flagship__hero .rwjp-flagship__micro {
+  margin: 1.25rem 0 0;
+  color: rgba(255, 255, 255, .76);
+  letter-spacing: .14em;
 }
 
-.rwjp-flagship__nav{
-  box-shadow:0 1px 0 rgba(0,0,0,.03);
+.rwjp-flagship__hero-copy::after {
+  display: block;
+  margin-top: clamp(1.8rem, 4vh, 2.8rem);
+  color: rgba(255, 255, 255, .7);
+  content: "SCROLL TO START  ↓";
+  font-size: .62rem;
+  font-weight: 800;
+  letter-spacing: .17em;
 }
 
-@media(max-width:799px){
-  .rwjp-flagship__hero{
-    min-height:72svh;
+.rwjp-flagship__nav {
+  box-shadow: 0 1px 0 rgba(0, 0, 0, .03);
+}
+
+@media (max-width: 799px) {
+  .rwjp-flagship__hero {
+    min-height: 68svh;
   }
 
-  .rwjp-flagship__hero-grid{
-    padding-top:6rem;
-    padding-bottom:3.25rem;
+  .rwjp-flagship__hero-grid {
+    align-items: flex-end;
+    padding-top: 5.5rem;
+    padding-bottom: 3.25rem;
   }
 
-  .rwjp-flagship__hero-photo::after{
-    background:linear-gradient(0deg,rgba(8,12,16,.8) 0%,rgba(8,12,16,.44) 56%,rgba(8,12,16,.1) 100%);
+  .rwjp-flagship__hero-photo::after {
+    background: linear-gradient(0deg, rgba(8, 12, 16, .82) 0%, rgba(8, 12, 16, .46) 54%, rgba(8, 12, 16, .08) 100%);
   }
 
-  .rwjp-flagship__hero-photo img{
-    object-position:58% center;
+  .rwjp-flagship__hero-photo img,
+  .rwjp-flagship__hero-photo img.crop-winter {
+    object-position: 58% center;
   }
 
-  .rwjp-flagship__hero h1{
-    max-width:11ch;
-    font-size:clamp(2.7rem,13vw,4.2rem);
-    line-height:1.02;
+  .rwjp-flagship__hero h1,
+  .rwjp-flagship__hero-copy h1 {
+    max-width: 11ch;
+    font-size: clamp(2.5rem, 12vw, 3.8rem);
+    line-height: 1.03;
   }
 
-  .rwjp-flagship__hero .rwjp-flagship__lead{
-    max-width:31rem;
-    font-size:.98rem;
-    line-height:1.72;
+  .rwjp-flagship__hero .rwjp-flagship__lead {
+    max-width: 30rem;
+    font-size: .96rem;
+    line-height: 1.72;
   }
 
-  .rwjp-flagship__hero-photo figcaption{
-    right:1rem;
-    bottom:.8rem;
-    max-width:14rem;
-    font-size:.6rem;
+  .rwjp-flagship__hero-photo figcaption {
+    display: none;
   }
 
-  .rwjp-flagship__hero-copy::after{
-    margin-top:2rem;
+  .rwjp-flagship__hero-copy::after {
+    margin-top: 1.6rem;
   }
 }
