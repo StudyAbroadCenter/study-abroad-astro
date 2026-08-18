@@ -218,11 +218,14 @@ const routeRegions = verifiedRegions.filter((region) => region.countryOrRegion !
               <path d="M0 0 L8 4 L0 8 Z" fill="#ffffff" />
             </marker>
           </defs>
+
           <rect width="1200" height="620" rx="34" fill="url(#mapOcean)" />
+
           <g class="buddy-global__map-grid" aria-hidden="true">
             <path d="M0 103 H1200 M0 206 H1200 M0 310 H1200 M0 414 H1200 M0 517 H1200" />
             <path d="M100 0 V620 M300 0 V620 M500 0 V620 M700 0 V620 M900 0 V620 M1100 0 V620" />
           </g>
+
           <g fill="url(#mapLand)" class="buddy-global__lands" aria-hidden="true">
             <path d="M164 139 L191 111 L226 101 L267 102 L303 119 L333 135 L359 164 L340 185 L308 186 L289 203 L258 196 L232 184 L209 178 L180 167 Z" />
             <path d="M292 193 L317 199 L331 221 L335 246 L322 270 L307 248 L293 220 Z" />
@@ -233,6 +236,7 @@ const routeRegions = verifiedRegions.filter((region) => region.countryOrRegion !
             <path d="M648 367 L689 351 L728 365 L755 397 L747 432 L711 449 L672 439 L650 412 Z" />
             <path d="M550 234 L563 225 L577 235 L571 250 L556 251 Z" />
           </g>
+
           {routeRegions.map((region, index) => {
             const sx = region.x * 12;
             const sy = region.y * 6.2;
@@ -242,12 +246,14 @@ const routeRegions = verifiedRegions.filter((region) => region.countryOrRegion !
             const cy = Math.min(sy, ey) - 58 - ((index % 4) * 14);
             return <path class="buddy-global__route" d={`M${sx} ${sy} Q${cx} ${cy} ${ex} ${ey}`} marker-end="url(#routeArrow)" />;
           })}
+
           {verifiedRegions.map((region) => (
             <g class="buddy-global__country" transform={`translate(${region.x * 12} ${region.y * 6.2})`}>
               <circle r="4.8" />
               <text x="9" y="4">{region.label}</text>
             </g>
           ))}
+
           <g class="buddy-global__hub" transform="translate(660 273)">
             <circle r="29" />
             <text text-anchor="middle" y="8">R</text>
