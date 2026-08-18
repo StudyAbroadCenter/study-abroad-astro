@@ -21,50 +21,58 @@
   padding-bottom: clamp(4rem, 8vh, 6rem);
 }
 
-/* The figure currently lives inside .site-shell.
-   Expand it to the viewport without transform-based centring so the image is truly full bleed. */
-.rwjp-flagship__hero-photo {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: calc(50% - 50vw);
-  right: calc(50% - 50vw);
-  z-index: -1;
-  width: auto;
-  height: auto;
-  margin: 0;
-  overflow: hidden;
+/* Hero image must behave like the homepage: true viewport-width full bleed.
+   The figure remains inside .site-shell in the component, so use the shell centre
+   only as an anchor and force the visual to 100vw. Important is deliberate here:
+   older RWJP layers still contain competing figure/hero declarations. */
+.rwjp-flagship__hero .rwjp-flagship__hero-photo {
+  position: absolute !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  left: 50% !important;
+  right: auto !important;
+  z-index: -1 !important;
+  width: 100vw !important;
+  height: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  transform: translateX(-50%) !important;
 }
 
-/* Suppress the old JA overlay label. The real hero copy is the accessible heading. */
-.rwjp-flagship__hero-photo::before {
+/* Suppress old overlay labels from previous visual experiments. */
+.rwjp-flagship__hero .rwjp-flagship__hero-photo::before,
+.rwjp-flagship__hero [data-ja-overlay]::before {
   display: none !important;
   content: none !important;
 }
 
-.rwjp-flagship__hero-photo::after {
+.rwjp-flagship__hero .rwjp-flagship__hero-photo::after {
   position: absolute;
   inset: 0;
   content: "";
   background:
-    linear-gradient(90deg, rgba(8, 12, 16, .76) 0%, rgba(8, 12, 16, .54) 34%, rgba(8, 12, 16, .16) 66%, rgba(8, 12, 16, .03) 100%),
-    linear-gradient(0deg, rgba(8, 12, 16, .42) 0%, rgba(8, 12, 16, 0) 50%);
+    linear-gradient(90deg, rgba(8, 12, 16, .72) 0%, rgba(8, 12, 16, .48) 32%, rgba(8, 12, 16, .12) 64%, rgba(8, 12, 16, .02) 100%),
+    linear-gradient(0deg, rgba(8, 12, 16, .38) 0%, rgba(8, 12, 16, 0) 48%);
 }
 
-.rwjp-flagship__hero-photo img,
-.rwjp-flagship__hero-photo img.crop-winter {
-  display: block;
-  width: 100%;
-  height: 100%;
-  max-width: none;
-  aspect-ratio: auto;
-  object-fit: cover;
-  object-position: center 54%;
-  transform: none;
-  animation: none;
+.rwjp-flagship__hero .rwjp-flagship__hero-photo img,
+.rwjp-flagship__hero .rwjp-flagship__hero-photo img.crop-winter {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  aspect-ratio: auto !important;
+  object-fit: cover !important;
+  object-position: center 54% !important;
+  border-radius: 0 !important;
+  transform: none !important;
+  animation: none !important;
 }
 
-.rwjp-flagship__hero-photo figcaption {
+.rwjp-flagship__hero .rwjp-flagship__hero-photo figcaption {
   position: absolute;
   right: clamp(1rem, 3vw, 2.25rem);
   bottom: 1rem;
@@ -152,13 +160,13 @@
     padding-bottom: 3.25rem;
   }
 
-  .rwjp-flagship__hero-photo::after {
+  .rwjp-flagship__hero .rwjp-flagship__hero-photo::after {
     background: linear-gradient(0deg, rgba(8, 12, 16, .82) 0%, rgba(8, 12, 16, .46) 54%, rgba(8, 12, 16, .08) 100%);
   }
 
-  .rwjp-flagship__hero-photo img,
-  .rwjp-flagship__hero-photo img.crop-winter {
-    object-position: 58% center;
+  .rwjp-flagship__hero .rwjp-flagship__hero-photo img,
+  .rwjp-flagship__hero .rwjp-flagship__hero-photo img.crop-winter {
+    object-position: 58% center !important;
   }
 
   .rwjp-flagship__hero h1,
@@ -174,7 +182,7 @@
     line-height: 1.72;
   }
 
-  .rwjp-flagship__hero-photo figcaption {
+  .rwjp-flagship__hero .rwjp-flagship__hero-photo figcaption {
     display: none;
   }
 
