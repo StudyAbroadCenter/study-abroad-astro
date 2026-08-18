@@ -9,6 +9,7 @@ const outputDir = process.env.VISUAL_OUTPUT_DIR || 'visual-uat';
 const routes = [
   ['home', '/'],
   ['programs', '/programs/'],
+  ['buddy', '/buddy/'],
   ['rsjp', '/programs/rsjp/'],
   ['rsjp-express', '/programs/rsjp-express/'],
   ['rwjp', '/programs/rwjp/'],
@@ -30,6 +31,7 @@ const viewports = [
 const mobileCritical = new Set([
   'home',
   'programs',
+  'buddy',
   'rsjp',
   'rwjp',
   'rwjp-express',

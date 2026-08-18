@@ -61,18 +61,39 @@ const countryLabels: Record<string, string> = {
   Turkmenistan: 'トルクメニスタン',
 };
 
-const markerPositions = [
-  [72, 74], [12, 39], [61, 37], [13, 25], [84, 80], [31, 22], [55, 41],
-  [61, 49], [58, 53], [59, 65], [43, 55], [38, 32], [45, 36], [34, 16],
-  [59, 47], [55, 45], [13, 58], [33, 26], [37, 29], [42, 58], [48, 41],
-] as const;
+// Representative country/region positions on a Japan-centred rectangular world map.
+// These are visual country/region anchors, not claims about a specific university city.
+const mapPositions: Record<string, { x: number; y: number }> = {
+  Australia: { x: 64, y: 77 },
+  'United States': { x: 88, y: 39 },
+  'South Korea': { x: 51, y: 39 },
+  Canada: { x: 87, y: 27 },
+  'New Zealand': { x: 73, y: 86 },
+  'United Kingdom': { x: 24, y: 29 },
+  China: { x: 47, y: 42 },
+  Taiwan: { x: 52, y: 49 },
+  Macau: { x: 49, y: 53 },
+  Singapore: { x: 47, y: 66 },
+  Qatar: { x: 35, y: 55 },
+  Romania: { x: 31, y: 35 },
+  Azerbaijan: { x: 36, y: 43 },
+  Finland: { x: 29, y: 19 },
+  'Hong Kong': { x: 50, y: 51 },
+  Japan: { x: 55, y: 44 },
+  Mexico: { x: 89, y: 57 },
+  Netherlands: { x: 25, y: 30 },
+  Poland: { x: 29, y: 31 },
+  'Saudi Arabia': { x: 36, y: 59 },
+  Turkmenistan: { x: 40, y: 44 },
+};
 
-const verifiedRegions = fiveWeekJapaneseProgrammeEvidence.regions.map((region, index) => ({
+const verifiedRegions = fiveWeekJapaneseProgrammeEvidence.regions.map((region) => ({
   ...region,
   label: countryLabels[region.countryOrRegion] ?? region.countryOrRegion,
-  x: markerPositions[index]?.[0] ?? 50,
-  y: markerPositions[index]?.[1] ?? 50,
+  ...(mapPositions[region.countryOrRegion] ?? { x: 50, y: 50 }),
 }));
+
+const routeRegions = verifiedRegions.filter((region) => region.countryOrRegion !== 'Japan');
 ---
 <StudentRecruitmentLayout
   title="Buddy & Global Connections | 立命館大学 Study Abroad Center"
@@ -183,62 +204,68 @@ const verifiedRegions = fiveWeekJapaneseProgrammeEvidence.regions.map((region, i
     </div>
 
     <div class="site-shell buddy-global__scene">
-      <div class="buddy-global__globe" aria-label="世界各地と立命館大学のつながりを示す地球イメージ">
+      <div class="buddy-global__globe" aria-label="日本を中心に世界各地と立命館大学のつながりを示す世界地図">
         <div class="buddy-global__sun" aria-hidden="true"></div>
-        <svg class="buddy-global__sphere" viewBox="0 0 640 640" role="img" aria-label="日本と立命館を中心にしたデフォルメ地球儀">
+        <svg class="buddy-global__sphere" viewBox="0 0 1200 620" preserveAspectRatio="xMidYMid meet" role="img" aria-label="日本を中心に配置した世界地図と立命館大学へ向かう交流ルート">
           <defs>
-            <radialGradient id="ocean" cx="48%" cy="40%" r="78%">
-              <stop offset="0%" stop-color="#b8efff" />
-              <stop offset="45%" stop-color="#55b9ef" />
-              <stop offset="100%" stop-color="#1768bf" />
-            </radialGradient>
-            <linearGradient id="land" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#ddf8bd" />
-              <stop offset="100%" stop-color="#69c985" />
+            <linearGradient id="mapOcean" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#6bc6f5" />
+              <stop offset="100%" stop-color="#d9f2ff" />
             </linearGradient>
-            <marker id="routeArrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
-              <path d="M0 0 L10 5 L0 10 Z" fill="#fff" />
+            <linearGradient id="mapLand" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#dff6bd" />
+              <stop offset="100%" stop-color="#77cf8a" />
+            </linearGradient>
+            <marker id="routeArrow" markerWidth="8" markerHeight="8" refX="6.4" refY="4" orient="auto" markerUnits="strokeWidth">
+              <path d="M0 0 L8 4 L0 8 Z" fill="#ffffff" />
             </marker>
           </defs>
 
-          <circle cx="320" cy="320" r="286" fill="url(#ocean)" />
+          <rect width="1200" height="620" rx="34" fill="url(#mapOcean)" />
 
-          <g class="buddy-global__globe-grid">
-            <ellipse cx="320" cy="320" rx="286" ry="105" fill="none" stroke="rgba(255,255,255,.34)" stroke-width="3" />
-            <ellipse cx="320" cy="320" rx="286" ry="205" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="2" />
-            <ellipse cx="320" cy="320" rx="118" ry="286" fill="none" stroke="rgba(255,255,255,.24)" stroke-width="2" />
-            <ellipse cx="320" cy="320" rx="220" ry="286" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="2" />
+          <g class="buddy-global__map-grid" aria-hidden="true">
+            <path d="M0 103 H1200 M0 206 H1200 M0 310 H1200 M0 414 H1200 M0 517 H1200" />
+            <path d="M100 0 V620 M300 0 V620 M500 0 V620 M700 0 V620 M900 0 V620 M1100 0 V620" />
           </g>
 
-          <g class="buddy-global__lands" aria-hidden="true">
-            <path d="M72 236 C118 182 180 172 226 194 C246 212 232 239 246 260 C218 272 193 300 158 298 C128 284 101 264 80 260 Z" fill="url(#land)" />
-            <path d="M175 311 C211 296 248 315 243 350 C231 393 216 425 198 466 C174 438 165 391 156 349 Z" fill="url(#land)" />
-            <path d="M264 175 C329 135 451 146 529 210 C505 235 462 239 439 269 C408 257 371 264 345 286 C311 263 271 234 264 175 Z" fill="url(#land)" />
-            <path d="M331 288 C374 274 414 292 432 330 C411 357 391 397 363 438 C335 405 314 353 317 315 Z" fill="url(#land)" />
-            <path d="M456 405 C493 386 540 401 556 437 C530 462 487 469 452 451 Z" fill="url(#land)" />
-            <path class="buddy-global__japan" d="M374 255 C382 266 379 280 386 291 C380 302 373 312 368 325 C361 317 362 305 357 296 C361 286 365 274 364 264 Z" fill="#fff" stroke="#9f2238" stroke-width="4" />
+          <g fill="url(#mapLand)" class="buddy-global__lands" aria-hidden="true">
+            <path d="M164 139 L191 111 L226 101 L267 102 L303 119 L333 135 L359 164 L340 185 L308 186 L289 203 L258 196 L232 184 L209 178 L180 167 Z" />
+            <path d="M292 193 L317 199 L331 221 L335 246 L322 270 L307 248 L293 220 Z" />
+            <path d="M228 214 L278 206 L319 221 L343 253 L340 299 L324 342 L303 386 L278 430 L250 409 L231 369 L217 323 L214 271 Z" />
+            <path d="M338 151 L384 136 L438 136 L490 145 L531 164 L564 190 L567 216 L545 237 L502 245 L469 238 L437 243 L402 235 L367 220 L343 194 Z" />
+            <path d="M543 164 L586 149 L627 151 L668 160 L704 178 L728 202 L722 226 L697 244 L671 249 L649 267 L620 262 L591 249 L562 229 L545 207 Z" />
+            <path d="M559 272 L582 278 L602 292 L613 318 L605 342 L591 359 L575 344 L564 321 L552 299 Z" />
+            <path d="M584 361 L610 367 L637 377 L663 389 L650 404 L624 403 L600 393 L575 383 Z" />
+            <path d="M654 221 C666 229 672 238 668 249 C677 259 674 272 667 281 C659 274 658 265 650 259 C654 249 651 239 654 229 Z" />
+            <path d="M645 286 C654 291 655 299 650 306 C643 303 640 296 645 286 Z" />
+            <path d="M572 431 L612 420 L655 426 L686 447 L706 476 L695 513 L665 535 L625 543 L590 529 L563 501 L555 467 Z" />
+            <path d="M731 503 L740 511 L745 525 L739 540 L731 530 L726 516 Z M750 532 L758 540 L763 551 L757 564 L749 553 L745 541 Z" />
+            <path d="M859 110 L902 91 L950 83 L998 89 L1042 107 L1076 133 L1095 162 L1082 191 L1056 207 L1037 232 L1011 252 L976 255 L947 240 L923 218 L893 205 L872 180 L851 151 Z" />
+            <path d="M1010 253 L1033 258 L1049 273 L1057 295 L1045 314 L1028 327 L1015 311 L1004 286 Z" />
+            <path d="M1013 326 L1040 333 L1064 351 L1078 381 L1077 418 L1064 455 L1048 491 L1029 530 L1008 551 L994 520 L987 482 L989 441 L996 397 Z" />
+            <path d="M1135 121 L1165 111 L1198 108 L1200 171 L1176 173 L1153 159 L1134 143 Z" />
+            <path d="M0 124 L30 118 L49 134 L58 151 L39 167 L15 163 L0 154 Z" />
           </g>
 
           <g class="buddy-global__routes" marker-end="url(#routeArrow)" aria-hidden="true">
-            <path class="buddy-global__route" d="M92 250 Q205 145 354 300" />
-            <path class="buddy-global__route" d="M116 182 Q232 120 354 300" />
-            <path class="buddy-global__route" d="M210 150 Q294 154 354 300" />
-            <path class="buddy-global__route" d="M267 182 Q322 204 354 300" />
-            <path class="buddy-global__route" d="M504 218 Q430 220 354 300" />
-            <path class="buddy-global__route" d="M520 332 Q444 306 354 300" />
-            <path class="buddy-global__route" d="M490 448 Q414 395 354 300" />
-            <path class="buddy-global__route" d="M398 500 Q365 407 354 300" />
-            <path class="buddy-global__route" d="M250 470 Q292 390 354 300" />
+            {routeRegions.map((region, index) => {
+              const sx = (region.x / 100) * 1200;
+              const sy = (region.y / 100) * 620;
+              const tx = 660;
+              const ty = 273;
+              const midX = (sx + tx) / 2;
+              const lift = Math.max(60, Math.abs(sx - tx) * 0.16) + (index % 3) * 10;
+              const controlY = Math.min(sy, ty) - lift;
+              return <path class="buddy-global__route" d={`M${sx} ${sy} Q${midX} ${controlY} ${tx} ${ty}`} />;
+            })}
           </g>
 
-          <circle class="buddy-global__ritsumeikan-ring" cx="354" cy="300" r="29" fill="none" stroke="rgba(255,255,255,.92)" stroke-width="4" />
-          <circle cx="354" cy="300" r="20" fill="#fff" stroke="#9f2238" stroke-width="5" />
-          <text x="354" y="307" text-anchor="middle" fill="#9f2238" font-size="21" font-weight="900">R</text>
-          <text class="buddy-global__hub-label buddy-global__hub-label--main" x="354" y="350" text-anchor="middle">立命館大学</text>
-          <text class="buddy-global__hub-label buddy-global__hub-label--sub" x="354" y="372" text-anchor="middle">RITSUMEIKAN</text>
+          <circle class="buddy-global__ritsumeikan-ring" cx="660" cy="273" r="31" fill="none" />
+          <circle cx="660" cy="273" r="20" fill="#fff" stroke="#9f2238" stroke-width="5" />
+          <text x="660" y="280" text-anchor="middle" fill="#9f2238" font-size="21" font-weight="900">R</text>
         </svg>
 
-        {verifiedRegions.map((region) => (
+        {verifiedRegions.filter((region) => region.countryOrRegion !== 'Japan').map((region) => (
           <span
             class="buddy-global__marker"
             style={`--x:${region.x}%; --y:${region.y}%`}
@@ -248,6 +275,11 @@ const verifiedRegions = fiveWeekJapaneseProgrammeEvidence.regions.map((region, i
             <b>{region.label}</b>
           </span>
         ))}
+
+        <div class="buddy-global__hub-label" aria-hidden="true">
+          <strong>立命館大学</strong>
+          <span>関西・京都</span>
+        </div>
 
         <p class="buddy-global__connection-caption">世界の出会いが立命館に集まり　また世界へ広がっていく</p>
       </div>
