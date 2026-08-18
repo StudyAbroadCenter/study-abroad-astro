@@ -49,12 +49,9 @@ jobs:
 
       - name: Install Playwright runtime and browser
         if: github.event_name == 'pull_request'
-        timeout-minutes: 8
         run: |
           npm install --no-save playwright@1.55.0
-          # GitHub-hosted Ubuntu already carries the browser runtime libraries we need.
-          # Avoid --with-deps here: it runs apt and can stall on the Ubuntu mirror.
-          npx playwright install chromium
+          npx playwright install --with-deps chromium
 
       - name: Run Japanese visual UAT smoke
         if: github.event_name == 'pull_request'
