@@ -192,6 +192,78 @@ const routeRegions = verifiedRegions.filter((region) => region.countryOrRegion !
     </div>
   </section>
 
+  <section class="buddy-global" aria-labelledby="buddy-global-title">
+    <div class="site-shell buddy-global__header">
+      <div>
+        <p class="buddy-section-kicker">A CAMPUS CONNECTED TO THE WORLD</p>
+        <h2 id="buddy-global-title"><span>世界から立命館へ</span><span>立命館から世界へ</span></h2>
+      </div>
+      <p>2023–2026年の5週間日本語プログラムでは 21の国・地域に所在する大学・機関から学生が参加</p>
+    </div>
+
+    <div class="site-shell buddy-global__scene">
+      <div class="buddy-global__globe" aria-label="日本を中心に世界各地と立命館大学のつながりを示す世界地図">
+        <div class="buddy-global__sun" aria-hidden="true"></div>
+        <svg class="buddy-global__sphere" viewBox="0 0 1200 620" preserveAspectRatio="xMidYMid meet" role="img" aria-label="日本を中心に配置した世界地図と立命館大学へ向かう交流ルート">
+          <defs>
+            <linearGradient id="mapOcean" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#6bc6f5" />
+              <stop offset="100%" stop-color="#d9f2ff" />
+            </linearGradient>
+            <linearGradient id="mapLand" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#dff6bd" />
+              <stop offset="100%" stop-color="#77cf8a" />
+            </linearGradient>
+            <marker id="routeArrow" markerWidth="8" markerHeight="8" refX="6.4" refY="4" orient="auto" markerUnits="strokeWidth">
+              <path d="M0 0 L8 4 L0 8 Z" fill="#ffffff" />
+            </marker>
+          </defs>
+          <rect width="1200" height="620" rx="34" fill="url(#mapOcean)" />
+          <g class="buddy-global__map-grid" aria-hidden="true">
+            <path d="M0 103 H1200 M0 206 H1200 M0 310 H1200 M0 414 H1200 M0 517 H1200" />
+            <path d="M100 0 V620 M300 0 V620 M500 0 V620 M700 0 V620 M900 0 V620 M1100 0 V620" />
+          </g>
+          <g fill="url(#mapLand)" class="buddy-global__lands" aria-hidden="true">
+            <path d="M164 139 L191 111 L226 101 L267 102 L303 119 L333 135 L359 164 L340 185 L308 186 L289 203 L258 196 L232 184 L209 178 L180 167 Z" />
+            <path d="M292 193 L317 199 L331 221 L335 246 L322 270 L307 248 L293 220 Z" />
+            <path d="M228 214 L278 206 L319 221 L343 253 L340 299 L324 342 L303 386 L278 430 L250 409 L231 369 L217 323 L214 271 Z" />
+            <path d="M338 151 L384 136 L438 136 L490 145 L531 164 L564 190 L545 213 L504 214 L478 206 L451 213 L421 205 L393 185 L360 181 Z" />
+            <path d="M363 216 L391 206 L423 214 L438 238 L431 275 L416 310 L398 338 L378 320 L365 291 L354 251 Z" />
+            <path d="M507 221 L548 214 L587 224 L621 247 L652 281 L636 307 L604 301 L580 283 L554 272 L534 251 Z" />
+            <path d="M648 367 L689 351 L728 365 L755 397 L747 432 L711 449 L672 439 L650 412 Z" />
+            <path d="M550 234 L563 225 L577 235 L571 250 L556 251 Z" />
+          </g>
+          {routeRegions.map((region, index) => {
+            const sx = region.x * 12;
+            const sy = region.y * 6.2;
+            const ex = 55 * 12;
+            const ey = 44 * 6.2;
+            const cx = (sx + ex) / 2;
+            const cy = Math.min(sy, ey) - 58 - ((index % 4) * 14);
+            return <path class="buddy-global__route" d={`M${sx} ${sy} Q${cx} ${cy} ${ex} ${ey}`} marker-end="url(#routeArrow)" />;
+          })}
+          {verifiedRegions.map((region) => (
+            <g class="buddy-global__country" transform={`translate(${region.x * 12} ${region.y * 6.2})`}>
+              <circle r="4.8" />
+              <text x="9" y="4">{region.label}</text>
+            </g>
+          ))}
+          <g class="buddy-global__hub" transform="translate(660 273)">
+            <circle r="29" />
+            <text text-anchor="middle" y="8">R</text>
+            <text class="buddy-global__hub-name" text-anchor="middle" y="62">立命館大学</text>
+          </g>
+        </svg>
+        <p class="buddy-global__tagline">世界の出会いが立命館に集まり　また世界へ広がっていく</p>
+      </div>
+
+      <aside class="buddy-global__stats" aria-label="2023–2026年 5週間日本語プログラム参加実績">
+        <div class="buddy-global__stats-kpi"><span>2023–2026</span><strong>{fiveWeekJapaneseProgrammeEvidence.countriesOrRegions}</strong><b>国・地域</b><small>大学・機関の所在地で整理</small></div>
+        <div class="buddy-global__chips">{verifiedRegions.map((region) => <span><b>{region.code}</b>{region.label}</span>)}</div>
+      </aside>
+    </div>
+  </section>
+
   <section id="join" class="buddy-opportunities">
     <div class="site-shell">
       <header class="buddy-opportunities__header"><div><p class="buddy-section-kicker">JOIN</p><h2><span>まずは一回</span><span>参加してみる</span></h2></div><p>募集情報はStudy Abroad Centerから案内します</p></header>
