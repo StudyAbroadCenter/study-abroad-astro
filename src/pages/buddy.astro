@@ -1,7 +1,7 @@
 ---
 import StudentRecruitmentLayout from '../components/StudentRecruitmentLayout.astro';
 import { fiveWeekJapaneseProgrammeEvidence } from '../data/participation-history';
-import '../styles/buddy-rebuild.css';
+import '../styles/buddy-new-build.css';
 
 const rawBase = import.meta.env.BASE_URL;
 const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
@@ -103,63 +103,36 @@ const firstSteps = [
             <img src="https://commons.wikimedia.org/wiki/Special:Redirect/file/Land_shallow_topo_2048.jpg?width=2400" alt="" />
           </div>
           <div class="buddy-new__map-wash" aria-hidden="true"></div>
-
           <svg class="buddy-new__routes" viewBox="0 0 1000 560" preserveAspectRatio="none" aria-hidden="true">
-            <defs>
-              <marker id="buddy-new-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="rgba(255,255,255,.94)" /></marker>
-            </defs>
+            <defs><marker id="buddy-new-arrow" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0 0L7 3.5L0 7Z" fill="rgba(255,255,255,.94)" /></marker></defs>
             {routePaths.map((path) => <path d={path} marker-end="url(#buddy-new-arrow)" />)}
           </svg>
-
           {verifiedRegions.filter((region) => region.countryOrRegion !== 'Japan').map((region) => (
-            <span class="buddy-new__marker" style={`--x:${region.x}%;--y:${region.y}%`}>
-              <i aria-hidden="true"></i><b>{region.label}</b>
-            </span>
+            <span class="buddy-new__marker" style={`--x:${region.x}%;--y:${region.y}%`}><i aria-hidden="true"></i><b>{region.label}</b></span>
           ))}
-
-          <div class="buddy-new__hub" aria-label="立命館大学 関西・京都">
-            <span>R</span><strong>立命館大学</strong><small>関西・京都</small>
-          </div>
-
+          <div class="buddy-new__hub" aria-label="立命館大学 関西・京都"><span>R</span><strong>立命館大学</strong><small>関西・京都</small></div>
           <div class="buddy-new__hero-copy">
             <p class="buddy-new__eyebrow">BUDDY &amp; GLOBAL CONNECTIONS</p>
             <h1 id="buddy-title">世界から立命館へ<br />立命館から世界へ</h1>
             <p class="buddy-new__hero-story">交流が留学を生み<br />留学が再交流を生む<br /><strong>そのつながりは 一生の人的財産になる</strong></p>
             <a class="buddy-new__cta" href="#first-step">Buddyに参加する <span>→</span></a>
           </div>
-
           <p class="buddy-new__map-caption">世界の出会いが立命館に集まり　また世界へ広がっていく</p>
         </div>
-
         <aside class="buddy-new__evidence" aria-label="2023–2026年 参加大学・機関の所在地">
-          <div class="buddy-new__evidence-head">
-            <span>2023–2026</span>
-            <strong>{fiveWeekJapaneseProgrammeEvidence.countriesOrRegions}</strong>
-            <b>国・地域</b>
-            <small>大学・機関の所在地で整理</small>
-          </div>
-          <div class="buddy-new__country-chips">
-            {verifiedRegions.map((region) => <span>{region.flag} {region.label}</span>)}
-          </div>
+          <div class="buddy-new__evidence-head"><span>2023–2026</span><strong>{fiveWeekJapaneseProgrammeEvidence.countriesOrRegions}</strong><b>国・地域</b><small>大学・機関の所在地で整理</small></div>
+          <div class="buddy-new__country-chips">{verifiedRegions.map((region) => <span>{region.flag} {region.label}</span>)}</div>
         </aside>
       </div>
     </section>
 
     <section class="buddy-new__story" aria-labelledby="buddy-story-title">
-      <div class="buddy-new__section-head">
-        <p>YOUR STORY CAN START HERE</p>
-        <h2 id="buddy-story-title">広がるつながりのストーリー</h2>
-        <span>ひとつの出会いが、次の世界への入口になる。</span>
-      </div>
+      <div class="buddy-new__section-head"><p>YOUR STORY CAN START HERE</p><h2 id="buddy-story-title">広がるつながりのストーリー</h2><span>ひとつの出会いが、次の世界への入口になる。</span></div>
       <div class="buddy-new__story-track">
         {story.map((step, index) => (
           <article class={`buddy-new__story-card buddy-new__story-card--${step.tone}`}>
             <div class="buddy-new__story-photo"><img src={image(step.image)} alt="" loading="lazy" /></div>
-            <div class="buddy-new__story-body">
-              <p>{step.en}</p>
-              <h3><span>{step.no}</span>{step.ja}</h3>
-              <p>{step.body}</p>
-            </div>
+            <div class="buddy-new__story-body"><p>{step.en}</p><h3><span>{step.no}</span>{step.ja}</h3><p>{step.body}</p></div>
             {index < story.length - 1 && <span class="buddy-new__story-arrow" aria-hidden="true">›</span>}
           </article>
         ))}
@@ -168,16 +141,8 @@ const firstSteps = [
 
     <section id="first-step" class="buddy-new__first-step" aria-labelledby="buddy-first-title">
       <div class="buddy-new__first-grid">
-        <div class="buddy-new__first-copy">
-          <p class="buddy-new__eyebrow">START SMALL</p>
-          <h2 id="buddy-first-title">ちょっとした勇気でいい。<br />学生の今、世界へ一歩。</h2>
-          <p>最初から留学を決めなくていい。まずは同じキャンパスにいる留学生と話してみる。学生時代だからこそできる、小さくて大きな一歩です。</p>
-        </div>
-        <div class="buddy-new__first-cards">
-          {firstSteps.map(([title, body], index) => (
-            <article><span>{String(index + 1).padStart(2, '0')}</span><h3>{title}</h3><p>{body}</p></article>
-          ))}
-        </div>
+        <div class="buddy-new__first-copy"><p class="buddy-new__eyebrow">START SMALL</p><h2 id="buddy-first-title">ちょっとした勇気でいい。<br />学生の今、世界へ一歩。</h2><p>最初から留学を決めなくていい。まずは同じキャンパスにいる留学生と話してみる。学生時代だからこそできる、小さくて大きな一歩です。</p></div>
+        <div class="buddy-new__first-cards">{firstSteps.map(([title, body], index) => <article><span>{String(index + 1).padStart(2, '0')}</span><h3>{title}</h3><p>{body}</p></article>)}</div>
       </div>
     </section>
 
@@ -186,21 +151,13 @@ const firstSteps = [
         <p class="buddy-new__eyebrow">FROM ONE ENCOUNTER TO A LIFELONG CONNECTION</p>
         <h2 id="buddy-life-title">交流が留学を生み<br />留学が再交流を生む</h2>
         <p>海外から学生が来る。立命館の学生も海外へ行く。学生時代の出会いが、世界との距離を変えていく。</p>
-        <div class="buddy-new__life-line">
-          {story.map((step) => <div><span>{step.en}</span><strong>{step.ja}</strong></div>)}
-        </div>
-        <div class="buddy-new__lifelong-message">
-          <span>世界中に また会いたい人がいる</span>
-          <strong>そのつながりは<br />一生の人的財産になる</strong>
-        </div>
+        <div class="buddy-new__life-line">{story.map((step) => <div><span>{step.en}</span><strong>{step.ja}</strong></div>)}</div>
+        <div class="buddy-new__lifelong-message"><span>世界中に また会いたい人がいる</span><strong>そのつながりは<br />一生の人的財産になる</strong></div>
       </div>
     </section>
 
     <section class="buddy-new__join" aria-labelledby="buddy-join-title">
-      <div class="buddy-new__join-panel">
-        <div><p class="buddy-new__eyebrow">JOIN THE NEXT OPPORTUNITY</p><h2 id="buddy-join-title">次の出会いを、ここから。</h2><p>日本語講座、文化体験、キャンパス交流などの機会をStudy Abroad Centerから案内します。</p></div>
-        <div class="buddy-new__join-status"><span>COMING SOON</span><strong>次回募集情報は準備中</strong><p>募集期間・対象・申込方法は確認後に掲載します。</p></div>
-      </div>
+      <div class="buddy-new__join-panel"><div><p class="buddy-new__eyebrow">JOIN THE NEXT OPPORTUNITY</p><h2 id="buddy-join-title">次の出会いを、ここから。</h2><p>日本語講座、文化体験、キャンパス交流などの機会をStudy Abroad Centerから案内します。</p></div><div class="buddy-new__join-status"><span>COMING SOON</span><strong>次回募集情報は準備中</strong><p>募集期間・対象・申込方法は確認後に掲載します。</p></div></div>
     </section>
   </main>
 </StudentRecruitmentLayout>
