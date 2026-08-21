@@ -1,0 +1,67 @@
+---
+import '../styles/english-shell.css';
+
+interface Props {
+  title: string;
+  description: string;
+  japaneseHref: string;
+  robots?: string;
+}
+
+const { title, description, japaneseHref, robots = 'noindex,nofollow' } = Astro.props;
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astro.url;
+const englishHome = `${base}en/`;
+const jaPath = `${base}${japaneseHref.replace(/^\//, '')}`;
+const japaneseUrl = Astro.site ? new URL(jaPath, Astro.site) : jaPath;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="robots" content={robots} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="ja" href={japaneseUrl} />
+    <link rel="alternate" hreflang="en" href={canonical} />
+    <meta name="theme-color" content="#ffffff" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body class="en-detail-site">
+    <a class="en-shell-skip" href="#main-content">Skip to main content</a>
+    <header class="en-shell-header">
+      <div class="en-shell en-shell-header__inner">
+        <a class="en-shell-brand" href={englishHome} aria-label="Ritsumeikan University Short-Term Programs home">
+          <strong>RITSUMEIKAN UNIVERSITY</strong>
+          <span>Short-Term Programs</span>
+        </a>
+        <nav class="en-shell-nav" aria-label="Primary navigation">
+          <a href={`${englishHome}#program-finder`}>Programs</a>
+          <a href={`${englishHome}#why-ritsumeikan`}>Why Ritsumeikan</a>
+          <a href={`${englishHome}#support`}>Support</a>
+          <a class="en-shell-language" href={jaPath} lang="ja" hreflang="ja">日本語</a>
+        </nav>
+      </div>
+    </header>
+    <main id="main-content" tabindex="-1"><slot /></main>
+    <footer class="en-shell-footer">
+      <div class="en-shell en-shell-footer__inner">
+        <div>
+          <strong>Ritsumeikan University Study Abroad Center</strong>
+          <p>Short-Term Inbound Programs</p>
+        </div>
+        <div class="en-shell-footer__legal">
+          <p>Program details are published only after verification for the relevant offering.</p>
+          <small>© Ritsumeikan University. All Rights Reserved.</small>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
