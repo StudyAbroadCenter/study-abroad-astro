@@ -1,0 +1,152 @@
+---
+import type { EnglishProgrammePage } from '../data/english-programme-pages';
+import '../styles/english-programme-detail.css';
+
+interface Props {
+  page: EnglishProgrammePage;
+}
+
+const { page } = Astro.props;
+---
+
+<article class={`epd epd--${page.status}`} data-program-id={page.id} data-program-status={page.status}>
+  <section class="epd-hero" aria-labelledby={`${page.id}-title`}>
+    <img
+      class="epd-hero__image"
+      src={page.heroImage}
+      alt={page.heroAlt}
+      width="1600"
+      height="900"
+      fetchpriority="high"
+      decoding="async"
+    />
+    <div class="epd-hero__shade" aria-hidden="true"></div>
+    <div class="en-shell epd-hero__content">
+      <p class="epd-kicker epd-kicker--light">{page.kicker}</p>
+      <h1 id={`${page.id}-title`}>{page.headline}</h1>
+      <p class="epd-hero__lead">{page.lead}</p>
+      <div class="epd-hero__meta" aria-label="Program identity">
+        <span>{page.code}</span>
+        <span>{page.campus}</span>
+      </div>
+      <div class="epd-hero__actions">
+        <a class="epd-button epd-button--solid" href="#details">See verified details</a>
+        <a class="epd-button epd-button--glass" href="#fit">Check participation information</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="epd-status" aria-label="Publication status">
+    <div class="en-shell epd-status__inner">
+      <span class={`epd-status__badge epd-status__badge--${page.status}`}>{page.statusLabel}</span>
+      <p>{page.statusNote}</p>
+    </div>
+  </section>
+
+  <nav class="epd-rail" aria-label={`${page.code} page navigation`}>
+    <div class="en-shell epd-rail__inner">
+      <a href="#overview">Overview</a>
+      <a href="#learning">Learning</a>
+      <a href="#fit">Participation</a>
+      <a href="#stay">Accommodation</a>
+      <a href="#details">Details</a>
+    </div>
+  </nav>
+
+  <section class="epd-overview" id="overview" aria-labelledby={`${page.id}-overview-title`}>
+    <div class="en-shell epd-overview__grid">
+      <div class="epd-copy">
+        <p class="epd-kicker">Program overview</p>
+        <h2 id={`${page.id}-overview-title`}>{page.overviewTitle}</h2>
+        <p>{page.overviewText}</p>
+      </div>
+      <dl class="epd-highlights" aria-label="Program highlights">
+        {page.highlights.map((highlight) => (
+          <div>
+            <dt>{highlight.value}</dt>
+            <dd>{highlight.label}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <section class="epd-learning" id="learning" aria-labelledby={`${page.id}-learning-title`}>
+    <div class="en-shell">
+      <div class="epd-heading">
+        <p class="epd-kicker">Learning design</p>
+        <h2 id={`${page.id}-learning-title`}>{page.academicTitle}</h2>
+        <p>{page.academicIntro}</p>
+      </div>
+      <ol class="epd-learning__grid">
+        {page.academicItems.map((item, index) => (
+          <li>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <p>{item}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="epd-fit" id="fit" aria-labelledby={`${page.id}-fit-title`}>
+    <div class="en-shell epd-fit__grid">
+      <div class="epd-copy">
+        <p class="epd-kicker">Participation</p>
+        <h2 id={`${page.id}-fit-title`}>{page.eligibilityTitle}</h2>
+      </div>
+      <ul class="epd-checklist">
+        {page.eligibilityItems.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="epd-stay" id="stay" aria-labelledby={`${page.id}-stay-title`}>
+    <div class="en-shell epd-stay__grid">
+      <div>
+        <p class="epd-kicker">Accommodation</p>
+        <h2 id={`${page.id}-stay-title`}>{page.accommodationTitle}</h2>
+      </div>
+      <p class="epd-stay__copy">{page.accommodationText}</p>
+    </div>
+  </section>
+
+  <section class="epd-details" id="details" aria-labelledby={`${page.id}-details-title`}>
+    <div class="en-shell">
+      <div class="epd-heading epd-heading--split">
+        <div>
+          <p class="epd-kicker">Decision-critical information</p>
+          <h2 id={`${page.id}-details-title`}>What is verified, what is still pending.</h2>
+        </div>
+        <p>Each row carries its publication status. Working-plan values are not presented as final recruitment conditions.</p>
+      </div>
+      <dl class="epd-facts">
+        {page.facts.map((fact) => (
+          <div data-fact-key={fact.key}>
+            <dt>{fact.label}</dt>
+            <dd>
+              <span>{fact.value}</span>
+              {fact.status && (
+                <small class={`epd-fact-status epd-fact-status--${fact.status.toLowerCase().replaceAll(' ', '-').replaceAll('verification', 'verification')}`}>
+                  {fact.status}
+                </small>
+              )}
+            </dd>
+          </div>
+        ))}
+      </dl>
+      <p class="epd-verification">{page.verificationNote}</p>
+    </div>
+  </section>
+
+  <section class="epd-next" aria-labelledby={`${page.id}-next-title`}>
+    <div class="en-shell epd-next__inner">
+      <div>
+        <p class="epd-kicker epd-kicker--light">Next step</p>
+        <h2 id={`${page.id}-next-title`}>{page.nextTitle}</h2>
+        <p>{page.nextText}</p>
+      </div>
+      <a class="epd-button epd-button--solid" href="/en/#program-finder">Compare all six programs</a>
+    </div>
+  </section>
+</article>
