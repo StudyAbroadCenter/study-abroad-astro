@@ -71,3 +71,30 @@ const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
     </footer>
   </body>
 </html>
+
+<style is:global>
+  /* English-home readability floor: keep supporting copy legible without adding another CSS layer. */
+  .en-site .recruitment-hero__location,
+  .en-site .recruitment-hero__note,
+  .en-site .recruitment-hero__scroll,
+  .en-site .recruitment-hero__facts dd,
+  .en-site .programme-card__visual > small {
+    font-size: 0.75rem;
+  }
+
+  .en-site .programme-pathways article > p,
+  .en-site .en-partner .section-kicker,
+  .en-site .partner-programme__themes > p {
+    font-size: 0.75rem !important;
+  }
+
+  @media (max-width: 560px) {
+    .en-site .programme-card__visual > small {
+      display: none;
+    }
+
+    .en-site .programme-card__meta span {
+      font-size: 0.75rem;
+    }
+  }
+</style>

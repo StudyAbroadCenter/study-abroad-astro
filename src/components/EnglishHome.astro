@@ -8,6 +8,15 @@ const image = (path: string) => `${base}images/${path.replace(/^\//, '')}`;
 const studentProgrammes = programmes.filter((programme) => programme.audience === 'individual');
 const customProgramme = programmes.find((programme) => programme.audience === 'partner');
 const evidence = shortTermParticipationEvidence;
+
+const detailLabels: Record<string, string> = {
+  rsjp: 'View program overview',
+  'rsjp-express': 'View program overview',
+  rwjp: 'View 2027 program details',
+  'rwjp-express': 'View confirmed 2027 details',
+  rdsp: 'View current program plan',
+  rbmp: 'View 2027 working plan',
+};
 ---
 <section class="recruitment-hero en-hero" aria-labelledby="en-hero-title">
   <img class="recruitment-hero__image" src={image('IMG_1588.JPG')} alt="Students taking part in a short-term program at Ritsumeikan University" width="1600" height="1067" loading="eager" fetchpriority="high" />
@@ -46,7 +55,8 @@ const evidence = shortTermParticipationEvidence;
     <div class="programme-grid en-programme-grid">
       {studentProgrammes.map((programme) => {
         const copy = programme.copy.en;
-        const detailHref = programme.code === 'RWJP' ? `${base}en/programs/rwjp/` : null;
+        const detailHref = `${base}en/programs/${programme.id}/`;
+        const detailLabel = detailLabels[programme.id] ?? 'View program details';
         return (
           <article class={`programme-card programme-card--${programme.goals[0]}`}>
             <div class="programme-card__visual en-programme-card__visual">
@@ -58,7 +68,7 @@ const evidence = shortTermParticipationEvidence;
               <h3>{copy.name}</h3>
               <p>{copy.summary}</p>
               {copy.experienceLine && <p class="programme-card__experience">{copy.experienceLine}</p>}
-              {detailHref && <a class="en-programme-card__link" href={detailHref} data-en-rwjp-link>View 2027 program details <span aria-hidden="true">→</span></a>}
+              <a class="en-programme-card__link" href={detailHref} data-en-programme-link={programme.id}>{detailLabel} <span aria-hidden="true">→</span></a>
             </div>
           </article>
         );

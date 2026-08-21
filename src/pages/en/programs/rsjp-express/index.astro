@@ -1,0 +1,16 @@
+---
+import EnglishPageLayout from '../../../../components/EnglishPageLayout.astro';
+import EnglishProgrammeDetail from '../../../../components/EnglishProgrammeDetail.astro';
+import { getEnglishProgrammePage } from '../../../../data/english-programme-pages';
+
+const page = getEnglishProgrammePage('rsjp-express');
+---
+
+<EnglishPageLayout
+  title={page.title}
+  description={page.description}
+  japaneseHref={page.japaneseHref}
+  robots="noindex,nofollow"
+>
+  <EnglishProgrammeDetail page={page} />
+</EnglishPageLayout>
