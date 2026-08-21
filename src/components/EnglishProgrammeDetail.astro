@@ -156,17 +156,24 @@ const { page } = Astro.props;
   .epd-overview__grid,
   .epd-fit__grid,
   .epd-stay__grid {
-    grid-template-columns: minmax(0, 0.96fr) minmax(0, 1.04fr);
-    gap: clamp(40px, 5vw, 76px);
+    grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.94fr);
+    gap: clamp(36px, 4vw, 64px);
   }
 
-  .epd-copy h2,
-  .epd-fit h2,
-  .epd-stay h2 {
-    max-width: 16ch;
-    font-size: clamp(2.35rem, 3.05vw, 3.25rem);
+  .epd-copy h2 {
+    max-width: 17ch;
+    font-size: clamp(2.3rem, 2.9vw, 3.1rem);
     line-height: 1.06;
     letter-spacing: -0.03em;
+    text-wrap: pretty;
+  }
+
+  .epd-fit h2,
+  .epd-stay h2 {
+    max-width: 20ch;
+    font-size: clamp(2.25rem, 2.7vw, 2.9rem);
+    line-height: 1.07;
+    letter-spacing: -0.028em;
     text-wrap: pretty;
   }
 
