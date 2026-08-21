@@ -1,0 +1,138 @@
+---
+import { rwjp2027Facts, isKnownFact, rwjp2027JourneyLinks, isJourneyLinkReady } from '../data/rwjp/index';
+
+const f = rwjp2027Facts;
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const asset = (name: string) => `${base}images/programs/rwjp/${name}`;
+const realAsset = (name: string) => `${base}images/programs/rwjp/real/${name}`;
+const formatDate = (iso: string) => new Intl.DateTimeFormat('en-CA', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(`${iso}T00:00:00Z`));
+const formatRange = (start: string, end: string) => `${formatDate(start)}–${formatDate(end)}`;
+const formatMoney = (value: number) => `JPY ${value.toLocaleString('en-US')}`;
+
+const programmeDates = isKnownFact(f.programmeDates) ? formatRange(f.programmeDates.value.start, f.programmeDates.value.end) : 'To be confirmed';
+const applicationDates = isKnownFact(f.applicationPeriod) ? formatRange(f.applicationPeriod.value.start, f.applicationPeriod.value.end) : 'To be confirmed';
+const accommodationDates = isKnownFact(f.accommodationDates) ? formatRange(f.accommodationDates.value.checkIn, f.accommodationDates.value.checkOut) : 'To be confirmed';
+const programmeFee = isKnownFact(f.programmeFee) ? formatMoney(f.programmeFee.value) : 'To be confirmed';
+const accommodationFee = isKnownFact(f.accommodationFee) ? formatMoney(f.accommodationFee.value) : 'To be confirmed';
+const refundFee = isKnownFact(f.refundAmount) ? formatMoney(f.refundAmount.value) : 'To be confirmed';
+const japaneseHours = isKnownFact(f.japaneseMinutes) ? f.japaneseMinutes.value / 60 : null;
+const cultureHours = isKnownFact(f.cultureMinutes) ? f.cultureMinutes.value / 60 : null;
+const cultureSessions = isKnownFact(f.cultureSessions) ? f.cultureSessions.value : null;
+const applicationStart = isKnownFact(f.applicationPeriod) ? f.applicationPeriod.value.start : null;
+const applicationEnd = isKnownFact(f.applicationPeriod) ? f.applicationPeriod.value.end : null;
+const applicationLink = rwjp2027JourneyLinks.application;
+const inquiryLink = rwjp2027JourneyLinks.inquiry;
+const applicationReady = isJourneyLinkReady(applicationLink) && Boolean(applicationLink.url);
+---
+<article class="rw27">
+  <section class="rw27-hero" aria-labelledby="rw27-title">
+    <img class="rw27-hero__image" src={asset('rwjp-winter-life.webp')} alt="Students experiencing winter in Kyoto during a short-term program" width="1600" height="900" fetchpriority="high" decoding="async" />
+    <div class="rw27-hero__shade" aria-hidden="true"></div>
+    <div class="rw27-shell rw27-hero__content">
+      <p class="rw27-kicker rw27-kicker--light">2027 · Ritsumeikan Winter Japanese Program</p>
+      <h1 id="rw27-title">Five weeks in Kyoto.<br /><em>Japanese every day.</em></h1>
+      <p class="rw27-hero__lead">A focused winter program for university and graduate students who want serious Japanese study, cultural learning and time to settle into everyday life in Kyoto.</p>
+      <div class="rw27-hero__actions">
+        <a class="rw27-button rw27-button--solid" href="#details">See 2027 dates and fees</a>
+        <a class="rw27-button rw27-button--glass" href="#fit">Check eligibility</a>
+      </div>
+      <dl class="rw27-hero__facts" aria-label="Key 2027 facts">
+        <div><dt>Dates</dt><dd data-fact="programme-dates">{programmeDates}</dd></div>
+        <div><dt>Campus</dt><dd data-fact="campus">Kinugasa Campus, Kyoto</dd></div>
+        <div><dt>Program fee</dt><dd data-fact="programme-fee">{programmeFee}</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <nav class="rw27-rail" aria-label="RWJP page navigation"><div class="rw27-shell rw27-rail__inner">
+    <a href="#study">Study</a><a href="#experience">Experience</a><a href="#fit">Eligibility</a><a href="#stay">Accommodation</a><a href="#details">2027 details</a><a class="rw27-rail__apply" href="#apply">How to apply</a>
+  </div></nav>
+
+  <section class="rw27-intro" id="study" aria-labelledby="rw27-study-title"><div class="rw27-shell rw27-intro__grid">
+    <div class="rw27-intro__copy"><p class="rw27-kicker">Academic core</p><h2 id="rw27-study-title">Long enough to build a rhythm.</h2><p>RWJP is not a sightseeing itinerary with classes added around it. Japanese language study is the academic center of the program, supported by cultural learning and university life.</p></div>
+    <div class="rw27-metrics" aria-label="Confirmed 2027 academic load">
+      <div><strong data-fact="japanese-hours">{japaneseHours ?? 'TBC'}</strong><span>hours</span><p>Japanese language study</p></div>
+      <div><strong data-fact="culture-hours">{cultureHours ?? 'TBC'}</strong><span>hours</span><p>Cultural learning</p></div>
+      <div><strong data-fact="culture-sessions">{cultureSessions ?? 'TBC'}</strong><span>sessions</span><p>Confirmed cultural sessions</p></div>
+    </div>
+  </div></section>
+
+  <section class="rw27-experience" id="experience" aria-labelledby="rw27-experience-title"><div class="rw27-shell">
+    <div class="rw27-heading"><p class="rw27-kicker">What the five weeks can feel like</p><h2 id="rw27-experience-title">Classroom, campus, city.</h2><p>These photographs show past or related short-term program settings. Exact activities and interaction formats vary by offering.</p></div>
+    <div class="rw27-story-grid">
+      <figure><img src={realAsset('rwjp-real-japanese-class.webp')} alt="Students studying Japanese in a Ritsumeikan classroom" loading="lazy" decoding="async" /><figcaption><span>01</span><strong>Study with structure</strong><p>Classes, presentations, quizzes and examinations create an academic rhythm.</p></figcaption></figure>
+      <figure><img src={asset('rwjp-student-interaction.webp')} alt="Students interacting during a Ritsumeikan short-term program" loading="lazy" decoding="async" /><figcaption><span>02</span><strong>Use what you learn</strong><p>Student interaction can add another context for language and university life.</p></figcaption></figure>
+      <figure><img src={asset('rwjp-cultural-experience.webp')} alt="Students taking part in a cultural learning activity" loading="lazy" decoding="async" /><figcaption><span>03</span><strong>Learn through place</strong><p>Cultural sessions connect academic study with the environment around you.</p></figcaption></figure>
+    </div>
+  </div></section>
+
+  <section class="rw27-fit" id="fit" aria-labelledby="rw27-fit-title"><div class="rw27-shell rw27-fit__grid">
+    <div><p class="rw27-kicker">Who can apply</p><h2 id="rw27-fit-title">Beginners are welcome.<br />The expectations are clear.</h2><p>RWJP is designed for students at different stages of Japanese learning. Eligibility and pre-arrival requirements are not softened for marketing.</p></div>
+    <ol class="rw27-rule-list">
+      <li><span>01</span><div><strong>Complete beginners may apply.</strong><p>No prior Japanese study is required.</p></div></li>
+      <li><span>02</span><div><strong>Read hiragana and katakana before the program starts.</strong><p>This is required for every participant.</p></div></li>
+      <li><span>03</span><div><strong>JLPT N1 holders are not eligible.</strong><p>RWJP is not intended for students who already hold N1.</p></div></li>
+      <li><span>04</span><div><strong>Remain enrolled through participation.</strong><p>You must be enrolled at a university or graduate school from application through the program. Part-time students are eligible.</p></div></li>
+    </ol>
+  </div></section>
+
+  <section class="rw27-stay" id="stay" aria-labelledby="rw27-stay-title"><div class="rw27-shell rw27-stay__grid">
+    <div class="rw27-stay__photo"><img src={asset('rwjp-kyoto-winter.webp')} alt="Winter in Kyoto during the RWJP period" loading="lazy" decoding="async" /></div>
+    <div class="rw27-stay__copy"><p class="rw27-kicker">Taishogun Dormitory</p><h2 id="rw27-stay-title">A practical base near campus.</h2><p>Short-program rooms accommodate up to four students. Room assignments are decided by the university. Showers, toilets and kitchen facilities are shared; Wi-Fi is available and meals are not provided.</p>
+      <dl class="rw27-stay__facts"><div><dt>Stay</dt><dd data-fact="accommodation-dates">{accommodationDates}</dd></div><div><dt>Additional fee</dt><dd data-fact="accommodation-fee">{accommodationFee}</dd></div><div><dt>Commute</dt><dd data-fact="accommodation-commute">About 20 minutes on foot to Kinugasa Campus; Kyoto City Bus Route 53 is also available.</dd></div><div><dt>Room</dt><dd data-fact="accommodation-room">Up to four students; room allocation is decided by the university.</dd></div></dl>
+      <p class="rw27-note">Bus fare is not included in the program fee. Bicycle use is prohibited during the program for safety reasons.</p>
+    </div>
+  </div></section>
+
+  <section class="rw27-details" id="details" aria-labelledby="rw27-details-title"><div class="rw27-shell">
+    <div class="rw27-heading rw27-heading--split"><div><p class="rw27-kicker">2027 verified essentials</p><h2 id="rw27-details-title">Decision-critical facts in one place.</h2></div><p>These values are rendered from the current 2027 RWJP fact boundary wherever structured data exists. Missing information is not guessed.</p></div>
+    <dl class="rw27-fact-table">
+      <div data-fact-row="official-name"><dt>Official name</dt><dd>Ritsumeikan Winter Japanese Program</dd></div>
+      <div data-fact-row="programme-dates"><dt>Program dates</dt><dd>{programmeDates}</dd></div>
+      <div data-fact-row="application-period"><dt>Application period</dt><dd>{applicationDates}</dd></div>
+      <div data-fact-row="campus"><dt>Campus</dt><dd>Kinugasa Campus, Kyoto</dd></div>
+      <div data-fact-row="programme-fee"><dt>Program fee</dt><dd>{programmeFee}</dd></div>
+      <div data-fact-row="japanese-study"><dt>Japanese study</dt><dd>{japaneseHours !== null ? `${japaneseHours} hours` : 'To be confirmed'}</dd></div>
+      <div data-fact-row="cultural-learning"><dt>Cultural learning</dt><dd>{cultureHours !== null ? `${cultureHours} hours` : 'To be confirmed'}{cultureSessions !== null ? ` · ${cultureSessions} sessions` : ''}</dd></div>
+      <div data-fact-row="accommodation"><dt>Accommodation</dt><dd>Taishogun Dormitory · {accommodationFee} additional</dd></div>
+      <div data-fact-row="accommodation-dates"><dt>Dormitory stay</dt><dd>{accommodationDates}</dd></div>
+      <div data-fact-row="eligibility"><dt>Eligibility</dt><dd>University or graduate-school students enrolled from application through participation; part-time students are eligible.</dd></div>
+      <div data-fact-row="japanese-requirement"><dt>Japanese requirement</dt><dd>Complete beginners may apply. JLPT N1 holders are not eligible. Hiragana and katakana reading is required before the program begins.</dd></div>
+      <div data-fact-row="refund-fee"><dt>Non-refundable amount after payment</dt><dd>{refundFee}, plus any already-incurred arrangement costs that cannot be recovered.</dd></div>
+    </dl>
+  </div></section>
+
+  <section class="rw27-policy" aria-label="Payment and cancellation"><div class="rw27-shell rw27-policy__grid">
+    <article><p class="rw27-kicker">Payment</p><h2>After admission, by Convera.</h2><p>Payment instructions are sent after admission. The program fee and, if used, the dormitory fee must be paid by the specified deadline. Failure to pay by the deadline results in loss of the place.</p></article>
+    <article><p class="rw27-kicker">Cancellation</p><h2>Know the deduction before you pay.</h2><p>There is no cancellation charge before payment. After payment, {refundFee} plus any non-recoverable costs already incurred for arrangements are deducted; any remaining balance is refunded.</p></article>
+  </div></section>
+
+  <section class="rw27-apply" id="apply" aria-labelledby="rw27-apply-title"><div class="rw27-shell rw27-apply__grid">
+    <div><p class="rw27-kicker rw27-kicker--light">How to apply</p><h2 id="rw27-apply-title">Check your home university first.</h2><p>Some universities coordinate applications or require nomination. If no separate institutional process applies, use the official application form during the confirmed application period.</p><ol><li><span>1</span>Check your home university’s process.</li><li><span>2</span>Submit the official form during {applicationDates}.</li><li><span>3</span>Follow the admission and payment instructions sent by email.</li></ol></div>
+    <aside class="rw27-apply__card">
+      <p>Application period</p><strong data-fact="application-period">{applicationDates}</strong>
+      {applicationReady && applicationLink.url && applicationStart && applicationEnd ? <>
+        <a class="rw27-button rw27-button--solid" href={applicationLink.url} target="_blank" rel="noopener noreferrer" data-rw27-apply data-start={applicationStart} data-end={applicationEnd} hidden>Start the 2027 application</a>
+        <span class="rw27-button rw27-button--disabled" aria-disabled="true" data-rw27-closed data-start={applicationStart} data-end={applicationEnd}>Applications are not currently open</span>
+      </> : <span class="rw27-button rw27-button--disabled" aria-disabled="true">Application form not yet available</span>}
+      {isJourneyLinkReady(inquiryLink) && inquiryLink.url && <p class="rw27-apply__contact">Questions? <a href={inquiryLink.url}>Contact the RWJP team</a>.</p>}
+    </aside>
+  </div></section>
+</article>
+
+<script is:inline>
+  (() => {
+    const apply = document.querySelector('[data-rw27-apply]');
+    const closed = document.querySelector('[data-rw27-closed]');
+    if (!(apply instanceof HTMLElement) || !(closed instanceof HTMLElement)) return;
+    const start = apply.dataset.start || '';
+    const end = apply.dataset.end || '';
+    const parts = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Tokyo', year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(new Date());
+    const get = (type) => parts.find((part) => part.type === type)?.value || '';
+    const today = `${get('year')}-${get('month')}-${get('day')}`;
+    const open = Boolean(start && end && today >= start && today <= end);
+    apply.hidden = !open;
+    closed.hidden = open;
+  })();
+</script>
