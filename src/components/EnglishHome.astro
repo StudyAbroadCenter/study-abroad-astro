@@ -46,6 +46,7 @@ const evidence = shortTermParticipationEvidence;
     <div class="programme-grid en-programme-grid">
       {studentProgrammes.map((programme) => {
         const copy = programme.copy.en;
+        const detailHref = programme.code === 'RWJP' ? `${base}en/programs/rwjp/` : null;
         return (
           <article class={`programme-card programme-card--${programme.goals[0]}`}>
             <div class="programme-card__visual en-programme-card__visual">
@@ -57,6 +58,7 @@ const evidence = shortTermParticipationEvidence;
               <h3>{copy.name}</h3>
               <p>{copy.summary}</p>
               {copy.experienceLine && <p class="programme-card__experience">{copy.experienceLine}</p>}
+              {detailHref && <a class="en-programme-card__link" href={detailHref} data-en-rwjp-link>View 2027 program details <span aria-hidden="true">→</span></a>}
             </div>
           </article>
         );

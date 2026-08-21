@@ -1,0 +1,17 @@
+---
+import EnglishPageLayout from '../../../../components/EnglishPageLayout.astro';
+import EnglishRwjp2027PageV2 from '../../../../components/EnglishRwjp2027PageV2.astro';
+import { rwjp2027Facts, isKnownFact } from '../../../../data/rwjp/index';
+import '../../../../styles/english-rwjp-2027-v2.css';
+
+const f = rwjp2027Facts;
+const title = '2027 RWJP | Ritsumeikan Winter Japanese Program | Ritsumeikan University';
+const dates = isKnownFact(f.programmeDates)
+  ? `${f.programmeDates.value.start} to ${f.programmeDates.value.end}`
+  : 'dates to be confirmed';
+const fee = isKnownFact(f.programmeFee) ? `JPY ${f.programmeFee.value.toLocaleString('en-US')}` : 'fee to be confirmed';
+const description = `2027 Ritsumeikan Winter Japanese Program in Kyoto: ${dates}. Five weeks of Japanese language study and cultural learning at Kinugasa Campus. Program fee ${fee}.`;
+---
+<EnglishPageLayout title={title} description={description} japaneseHref="/programs/rwjp/" robots="noindex,nofollow">
+  <EnglishRwjp2027PageV2 />
+</EnglishPageLayout>

@@ -15,17 +15,20 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 22
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: '3.12'
+
+      - name: Audit CSS architecture
+        run: node scripts/css_architecture_audit.mjs
 
       - name: Install image tooling
         run: python -m pip install --disable-pip-version-check Pillow==11.3.0
@@ -41,7 +44,7 @@ jobs:
 
       - name: Upload built site for visual review
         if: github.event_name == 'pull_request'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: astro-pr-preview
           path: dist
@@ -53,42 +56,61 @@ jobs:
           npm install --no-save playwright@1.55.0
           npx playwright install --with-deps chromium
 
-      - name: Run Japanese visual UAT smoke
+      - name: Run all visual UAT suites
         if: github.event_name == 'pull_request'
         env:
           VISUAL_BASE_URL: http://127.0.0.1:4173
           VISUAL_OUTPUT_DIR: visual-uat
+          EN_VISUAL_OUTPUT_DIR: english-visual-uat
+          EN_RWJP_V2_OUTPUT_DIR: english-rwjp-v2-visual-uat
         run: |
           python -m http.server 4173 --directory dist > /tmp/astro-preview.log 2>&1 &
           SERVER_PID=$!
           trap 'kill $SERVER_PID' EXIT
           sleep 3
+          set +e
           node scripts/visual_uat.mjs
+          JA_STATUS=$?
+          node scripts/english_visual_uat.mjs
+          EN_HOME_STATUS=$?
+          node scripts/english_rwjp_v2_visual_uat.mjs
+          EN_RWJP_STATUS=$?
+          set -e
+          echo "Japanese UAT exit: $JA_STATUS"
+          echo "English home UAT exit: $EN_HOME_STATUS"
+          echo "English RWJP UAT exit: $EN_RWJP_STATUS"
+          if [ "$JA_STATUS" -ne 0 ] || [ "$EN_HOME_STATUS" -ne 0 ] || [ "$EN_RWJP_STATUS" -ne 0 ]; then
+            exit 1
+          fi
 
       - name: Upload Japanese visual UAT
         if: github.event_name == 'pull_request' && always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: japanese-visual-uat
           path: visual-uat
           retention-days: 7
 
-      - name: Run English home visual UAT
-        if: github.event_name == 'pull_request'
-        env:
-          VISUAL_BASE_URL: http://127.0.0.1:4174
-          EN_VISUAL_OUTPUT_DIR: english-visual-uat
-        run: |
-          python -m http.server 4174 --directory dist > /tmp/astro-preview-en.log 2>&1 &
-          SERVER_PID=$!
-          trap 'kill $SERVER_PID' EXIT
-          sleep 3
-          node scripts/english_visual_uat.mjs
-
       - name: Upload English home visual UAT
         if: github.event_name == 'pull_request' && always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: english-home-visual-uat
           path: english-visual-uat
+          retention-days: 7
+
+      - name: Upload English RWJP visual UAT
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: english-rwjp-v2-visual-uat
+          path: english-rwjp-v2-visual-uat
+          retention-days: 7
+
+      - name: Upload CSS architecture audit
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: css-architecture-audit
+          path: audit-output/css-architecture.json
           retention-days: 7
