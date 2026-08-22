@@ -1,4 +1,11 @@
 ---
-import ChineseHomeLayout from '../../components/ChineseHomeLayout.astro';import ChineseHome from '../../components/ChineseHome.astro';import{chineseHomeCopy}from'../../data/chinese-localisation';const c=chineseHomeCopy['zh-TW'];
+import ChineseHomeLayout from '../../components/ChineseHomeLayout.astro';
+import ChineseHome from '../../components/ChineseHome.astro';
+import HomeLanguageSwitcher from '../../components/HomeLanguageSwitcher.astro';
+import { chineseHomeCopy } from '../../data/chinese-localisation';
+const c = chineseHomeCopy['zh-TW'];
 ---
-<ChineseHomeLayout locale="zh-TW" title={c.title} description={c.description} robots="noindex,nofollow"><ChineseHome locale="zh-TW"/></ChineseHomeLayout>
+<ChineseHomeLayout locale="zh-TW" title={c.title} description={c.description} robots="noindex,nofollow">
+  <HomeLanguageSwitcher currentLocale="zh-TW" />
+  <ChineseHome locale="zh-TW" />
+</ChineseHomeLayout>
