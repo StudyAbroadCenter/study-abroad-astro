@@ -71,7 +71,14 @@ const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
     </footer>
 
     <script>
-      const programmeTiming = {
+      type ProgrammeTiming = {
+        applicationLabel: string;
+        application: string;
+        datesLabel: string;
+        dates: string;
+      };
+
+      const programmeTiming: Record<string, ProgrammeTiming> = {
         rwjp: {
           applicationLabel: 'Apply by',
           application: 'Oct 14, 2026',
@@ -113,7 +120,8 @@ const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
       const addTimingRows = () => {
         document.querySelectorAll('[data-en-programme-link]').forEach((link) => {
           const id = link.getAttribute('data-en-programme-link');
-          const timing = id ? programmeTiming[id] : null;
+          if (!id) return;
+          const timing = programmeTiming[id];
           if (!timing) return;
 
           const body = link.closest('.programme-card__body');
@@ -143,7 +151,8 @@ const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
 
         document.querySelectorAll('[data-recruiting-link]').forEach((link) => {
           const id = link.getAttribute('data-recruiting-link');
-          const timing = id ? programmeTiming[id] : null;
+          if (!id) return;
+          const timing = programmeTiming[id];
           if (!timing || link.querySelector('.en-recruitment-banner__timing')) return;
 
           const timingLine = document.createElement('small');
