@@ -1,0 +1,4 @@
+---
+import ChinesePageLayout from '../../../components/ChinesePageLayout.astro';import ChineseProgrammeDetail from '../../../components/ChineseProgrammeDetail.astro';import{getChineseProgrammePages,type ChineseProgrammeId}from'../../../data/chinese-localisation';export function getStaticPaths(){const pages=getChineseProgrammePages('zh-CN');return(Object.keys(pages)as ChineseProgrammeId[]).map(id=>({params:{id},props:{page:pages[id]}}))}const{page}=Astro.props;
+---
+<ChinesePageLayout locale="zh-CN" title={page.title} description={page.description} programmeId={page.id} robots="noindex,nofollow"><ChineseProgrammeDetail locale="zh-CN" page={page}/></ChinesePageLayout>
