@@ -1,0 +1,53 @@
+---
+import '../styles/student-recruitment.css';
+import '../styles/mvp-refinement.css';
+import '../styles/institutional-polish.css';
+import '../styles/typography-final.css';
+import '../styles/global-reach-fiveweek.css';
+import '../styles/homepage-final-fixes.css';
+import '../styles/english-home.css';
+interface Props { title: string; description: string; robots?: string; }
+const { title, description, robots = 'noindex,nofollow' } = Astro.props;
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astro.url;
+const jaUrl = Astro.site ? new URL(base, Astro.site) : base;
+const enPath = `${base}en/`;
+const enUrl = Astro.site ? new URL(enPath, Astro.site) : enPath;
+---
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="description" content={description} /><meta name="robots" content={robots} />
+  <link rel="canonical" href={canonical} /><link rel="alternate" hreflang="ja" href={jaUrl} /><link rel="alternate" hreflang="en" href={enUrl} /><link rel="alternate" hreflang="ko" href={canonical} />
+  <meta name="theme-color" content="#fffdfa" /><meta property="og:type" content="website" /><meta property="og:title" content={title} /><meta property="og:description" content={description} /><meta property="og:url" content={canonical} /><meta name="generator" content={Astro.generator} />
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" /><title>{title}</title>
+</head>
+<body class="en-site ko-site">
+  <a class="en-skip-link" href="#main-content">본문으로 바로가기</a>
+  <header class="en-header"><div class="site-shell en-header__inner">
+    <a class="en-header__brand" href={`${base}ko/`} aria-label="리츠메이칸대학교 단기 프로그램 한국어 홈"><strong>Ritsumeikan University</strong><span>단기 프로그램</span></a>
+    <nav class="en-header__nav" aria-label="주요 내비게이션"><a href="#program-finder">프로그램</a><a href="#why-ritsumeikan">리츠메이칸에서 배우기</a><a href="#global-reach">참가 실적</a><a href="#support">지원</a><a class="en-header__language" href={enPath} lang="en" hreflang="en">English</a><a class="en-header__language" href={base} lang="ja" hreflang="ja">日本語</a></nav>
+  </div></header>
+  <main id="main-content" tabindex="-1"><slot /></main>
+  <footer class="recruitment-footer en-footer"><div class="site-shell recruitment-footer__inner"><div><strong>Ritsumeikan University Study Abroad Center</strong><p>단기 유학생 프로그램</p></div><div class="recruitment-footer__legal"><p>일부 사진은 과거 프로그램의 모습입니다. 수업, 활동과 학생 교류 내용은 프로그램별로 다릅니다.</p><small>© Ritsumeikan University. All Rights Reserved.</small></div></div></footer>
+</body>
+</html>
+
+<style is:global>
+  .ko-site { font-family: Inter, "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; }
+  .ko-site h1, .ko-site h2, .ko-site h3, .ko-site p, .ko-site li, .ko-site small { word-break: keep-all; }
+  .ko-site .partner-programme__themes li { min-height: 2.75rem !important; display: flex !important; align-items: center !important; padding-top: .6rem !important; padding-bottom: .6rem !important; }
+  .ko-site .partner-programme__themes li::before { top: 50% !important; transform: translateY(-50%); }
+  @media (max-width: 560px) {
+    .ko-site .programme-card__visual > small { display: none; }
+    .ko-site .en-programme-grid .programme-card { display: block !important; min-height: 0 !important; overflow: hidden !important; }
+    .ko-site .en-programme-grid .en-programme-card__visual { width: 100% !important; height: auto !important; aspect-ratio: 16 / 9 !important; }
+    .ko-site .en-programme-grid .en-programme-card__visual img { width: 100% !important; height: 100% !important; object-fit: cover !important; }
+    .ko-site .en-programme-grid .programme-card__body { width: 100% !important; min-width: 0 !important; padding: 1rem 1.05rem 1.1rem !important; }
+    .ko-site .en-programme-grid .programme-card__body > p:not(.programme-card__experience) { display: block !important; -webkit-line-clamp: unset !important; overflow: visible !important; font-size: .86rem !important; line-height: 1.55 !important; }
+    .ko-site .en-photo-story__grid { grid-template-columns: 1fr !important; }
+    .ko-site .en-photo-story__grid figure, .ko-site .en-photo-story__grid figure:first-child { grid-column: auto !important; }
+    .ko-site .en-photo-story__grid img { aspect-ratio: 4 / 3 !important; }
+  }
+</style>
