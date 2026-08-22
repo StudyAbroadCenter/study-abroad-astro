@@ -9,9 +9,32 @@ const studentProgrammes = programmes.filter((programme) => programme.audience ==
 const customProgramme = programmes.find((programme) => programme.audience === 'partner');
 const evidence = shortTermParticipationEvidence;
 
+const recruitingIds = ['rwjp', 'rwjp-express', 'rbmp', 'rdsp'];
+const summer2027Ids = ['rsjp', 'rsjp-express'];
+const byId = new Map(studentProgrammes.map((programme) => [programme.id, programme]));
+const recruitingProgrammes = recruitingIds.map((id) => byId.get(id)).filter(Boolean);
+const summer2027Programmes = summer2027Ids.map((id) => byId.get(id)).filter(Boolean);
+
+const programmeGroups = [
+  {
+    key: 'recruiting',
+    kicker: 'Applications & recruitment',
+    title: 'Recruiting now',
+    note: 'Current recruitment is underway for these programs. Open each program page for the latest verified dates, eligibility, fees and application information.',
+    programmes: recruitingProgrammes,
+  },
+  {
+    key: 'summer-2027',
+    kicker: 'Plan ahead',
+    title: '2027 Summer Programs',
+    note: 'RSJP and RSJP Express are summer 2027 programs. Annual application details are published after verification.',
+    programmes: summer2027Programmes,
+  },
+];
+
 const detailLabels: Record<string, string> = {
-  rsjp: 'View program overview',
-  'rsjp-express': 'View program overview',
+  rsjp: 'View 2027 summer program overview',
+  'rsjp-express': 'View 2027 summer program overview',
   rwjp: 'View 2027 program details',
   'rwjp-express': 'View confirmed 2027 details',
   rdsp: 'View current program plan',
@@ -46,33 +69,70 @@ const detailLabels: Record<string, string> = {
       <h2 id="en-finder-title">Find a program that fits how you want to learn</h2>
       <div class="programme-finder__intro-copy"><p>Japanese language and culture · Thematic study</p><small>The campus is set for each program.</small></div>
     </div>
+
+    <aside class="en-recruitment-banner" aria-labelledby="en-recruitment-banner-title" data-recruitment-banner>
+      <div class="en-recruitment-banner__copy">
+        <p class="en-recruitment-banner__eyebrow">Current recruitment</p>
+        <h3 id="en-recruitment-banner-title">Four programs are recruiting now</h3>
+        <p>RWJP, RWJP Express, RBMP and RDSP are the programs to check first.</p>
+      </div>
+      <div class="en-recruitment-banner__links" aria-label="Programs currently recruiting">
+        {recruitingProgrammes.map((programme) => programme && (
+          <a href={`${base}en/programs/${programme.id}/`} data-recruiting-link={programme.id}>
+            <span>Recruiting now</span>
+            <strong>{programme.code}</strong>
+            <small>View program <span aria-hidden="true">→</span></small>
+          </a>
+        ))}
+      </div>
+    </aside>
+
     <div class="programme-pathways programme-pathways--student" aria-label="Two ways to explore individual programs">
       <article><span>01</span><p>Learn Japanese in context</p><h3>Japanese Language & Culture</h3><small>RSJP / RSJP Express / RWJP / RWJP Express</small></article>
       <article><span>02</span><p>Study through a specialist theme</p><h3>Thematic Study</h3><small>RDSP / RBMP</small></article>
     </div>
     <div class="finder-controls en-finder__note"><div><strong>Start with what you want to study.</strong><p>Compare the six individual programs below. Dates, fees, eligibility and application details are published on English program pages only after they are confirmed.</p></div></div>
-    <div class="finder-results-heading"><p>Individual programs <strong>{studentProgrammes.length}</strong></p><small>Annual details are shown only after verification.</small></div>
-    <div class="programme-grid en-programme-grid">
-      {studentProgrammes.map((programme) => {
-        const copy = programme.copy.en;
-        const detailHref = `${base}en/programs/${programme.id}/`;
-        const detailLabel = detailLabels[programme.id] ?? 'View program details';
-        return (
-          <article class={`programme-card programme-card--${programme.goals[0]}`}>
-            <div class="programme-card__visual en-programme-card__visual">
-              <img src={image(programme.image)} alt={copy.imageAlt} width="960" height="640" loading="lazy" decoding="async" />
-              <span>{programme.code}</span><small>{copy.familyLabel}</small>
+    <div class="finder-results-heading"><p>Individual programs <strong>{studentProgrammes.length}</strong></p><small>Current recruitment is shown first. Summer 2027 programs are clearly identified below.</small></div>
+
+    <div class="en-programme-groups">
+      {programmeGroups.map((group) => (
+        <section class={`en-programme-group en-programme-group--${group.key}`} data-program-group={group.key} aria-labelledby={`en-programme-group-${group.key}`}>
+          <div class="en-programme-group__heading">
+            <div>
+              <p>{group.kicker}</p>
+              <h3 id={`en-programme-group-${group.key}`}>{group.title}</h3>
             </div>
-            <div class="programme-card__body">
-              <div class="programme-card__meta programme-card__meta--status"><span>{copy.campusLabel}</span></div>
-              <h3>{copy.name}</h3>
-              <p>{copy.summary}</p>
-              {copy.experienceLine && <p class="programme-card__experience">{copy.experienceLine}</p>}
-              <a class="en-programme-card__link" href={detailHref} data-en-programme-link={programme.id}>{detailLabel} <span aria-hidden="true">→</span></a>
-            </div>
-          </article>
-        );
-      })}
+            <p>{group.note}</p>
+          </div>
+          <div class="programme-grid en-programme-grid">
+            {group.programmes.map((programme) => {
+              if (!programme) return null;
+              const copy = programme.copy.en;
+              const detailHref = `${base}en/programs/${programme.id}/`;
+              const detailLabel = detailLabels[programme.id] ?? 'View program details';
+              const recruiting = group.key === 'recruiting';
+              return (
+                <article class={`programme-card programme-card--${programme.goals[0]} ${recruiting ? 'en-programme-card--recruiting' : 'en-programme-card--summer'}`} data-programme-status={recruiting ? 'recruiting-now' : 'summer-2027'}>
+                  <div class="programme-card__visual en-programme-card__visual">
+                    <img src={image(programme.image)} alt={copy.imageAlt} width="960" height="640" loading="lazy" decoding="async" />
+                    <span>{programme.code}</span><small>{copy.familyLabel}</small>
+                  </div>
+                  <div class="programme-card__body">
+                    <div class={`en-programme-status ${recruiting ? 'en-programme-status--recruiting' : 'en-programme-status--summer'}`}>
+                      <span>{recruiting ? 'Recruiting now' : '2027 Summer Program'}</span>
+                    </div>
+                    <div class="programme-card__meta programme-card__meta--status"><span>{copy.campusLabel}</span></div>
+                    <h3>{copy.name}</h3>
+                    <p>{copy.summary}</p>
+                    {copy.experienceLine && <p class="programme-card__experience">{copy.experienceLine}</p>}
+                    <a class="en-programme-card__link" href={detailHref} data-en-programme-link={programme.id}>{detailLabel} <span aria-hidden="true">→</span></a>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+      ))}
     </div>
 
     {customProgramme && (
@@ -131,3 +191,114 @@ const detailLabels: Record<string, string> = {
   <div><p class="section-kicker">Support</p><h2 id="en-support-title">Clear information before you arrive</h2><p>Application conditions, accommodation, fees and schedules are published only when they are confirmed for the relevant program and year. The Study Abroad Center can provide support in English.</p></div>
   <a class="action-button action-button--dark" href={base}>View this site in Japanese</a>
 </div></section>
+
+<style>
+  .en-recruitment-banner {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.5fr);
+    gap: 1.5rem;
+    align-items: center;
+    margin-top: 2.25rem;
+    padding: clamp(1.5rem, 3vw, 2.2rem);
+    border: 1px solid rgba(139, 36, 50, 0.22);
+    border-radius: 1.2rem;
+    background: linear-gradient(135deg, #7f1f2d 0%, #9b2e3e 55%, #6d1825 100%);
+    color: #fff;
+    box-shadow: 0 18px 44px rgba(74, 23, 31, 0.16);
+  }
+
+  .en-recruitment-banner__eyebrow,
+  .en-programme-group__heading > div > p {
+    margin: 0 0 0.45rem;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+
+  .en-recruitment-banner__eyebrow { color: rgba(255, 255, 255, 0.76); }
+  .en-recruitment-banner h3 { margin: 0; font-size: clamp(1.7rem, 3vw, 2.6rem); line-height: 1.08; color: #fff; }
+  .en-recruitment-banner__copy > p:last-child { margin: 0.8rem 0 0; max-width: 34rem; color: rgba(255, 255, 255, 0.84); line-height: 1.65; }
+
+  .en-recruitment-banner__links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .en-recruitment-banner__links a {
+    display: grid;
+    min-height: 112px;
+    align-content: center;
+    gap: 0.22rem;
+    padding: 1rem 1.1rem;
+    border: 1px solid rgba(255, 255, 255, 0.26);
+    border-radius: 0.9rem;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    text-decoration: none;
+    transition: transform 160ms ease, background-color 160ms ease;
+  }
+
+  .en-recruitment-banner__links a:hover { transform: translateY(-2px); background: rgba(255, 255, 255, 0.16); }
+  .en-recruitment-banner__links a > span { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #f8d9df; }
+  .en-recruitment-banner__links strong { font-size: 1.3rem; line-height: 1.2; }
+  .en-recruitment-banner__links small { font-size: 0.78rem; color: rgba(255, 255, 255, 0.82); }
+
+  .en-programme-groups { display: grid; gap: clamp(2.8rem, 5vw, 4.5rem); margin-top: 2.4rem; }
+  .en-programme-group { min-width: 0; }
+  .en-programme-group__heading {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: 1.5rem;
+    align-items: end;
+    padding: 0 0 1rem;
+    border-bottom: 1px solid #ddd4ce;
+  }
+  .en-programme-group__heading > div > p { color: #8b2432; }
+  .en-programme-group__heading h3 { margin: 0; color: #302b29; font-size: clamp(1.7rem, 2.7vw, 2.45rem); line-height: 1.1; }
+  .en-programme-group__heading > p { margin: 0; color: #665f5a; line-height: 1.65; }
+  .en-programme-group--recruiting .en-programme-group__heading { border-bottom: 3px solid #8b2432; }
+  .en-programme-group--summer-2027 .en-programme-group__heading { border-bottom-color: #b7c6cb; }
+
+  .en-programme-status { margin-bottom: 0.55rem; }
+  .en-programme-status span {
+    display: inline-flex;
+    min-height: 30px;
+    align-items: center;
+    padding: 0.3rem 0.65rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.035em;
+  }
+  .en-programme-status--recruiting span { background: #8b2432; color: #fff; }
+  .en-programme-status--summer span { border: 1px solid #9caaaf; background: #edf3f5; color: #294652; }
+  .en-programme-card--recruiting { border-color: rgba(139, 36, 50, 0.32) !important; box-shadow: 0 16px 38px rgba(94, 31, 42, 0.09) !important; }
+  .en-programme-card--summer { background: #fffefd !important; }
+
+  @media (max-width: 760px) {
+    .en-recruitment-banner,
+    .en-programme-group__heading { grid-template-columns: 1fr; }
+    .en-recruitment-banner__links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (max-width: 560px) {
+    .en-recruitment-banner { margin-top: 1.7rem; padding: 1.2rem; gap: 1rem; }
+    .en-recruitment-banner h3 { font-size: 1.65rem; }
+    .en-recruitment-banner__copy > p:last-child { font-size: 0.88rem; }
+    .en-recruitment-banner__links { grid-template-columns: 1fr 1fr; gap: 0.55rem; }
+    .en-recruitment-banner__links a { min-height: 96px; padding: 0.8rem; }
+    .en-recruitment-banner__links strong { font-size: 1.05rem; }
+    .en-recruitment-banner__links a > span,
+    .en-recruitment-banner__links small { font-size: 0.72rem; }
+    .en-programme-groups { gap: 2.8rem; }
+    .en-programme-group__heading { gap: 0.6rem; }
+    .en-programme-group__heading h3 { font-size: 1.75rem; }
+    .en-programme-group__heading > p { font-size: 0.88rem; }
+  }
+
+  @media (max-width: 350px) {
+    .en-recruitment-banner__links { grid-template-columns: 1fr; }
+  }
+</style>
