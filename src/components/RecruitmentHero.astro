@@ -39,3 +39,19 @@ const image = (path: string) => `${base}images/${path.replace(/^\//, '')}`;
   <p class="recruitment-hero__note">写真は過去のプログラム実施時に撮影したものです　授業・交流・文化体験等の内容はプログラムにより異なります</p>
   <a class="recruitment-hero__scroll" href="#program-finder" aria-label="プログラム検索へ移動">下へ <span>↓</span></a>
 </section>
+
+<style>
+  @media (min-width: 900px) {
+    .recruitment-hero h1 {
+      max-width: 980px;
+      font-size: clamp(5.2rem, 6.5vw, 6.7rem);
+      line-height: 1.02;
+      letter-spacing: -0.035em;
+    }
+
+    .recruitment-hero h1 span {
+      display: block;
+      white-space: nowrap;
+    }
+  }
+</style>
