@@ -1,0 +1,89 @@
+---
+type Locale = 'ja' | 'en' | 'ko' | 'zh-CN' | 'zh-TW';
+
+interface Props {
+  currentLocale: Locale;
+}
+
+const { currentLocale } = Astro.props;
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+
+const locales: Array<{ locale: Locale; label: string; href: string }> = [
+  { locale: 'ja', label: '日本語', href: base },
+  { locale: 'en', label: 'English', href: `${base}en/` },
+  { locale: 'ko', label: '한국어', href: `${base}ko/` },
+  { locale: 'zh-CN', label: '简体中文', href: `${base}zh-cn/` },
+  { locale: 'zh-TW', label: '繁體中文', href: `${base}zh-tw/` },
+];
+
+const ariaLabels: Record<Locale, string> = {
+  ja: '表示言語',
+  en: 'Language options',
+  ko: '언어 선택',
+  'zh-CN': '语言选择',
+  'zh-TW': '語言選擇',
+};
+---
+<nav class="home-language-switcher" aria-label={ariaLabels[currentLocale]}>
+  {locales
+    .filter((item) => item.locale !== currentLocale)
+    .map((item) => (
+      <a href={item.href} lang={item.locale} hreflang={item.locale}>{item.label}</a>
+    ))}
+</nav>
+
+<style>
+  .home-language-switcher {
+    position: absolute;
+    z-index: 4;
+    top: 82px;
+    right: 16px;
+    left: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 6px;
+    pointer-events: none;
+  }
+
+  .home-language-switcher a {
+    display: inline-flex;
+    min-height: 34px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.56);
+    border-radius: 999px;
+    padding: 6px 11px;
+    background: rgba(5, 18, 34, 0.42);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 750;
+    line-height: 1;
+    white-space: nowrap;
+    backdrop-filter: blur(10px);
+    pointer-events: auto;
+    transition: background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
+  }
+
+  .home-language-switcher a:hover {
+    border-color: rgba(255, 255, 255, 0.9);
+    background: rgba(5, 18, 34, 0.68);
+    transform: translateY(-1px);
+  }
+
+  @media (min-width: 560px) {
+    .home-language-switcher {
+      right: 24px;
+      left: 24px;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .home-language-switcher {
+      top: 94px;
+      right: max(34px, calc((100vw - 1200px) / 2));
+      left: auto;
+    }
+  }
+</style>
