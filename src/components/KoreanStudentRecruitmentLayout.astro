@@ -37,10 +37,25 @@ const enUrl = Astro.site ? new URL(enPath, Astro.site) : enPath;
 <style is:global>
   .ko-site { font-family: Inter, "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; }
   .ko-site h1, .ko-site h2, .ko-site h3, .ko-site p, .ko-site li, .ko-site small { word-break: keep-all; }
+
+  /* Korean readability floor: supporting UI copy should remain comfortably legible. */
+  .ko-site .recruitment-hero__location,
+  .ko-site .recruitment-hero__note,
+  .ko-site .recruitment-hero__scroll,
+  .ko-site .recruitment-hero__facts dd,
+  .ko-site .programme-card__visual > small,
+  .ko-site .programme-pathways article > p,
+  .ko-site .en-partner .section-kicker,
+  .ko-site .partner-programme__themes > p {
+    font-size: 0.75rem !important;
+    line-height: 1.45;
+  }
+
   .ko-site .partner-programme__themes li { min-height: 2.75rem !important; display: flex !important; align-items: center !important; padding-top: .6rem !important; padding-bottom: .6rem !important; }
   .ko-site .partner-programme__themes li::before { top: 50% !important; transform: translateY(-50%); }
   @media (max-width: 560px) {
     .ko-site .programme-card__visual > small { display: none; }
+    .ko-site .recruitment-hero__facts dd { font-size: .75rem !important; }
     .ko-site .en-programme-grid .programme-card { display: block !important; min-height: 0 !important; overflow: hidden !important; }
     .ko-site .en-programme-grid .en-programme-card__visual { width: 100% !important; height: auto !important; aspect-ratio: 16 / 9 !important; }
     .ko-site .en-programme-grid .en-programme-card__visual img { width: 100% !important; height: 100% !important; object-fit: cover !important; }
