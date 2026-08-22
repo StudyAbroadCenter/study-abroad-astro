@@ -5,7 +5,7 @@ import '../styles/english-programme-detail.css';
 interface Props { page: KoreanProgrammePage; }
 const { page } = Astro.props;
 const overviewTitle = page.id === 'rsjp'
-  ? '교토와 캠퍼스에서 일본어를 경험하는 여름 프로그램'
+  ? '교토에서 일본어를 경험하는 여름 프로그램'
   : page.overviewTitle;
 ---
 <article class={`epd epd--${page.status}`} data-program-id={page.id} data-program-status={page.status}>
