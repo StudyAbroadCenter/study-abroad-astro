@@ -200,6 +200,7 @@ for (const viewport of viewports) {
         clippedText,
         detailLinks,
         japaneseLeak: [...document.querySelectorAll('main *')]
+          .filter((element) => !element.closest('.home-language-switcher'))
           .map((element) => element.textContent || '')
           .find((text) => /[ぁ-んァ-ン一-龯]/.test(text)) || '',
       };
