@@ -1,10 +1,12 @@
 ---
 import EnglishStudentRecruitmentLayout from '../../components/EnglishStudentRecruitmentLayout.astro';
 import EnglishHome from '../../components/EnglishHome.astro';
+import HomeLanguageSwitcher from '../../components/HomeLanguageSwitcher.astro';
 ---
 <EnglishStudentRecruitmentLayout
   title="Short-Term Programs | Ritsumeikan University"
   description="Explore short-term study at Ritsumeikan University through Japanese language and culture, thematic programs and custom programs for partner institutions."
 >
+  <HomeLanguageSwitcher currentLocale="en" />
   <EnglishHome />
 </EnglishStudentRecruitmentLayout>

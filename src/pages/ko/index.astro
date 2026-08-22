@@ -1,9 +1,11 @@
 ---
 import KoreanStudentRecruitmentLayout from '../../components/KoreanStudentRecruitmentLayout.astro';
 import KoreanHome from '../../components/KoreanHome.astro';
+import HomeLanguageSwitcher from '../../components/HomeLanguageSwitcher.astro';
 const title = '리츠메이칸대학교 단기 프로그램 | 일본 단기 유학';
 const description = '리츠메이칸대학교의 일본어·일본문화 및 테마형 단기 프로그램을 한국어로 확인하세요. 현재 모집 프로그램과 2027년 여름 프로그램을 안내합니다.';
 ---
 <KoreanStudentRecruitmentLayout title={title} description={description} robots="noindex,nofollow">
+  <HomeLanguageSwitcher currentLocale="ko" />
   <KoreanHome />
 </KoreanStudentRecruitmentLayout>
