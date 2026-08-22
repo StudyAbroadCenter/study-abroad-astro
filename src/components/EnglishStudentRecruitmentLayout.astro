@@ -110,5 +110,68 @@ const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
     .en-site .programme-card__meta span {
       font-size: 0.75rem;
     }
+
+    /* Mobile-first programme cards: stack image and copy so no text is squeezed or clipped. */
+    .en-site .en-programme-grid .programme-card {
+      display: block !important;
+      min-height: 0 !important;
+      overflow: hidden !important;
+    }
+
+    .en-site .en-programme-grid .en-programme-card__visual {
+      width: 100% !important;
+      height: auto !important;
+      min-height: 0 !important;
+      aspect-ratio: 16 / 9 !important;
+    }
+
+    .en-site .en-programme-grid .en-programme-card__visual img {
+      width: 100% !important;
+      height: 100% !important;
+      min-height: 0 !important;
+      object-fit: cover !important;
+    }
+
+    .en-site .en-programme-grid .programme-card__body {
+      width: 100% !important;
+      min-width: 0 !important;
+      padding: 1rem 1.05rem 1.1rem !important;
+    }
+
+    .en-site .en-programme-grid .programme-card__body h3,
+    .en-site .en-programme-grid .programme-card__body > p,
+    .en-site .en-programme-grid .en-programme-card__link {
+      max-width: 100% !important;
+      overflow: visible !important;
+      text-overflow: clip !important;
+    }
+
+    .en-site .en-programme-grid .programme-card__body > p:not(.programme-card__experience) {
+      display: block !important;
+      -webkit-line-clamp: unset !important;
+      overflow: visible !important;
+      font-size: 0.86rem !important;
+      line-height: 1.5 !important;
+    }
+
+    .en-site .en-programme-grid .en-programme-card__link {
+      width: auto !important;
+      font-size: 0.8rem !important;
+      white-space: normal !important;
+    }
+
+    /* Photo story should read as full-width editorial photography on phones. */
+    .en-site .en-photo-story__grid {
+      grid-template-columns: 1fr !important;
+    }
+
+    .en-site .en-photo-story__grid figure,
+    .en-site .en-photo-story__grid figure:first-child {
+      grid-column: auto !important;
+    }
+
+    .en-site .en-photo-story__grid img {
+      aspect-ratio: 4 / 3 !important;
+    }
   }
 </style>
