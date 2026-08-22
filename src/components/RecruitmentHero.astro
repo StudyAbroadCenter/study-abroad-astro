@@ -15,6 +15,13 @@ const image = (path: string) => `${base}images/${path.replace(/^\//, '')}`;
   />
   <div class="recruitment-hero__overlay" aria-hidden="true"></div>
 
+  <nav class="recruitment-hero__languages" aria-label="表示言語">
+    <a href={`${base}en/`} lang="en" hreflang="en">English</a>
+    <a href={`${base}ko/`} lang="ko" hreflang="ko">한국어</a>
+    <a href={`${base}zh-cn/`} lang="zh-CN" hreflang="zh-CN">简体中文</a>
+    <a href={`${base}zh-tw/`} lang="zh-TW" hreflang="zh-TW">繁體中文</a>
+  </nav>
+
   <div class="site-shell recruitment-hero__content">
     <p class="recruitment-hero__location">立命館で学ぶ 日本で暮らす</p>
     <h1 id="hero-title">
@@ -41,7 +48,58 @@ const image = (path: string) => `${base}images/${path.replace(/^\//, '')}`;
 </section>
 
 <style>
+  .recruitment-hero__languages {
+    position: absolute;
+    z-index: 4;
+    top: 82px;
+    right: 16px;
+    left: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 6px;
+    pointer-events: none;
+  }
+
+  .recruitment-hero__languages a {
+    display: inline-flex;
+    min-height: 34px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.56);
+    border-radius: 999px;
+    padding: 6px 11px;
+    background: rgba(5, 18, 34, 0.42);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 750;
+    line-height: 1;
+    white-space: nowrap;
+    backdrop-filter: blur(10px);
+    pointer-events: auto;
+    transition: background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
+  }
+
+  .recruitment-hero__languages a:hover {
+    border-color: rgba(255, 255, 255, 0.9);
+    background: rgba(5, 18, 34, 0.68);
+    transform: translateY(-1px);
+  }
+
+  @media (min-width: 560px) {
+    .recruitment-hero__languages {
+      right: 24px;
+      left: 24px;
+    }
+  }
+
   @media (min-width: 900px) {
+    .recruitment-hero__languages {
+      top: 94px;
+      right: max(34px, calc((100vw - 1200px) / 2));
+      left: auto;
+    }
+
     .recruitment-hero h1 {
       max-width: 980px;
       font-size: clamp(5.2rem, 6.5vw, 6.7rem);
