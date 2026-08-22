@@ -133,6 +133,42 @@ for (const viewport of viewports) {
         }))
         .filter((item) => item.text && item.size < 11.5);
 
+      const epdHeadings = [...document.querySelectorAll('.epd h2')].filter((element) => {
+        const rect = element.getBoundingClientRect();
+        const style = getComputedStyle(element);
+        return rect.width > 0 && rect.height > 0 && style.display !== 'none' && style.visibility !== 'hidden';
+      });
+      const headingLineLimit = innerWidth <= 640 ? 5 : 4;
+      const headingLineIssues = epdHeadings
+        .map((element) => {
+          const rect = element.getBoundingClientRect();
+          const style = getComputedStyle(element);
+          const lineHeight = Number.parseFloat(style.lineHeight);
+          const lines = Number.isFinite(lineHeight) && lineHeight > 0
+            ? Math.max(1, Math.round(rect.height / lineHeight))
+            : 1;
+          return {
+            text: (element.textContent || '').trim().slice(0, 90),
+            lines,
+            limit: headingLineLimit,
+            size: Number.parseFloat(style.fontSize),
+          };
+        })
+        .filter((item) => item.lines > item.limit);
+
+      const clippedText = [...document.querySelectorAll('.epd-highlights dt')]
+        .filter((element) => {
+          const rect = element.getBoundingClientRect();
+          const style = getComputedStyle(element);
+          return rect.width > 0 && rect.height > 0 && style.display !== 'none' && style.visibility !== 'hidden';
+        })
+        .map((element) => ({
+          text: (element.textContent || '').trim().slice(0, 70),
+          clientWidth: element.clientWidth,
+          scrollWidth: element.scrollWidth,
+        }))
+        .filter((item) => item.scrollWidth > item.clientWidth + 2);
+
       const detailLinks = routeId === 'home'
         ? [...document.querySelectorAll('[data-en-programme-link]')].map((element) => {
             const rect = element.getBoundingClientRect();
@@ -160,6 +196,8 @@ for (const viewport of viewports) {
           .map((img) => img.getAttribute('src') || ''),
         smallTargets,
         tooSmall,
+        headingLineIssues,
+        clippedText,
         detailLinks,
         japaneseLeak: [...document.querySelectorAll('main *')]
           .map((element) => element.textContent || '')
@@ -191,6 +229,8 @@ for (const viewport of viewports) {
       metrics.unloadedImages.length > 0 ||
       metrics.smallTargets.length > 0 ||
       metrics.tooSmall.length > 0 ||
+      metrics.headingLineIssues.length > 0 ||
+      metrics.clippedText.length > 0 ||
       Boolean(metrics.japaneseLeak) ||
       homeLinksMissing.length > 0 ||
       homeSmallLinks.length > 0 ||
@@ -232,7 +272,7 @@ const summary = {
 await fs.writeFile(path.join(outputDir, 'report.json'), JSON.stringify(summary, null, 2));
 
 for (const item of results) {
-  console.log(`${item.passed ? 'PASS' : 'FAIL'} ${item.viewport} ${item.route} status=${item.httpStatus} overflow=${item.overflowX}px missing=${item.requiredMissing.length} forbidden=${item.forbiddenPresent.length} smallTargets=${item.smallTargets.length} tiny=${item.tooSmall.length} images=${item.unloadedImages.length}`);
+  console.log(`${item.passed ? 'PASS' : 'FAIL'} ${item.viewport} ${item.route} status=${item.httpStatus} overflow=${item.overflowX}px missing=${item.requiredMissing.length} forbidden=${item.forbiddenPresent.length} smallTargets=${item.smallTargets.length} tiny=${item.tooSmall.length} headingLines=${item.headingLineIssues.length} clipped=${item.clippedText.length} images=${item.unloadedImages.length}`);
 }
 
 if (failed) {
