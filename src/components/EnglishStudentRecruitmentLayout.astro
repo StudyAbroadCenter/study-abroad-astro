@@ -69,6 +69,92 @@ const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
         </div>
       </div>
     </footer>
+
+    <script>
+      const programmeTiming = {
+        rwjp: {
+          applicationLabel: 'Apply by',
+          application: 'Oct 14, 2026',
+          datesLabel: 'Program dates',
+          dates: 'Jan 12–Feb 11, 2027',
+        },
+        'rwjp-express': {
+          applicationLabel: 'Recruitment',
+          application: 'Open now',
+          datesLabel: 'Program dates',
+          dates: 'Feb 16–26, 2027',
+        },
+        rbmp: {
+          applicationLabel: 'Recruitment',
+          application: 'Open now',
+          datesLabel: 'Planned dates',
+          dates: 'Feb 12–24, 2027',
+        },
+        rdsp: {
+          applicationLabel: 'Recruitment',
+          application: 'Open now',
+          datesLabel: 'Program dates',
+          dates: 'To be confirmed',
+        },
+        rsjp: {
+          applicationLabel: 'Application',
+          application: 'To be announced',
+          datesLabel: 'Program period',
+          dates: 'Summer 2027',
+        },
+        'rsjp-express': {
+          applicationLabel: 'Application',
+          application: 'To be announced',
+          datesLabel: 'Program period',
+          dates: 'Summer 2027',
+        },
+      };
+
+      const addTimingRows = () => {
+        document.querySelectorAll('[data-en-programme-link]').forEach((link) => {
+          const id = link.getAttribute('data-en-programme-link');
+          const timing = id ? programmeTiming[id] : null;
+          if (!timing) return;
+
+          const body = link.closest('.programme-card__body');
+          if (!body || body.querySelector('.en-programme-timing')) return;
+
+          const dl = document.createElement('dl');
+          dl.className = 'en-programme-timing';
+          dl.setAttribute('data-programme-timing', id);
+
+          const applicationRow = document.createElement('div');
+          const applicationDt = document.createElement('dt');
+          const applicationDd = document.createElement('dd');
+          applicationDt.textContent = timing.applicationLabel;
+          applicationDd.textContent = timing.application;
+          applicationRow.append(applicationDt, applicationDd);
+
+          const datesRow = document.createElement('div');
+          const datesDt = document.createElement('dt');
+          const datesDd = document.createElement('dd');
+          datesDt.textContent = timing.datesLabel;
+          datesDd.textContent = timing.dates;
+          datesRow.append(datesDt, datesDd);
+
+          dl.append(applicationRow, datesRow);
+          body.insertBefore(dl, link);
+        });
+
+        document.querySelectorAll('[data-recruiting-link]').forEach((link) => {
+          const id = link.getAttribute('data-recruiting-link');
+          const timing = id ? programmeTiming[id] : null;
+          if (!timing || link.querySelector('.en-recruitment-banner__timing')) return;
+
+          const timingLine = document.createElement('small');
+          timingLine.className = 'en-recruitment-banner__timing';
+          timingLine.textContent = `${timing.datesLabel}: ${timing.dates}`;
+          link.insertBefore(timingLine, link.lastElementChild);
+        });
+      };
+
+      addTimingRows();
+    </script>
   </body>
 </html>
 
@@ -86,6 +172,62 @@ const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
   .en-site .en-partner .section-kicker,
   .en-site .partner-programme__themes > p {
     font-size: 0.75rem !important;
+  }
+
+  /* Programme application/date strip on English-home cards. */
+  .en-site .en-programme-timing {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.55rem;
+    margin: 1rem 0 0.2rem;
+  }
+
+  .en-site .en-programme-timing > div {
+    min-width: 0;
+    padding: 0.72rem 0.78rem;
+    border: 1px solid #ddd7d2;
+    border-radius: 0.75rem;
+    background: #f7f5f2;
+  }
+
+  .en-site .en-programme-timing dt {
+    margin: 0;
+    font-size: 0.75rem;
+    line-height: 1.2;
+    font-weight: 700;
+    color: #6f6863;
+  }
+
+  .en-site .en-programme-timing dd {
+    margin: 0.28rem 0 0;
+    font-size: 0.88rem;
+    line-height: 1.35;
+    font-weight: 800;
+    color: #292624;
+  }
+
+  .en-site [data-programme-timing='rwjp'] > div:first-child,
+  .en-site [data-programme-timing='rwjp-express'] > div:first-child,
+  .en-site [data-programme-timing='rbmp'] > div:first-child,
+  .en-site [data-programme-timing='rdsp'] > div:first-child {
+    border-color: rgba(139, 36, 50, 0.28);
+    background: #fff3f4;
+  }
+
+  .en-site [data-programme-timing='rwjp'] > div:first-child dd,
+  .en-site [data-programme-timing='rwjp-express'] > div:first-child dd,
+  .en-site [data-programme-timing='rbmp'] > div:first-child dd,
+  .en-site [data-programme-timing='rdsp'] > div:first-child dd {
+    color: #8b2432;
+  }
+
+  .en-site .en-recruitment-banner__timing {
+    display: block;
+    margin-top: 0.16rem;
+    font-size: 0.75rem !important;
+    line-height: 1.35;
+    font-weight: 650;
+    color: rgba(255, 255, 255, 0.94) !important;
   }
 
   /* Double the Custom Program theme-chip height and keep content vertically centered. */
@@ -158,6 +300,25 @@ const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
       width: auto !important;
       font-size: 0.8rem !important;
       white-space: normal !important;
+    }
+
+    .en-site .en-programme-timing {
+      grid-template-columns: 1fr;
+      gap: 0.45rem;
+      margin-top: 0.85rem;
+    }
+
+    .en-site .en-programme-timing > div {
+      display: grid;
+      grid-template-columns: minmax(92px, 0.45fr) minmax(0, 1fr);
+      gap: 0.65rem;
+      align-items: center;
+      padding: 0.68rem 0.75rem;
+    }
+
+    .en-site .en-programme-timing dd {
+      margin-top: 0;
+      text-align: right;
     }
 
     /* Photo story should read as full-width editorial photography on phones. */
