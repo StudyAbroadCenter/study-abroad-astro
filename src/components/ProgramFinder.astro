@@ -14,6 +14,12 @@ const partnerDescriptor = partnerProgramme ? getProgrammePublicDescriptor(partne
 const customThemes = ['日本語・日本文化','ビジネス','マーケティング','アントレプレナーシップ','データサイエンス','AI','映像・メディア','ポップカルチャー'];
 const recruitingIds = ['rwjp', 'rwjp-express', 'rbmp', 'rdsp'];
 const summer2027Ids = ['rsjp', 'rsjp-express'];
+const recruitingProgrammes = [
+  { id: 'rwjp', name: 'RWJP', description: '日本語・日本文化を学ぶ5週間' },
+  { id: 'rwjp-express', name: 'RWJP Express', description: '日本語・日本文化を学ぶ2週間' },
+  { id: 'rbmp', name: 'RBMP', description: '日本式経営を学ぶ専門講義' },
+  { id: 'rdsp', name: 'RDSP', description: 'データサイエンスを学ぶ専門プログラム' },
+];
 const cardStatus = (id: string) => recruitingIds.includes(id)
   ? { label: '現在募集中', tone: 'open' }
   : summer2027Ids.includes(id)
@@ -32,10 +38,15 @@ const cardStatus = (id: string) => recruitingIds.includes(id)
       </div>
     </div>
     <nav class="ja-recruitment-spotlight__links" aria-label="現在募集中のプログラム">
-      <a href={programmeHref('rwjp')}>RWJP <span aria-hidden="true">→</span></a>
-      <a href={programmeHref('rwjp-express')}>RWJP Express <span aria-hidden="true">→</span></a>
-      <a href={programmeHref('rbmp')}>RBMP <span aria-hidden="true">→</span></a>
-      <a href={programmeHref('rdsp')}>RDSP <span aria-hidden="true">→</span></a>
+      {recruitingProgrammes.map((programme) => (
+        <a href={programmeHref(programme.id)}>
+          <span class="ja-recruitment-spotlight__programme-copy">
+            <strong>{programme.name}</strong>
+            <small>{programme.description}</small>
+          </span>
+          <span class="ja-recruitment-spotlight__arrow" aria-hidden="true">→</span>
+        </a>
+      ))}
     </nav>
     <p class="ja-recruitment-spotlight__note">締切・日程・費用などは各プログラム詳細ページの確認済み情報をご覧ください。</p>
   </aside>
@@ -50,9 +61,9 @@ const cardStatus = (id: string) => recruitingIds.includes(id)
 </div></section>
 <style>
 .finder-controls__fact-note{display:flex;flex-direction:column;justify-content:center}.finder-controls__fact-note p{margin:0;max-width:32rem;font-size:.94rem;line-height:1.75;color:#635953}.programme-card__meta--status{display:flex;justify-content:flex-start}.programme-card__meta--status span{max-width:100%;white-space:normal;line-height:1.45}.programme-pathways--student{grid-template-columns:repeat(2,minmax(0,1fr))}.programme-card__visual>small{top:14px;bottom:auto;left:14px;border-radius:5px;padding:6px 10px;background:#9b2335;color:#fff;font-size:.62rem;font-weight:850;letter-spacing:.02em;backdrop-filter:none}.programme-card--specialist .programme-card__visual>small{background:#9b2335}
-.ja-recruitment-spotlight{margin-top:34px;padding:24px;border-radius:16px;background:linear-gradient(135deg,#741827,#a51f32);color:#fff;box-shadow:0 18px 44px rgba(115,23,37,.18)}.ja-recruitment-spotlight__copy{display:flex;align-items:flex-start;gap:16px}.ja-recruitment-spotlight__copy>span{flex:none;border:1px solid rgba(255,255,255,.48);border-radius:999px;padding:6px 10px;font-size:.72rem;font-weight:800;letter-spacing:.08em}.ja-recruitment-spotlight h3{margin:0;font-size:clamp(1.35rem,2.6vw,2rem);line-height:1.3}.ja-recruitment-spotlight__copy p{margin:.25rem 0 0;color:rgba(255,255,255,.88);font-weight:650}.ja-recruitment-spotlight__links{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:18px}.ja-recruitment-spotlight__links a{display:flex;min-height:48px;align-items:center;justify-content:space-between;gap:10px;border:1px solid rgba(255,255,255,.3);border-radius:10px;padding:10px 12px;background:rgba(255,255,255,.08);font-size:.82rem;font-weight:750}.ja-recruitment-spotlight__links a:hover{background:rgba(255,255,255,.15)}.ja-recruitment-spotlight__note{margin:12px 0 0;color:rgba(255,255,255,.78);font-size:.75rem;line-height:1.6}.programme-card__recruitment{position:absolute;z-index:2;top:14px;right:14px;border-radius:999px;padding:6px 10px;background:#fff;color:#8f1f30;font-size:.72rem;font-weight:850;line-height:1.2;box-shadow:0 4px 14px rgba(0,0,0,.12)}.programme-card__recruitment--summer{background:#fff5df;color:#765312}.programme-card--recruitment-open{box-shadow:inset 0 4px 0 #a51f32,0 8px 28px rgba(27,29,33,.045)}.programme-card--recruitment-summer{box-shadow:inset 0 4px 0 #c79a43,0 8px 28px rgba(27,29,33,.045)}
+.ja-recruitment-spotlight{margin-top:34px;padding:24px;border-radius:16px;background:linear-gradient(135deg,#741827,#a51f32);color:#fff;box-shadow:0 18px 44px rgba(115,23,37,.18)}.ja-recruitment-spotlight__copy{display:flex;align-items:flex-start;gap:16px}.ja-recruitment-spotlight__copy>span{flex:none;border:1px solid rgba(255,255,255,.48);border-radius:999px;padding:6px 10px;font-size:.72rem;font-weight:800;letter-spacing:.08em}.ja-recruitment-spotlight h3{margin:0;font-size:clamp(1.35rem,2.6vw,2rem);line-height:1.3}.ja-recruitment-spotlight__copy p{margin:.25rem 0 0;color:rgba(255,255,255,.88);font-weight:650}.ja-recruitment-spotlight__links{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:18px}.ja-recruitment-spotlight__links a{display:flex;min-height:72px;align-items:center;justify-content:space-between;gap:12px;border:1px solid rgba(255,255,255,.3);border-radius:10px;padding:11px 12px;background:rgba(255,255,255,.08)}.ja-recruitment-spotlight__links a:hover{background:rgba(255,255,255,.15)}.ja-recruitment-spotlight__programme-copy{display:grid;gap:4px;min-width:0}.ja-recruitment-spotlight__programme-copy strong{font-size:.84rem;font-weight:800;line-height:1.25}.ja-recruitment-spotlight__programme-copy small{color:rgba(255,255,255,.82);font-size:.72rem;line-height:1.45;font-weight:500}.ja-recruitment-spotlight__arrow{flex:none;font-size:.92rem}.ja-recruitment-spotlight__note{margin:12px 0 0;color:rgba(255,255,255,.78);font-size:.75rem;line-height:1.6}.programme-card__recruitment{position:absolute;z-index:2;top:14px;right:14px;border-radius:999px;padding:6px 10px;background:#fff;color:#8f1f30;font-size:.72rem;font-weight:850;line-height:1.2;box-shadow:0 4px 14px rgba(0,0,0,.12)}.programme-card__recruitment--summer{background:#fff5df;color:#765312}.programme-card--recruitment-open{box-shadow:inset 0 4px 0 #a51f32,0 8px 28px rgba(27,29,33,.045)}.programme-card--recruitment-summer{box-shadow:inset 0 4px 0 #c79a43,0 8px 28px rgba(27,29,33,.045)}
 @media(max-width:760px){.finder-controls__fact-note p{font-size:.9rem}.programme-pathways--student{grid-template-columns:1fr}.ja-recruitment-spotlight{padding:18px}.ja-recruitment-spotlight__copy{display:grid;gap:10px}.ja-recruitment-spotlight__copy>span{width:max-content}.ja-recruitment-spotlight__links{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:480px){.ja-recruitment-spotlight__links{grid-template-columns:1fr}.programme-card__recruitment{top:12px;right:12px;font-size:.68rem}}
+@media(max-width:480px){.ja-recruitment-spotlight__links{grid-template-columns:1fr}.ja-recruitment-spotlight__links a{min-height:68px}.ja-recruitment-spotlight__programme-copy small{font-size:.75rem}.programme-card__recruitment{top:12px;right:12px;font-size:.68rem}}
 </style>
 <script>
   const form=document.querySelector('[data-finder-form]'); const cards=Array.from(document.querySelectorAll('[data-programme-card]')); const count=document.querySelector('[data-result-count]'); const empty=document.querySelector('[data-finder-empty]');
