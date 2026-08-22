@@ -56,12 +56,13 @@ jobs:
           npm install --no-save playwright@1.55.0
           npx playwright install --with-deps chromium
 
-      - name: Run Japanese and English site-wide UAT
+      - name: Run Japanese, English and Korean site-wide UAT
         if: github.event_name == 'pull_request'
         env:
           VISUAL_BASE_URL: http://127.0.0.1:4173
           VISUAL_OUTPUT_DIR: visual-uat
           EN_SITE_OUTPUT_DIR: english-site-visual-uat
+          KO_SITE_OUTPUT_DIR: korean-site-visual-uat
         run: |
           python -m http.server 4173 --directory dist > /tmp/astro-preview.log 2>&1 &
           SERVER_PID=$!
@@ -72,10 +73,13 @@ jobs:
           JA_STATUS=$?
           node scripts/english_site_visual_uat.mjs
           EN_SITE_STATUS=$?
+          node scripts/korean_site_visual_uat.mjs
+          KO_SITE_STATUS=$?
           set -e
           echo "Japanese UAT exit: $JA_STATUS"
           echo "English site-wide UAT exit: $EN_SITE_STATUS"
-          if [ "$JA_STATUS" -ne 0 ] || [ "$EN_SITE_STATUS" -ne 0 ]; then
+          echo "Korean site-wide UAT exit: $KO_SITE_STATUS"
+          if [ "$JA_STATUS" -ne 0 ] || [ "$EN_SITE_STATUS" -ne 0 ] || [ "$KO_SITE_STATUS" -ne 0 ]; then
             exit 1
           fi
 
@@ -93,6 +97,14 @@ jobs:
         with:
           name: english-site-visual-uat
           path: english-site-visual-uat
+          retention-days: 7
+
+      - name: Upload Korean site-wide visual UAT
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: korean-site-visual-uat
+          path: korean-site-visual-uat
           retention-days: 7
 
       - name: Upload CSS architecture audit

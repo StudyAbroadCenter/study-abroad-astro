@@ -5,16 +5,19 @@ interface Props {
   title: string;
   description: string;
   japaneseHref: string;
+  koreanHref: string;
   robots?: string;
 }
 
-const { title, description, japaneseHref, robots = 'noindex,nofollow' } = Astro.props;
+const { title, description, japaneseHref, koreanHref, robots = 'noindex,nofollow' } = Astro.props;
 const rawBase = import.meta.env.BASE_URL;
 const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astro.url;
 const englishHome = `${base}en/`;
 const jaPath = `${base}${japaneseHref.replace(/^\//, '')}`;
+const koPath = `${base}${koreanHref.replace(/^\//, '')}`;
 const japaneseUrl = Astro.site ? new URL(jaPath, Astro.site) : jaPath;
+const koreanUrl = Astro.site ? new URL(koPath, Astro.site) : koPath;
 ---
 <!doctype html>
 <html lang="en">
@@ -26,6 +29,7 @@ const japaneseUrl = Astro.site ? new URL(jaPath, Astro.site) : jaPath;
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang="ja" href={japaneseUrl} />
     <link rel="alternate" hreflang="en" href={canonical} />
+    <link rel="alternate" hreflang="ko" href={koreanUrl} />
     <meta name="theme-color" content="#ffffff" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
@@ -46,6 +50,7 @@ const japaneseUrl = Astro.site ? new URL(jaPath, Astro.site) : jaPath;
           <a href={`${englishHome}#program-finder`}>Programs</a>
           <a href={`${englishHome}#why-ritsumeikan`}>Why Ritsumeikan</a>
           <a href={`${englishHome}#support`}>Support</a>
+          <a class="en-shell-language" href={koPath} lang="ko" hreflang="ko">한국어</a>
           <a class="en-shell-language" href={jaPath} lang="ja" hreflang="ja">日本語</a>
         </nav>
       </div>

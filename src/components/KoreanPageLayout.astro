@@ -1,0 +1,38 @@
+---
+import '../styles/english-shell.css';
+interface Props { title: string; description: string; japaneseHref: string; englishHref: string; robots?: string; }
+const { title, description, japaneseHref, englishHref, robots = 'noindex,nofollow' } = Astro.props;
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astro.url;
+const koHome = `${base}ko/`;
+const jaPath = `${base}${japaneseHref.replace(/^\//, '')}`;
+const enPath = `${base}${englishHref.replace(/^\//, '')}`;
+const jaUrl = Astro.site ? new URL(jaPath, Astro.site) : jaPath;
+const enUrl = Astro.site ? new URL(enPath, Astro.site) : enPath;
+---
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content={description} /><meta name="robots" content={robots} />
+  <link rel="canonical" href={canonical} /><link rel="alternate" hreflang="ja" href={jaUrl} /><link rel="alternate" hreflang="en" href={enUrl} /><link rel="alternate" hreflang="ko" href={canonical} />
+  <meta name="theme-color" content="#ffffff" /><meta property="og:type" content="website" /><meta property="og:title" content={title} /><meta property="og:description" content={description} /><meta property="og:url" content={canonical} />
+  <meta name="generator" content={Astro.generator} /><title>{title}</title>
+</head>
+<body class="en-detail-site ko-detail-site">
+  <a class="en-shell-skip" href="#main-content">본문으로 바로가기</a>
+  <header class="en-shell-header"><div class="en-shell en-shell-header__inner">
+    <a class="en-shell-brand" href={koHome} aria-label="리츠메이칸대학교 단기 프로그램 한국어 홈"><strong>RITSUMEIKAN UNIVERSITY</strong><span>단기 프로그램</span></a>
+    <nav class="en-shell-nav" aria-label="주요 내비게이션"><a href={`${koHome}#program-finder`}>프로그램</a><a href={`${koHome}#why-ritsumeikan`}>리츠메이칸에서 배우기</a><a href={`${koHome}#support`}>지원</a><a class="en-shell-language" href={enPath} lang="en" hreflang="en">English</a><a class="en-shell-language" href={jaPath} lang="ja" hreflang="ja">日本語</a></nav>
+  </div></header>
+  <main id="main-content" tabindex="-1"><slot /></main>
+  <footer class="en-shell-footer"><div class="en-shell en-shell-footer__inner"><div><strong>Ritsumeikan University Study Abroad Center</strong><p>단기 유학생 프로그램</p></div><div class="en-shell-footer__legal"><p>프로그램별 세부 정보는 해당 연도의 공식 확인이 완료된 항목만 공개합니다.</p><small>© Ritsumeikan University. All Rights Reserved.</small></div></div></footer>
+</body>
+</html>
+
+<style is:global>
+  .ko-detail-site { font-family: Inter, "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; }
+  .ko-detail-site h1, .ko-detail-site h2, .ko-detail-site h3, .ko-detail-site p, .ko-detail-site li, .ko-detail-site dd { word-break: keep-all; }
+  @media (max-width: 760px) { .ko-detail-site .en-shell-nav { gap: 0.75rem; } }
+</style>

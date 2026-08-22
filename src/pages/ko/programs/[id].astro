@@ -1,0 +1,15 @@
+---
+import KoreanPageLayout from '../../../components/KoreanPageLayout.astro';
+import KoreanProgrammeDetail from '../../../components/KoreanProgrammeDetail.astro';
+import { koreanProgrammePages, type KoreanProgrammePage } from '../../../data/korean-programme-pages';
+
+export function getStaticPaths() {
+  return Object.keys(koreanProgrammePages).map((id) => ({ params: { id }, props: { page: koreanProgrammePages[id as KoreanProgrammePage['id']] } }));
+}
+
+interface Props { page: KoreanProgrammePage; }
+const { page } = Astro.props;
+---
+<KoreanPageLayout title={page.title} description={page.description} japaneseHref={page.japaneseHref} englishHref={page.englishHref} robots="noindex,nofollow">
+  <KoreanProgrammeDetail page={page} />
+</KoreanPageLayout>
