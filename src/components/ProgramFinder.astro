@@ -13,7 +13,6 @@ const studentProgrammes = programmes.filter((programme) => programme.audience ==
 const partnerProgramme = programmes.find((programme) => programme.audience === 'partner');
 const partnerDescriptor = partnerProgramme ? getProgrammePublicDescriptor(partnerProgramme.id) : undefined;
 const customThemes = ['日本語・日本文化','ビジネス','マーケティング','アントレプレナーシップ','データサイエンス','AI','映像・メディア','ポップカルチャー'];
-const priorityIds = ['rwjp', 'rwjp-express', 'rbmp', 'rdsp'] as const;
 const priorityProgrammes = [
   { id: 'rwjp', name: 'RWJP', description: '日本語・日本文化を学ぶ5週間' },
   { id: 'rwjp-express', name: 'RWJP Express', description: '日本語・日本文化を学ぶ短期集中型' },
@@ -58,5 +57,5 @@ const statusFor = (id: string) => {
   const cards=Array.from(document.querySelectorAll('[data-programme-card]'));
   const count=document.querySelector('[data-result-count]');
   const empty=document.querySelector('[data-finder-empty]');
-  if(form){form.addEventListener('change',()=>{const selected=form.querySelector('input[name="goal"]:checked')?.value??'all';let visible=0;cards.forEach(card=>{const goals=(card.getAttribute('data-goals')??'').split(' ');const show=selected==='all'||goals.includes(selected);card.toggleAttribute('hidden',!show);if(show)visible+=1});if(count)count.textContent=String(visible);if(empty)empty.toggleAttribute('hidden',visible!==0)})}
+  if(form){form.addEventListener('change',()=>{const selected=(form.querySelector('input[name="goal"]:checked') as HTMLInputElement | null)?.value??'all';let visible=0;cards.forEach(card=>{const goals=(card.getAttribute('data-goals')??'').split(' ');const show=selected==='all'||goals.includes(selected);card.toggleAttribute('hidden',!show);if(show)visible+=1});if(count)count.textContent=String(visible);if(empty)empty.toggleAttribute('hidden',visible!==0)})}
 </script>
