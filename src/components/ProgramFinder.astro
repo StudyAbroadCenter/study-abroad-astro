@@ -1,6 +1,7 @@
 ---
 import { programmes } from '../data/programs';
 import { getProgrammePublicDescriptor } from '../data/programme-public-descriptors';
+import { getCurrentOfferingFact } from '../data/current-offerings';
 import '../styles/programme-architecture.css';
 
 const rawBase = import.meta.env.BASE_URL;
@@ -12,61 +13,50 @@ const studentProgrammes = programmes.filter((programme) => programme.audience ==
 const partnerProgramme = programmes.find((programme) => programme.audience === 'partner');
 const partnerDescriptor = partnerProgramme ? getProgrammePublicDescriptor(partnerProgramme.id) : undefined;
 const customThemes = ['日本語・日本文化','ビジネス','マーケティング','アントレプレナーシップ','データサイエンス','AI','映像・メディア','ポップカルチャー'];
-const recruitingIds = ['rwjp', 'rwjp-express', 'rbmp', 'rdsp'];
-const summer2027Ids = ['rsjp', 'rsjp-express'];
-const recruitingProgrammes = [
+const priorityIds = ['rwjp', 'rwjp-express', 'rbmp', 'rdsp'] as const;
+const priorityProgrammes = [
   { id: 'rwjp', name: 'RWJP', description: '日本語・日本文化を学ぶ5週間' },
-  { id: 'rwjp-express', name: 'RWJP Express', description: '日本語・日本文化を学ぶ2週間' },
-  { id: 'rbmp', name: 'RBMP', description: '日本式経営を学ぶ専門講義' },
-  { id: 'rdsp', name: 'RDSP', description: 'データサイエンスを学ぶ専門プログラム' },
+  { id: 'rwjp-express', name: 'RWJP Express', description: '日本語・日本文化を学ぶ短期集中型' },
+  { id: 'rbmp', name: 'RBMP', description: 'ビジネス・マネジメントを学ぶ専門プログラム' },
+  { id: 'rdsp', name: 'RDSP', description: 'AI・データサイエンス等を学ぶ専門プログラム' },
 ];
-const cardStatus = (id: string) => recruitingIds.includes(id)
-  ? { label: '現在募集中', tone: 'open' }
-  : summer2027Ids.includes(id)
-    ? { label: '2027年夏プログラム', tone: 'summer' }
-    : undefined;
+const offering = Object.fromEntries(studentProgrammes.map((programme) => [programme.id, getCurrentOfferingFact(programme.id)])) as Record<string, NonNullable<ReturnType<typeof getCurrentOfferingFact>>>;
+const statusFor = (id: string) => {
+  const fact = offering[id];
+  if (!fact) return { label: '詳細確認中', tone: 'pending' };
+  if (fact.status === 'Confirmed') return { label: `${fact.academicYear}年情報`, tone: 'confirmed' };
+  if (fact.status === 'Working plan') return { label: `${fact.academicYear}年計画`, tone: 'working' };
+  return { label: `${fact.academicYear}年確認中`, tone: 'pending' };
+};
 ---
 <section class="programme-finder programme-finder--reframed" id="program-finder" aria-labelledby="finder-title"><div class="site-shell">
   <div class="section-intro programme-finder__intro"><p class="section-kicker">個人で参加する方へ</p><h2 id="finder-title">自分に合うプログラムを探す</h2><div class="programme-finder__intro-copy"><p>日本語・日本文化　専門テーマ</p><small>キャンパスはプログラムごとに決まっています</small></div></div>
 
   <aside class="ja-recruitment-spotlight" aria-labelledby="ja-recruitment-title">
-    <div class="ja-recruitment-spotlight__copy">
-      <span>現在募集中</span>
-      <div>
-        <h3 id="ja-recruitment-title">いま申し込めるプログラム</h3>
-        <p>RWJP・RWJP Express・RBMP・RDSP</p>
-      </div>
-    </div>
-    <nav class="ja-recruitment-spotlight__links" aria-label="現在募集中のプログラム">
-      {recruitingProgrammes.map((programme) => (
-        <a href={programmeHref(programme.id)}>
-          <span class="ja-recruitment-spotlight__programme-copy">
-            <strong>{programme.name}</strong>
-            <small>{programme.description}</small>
-          </span>
-          <span class="ja-recruitment-spotlight__arrow" aria-hidden="true">→</span>
-        </a>
-      ))}
-    </nav>
-    <p class="ja-recruitment-spotlight__note">締切・日程・費用などは各プログラム詳細ページの確認済み情報をご覧ください。</p>
+    <div class="ja-recruitment-spotlight__copy"><span>ANNUAL INFO</span><div><h3 id="ja-recruitment-title">年度情報を確認できるプログラム</h3><p>RWJP・RWJP Express・RBMP・RDSP</p></div></div>
+    <nav class="ja-recruitment-spotlight__links" aria-label="年度情報を確認できるプログラム">{priorityProgrammes.map((programme) => { const status = statusFor(programme.id); return <a href={programmeHref(programme.id)}><span class="ja-recruitment-spotlight__programme-copy"><strong>{programme.name}</strong><small>{programme.description}</small></span><span class={`ja-recruitment-spotlight__status ja-recruitment-spotlight__status--${status.tone}`}>{status.label}</span><span class="ja-recruitment-spotlight__arrow" aria-hidden="true">→</span></a>; })}</nav>
+    <p class="ja-recruitment-spotlight__note">「年度情報掲載」は「現在申込可能」という意味ではありません。募集期間・日程・費用などは各詳細ページの確認済み情報をご覧ください。</p>
   </aside>
 
   <div class="programme-pathways programme-pathways--student" aria-label="個人参加型プログラムの2つの入口"><article><span>01</span><p>日本語と文化を学ぶ</p><h3>日本語・日本文化</h3><small>RSJP / RSJP Express / RWJP / RWJP Express</small></article><article><span>02</span><p>専門分野から学ぶ</p><h3>専門テーマ</h3><small>RDSP / RBMP</small></article></div>
   <form class="finder-controls" data-finder-form><fieldset><legend><span>01</span>学びたい内容</legend><div class="finder-options finder-options--programme-family"><label><input type="radio" name="goal" value="all" checked /><span>すべて見る</span></label><label><input type="radio" name="goal" value="japanese-culture" /><span>日本語・日本文化</span></label><label><input type="radio" name="goal" value="specialist" /><span>専門テーマ</span></label></div></fieldset><fieldset class="finder-controls__fact-note"><legend><span>02</span>参加条件を確認</legend><p>日程・期間・キャンパス・費用・応募条件は、確認済みの情報だけを各詳細ページで案内します。</p></fieldset></form>
-  <div class="finder-results-heading"><p>個人参加型 <strong data-result-count>{studentProgrammes.length}</strong>件</p><small>現在募集中の4プログラムを優先して確認できます。RSJP・RSJP Expressは2027年夏プログラムです。</small></div>
-  <div class="programme-grid" data-programme-grid>{studentProgrammes.map((programme) => { const copy = programme.copy.ja; const publicCopy = getProgrammePublicDescriptor(programme.id); const name = publicCopy?.name ?? programme.code; const summary = publicCopy?.summary ?? '詳細情報を確認中です。'; const status = publicCopy?.status ?? '詳細確認中'; const experienceLine = publicCopy?.experienceLine; const sources = responsiveCardImages(programme.image); const href = programmeHref(programme.id); const recruitmentStatus = cardStatus(programme.id); return (<article class={`programme-card programme-card--${programme.goals[0]} ${recruitmentStatus ? `programme-card--recruitment-${recruitmentStatus.tone}` : ''}`} data-programme-card data-goals={programme.goals.join(' ')}><a class="programme-card__visual" href={href} aria-label={`${name}の詳細ページを見る`}><img src={sources.src} srcset={sources.srcset} sizes="(min-width: 900px) 380px, (min-width: 560px) 50vw, 100vw" alt={`${name}のプログラムイメージ`} width="960" height="640" loading="lazy" decoding="async" /><small>{copy.familyLabel}</small>{recruitmentStatus && <strong class={`programme-card__recruitment programme-card__recruitment--${recruitmentStatus.tone}`}>{recruitmentStatus.label}</strong>}</a><div class="programme-card__body"><div class="programme-card__meta programme-card__meta--status"><span>{status}</span></div><h3><a href={href}>{name}</a></h3><p>{summary}</p>{experienceLine && <p class="programme-card__experience">{experienceLine}</p>}<a class="programme-card__link" href={href} aria-label={`${name}の詳細ページを見る`}>詳細を見る <span>→</span></a></div></article>); })}</div>
+  <div class="finder-results-heading"><p>個人参加型 <strong data-result-count>{studentProgrammes.length}</strong>件</p><small>年度・日程・費用等は同じ構造化データから表示します。未確認の項目は推測しません。</small></div>
+  <div class="programme-grid" data-programme-grid>{studentProgrammes.map((programme) => { const copy = programme.copy.ja; const publicCopy = getProgrammePublicDescriptor(programme.id); const name = publicCopy?.name ?? programme.code; const summary = publicCopy?.summary ?? '詳細情報を確認中です。'; const publicStatus = publicCopy?.status ?? '詳細確認中'; const experienceLine = publicCopy?.experienceLine; const sources = responsiveCardImages(programme.image); const href = programmeHref(programme.id); const annualStatus = statusFor(programme.id); return <article class={`programme-card programme-card--${programme.goals[0]} programme-card--annual-${annualStatus.tone}`} data-programme-card data-goals={programme.goals.join(' ')}><a class="programme-card__visual" href={href} aria-label={`${name}の詳細ページを見る`}><img src={sources.src} srcset={sources.srcset} sizes="(min-width: 900px) 380px, (min-width: 560px) 50vw, 100vw" alt={`${name}のプログラムイメージ`} width="960" height="640" loading="lazy" decoding="async"/><small>{copy.familyLabel}</small><strong class={`programme-card__recruitment programme-card__recruitment--${annualStatus.tone}`}>{annualStatus.label}</strong></a><div class="programme-card__body"><div class="programme-card__meta programme-card__meta--status"><span>{publicStatus}</span></div><h3><a href={href}>{name}</a></h3><p>{summary}</p>{experienceLine && <p class="programme-card__experience">{experienceLine}</p>}<a class="programme-card__link" href={href}>詳細を見る <span>→</span></a></div></article>; })}</div>
   <p class="finder-empty" data-finder-empty hidden>この内容では見つかりませんでした。「すべて見る」に戻してみてください。</p>
 
-  {partnerProgramme && (<aside class="partner-programme partner-programme--expanded" id="custom-programs" aria-labelledby="partner-programme-title"><div class="partner-programme__label">海外大学・教育機関のご担当者へ</div><div class="partner-programme__content"><div class="partner-programme__lead"><p class="section-kicker">団体受入を一緒に設計する</p><h2 id="partner-programme-title">大学ごとに 日本での学びをつくる</h2><p>{partnerDescriptor?.summary ?? '海外大学・教育機関からの学生団体を対象に、教育目的から設計するプログラムです。'}</p><p class="partner-programme__promise">個人申込型ではありません。期間、テーマ、参加人数、授業、交流、文化体験、フィールドワーク、実施キャンパス等を、大学・機関の担当者と相談しながら組み立てます。</p></div><div class="partner-programme__process" aria-label="カスタムプログラムの設計プロセス"><div><span>01</span><strong>目的を聞く</strong><p>教育目的、テーマ、期間、人数、学生レベルを確認します。</p></div><div><span>02</span><strong>学びを設計する</strong><p>授業、学生交流、文化体験、訪問等を一つの流れにします。</p></div><div><span>03</span><strong>実施場所を考える</strong><p>教育内容や施設、宿泊、日程に合わせてキャンパスを検討します。</p></div><div><span>04</span><strong>実施を整える</strong><p>大学単位の短期受入プログラムとして実施準備を進めます。</p></div></div><div class="partner-programme__themes"><p>相談できるテーマ例</p><ul aria-label="カスタムプログラムのテーマ例">{customThemes.map((theme) => <li>{theme}</li>)}</ul></div><div class="partner-programme__footer"><p>衣笠・大阪いばらき・びわこ・くさつの3キャンパスを候補に、内容に応じて実施場所を相談します。参加学生がキャンパスを自由に選択する仕組みではありません。留学サポートデスクでは英語での対応が可能です。</p><a class="action-button action-button--dark" href={programmeHref(partnerProgramme.id)}>大学・機関向けページを見る</a></div></div></aside>)}
+  {partnerProgramme && <aside class="partner-programme partner-programme--expanded" id="custom-programs" aria-labelledby="partner-programme-title"><div class="partner-programme__label">海外大学・教育機関のご担当者へ</div><div class="partner-programme__content"><div class="partner-programme__lead"><p class="section-kicker">団体受入を一緒に設計する</p><h2 id="partner-programme-title">大学ごとに 日本での学びをつくる</h2><p>{partnerDescriptor?.summary ?? '海外大学・教育機関からの学生団体を対象に、教育目的から設計するプログラムです。'}</p><p class="partner-programme__promise">個人申込型ではありません。期間、テーマ、参加人数、授業、交流、文化体験、フィールドワーク、実施キャンパス等を、大学・機関の担当者と相談しながら組み立てます。</p></div><div class="partner-programme__process"><div><span>01</span><strong>目的を聞く</strong><p>教育目的、テーマ、期間、人数、学生レベルを確認します。</p></div><div><span>02</span><strong>学びを設計する</strong><p>授業、学生交流、文化体験、訪問等を一つの流れにします。</p></div><div><span>03</span><strong>実施場所を考える</strong><p>教育内容や施設、宿泊、日程に合わせてキャンパスを検討します。</p></div><div><span>04</span><strong>実施を整える</strong><p>大学単位の短期受入プログラムとして実施準備を進めます。</p></div></div><div class="partner-programme__themes"><p>相談できるテーマ例</p><ul>{customThemes.map((theme) => <li>{theme}</li>)}</ul></div><div class="partner-programme__footer"><p>衣笠・大阪いばらき・びわこ・くさつの3キャンパスを候補に、内容に応じて実施場所を相談します。参加学生がキャンパスを自由に選択する仕組みではありません。留学サポートデスクでは英語での対応が可能です。</p><a class="action-button action-button--dark" href={programmeHref(partnerProgramme.id)}>大学・機関向けページを見る</a></div></div></aside>}
 </div></section>
+
 <style>
-.finder-controls__fact-note{display:flex;flex-direction:column;justify-content:center}.finder-controls__fact-note p{margin:0;max-width:32rem;font-size:.94rem;line-height:1.75;color:#635953}.programme-card__meta--status{display:flex;justify-content:flex-start}.programme-card__meta--status span{max-width:100%;white-space:normal;line-height:1.45}.programme-pathways--student{grid-template-columns:repeat(2,minmax(0,1fr))}.programme-card__visual>small{top:14px;bottom:auto;left:14px;border-radius:5px;padding:6px 10px;background:#9b2335;color:#fff;font-size:.62rem;font-weight:850;letter-spacing:.02em;backdrop-filter:none}.programme-card--specialist .programme-card__visual>small{background:#9b2335}
-.ja-recruitment-spotlight{margin-top:34px;padding:24px;border-radius:16px;background:linear-gradient(135deg,#741827,#a51f32);color:#fff;box-shadow:0 18px 44px rgba(115,23,37,.18)}.ja-recruitment-spotlight__copy{display:flex;align-items:flex-start;gap:16px}.ja-recruitment-spotlight__copy>span{flex:none;border:1px solid rgba(255,255,255,.48);border-radius:999px;padding:6px 10px;font-size:.72rem;font-weight:800;letter-spacing:.08em}.ja-recruitment-spotlight h3{margin:0;font-size:clamp(1.35rem,2.6vw,2rem);line-height:1.3}.ja-recruitment-spotlight__copy p{margin:.25rem 0 0;color:rgba(255,255,255,.88);font-weight:650}.ja-recruitment-spotlight__links{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:18px}.ja-recruitment-spotlight__links a{display:flex;min-height:72px;align-items:center;justify-content:space-between;gap:12px;border:1px solid rgba(255,255,255,.3);border-radius:10px;padding:11px 12px;background:rgba(255,255,255,.08)}.ja-recruitment-spotlight__links a:hover{background:rgba(255,255,255,.15)}.ja-recruitment-spotlight__programme-copy{display:grid;gap:4px;min-width:0}.ja-recruitment-spotlight__programme-copy strong{font-size:.84rem;font-weight:800;line-height:1.25}.ja-recruitment-spotlight__programme-copy small{color:rgba(255,255,255,.82);font-size:.72rem;line-height:1.45;font-weight:500}.ja-recruitment-spotlight__arrow{flex:none;font-size:.92rem}.ja-recruitment-spotlight__note{margin:12px 0 0;color:rgba(255,255,255,.78);font-size:.75rem;line-height:1.6}.programme-card__recruitment{position:absolute;z-index:2;top:14px;right:14px;border-radius:999px;padding:6px 10px;background:#fff;color:#8f1f30;font-size:.72rem;font-weight:850;line-height:1.2;box-shadow:0 4px 14px rgba(0,0,0,.12)}.programme-card__recruitment--summer{background:#fff5df;color:#765312}.programme-card--recruitment-open{box-shadow:inset 0 4px 0 #a51f32,0 8px 28px rgba(27,29,33,.045)}.programme-card--recruitment-summer{box-shadow:inset 0 4px 0 #c79a43,0 8px 28px rgba(27,29,33,.045)}
+.finder-controls__fact-note{display:flex;flex-direction:column;justify-content:center}.finder-controls__fact-note p{margin:0;max-width:32rem;font-size:.94rem;line-height:1.75;color:#635953}.programme-card__meta--status{display:flex;justify-content:flex-start}.programme-card__meta--status span{max-width:100%;white-space:normal;line-height:1.45}.programme-pathways--student{grid-template-columns:repeat(2,minmax(0,1fr))}.programme-card__visual>small{top:14px;bottom:auto;left:14px;border-radius:5px;padding:6px 10px;background:#9b2335;color:#fff;font-size:.62rem;font-weight:850;letter-spacing:.02em;backdrop-filter:none}
+.ja-recruitment-spotlight{margin-top:34px;padding:24px;border-radius:16px;background:linear-gradient(135deg,#741827,#a51f32);color:#fff;box-shadow:0 18px 44px rgba(115,23,37,.18)}.ja-recruitment-spotlight__copy{display:flex;align-items:flex-start;gap:16px}.ja-recruitment-spotlight__copy>span{flex:none;border:1px solid rgba(255,255,255,.48);border-radius:999px;padding:6px 10px;font-size:.72rem;font-weight:800;letter-spacing:.08em}.ja-recruitment-spotlight h3{margin:0;font-size:clamp(1.35rem,2.6vw,2rem);line-height:1.3}.ja-recruitment-spotlight__copy p{margin:.25rem 0 0;color:rgba(255,255,255,.88);font-weight:650}.ja-recruitment-spotlight__links{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:18px}.ja-recruitment-spotlight__links a{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:8px;min-height:78px;border:1px solid rgba(255,255,255,.3);border-radius:10px;padding:11px 12px;background:rgba(255,255,255,.08)}.ja-recruitment-spotlight__programme-copy{display:grid;gap:4px;min-width:0}.ja-recruitment-spotlight__programme-copy strong{font-size:.84rem;font-weight:800}.ja-recruitment-spotlight__programme-copy small{color:rgba(255,255,255,.82);font-size:.7rem;line-height:1.4}.ja-recruitment-spotlight__status{border-radius:999px;padding:4px 7px;background:#fff;color:#741827;font-size:.62rem;font-weight:850;white-space:nowrap}.ja-recruitment-spotlight__status--working{background:#fff5df;color:#765312}.ja-recruitment-spotlight__status--pending{background:#eef1f2;color:#48545a}.ja-recruitment-spotlight__note{margin:12px 0 0;color:rgba(255,255,255,.82);font-size:.75rem;line-height:1.6}.programme-card__recruitment{position:absolute;z-index:2;top:14px;right:14px;border-radius:999px;padding:6px 10px;background:#fff;color:#8f1f30;font-size:.72rem;font-weight:850;line-height:1.2;box-shadow:0 4px 14px rgba(0,0,0,.12)}.programme-card__recruitment--working{background:#fff5df;color:#765312}.programme-card__recruitment--pending{background:#eef1f2;color:#48545a}
 @media(max-width:760px){.finder-controls__fact-note p{font-size:.9rem}.programme-pathways--student{grid-template-columns:1fr}.ja-recruitment-spotlight{padding:18px}.ja-recruitment-spotlight__copy{display:grid;gap:10px}.ja-recruitment-spotlight__copy>span{width:max-content}.ja-recruitment-spotlight__links{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:480px){.ja-recruitment-spotlight__links{grid-template-columns:1fr}.ja-recruitment-spotlight__links a{min-height:68px}.ja-recruitment-spotlight__programme-copy small{font-size:.75rem}.programme-card__recruitment{top:12px;right:12px;font-size:.68rem}}
+@media(max-width:480px){.ja-recruitment-spotlight__links{grid-template-columns:1fr}.ja-recruitment-spotlight__links a{grid-template-columns:minmax(0,1fr) auto auto}.programme-card__recruitment{top:12px;right:12px;font-size:.68rem}}
 </style>
 <script>
-  const form=document.querySelector('[data-finder-form]'); const cards=Array.from(document.querySelectorAll('[data-programme-card]')); const count=document.querySelector('[data-result-count]'); const empty=document.querySelector('[data-finder-empty]');
-  const updateResults=()=>{ if(!(form instanceof HTMLFormElement)) return; const data=new FormData(form); const goal=String(data.get('goal')??'all'); let visibleCount=0; cards.forEach((card)=>{ if(!(card instanceof HTMLElement)) return; const goals=(card.dataset.goals??'').split(' '); const visible=goal==='all'||goals.includes(goal); card.hidden=!visible; if(visible) visibleCount+=1; }); if(count) count.textContent=String(visibleCount); if(empty instanceof HTMLElement) empty.hidden=visibleCount!==0; };
-  form?.addEventListener('change',updateResults); updateResults();
+  const form=document.querySelector('[data-finder-form]');
+  const cards=Array.from(document.querySelectorAll('[data-programme-card]'));
+  const count=document.querySelector('[data-result-count]');
+  const empty=document.querySelector('[data-finder-empty]');
+  if(form){form.addEventListener('change',()=>{const selected=form.querySelector('input[name="goal"]:checked')?.value??'all';let visible=0;cards.forEach(card=>{const goals=(card.getAttribute('data-goals')??'').split(' ');const show=selected==='all'||goals.includes(selected);card.toggleAttribute('hidden',!show);if(show)visible+=1});if(count)count.textContent=String(visible);if(empty)empty.toggleAttribute('hidden',visible!==0)})}
 </script>
