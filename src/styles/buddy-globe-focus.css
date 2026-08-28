@@ -206,3 +206,121 @@
     font-size: 0.64rem;
   }
 }
+
+/* Desktop/tablet map clarity pass.
+   Country labels are deliberately spaced for readability rather than strict cartographic precision.
+   Routes are drawn from the same HTML marker that owns each country label, so the line and label can never drift apart. */
+@media (min-width: 621px) {
+  .buddy-global__globe {
+    container-type: size;
+  }
+
+  /* Replace the SVG routes with thinner rays tied directly to the visible country markers. */
+  .buddy-global__routes,
+  .buddy-global__sphere > circle,
+  .buddy-global__sphere > text {
+    display: none;
+  }
+
+  .buddy-global__marker {
+    z-index: 4;
+  }
+
+  .buddy-global__marker::after {
+    position: absolute;
+    z-index: -1;
+    left: 4px;
+    top: 50%;
+    width: hypot(var(--route-x), var(--route-y));
+    height: 1.25px;
+    transform: translateY(-50%) rotate(atan2(var(--route-y), var(--route-x)));
+    transform-origin: left center;
+    background: rgba(255, 255, 255, 0.82);
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.42);
+    content: '';
+    pointer-events: none;
+  }
+
+  .buddy-global__marker i {
+    width: 8px;
+    height: 8px;
+    border-width: 1.5px;
+  }
+
+  .buddy-global__marker b {
+    padding: 5px 8px;
+    border-color: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.94);
+    box-shadow: 0 5px 15px rgba(18, 84, 140, 0.12);
+    font-size: 0.64rem;
+    line-height: 1.05;
+  }
+
+  /* Compact centre hub: the rays converge on this exact HTML coordinate. */
+  .buddy-global__hub-label {
+    left: 55%;
+    top: 46%;
+    gap: 1px;
+    min-width: 74px;
+    transform: translate(-50%, -50%);
+    padding: 5px 7px 6px;
+    border: 1px solid rgba(159, 34, 56, 0.16);
+    border-radius: 10px;
+    box-shadow: 0 7px 18px rgba(23, 74, 110, 0.12);
+  }
+
+  .buddy-global__hub-label::before {
+    display: grid;
+    width: 24px;
+    height: 24px;
+    margin: 0 auto 2px;
+    place-items: center;
+    border: 2px solid #9f2238;
+    border-radius: 50%;
+    background: #fff;
+    color: #9f2238;
+    content: 'R';
+    font-size: 0.78rem;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  .buddy-global__hub-label strong {
+    font-size: 0.7rem;
+    line-height: 1.1;
+  }
+
+  .buddy-global__hub-label span {
+    font-size: 0.5rem;
+    line-height: 1.15;
+    letter-spacing: 0.02em;
+  }
+
+  /* Europe / Middle East */
+  .buddy-global__marker[title^='フィンランド '] { --x:25%!important; --y:12%!important; --route-x:30cqw; --route-y:34cqh; }
+  .buddy-global__marker[title^='イギリス '] { --x:17%!important; --y:24%!important; --route-x:38cqw; --route-y:22cqh; }
+  .buddy-global__marker[title^='オランダ '] { --x:28%!important; --y:22%!important; --route-x:27cqw; --route-y:24cqh; }
+  .buddy-global__marker[title^='ポーランド '] { --x:32%!important; --y:30%!important; --route-x:23cqw; --route-y:16cqh; }
+  .buddy-global__marker[title^='ルーマニア '] { --x:24%!important; --y:38%!important; --route-x:31cqw; --route-y:8cqh; }
+  .buddy-global__marker[title^='アゼルバイジャン '] { --x:34%!important; --y:41%!important; --route-x:21cqw; --route-y:5cqh; }
+  .buddy-global__marker[title^='トルクメニスタン '] { --x:42%!important; --y:29%!important; --route-x:13cqw; --route-y:17cqh; }
+  .buddy-global__marker[title^='カタール '] { --x:26%!important; --y:52%!important; --route-x:29cqw; --route-y:-6cqh; }
+  .buddy-global__marker[title^='サウジアラビア '] { --x:34%!important; --y:61%!important; --route-x:21cqw; --route-y:-15cqh; }
+
+  /* East / Southeast Asia */
+  .buddy-global__marker[title^='中国 '] { --x:41%!important; --y:50%!important; --route-x:14cqw; --route-y:-4cqh; }
+  .buddy-global__marker[title^='韓国 '] { --x:68%!important; --y:28%!important; --route-x:-13cqw; --route-y:18cqh; }
+  .buddy-global__marker[title^='台湾 '] { --x:72%!important; --y:42%!important; --route-x:-17cqw; --route-y:4cqh; }
+  .buddy-global__marker[title^='香港 '] { --x:72%!important; --y:54%!important; --route-x:-17cqw; --route-y:-8cqh; }
+  .buddy-global__marker[title^='マカオ '] { --x:58%!important; --y:62%!important; --route-x:-3cqw; --route-y:-16cqh; }
+  .buddy-global__marker[title^='シンガポール '] { --x:50%!important; --y:70%!important; --route-x:5cqw; --route-y:-24cqh; }
+
+  /* Americas */
+  .buddy-global__marker[title^='カナダ '] { --x:80%!important; --y:18%!important; --route-x:-25cqw; --route-y:28cqh; }
+  .buddy-global__marker[title^='アメリカ '] { --x:83%!important; --y:33%!important; --route-x:-28cqw; --route-y:13cqh; }
+  .buddy-global__marker[title^='メキシコ '] { --x:84%!important; --y:56%!important; --route-x:-29cqw; --route-y:-10cqh; }
+
+  /* Oceania */
+  .buddy-global__marker[title^='オーストラリア '] { --x:64%!important; --y:79%!important; --route-x:-9cqw; --route-y:-33cqh; }
+  .buddy-global__marker[title^='ニュージーランド '] { --x:75%!important; --y:88%!important; --route-x:-20cqw; --route-y:-42cqh; }
+}
