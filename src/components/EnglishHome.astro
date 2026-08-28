@@ -1,6 +1,7 @@
 ---
 import { programmes } from '../data/programs';
 import { shortTermParticipationEvidence } from '../data/participation-history';
+import { getCurrentOfferingFact } from '../data/current-offerings';
 
 const rawBase = import.meta.env.BASE_URL;
 const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
@@ -8,37 +9,48 @@ const image = (path: string) => `${base}images/${path.replace(/^\//, '')}`;
 const studentProgrammes = programmes.filter((programme) => programme.audience === 'individual');
 const customProgramme = programmes.find((programme) => programme.audience === 'partner');
 const evidence = shortTermParticipationEvidence;
-
-const recruitingIds = ['rwjp', 'rwjp-express', 'rbmp', 'rdsp'];
-const summer2027Ids = ['rsjp', 'rsjp-express'];
+const currentIds = ['rwjp', 'rwjp-express', 'rbmp', 'rdsp'] as const;
+const summerIds = ['rsjp', 'rsjp-express'] as const;
 const byId = new Map(studentProgrammes.map((programme) => [programme.id, programme]));
-const recruitingProgrammes = recruitingIds.map((id) => byId.get(id)).filter(Boolean);
-const summer2027Programmes = summer2027Ids.map((id) => byId.get(id)).filter(Boolean);
-
+const currentProgrammes = currentIds.map((id) => byId.get(id)).filter(Boolean);
+const summerProgrammes = summerIds.map((id) => byId.get(id)).filter(Boolean);
+const offering = Object.fromEntries([...currentIds, ...summerIds].map((id) => [id, getCurrentOfferingFact(id)])) as Record<string, NonNullable<ReturnType<typeof getCurrentOfferingFact>>>;
+const date = (iso?: string | null) => {
+  if (!iso) return 'To be confirmed';
+  return new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${iso}T00:00:00Z`));
+};
+const dateRange = (id: string) => {
+  const dates = offering[id]?.programmeDates;
+  return dates ? `${date(dates.start)}–${date(dates.end)}` : 'Dates to be confirmed';
+};
+const applicationLabel = (id: string) => {
+  const period = offering[id]?.applicationPeriod;
+  return period ? `Apply by ${date(period.end)}` : 'Application details to be confirmed';
+};
+const summerYear = offering.rsjp.academicYear;
 const programmeGroups = [
   {
-    key: 'recruiting',
-    kicker: 'Applications & recruitment',
-    title: 'Recruiting now',
-    note: 'Current recruitment is underway for these programs. Open each program page for the latest verified dates, eligibility, fees and application information.',
-    programmes: recruitingProgrammes,
+    key: 'current',
+    kicker: 'Current offerings',
+    title: 'Programs to check now',
+    note: 'Open each program page for verified dates, eligibility, fees and application information. Unknown values remain unpublished until confirmed.',
+    programmes: currentProgrammes,
   },
   {
-    key: 'summer-2027',
+    key: 'summer',
     kicker: 'Plan ahead',
-    title: '2027 Summer Programs',
-    note: 'RSJP and RSJP Express are summer 2027 programs. Annual application details are published after verification.',
-    programmes: summer2027Programmes,
+    title: `${summerYear} Summer Programs`,
+    note: `RSJP and RSJP Express are planned for summer ${summerYear}. Annual application details are published after verification.`,
+    programmes: summerProgrammes,
   },
 ];
-
 const detailLabels: Record<string, string> = {
-  rsjp: 'View 2027 summer program overview',
-  'rsjp-express': 'View 2027 summer program overview',
-  rwjp: 'View 2027 program details',
-  'rwjp-express': 'View confirmed 2027 details',
+  rsjp: `View ${offering.rsjp.academicYear} summer program overview`,
+  'rsjp-express': `View ${offering['rsjp-express'].academicYear} summer program overview`,
+  rwjp: `View ${offering.rwjp.academicYear} program details`,
+  'rwjp-express': `View confirmed ${offering['rwjp-express'].academicYear} details`,
   rdsp: 'View current program plan',
-  rbmp: 'View 2027 working plan',
+  rbmp: `View ${offering.rbmp.academicYear} working plan`,
 };
 ---
 <section class="recruitment-hero en-hero" aria-labelledby="en-hero-title">
@@ -48,257 +60,35 @@ const detailLabels: Record<string, string> = {
     <p class="recruitment-hero__location">Study at Ritsumeikan. Live in Japan.</p>
     <h1 id="en-hero-title"><span>Study beyond</span><span>the classroom.</span></h1>
     <p class="recruitment-hero__lead">Learn on campus. Meet students here. Let daily life in Japan add context to what you study.<br />Short-term study at Ritsumeikan University.</p>
-    <div class="recruitment-hero__actions">
-      <a class="action-button action-button--primary" href="#program-finder">Find your program</a>
-      <a class="action-button action-button--glass" href="#why-ritsumeikan">See what learning here can include</a>
-    </div>
-    <dl class="recruitment-hero__facts">
-      <div><dt>For</dt><dd>University & graduate students</dd></div>
-      <div><dt>Ways to join</dt><dd>Individual or university group</dd></div>
-      <div><dt>Program types</dt><dd>Language, culture and thematic study</dd></div>
-    </dl>
+    <div class="recruitment-hero__actions"><a class="action-button action-button--primary" href="#program-finder">Find your program</a><a class="action-button action-button--glass" href="#why-ritsumeikan">See what learning here can include</a></div>
+    <dl class="recruitment-hero__facts"><div><dt>For</dt><dd>University & graduate students</dd></div><div><dt>Ways to join</dt><dd>Individual or university group</dd></div><div><dt>Program types</dt><dd>Language, culture and thematic study</dd></div></dl>
   </div>
   <p class="recruitment-hero__note">Photo from a past program. Program content varies by offering.</p>
   <a class="recruitment-hero__scroll" href="#program-finder" aria-label="Go to program finder">Explore <span>↓</span></a>
 </section>
 
-<section class="programme-finder programme-finder--reframed en-finder" id="program-finder" aria-labelledby="en-finder-title">
-  <div class="site-shell">
-    <div class="section-intro programme-finder__intro">
-      <p class="section-kicker">For individual students</p>
-      <h2 id="en-finder-title">Find a program that fits how you want to learn</h2>
-      <div class="programme-finder__intro-copy"><p>Japanese language and culture · Thematic study</p><small>The campus is set for each program.</small></div>
-    </div>
-
-    <aside class="en-recruitment-banner" aria-labelledby="en-recruitment-banner-title" data-recruitment-banner>
-      <div class="en-recruitment-banner__copy">
-        <p class="en-recruitment-banner__eyebrow">Current recruitment</p>
-        <h3 id="en-recruitment-banner-title">Four programs are recruiting now</h3>
-        <p>RWJP, RWJP Express, RBMP and RDSP are the programs to check first.</p>
-      </div>
-      <div class="en-recruitment-banner__links" aria-label="Programs currently recruiting">
-        {recruitingProgrammes.map((programme) => programme && (
-          <a href={`${base}en/programs/${programme.id}/`} data-recruiting-link={programme.id}>
-            <span>Recruiting now</span>
-            <strong>{programme.code}</strong>
-            <small>View program <span aria-hidden="true">→</span></small>
-          </a>
-        ))}
-      </div>
-    </aside>
-
-    <div class="programme-pathways programme-pathways--student" aria-label="Two ways to explore individual programs">
-      <article><span>01</span><p>Learn Japanese in context</p><h3>Japanese Language & Culture</h3><small>RSJP / RSJP Express / RWJP / RWJP Express</small></article>
-      <article><span>02</span><p>Study through a specialist theme</p><h3>Thematic Study</h3><small>RDSP / RBMP</small></article>
-    </div>
-    <div class="finder-controls en-finder__note"><div><strong>Start with what you want to study.</strong><p>Compare the six individual programs below. Dates, fees, eligibility and application details are published on English program pages only after they are confirmed.</p></div></div>
-    <div class="finder-results-heading"><p>Individual programs <strong>{studentProgrammes.length}</strong></p><small>Current recruitment is shown first. Summer 2027 programs are clearly identified below.</small></div>
-
-    <div class="en-programme-groups">
-      {programmeGroups.map((group) => (
-        <section class={`en-programme-group en-programme-group--${group.key}`} data-program-group={group.key} aria-labelledby={`en-programme-group-${group.key}`}>
-          <div class="en-programme-group__heading">
-            <div>
-              <p>{group.kicker}</p>
-              <h3 id={`en-programme-group-${group.key}`}>{group.title}</h3>
-            </div>
-            <p>{group.note}</p>
-          </div>
-          <div class="programme-grid en-programme-grid">
-            {group.programmes.map((programme) => {
-              if (!programme) return null;
-              const copy = programme.copy.en;
-              const detailHref = `${base}en/programs/${programme.id}/`;
-              const detailLabel = detailLabels[programme.id] ?? 'View program details';
-              const recruiting = group.key === 'recruiting';
-              return (
-                <article class={`programme-card programme-card--${programme.goals[0]} ${recruiting ? 'en-programme-card--recruiting' : 'en-programme-card--summer'}`} data-programme-status={recruiting ? 'recruiting-now' : 'summer-2027'}>
-                  <div class="programme-card__visual en-programme-card__visual">
-                    <img src={image(programme.image)} alt={copy.imageAlt} width="960" height="640" loading="lazy" decoding="async" />
-                    <span>{programme.code}</span><small>{copy.familyLabel}</small>
-                  </div>
-                  <div class="programme-card__body">
-                    <div class={`en-programme-status ${recruiting ? 'en-programme-status--recruiting' : 'en-programme-status--summer'}`}>
-                      <span>{recruiting ? 'Recruiting now' : '2027 Summer Program'}</span>
-                    </div>
-                    <div class="programme-card__meta programme-card__meta--status"><span>{copy.campusLabel}</span></div>
-                    <h3>{copy.name}</h3>
-                    <p>{copy.summary}</p>
-                    {copy.experienceLine && <p class="programme-card__experience">{copy.experienceLine}</p>}
-                    <a class="en-programme-card__link" href={detailHref} data-en-programme-link={programme.id}>{detailLabel} <span aria-hidden="true">→</span></a>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-        </section>
-      ))}
-    </div>
-
-    {customProgramme && (
-      <aside class="partner-programme partner-programme--expanded en-partner" id="custom-programs" aria-labelledby="en-custom-title">
-        <div class="partner-programme__label">For universities and educational institutions</div>
-        <div class="partner-programme__content">
-          <div class="partner-programme__lead">
-            <p class="section-kicker">Build around your academic goals</p>
-            <h2 id="en-custom-title">A study program designed with your institution</h2>
-            <p>{customProgramme.copy.en.summary}</p>
-            <p class="partner-programme__promise">Custom Programs are for university or institutional groups, not individual applications. We discuss the academic purpose, timing, group profile, learning activities and suitable campus with your institution.</p>
-          </div>
-          <div class="partner-programme__process" aria-label="Custom Program planning process">
-            <div><span>01</span><strong>Define the purpose</strong><p>Academic goals, theme, timing, group size and student profile.</p></div>
-            <div><span>02</span><strong>Shape the learning</strong><p>Classes, student interaction, cultural learning and field visits.</p></div>
-            <div><span>03</span><strong>Choose the setting</strong><p>Campus, facilities, accommodation and schedule are considered together.</p></div>
-            <div><span>04</span><strong>Prepare the program</strong><p>We work with your institution to turn the plan into a practical short-term program.</p></div>
-          </div>
-          <div class="partner-programme__themes"><p>Possible areas of discussion</p><ul><li>Japanese language and culture</li><li>Business</li><li>Marketing</li><li>Entrepreneurship</li><li>Data science</li><li>AI</li><li>Media</li><li>Popular culture</li></ul></div>
-          <div class="partner-programme__footer"><p>Kinugasa, Osaka Ibaraki and Biwako-Kusatsu are possible locations. The campus is considered with the institution according to the program design; participating students do not select it independently. The Study Abroad Center can communicate with institutional partners in English.</p></div>
-        </div>
-      </aside>
-    )}
-  </div>
-</section>
-
-<section class="en-experience" id="why-ritsumeikan" aria-labelledby="en-experience-title"><div class="site-shell">
-  <div class="section-intro"><p class="section-kicker">Why Ritsumeikan</p><h2 id="en-experience-title">Learn on campus. Connect with people. Discover Japan in context.</h2><p class="en-section-lead">A short program can still feel like university life. Depending on the program, academic study is connected with student interaction, cultural learning and experiences beyond the classroom.</p></div>
-  <div class="en-experience__grid">
-    <article><span>01</span><h3>Academic learning</h3><p>Develop your language skills or explore a focused academic theme.</p></article>
-    <article><span>02</span><h3>Student connection</h3><p>Where included, interaction with Ritsumeikan students becomes part of the learning.</p></article>
-    <article><span>03</span><h3>Japan in context</h3><p>Cultural experiences and field learning connect the program with the place around you.</p></article>
-  </div>
+<section class="programme-finder programme-finder--reframed en-finder" id="program-finder" aria-labelledby="en-finder-title"><div class="site-shell">
+  <div class="section-intro programme-finder__intro"><p class="section-kicker">For individual students</p><h2 id="en-finder-title">Find a program that fits how you want to learn</h2><div class="programme-finder__intro-copy"><p>Japanese language and culture · Thematic study</p><small>The campus is set for each program.</small></div></div>
+  <aside class="en-recruitment-banner" aria-labelledby="en-recruitment-banner-title"><div class="en-recruitment-banner__copy"><p class="en-recruitment-banner__eyebrow">Current offerings</p><h3 id="en-recruitment-banner-title">Four programs to check first</h3><p>RWJP, RWJP Express, RBMP and RDSP have current detail pages. Application status is shown only when verified.</p></div><div class="en-recruitment-banner__links" aria-label="Current programs">{currentProgrammes.map((programme) => programme && <a href={`${base}en/programs/${programme.id}/`}><span>{offering[programme.id]?.status ?? 'Current'}</span><strong>{programme.code}</strong><small>{dateRange(programme.id)}</small></a>)}</div></aside>
+  <div class="programme-pathways programme-pathways--student" aria-label="Two ways to explore individual programs"><article><span>01</span><p>Learn Japanese in context</p><h3>Japanese Language & Culture</h3><small>RSJP / RSJP Express / RWJP / RWJP Express</small></article><article><span>02</span><p>Study through a specialist theme</p><h3>Thematic Study</h3><small>RDSP / RBMP</small></article></div>
+  <div class="finder-controls en-finder__note"><div><strong>Start with what you want to study.</strong><p>Dates, fees, eligibility and application details are rendered from verified annual facts. If a value is not confirmed, it stays unpublished.</p></div></div>
+  <div class="finder-results-heading"><p>Individual programs <strong>{studentProgrammes.length}</strong></p><small>Current offerings are shown first. Summer {summerYear} programs are clearly identified below.</small></div>
+  <div class="en-programme-groups">{programmeGroups.map((group) => <section class={`en-programme-group en-programme-group--${group.key}`}><div class="en-programme-group__heading"><div><p>{group.kicker}</p><h3>{group.title}</h3></div><p>{group.note}</p></div><div class="programme-grid en-programme-grid">{group.programmes.map((programme) => { if (!programme) return null; const copy = programme.copy.en; const isSummer = group.key === 'summer'; return <article class={`programme-card programme-card--${programme.goals[0]} ${isSummer ? 'en-programme-card--summer' : 'en-programme-card--recruiting'}`}><div class="programme-card__visual en-programme-card__visual"><img src={image(programme.image)} alt={copy.imageAlt} width="960" height="640" loading="lazy" decoding="async"/><span>{programme.code}</span><small>{copy.familyLabel}</small></div><div class="programme-card__body"><div class={`en-programme-status ${isSummer ? 'en-programme-status--summer' : 'en-programme-status--recruiting'}`}><span>{isSummer ? `${offering[programme.id].academicYear} Summer Program` : offering[programme.id].status}</span></div><div class="programme-card__meta programme-card__meta--status"><span>{copy.campusLabel}</span></div><h3>{copy.name}</h3><dl class="zh-programme-timing"><div><dt>Application</dt><dd>{applicationLabel(programme.id)}</dd></div><div><dt>Dates</dt><dd>{isSummer && !offering[programme.id].programmeDates ? `Summer ${offering[programme.id].academicYear}` : dateRange(programme.id)}</dd></div></dl><p>{copy.summary}</p>{copy.experienceLine && <p class="programme-card__experience">{copy.experienceLine}</p>}<a class="en-programme-card__link" href={`${base}en/programs/${programme.id}/`} data-en-programme-link={programme.id}>{detailLabels[programme.id] ?? 'View program details'} <span aria-hidden="true">→</span></a></div></article>; })}</div></section>)}</div>
+  {customProgramme && <aside class="partner-programme partner-programme--expanded en-partner" id="custom-programs"><div class="partner-programme__label">For universities and educational institutions</div><div class="partner-programme__content"><div class="partner-programme__lead"><p class="section-kicker">Build around your academic goals</p><h2>A study program designed with your institution</h2><p>{customProgramme.copy.en.summary}</p><p class="partner-programme__promise">Custom Programs are for university or institutional groups, not individual applications. We discuss the academic purpose, timing, group profile, learning activities and suitable campus with your institution.</p></div><div class="partner-programme__process"><div><span>01</span><strong>Define the purpose</strong><p>Academic goals, theme, timing, group size and student profile.</p></div><div><span>02</span><strong>Shape the learning</strong><p>Classes, student interaction, cultural learning and field visits.</p></div><div><span>03</span><strong>Choose the setting</strong><p>Campus, facilities, accommodation and schedule are considered together.</p></div><div><span>04</span><strong>Prepare the program</strong><p>We work with your institution to turn the plan into a practical short-term program.</p></div></div><div class="partner-programme__themes"><p>Possible areas of discussion</p><ul><li>Japanese language and culture</li><li>Business</li><li>Marketing</li><li>Entrepreneurship</li><li>Data science</li><li>AI</li><li>Media</li><li>Popular culture</li></ul></div></div></aside>}
 </div></section>
 
-<section class="en-evidence" id="global-reach" aria-labelledby="en-evidence-title"><div class="site-shell">
-  <div class="section-intro"><p class="section-kicker">Global Reach</p><h2 id="en-evidence-title">Students have joined us from universities around the world</h2><p class="en-section-lead">Verified participation in the four established Japanese-language programs, 2023–2026.</p></div>
-  <dl class="en-evidence__stats">
-    <div><dt>{evidence.participants}</dt><dd>participants</dd></div>
-    <div><dt>{evidence.institutions}</dt><dd>universities / institutions</dd></div>
-    <div><dt>{evidence.countriesOrRegions}</dt><dd>countries / regions</dd></div>
-  </dl>
-  <p class="en-evidence__note">“Country / region” refers to the location of the university or institution, not a participant’s nationality. Historical participation does not imply a current partnership.</p>
-</div></section>
-
-<section class="en-photo-story" aria-labelledby="en-photo-title"><div class="site-shell">
-  <div class="section-intro"><p class="section-kicker">Campus and community</p><h2 id="en-photo-title">See what everyday learning can look like</h2><p class="en-section-lead">The balance of classes, interaction and activities differs by program. These photographs show past short-term program settings at Ritsumeikan.</p></div>
-  <div class="en-photo-story__grid">
-    <figure><img src={image('IMG_8178.JPG')} alt="Students learning together during a Ritsumeikan short-term program" loading="lazy" decoding="async" width="1200" height="800" /><figcaption>Learning together on campus.</figcaption></figure>
-    <figure><img src={image('IMG_5092.JPG')} alt="Students taking part in a cultural activity in Kyoto" loading="lazy" decoding="async" width="1200" height="800" /><figcaption>Culture and place as part of the experience.</figcaption></figure>
-    <figure><img src={image('IMG_1687.JPG')} alt="Ritsumeikan University campus environment" loading="lazy" decoding="async" width="1200" height="800" /><figcaption>Time on a university campus in Japan.</figcaption></figure>
-  </div>
-</div></section>
-
-<section class="en-support" id="support" aria-labelledby="en-support-title"><div class="site-shell en-support__inner">
-  <div><p class="section-kicker">Support</p><h2 id="en-support-title">Clear information before you arrive</h2><p>Application conditions, accommodation, fees and schedules are published only when they are confirmed for the relevant program and year. The Study Abroad Center can provide support in English.</p></div>
-  <a class="action-button action-button--dark" href={base}>View this site in Japanese</a>
-</div></section>
+<section class="en-experience" id="why-ritsumeikan"><div class="site-shell"><div class="section-intro"><p class="section-kicker">Why Ritsumeikan</p><h2>Learn on campus. Connect with people. Discover Japan in context.</h2><p class="en-section-lead">A short program can still feel like university life. Depending on the program, academic study is connected with student interaction, cultural learning and experiences beyond the classroom.</p></div><div class="en-experience__grid"><article><span>01</span><h3>Academic learning</h3><p>Develop your language skills or explore a focused academic theme.</p></article><article><span>02</span><h3>Student connection</h3><p>Where included, interaction with Ritsumeikan students becomes part of the learning.</p></article><article><span>03</span><h3>Japan in context</h3><p>Cultural experiences and field learning connect the program with the place around you.</p></article></div></div></section>
+<section class="en-evidence" id="global-reach"><div class="site-shell"><div class="section-intro"><p class="section-kicker">Global Reach</p><h2>Students have joined us from universities around the world</h2><p class="en-section-lead">Verified participation in the four established Japanese-language programs, 2023–2026.</p></div><dl class="en-evidence__stats"><div><dt>{evidence.participants}</dt><dd>participants</dd></div><div><dt>{evidence.institutions}</dt><dd>universities / institutions</dd></div><div><dt>{evidence.countriesOrRegions}</dt><dd>countries / regions</dd></div></dl><p class="en-evidence__note">“Country / region” refers to the location of the university or institution, not a participant’s nationality. Historical participation does not imply a current partnership.</p></div></section>
+<section class="en-photo-story"><div class="site-shell"><div class="section-intro"><p class="section-kicker">Campus and community</p><h2>See what everyday learning can look like</h2><p class="en-section-lead">The balance of classes, interaction and activities differs by program. These photographs show past short-term program settings at Ritsumeikan.</p></div><div class="en-photo-story__grid"><figure><img src={image('IMG_8178.JPG')} alt="Students learning together during a Ritsumeikan short-term program" loading="lazy" decoding="async" width="1200" height="800"/><figcaption>Learning together on campus.</figcaption></figure><figure><img src={image('IMG_5092.JPG')} alt="Students taking part in a cultural activity in Kyoto" loading="lazy" decoding="async" width="1200" height="800"/><figcaption>Culture and place as part of the experience.</figcaption></figure><figure><img src={image('IMG_1687.JPG')} alt="Ritsumeikan University campus environment" loading="lazy" decoding="async" width="1200" height="800"/><figcaption>Time on a university campus in Japan.</figcaption></figure></div></div></section>
+<section class="en-support" id="support"><div class="site-shell en-support__inner"><div><p class="section-kicker">Support</p><h2>Clear information before you arrive</h2><p>Application conditions, accommodation, fees and schedules are published only when they are confirmed for the relevant program and year. The Study Abroad Center can provide support in English.</p></div><a class="action-button action-button--dark" href={base}>View this site in Japanese</a></div></section>
 
 <style>
-  .en-recruitment-banner {
-    display: grid;
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.5fr);
-    gap: 1.5rem;
-    align-items: center;
-    margin-top: 2.25rem;
-    padding: clamp(1.5rem, 3vw, 2.2rem);
-    border: 1px solid rgba(139, 36, 50, 0.22);
-    border-radius: 1.2rem;
-    background: linear-gradient(135deg, #7f1f2d 0%, #9b2e3e 55%, #6d1825 100%);
-    color: #fff;
-    box-shadow: 0 18px 44px rgba(74, 23, 31, 0.16);
-  }
-
-  .en-recruitment-banner__eyebrow,
-  .en-programme-group__heading > div > p {
-    margin: 0 0 0.45rem;
-    font-size: 0.75rem;
-    font-weight: 800;
-    letter-spacing: 0.13em;
-    text-transform: uppercase;
-  }
-
-  .en-recruitment-banner__eyebrow { color: rgba(255, 255, 255, 0.76); }
-  .en-recruitment-banner h3 { margin: 0; font-size: clamp(1.7rem, 3vw, 2.6rem); line-height: 1.08; color: #fff; }
-  .en-recruitment-banner__copy > p:last-child { margin: 0.8rem 0 0; max-width: 34rem; color: rgba(255, 255, 255, 0.84); line-height: 1.65; }
-
-  .en-recruitment-banner__links {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.75rem;
-  }
-
-  .en-recruitment-banner__links a {
-    display: grid;
-    min-height: 112px;
-    align-content: center;
-    gap: 0.22rem;
-    padding: 1rem 1.1rem;
-    border: 1px solid rgba(255, 255, 255, 0.26);
-    border-radius: 0.9rem;
-    background: rgba(255, 255, 255, 0.1);
-    color: #fff;
-    text-decoration: none;
-    transition: transform 160ms ease, background-color 160ms ease;
-  }
-
-  .en-recruitment-banner__links a:hover { transform: translateY(-2px); background: rgba(255, 255, 255, 0.16); }
-  .en-recruitment-banner__links a > span { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #f8d9df; }
-  .en-recruitment-banner__links strong { font-size: 1.3rem; line-height: 1.2; }
-  .en-recruitment-banner__links small { font-size: 0.78rem; color: rgba(255, 255, 255, 0.82); }
-
-  .en-programme-groups { display: grid; gap: clamp(2.8rem, 5vw, 4.5rem); margin-top: 2.4rem; }
-  .en-programme-group { min-width: 0; }
-  .en-programme-group__heading {
-    display: grid;
-    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-    gap: 1.5rem;
-    align-items: end;
-    padding: 0 0 1rem;
-    border-bottom: 1px solid #ddd4ce;
-  }
-  .en-programme-group__heading > div > p { color: #8b2432; }
-  .en-programme-group__heading h3 { margin: 0; color: #302b29; font-size: clamp(1.7rem, 2.7vw, 2.45rem); line-height: 1.1; }
-  .en-programme-group__heading > p { margin: 0; color: #665f5a; line-height: 1.65; }
-  .en-programme-group--recruiting .en-programme-group__heading { border-bottom: 3px solid #8b2432; }
-  .en-programme-group--summer-2027 .en-programme-group__heading { border-bottom-color: #b7c6cb; }
-
-  .en-programme-status { margin-bottom: 0.55rem; }
-  .en-programme-status span {
-    display: inline-flex;
-    min-height: 30px;
-    align-items: center;
-    padding: 0.3rem 0.65rem;
-    border-radius: 999px;
-    font-size: 0.72rem;
-    font-weight: 800;
-    letter-spacing: 0.035em;
-  }
-  .en-programme-status--recruiting span { background: #8b2432; color: #fff; }
-  .en-programme-status--summer span { border: 1px solid #9caaaf; background: #edf3f5; color: #294652; }
-  .en-programme-card--recruiting { border-color: rgba(139, 36, 50, 0.32) !important; box-shadow: 0 16px 38px rgba(94, 31, 42, 0.09) !important; }
-  .en-programme-card--summer { background: #fffefd !important; }
-
-  @media (max-width: 760px) {
-    .en-recruitment-banner,
-    .en-programme-group__heading { grid-template-columns: 1fr; }
-    .en-recruitment-banner__links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  }
-
-  @media (max-width: 560px) {
-    .en-recruitment-banner { margin-top: 1.7rem; padding: 1.2rem; gap: 1rem; }
-    .en-recruitment-banner h3 { font-size: 1.65rem; }
-    .en-recruitment-banner__copy > p:last-child { font-size: 0.88rem; }
-    .en-recruitment-banner__links { grid-template-columns: 1fr 1fr; gap: 0.55rem; }
-    .en-recruitment-banner__links a { min-height: 96px; padding: 0.8rem; }
-    .en-recruitment-banner__links strong { font-size: 1.05rem; }
-    .en-recruitment-banner__links a > span,
-    .en-recruitment-banner__links small { font-size: 0.72rem; }
-    .en-programme-groups { gap: 2.8rem; }
-    .en-programme-group__heading { gap: 0.6rem; }
-    .en-programme-group__heading h3 { font-size: 1.75rem; }
-    .en-programme-group__heading > p { font-size: 0.88rem; }
-  }
-
-  @media (max-width: 350px) {
-    .en-recruitment-banner__links { grid-template-columns: 1fr; }
-  }
+  .en-recruitment-banner { display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.5fr);gap:1.5rem;align-items:center;margin-top:2.25rem;padding:clamp(1.5rem,3vw,2.2rem);border:1px solid rgba(139,36,50,.22);border-radius:1.2rem;background:linear-gradient(135deg,#7f1f2d 0%,#9b2e3e 55%,#6d1825 100%);color:#fff;box-shadow:0 18px 44px rgba(74,23,31,.16); }
+  .en-recruitment-banner__eyebrow,.en-programme-group__heading>div>p{margin:0 0 .45rem;font-size:.75rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.en-recruitment-banner__eyebrow{color:rgba(255,255,255,.76)}.en-recruitment-banner h3{margin:0;font-size:clamp(1.7rem,3vw,2.6rem);line-height:1.08;color:#fff}.en-recruitment-banner__copy>p:last-child{margin:.8rem 0 0;max-width:34rem;color:rgba(255,255,255,.84);line-height:1.65}
+  .en-recruitment-banner__links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem}.en-recruitment-banner__links a{display:grid;min-height:112px;align-content:center;gap:.22rem;padding:1rem 1.1rem;border:1px solid rgba(255,255,255,.26);border-radius:.9rem;background:rgba(255,255,255,.1);color:#fff;text-decoration:none;transition:transform 160ms ease,background-color 160ms ease}.en-recruitment-banner__links a:hover{transform:translateY(-2px);background:rgba(255,255,255,.16)}.en-recruitment-banner__links a>span{font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#f8d9df}.en-recruitment-banner__links strong{font-size:1.3rem;line-height:1.2}.en-recruitment-banner__links small{font-size:.78rem;color:rgba(255,255,255,.82)}
+  .en-programme-groups{display:grid;gap:clamp(2.8rem,5vw,4.5rem);margin-top:2.4rem}.en-programme-group{min-width:0}.en-programme-group__heading{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:1.5rem;align-items:end;padding:0 0 1rem;border-bottom:1px solid #ddd4ce}.en-programme-group__heading>div>p{color:#8b2432}.en-programme-group__heading h3{margin:0;color:#302b29;font-size:clamp(1.7rem,2.7vw,2.45rem);line-height:1.1}.en-programme-group__heading>p{margin:0;color:#665f5a;line-height:1.65}.en-programme-group--current .en-programme-group__heading{border-bottom:3px solid #8b2432}.en-programme-group--summer .en-programme-group__heading{border-bottom-color:#b7c6cb}
+  .en-programme-status{margin-bottom:.55rem}.en-programme-status span{display:inline-flex;min-height:30px;align-items:center;padding:.3rem .65rem;border-radius:999px;font-size:.72rem;font-weight:800;letter-spacing:.035em}.en-programme-status--recruiting span{background:#8b2432;color:#fff}.en-programme-status--summer span{border:1px solid #9caaaf;background:#edf3f5;color:#294652}.en-programme-card--recruiting{border-color:rgba(139,36,50,.32)!important;box-shadow:0 16px 38px rgba(94,31,42,.09)!important}.en-programme-card--summer{background:#fffefd!important}
+  @media(max-width:760px){.en-recruitment-banner,.en-programme-group__heading{grid-template-columns:1fr}.en-recruitment-banner__links{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media(max-width:560px){.en-recruitment-banner{margin-top:1.7rem;padding:1.2rem;gap:1rem}.en-recruitment-banner h3{font-size:1.65rem}.en-recruitment-banner__copy>p:last-child{font-size:.88rem}.en-recruitment-banner__links{grid-template-columns:1fr 1fr;gap:.55rem}.en-recruitment-banner__links a{min-height:96px;padding:.8rem}.en-recruitment-banner__links strong{font-size:1.05rem}.en-recruitment-banner__links a>span,.en-recruitment-banner__links small{font-size:.72rem}.en-programme-groups{gap:2.8rem}.en-programme-group__heading{gap:.6rem}.en-programme-group__heading h3{font-size:1.75rem}.en-programme-group__heading>p{font-size:.88rem}}
+  @media(max-width:350px){.en-recruitment-banner__links{grid-template-columns:1fr}}
 </style>

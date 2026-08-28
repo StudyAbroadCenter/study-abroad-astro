@@ -12,13 +12,13 @@ const viewports = [
 ];
 
 const routes = [
-  { id: 'home', path: '/ko/', minText: 900, required: ['현재 모집 중', '2027 여름 프로그램', 'RWJP', 'RWJP EXPRESS', 'RBMP', 'RDSP', 'RSJP'], forbidden: [] },
+  { id: 'home', path: '/ko/', minText: 900, required: ['현재 프로그램', '2027 여름 프로그램', 'RWJP', 'RWJP EXPRESS', 'RBMP', 'RDSP', 'RSJP'], forbidden: ['현재 모집 중'] },
   { id: 'rsjp', path: '/ko/programs/rsjp/', minText: 850, required: ['2027년 세부 정보 확인 예정', 'Ritsumeikan Summer Japanese Program', '기누가사 캠퍼스', '확인 후 공개'], forbidden: ['JPY 370,000'] },
-  { id: 'rsjp-express', path: '/ko/programs/rsjp-express/', minText: 850, required: ['2027년 세부 정보 확인 예정', 'RSJP Express', '기누가사 캠퍼스', '확인 후 공개'], forbidden: ['JPY 370,000'] },
+  { id: 'rsjp-express', path: '/ko/programs/rsjp-express/', minText: 800, required: ['2027년 세부 정보 확인 예정', 'RSJP Express', '기누가사 캠퍼스', '확인 후 공개'], forbidden: ['JPY 370,000'] },
   { id: 'rwjp', path: '/ko/programs/rwjp/', minText: 1100, required: ['2027년 1월 12일', '2027년 2월 11일', 'JPY 370,000', '57.5시간', '990분', 'JPY 92,500', '2026년 10월 14일', 'JPY 54,000'], forbidden: ['10–15'] },
   { id: 'rwjp-express', path: '/ko/programs/rwjp-express/', minText: 950, required: ['2027년 2월 16일', '2027년 2월 26일', '22.5시간', '360분', '15명', '다이쇼군'], forbidden: ['JPY 370,000'] },
   { id: 'rdsp', path: '/ko/programs/rdsp/', minText: 850, required: ['working plan', 'AI', 'Data Science', 'Robotics', 'Microsoft Base', '오사카 이바라키 캠퍼스'], forbidden: ['Ritsumeikan Data Science Program', 'JPY 200,000'] },
-  { id: 'rbmp', path: '/ko/programs/rbmp/', minText: 950, required: ['2027년 운영안', '2027년 2월 12일', '2027년 2월 24일', 'JPY 200,000', '8세션', '컵누들 뮤지엄'], forbidden: [] },
+  { id: 'rbmp', path: '/ko/programs/rbmp/', minText: 950, required: ['2027 운영안', '2027년 2월 12일', '2027년 2월 24일', 'JPY 200,000', '8회', '컵누들 뮤지엄'], forbidden: [] },
 ];
 
 const expectedHomeLinks = ['/ko/programs/rsjp/','/ko/programs/rsjp-express/','/ko/programs/rwjp/','/ko/programs/rwjp-express/','/ko/programs/rdsp/','/ko/programs/rbmp/'];

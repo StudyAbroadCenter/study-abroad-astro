@@ -1,0 +1,163 @@
+.co-learning-evidence {
+  padding: clamp(4.5rem, 8vw, 7.5rem) 0;
+  background: #f5f3ef;
+  color: #1b1b1b;
+}
+
+.co-learning-evidence__intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: end;
+}
+
+.co-learning-evidence__kicker,
+.co-learning-evidence__measurement-kicker {
+  margin: 0 0 0.8rem;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: #7c2432;
+}
+
+.co-learning-evidence h2 {
+  margin: 0;
+  font-size: clamp(2.5rem, 5.4vw, 5.8rem);
+  line-height: 0.96;
+  letter-spacing: -0.045em;
+}
+
+.co-learning-evidence h2 span { display: block; }
+
+.co-learning-evidence__lead {
+  display: grid;
+  gap: 0.85rem;
+  font-size: clamp(1rem, 1.35vw, 1.18rem);
+  line-height: 1.85;
+}
+
+.co-learning-evidence__lead p { margin: 0; }
+
+.co-learning-evidence__reach {
+  display: grid;
+  grid-template-columns: minmax(15rem, 0.7fr) minmax(0, 1.3fr);
+  gap: 1.25rem;
+  margin-top: clamp(2.5rem, 6vw, 5rem);
+  padding: clamp(1.5rem, 3.5vw, 2.8rem);
+  border-radius: 1.5rem;
+  background: #151515;
+  color: #fff;
+}
+
+.co-learning-evidence__reach-copy p,
+.co-learning-evidence__reach-copy small { margin: 0; }
+.co-learning-evidence__reach-copy strong { display: block; margin: 0.35rem 0; font-size: clamp(1.5rem, 3vw, 2.4rem); }
+.co-learning-evidence__reach-copy small { color: rgba(255,255,255,.68); }
+
+.co-learning-evidence__reach dl {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.7rem;
+  margin: 0;
+}
+
+.co-learning-evidence__reach dl div {
+  min-width: 0;
+  padding: 1rem;
+  border-left: 1px solid rgba(255,255,255,.18);
+}
+
+.co-learning-evidence__reach dt {
+  font-size: clamp(2.2rem, 5vw, 4.8rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.co-learning-evidence__reach dd { margin: 0.55rem 0 0; color: rgba(255,255,255,.74); }
+
+.co-learning-evidence__activities {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.co-learning-evidence__activity {
+  overflow: hidden;
+  border-radius: 1.2rem;
+  background: #fff;
+  box-shadow: 0 18px 48px rgba(30, 24, 17, 0.08);
+}
+
+.co-learning-evidence__activity figure { margin: 0; }
+.co-learning-evidence__activity img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.co-learning-evidence__activity figcaption { padding: 0.55rem 1rem 0; font-size: 0.72rem; color: #6e675f; }
+.co-learning-evidence__activity > div { padding: 1rem 1.15rem 1.35rem; }
+.co-learning-evidence__activity h3 { margin: 0 0 0.55rem; font-size: clamp(1.15rem, 2vw, 1.45rem); }
+.co-learning-evidence__activity p { margin: 0; line-height: 1.7; color: #4e4a45; }
+
+.co-learning-evidence__measurement {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(18rem, 0.8fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  margin-top: clamp(2rem, 5vw, 4rem);
+  padding-top: clamp(2rem, 4vw, 3rem);
+  border-top: 1px solid #cbc5bb;
+}
+
+.co-learning-evidence__measurement h3 { margin: 0 0 0.8rem; font-size: clamp(1.8rem, 3.2vw, 3.1rem); line-height: 1.15; }
+.co-learning-evidence__measurement > div > p:last-child { margin: 0; line-height: 1.75; color: #4d4943; }
+
+.co-learning-evidence__pending {
+  align-self: start;
+  padding: 1.35rem 1.45rem;
+  border: 1px solid #c9c1b5;
+  border-radius: 1rem;
+  background: #fff;
+}
+.co-learning-evidence__pending strong { color: #7c2432; }
+.co-learning-evidence__pending p { margin: 0.55rem 0 0; line-height: 1.65; }
+
+.co-learning-evidence__metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 0;
+}
+.co-learning-evidence__metrics div { padding: 1rem; border-radius: 1rem; background: #fff; }
+.co-learning-evidence__metrics dt { font-size: 2.2rem; font-weight: 800; }
+.co-learning-evidence__metrics dt span { margin-left: 0.2rem; font-size: 0.9rem; }
+.co-learning-evidence__metrics dd { margin: 0.3rem 0; }
+.co-learning-evidence__metrics small { color: #706960; }
+
+.co-learning-evidence__footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  align-items: center;
+  margin-top: 2.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #d7d0c7;
+  font-size: 0.86rem;
+}
+.co-learning-evidence__footer p { max-width: 52rem; margin: 0; color: #5c554d; line-height: 1.65; }
+.co-learning-evidence__footer a { flex: none; font-weight: 800; color: #7c2432; text-decoration: none; }
+.co-learning-evidence__footer a:hover { text-decoration: underline; }
+
+@media (max-width: 820px) {
+  .co-learning-evidence__intro,
+  .co-learning-evidence__reach,
+  .co-learning-evidence__measurement { grid-template-columns: 1fr; }
+  .co-learning-evidence__activities { grid-template-columns: 1fr; }
+  .co-learning-evidence__reach dl { grid-template-columns: repeat(3, 1fr); }
+  .co-learning-evidence__reach dl div:first-child { border-left: 0; }
+  .co-learning-evidence__footer { align-items: flex-start; flex-direction: column; }
+}
+
+@media (max-width: 520px) {
+  .co-learning-evidence__reach dl { grid-template-columns: 1fr; }
+  .co-learning-evidence__reach dl div { border-left: 0; border-top: 1px solid rgba(255,255,255,.16); }
+  .co-learning-evidence__reach dl div:first-child { border-top: 0; }
+  .co-learning-evidence__metrics { grid-template-columns: 1fr; }
+}

@@ -2,6 +2,7 @@
 import { programmes } from '../data/programs';
 import { koreanProgrammePages } from '../data/korean-programme-pages';
 import { shortTermParticipationEvidence } from '../data/participation-history';
+import { getCurrentOfferingFact } from '../data/current-offerings';
 
 const rawBase = import.meta.env.BASE_URL;
 const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
@@ -10,27 +11,32 @@ const evidence = shortTermParticipationEvidence;
 const studentProgrammes = programmes.filter((programme) => programme.audience === 'individual');
 const customProgramme = programmes.find((programme) => programme.audience === 'partner');
 const byId = new Map(studentProgrammes.map((programme) => [programme.id, programme]));
-const recruitingIds = ['rwjp', 'rwjp-express', 'rbmp', 'rdsp'] as const;
+const currentIds = ['rwjp', 'rwjp-express', 'rbmp', 'rdsp'] as const;
 const summerIds = ['rsjp', 'rsjp-express'] as const;
-const recruitingProgrammes = recruitingIds.map((id) => byId.get(id)).filter(Boolean);
+const currentProgrammes = currentIds.map((id) => byId.get(id)).filter(Boolean);
 const summerProgrammes = summerIds.map((id) => byId.get(id)).filter(Boolean);
-
-const timing: Record<string, { application: string; dates: string }> = {
-  rwjp: { application: '2026.10.14 마감', dates: '2027.01.12 ~ 02.11' },
-  'rwjp-express': { application: '현재 모집 중', dates: '2027.02.16 ~ 02.26' },
-  rbmp: { application: '현재 모집 중', dates: '2027.02.12 ~ 02.24 예정' },
-  rdsp: { application: '현재 모집 중', dates: '일정 추후 안내' },
-  rsjp: { application: '추후 안내', dates: '2027년 여름' },
-  'rsjp-express': { application: '추후 안내', dates: '2027년 여름' },
+const offering = Object.fromEntries([...currentIds, ...summerIds].map((id) => [id, getCurrentOfferingFact(id)])) as Record<string, NonNullable<ReturnType<typeof getCurrentOfferingFact>>>;
+const koDate = (iso?: string | null) => {
+  if (!iso) return '추후 안내';
+  const [year, month, day] = iso.split('-').map(Number);
+  return `${year}년 ${month}월 ${day}일`;
 };
-
+const koRange = (id: string) => {
+  const dates = offering[id]?.programmeDates;
+  return dates ? `${koDate(dates.start)} ~ ${koDate(dates.end)}` : '일정 추후 안내';
+};
+const applicationLabel = (id: string) => {
+  const period = offering[id]?.applicationPeriod;
+  return period ? `${koDate(period.end)} 마감` : '지원 일정 추후 안내';
+};
+const summerYear = offering.rsjp.academicYear;
 const detailLabel: Record<string, string> = {
-  rwjp: '2027 RWJP 상세 보기',
-  'rwjp-express': '2027 RWJP Express 상세 보기',
-  rbmp: '2027 RBMP 계획 보기',
+  rwjp: `${offering.rwjp.academicYear} RWJP 상세 보기`,
+  'rwjp-express': `${offering['rwjp-express'].academicYear} RWJP Express 상세 보기`,
+  rbmp: `${offering.rbmp.academicYear} RBMP 계획 보기`,
   rdsp: 'RDSP 현재 계획 보기',
-  rsjp: '2027 여름 프로그램 개요',
-  'rsjp-express': '2027 여름 프로그램 개요',
+  rsjp: `${offering.rsjp.academicYear} 여름 프로그램 개요`,
+  'rsjp-express': `${offering['rsjp-express'].academicYear} 여름 프로그램 개요`,
 };
 ---
 <section class="recruitment-hero en-hero" aria-labelledby="ko-hero-title">
@@ -44,70 +50,21 @@ const detailLabel: Record<string, string> = {
     <dl class="recruitment-hero__facts"><div><dt>대상</dt><dd>대학생·대학원생 중심</dd></div><div><dt>참가 방식</dt><dd>개인 또는 대학 단체</dd></div><div><dt>프로그램</dt><dd>일본어·문화·전문 테마</dd></div></dl>
   </div>
   <p class="recruitment-hero__note">과거 프로그램 사진입니다. 실제 구성은 프로그램별로 다릅니다.</p>
-  <a class="recruitment-hero__scroll" href="#program-finder" aria-label="프로그램 찾기로 이동">Explore <span>↓</span></a>
 </section>
 
 <section class="programme-finder programme-finder--reframed en-finder" id="program-finder" aria-labelledby="ko-finder-title"><div class="site-shell">
   <div class="section-intro programme-finder__intro"><p class="section-kicker">개인 참가 프로그램</p><h2 id="ko-finder-title">어떤 방식으로 배우고 싶은지부터 선택하세요</h2><div class="programme-finder__intro-copy"><p>일본어·일본문화 · 전문 테마 학습</p><small>캠퍼스는 프로그램별로 정해져 있습니다.</small></div></div>
-
-  <aside class="en-recruitment-banner" aria-labelledby="ko-recruitment-title">
-    <div class="en-recruitment-banner__copy"><p class="en-recruitment-banner__eyebrow">현재 모집</p><h3 id="ko-recruitment-title">현재 확인할 프로그램 4개</h3><p>RWJP, RWJP Express, RBMP, RDSP의 모집 정보를 먼저 확인하세요.</p></div>
-    <div class="en-recruitment-banner__links" aria-label="현재 모집 프로그램">
-      {recruitingProgrammes.map((programme) => programme && <a href={`${base}ko/programs/${programme.id}/`}><span>모집 중</span><strong>{programme.code}</strong><small>{timing[programme.id].dates}</small></a>)}
-    </div>
-  </aside>
-
-  <div class="programme-pathways programme-pathways--student" aria-label="프로그램 유형"><article><span>01</span><p>일본어를 실제 맥락에서</p><h3>일본어·일본문화</h3><small>RSJP / RSJP Express / RWJP / RWJP Express</small></article><article><span>02</span><p>전문 주제를 중심으로</p><h3>테마형 학습</h3><small>RDSP / RBMP</small></article></div>
-  <div class="finder-results-heading"><p>개인 참가 프로그램 <strong>6</strong></p><small>현재 모집 프로그램을 먼저 표시하고, 2027년 여름 프로그램은 별도로 구분합니다.</small></div>
-
+  <aside class="en-recruitment-banner" aria-labelledby="ko-current-title"><div class="en-recruitment-banner__copy"><p class="en-recruitment-banner__eyebrow">Current offerings</p><h3 id="ko-current-title">현재 먼저 확인할 프로그램 4개</h3><p>지원 상태를 포함한 연도별 정보는 확인된 값만 표시합니다. 미확정 값은 추정하지 않습니다.</p></div><div class="en-recruitment-banner__links">{currentProgrammes.map((programme) => programme && <a href={`${base}ko/programs/${programme.id}/`}><span>{offering[programme.id].status}</span><strong>{programme.code}</strong><small>{koRange(programme.id)}</small></a>)}</div></aside>
+  <div class="programme-pathways programme-pathways--student"><article><span>01</span><p>일본어를 실제 맥락에서</p><h3>일본어·일본문화</h3><small>RSJP / RSJP Express / RWJP / RWJP Express</small></article><article><span>02</span><p>전문 주제를 중심으로</p><h3>테마형 학습</h3><small>RDSP / RBMP</small></article></div>
+  <div class="finder-results-heading"><p>개인 참가 프로그램 <strong>{studentProgrammes.length}</strong></p><small>현재 상세 정보가 있는 프로그램을 먼저 표시하고, {summerYear}년 여름 프로그램은 별도로 구분합니다.</small></div>
   <div class="en-programme-groups">
-    <section class="en-programme-group en-programme-group--recruiting" aria-labelledby="ko-recruiting-heading">
-      <div class="en-programme-group__heading"><div><p>Applications & recruitment</p><h3 id="ko-recruiting-heading">현재 모집 중</h3></div><p>지원 전에 각 상세 페이지에서 확정된 일정, 참가 조건, 비용과 신청 정보를 확인하세요.</p></div>
-      <div class="programme-grid en-programme-grid">
-        {recruitingProgrammes.map((programme) => {
-          if (!programme) return null;
-          const page = koreanProgrammePages[programme.id as keyof typeof koreanProgrammePages];
-          return <article class={`programme-card programme-card--${programme.goals[0]} en-programme-card--recruiting`}>
-            <div class="programme-card__visual en-programme-card__visual"><img src={image(programme.image)} alt={page.heroAlt} width="960" height="640" loading="lazy" decoding="async" /><span>{programme.code}</span><small>{page.family}</small></div>
-            <div class="programme-card__body"><div class="en-programme-status en-programme-status--recruiting"><span>현재 모집 중</span></div><div class="programme-card__meta programme-card__meta--status"><span>{page.campus}</span></div><h3>{page.name}</h3><dl class="ko-programme-timing"><div><dt>지원</dt><dd>{timing[programme.id].application}</dd></div><div><dt>일정</dt><dd>{timing[programme.id].dates}</dd></div></dl><p>{page.lead}</p><a class="en-programme-card__link" href={`${base}ko/programs/${programme.id}/`}>{detailLabel[programme.id]} <span aria-hidden="true">→</span></a></div>
-          </article>;
-        })}
-      </div>
-    </section>
-
-    <section class="en-programme-group en-programme-group--summer-2027" aria-labelledby="ko-summer-heading">
-      <div class="en-programme-group__heading"><div><p>Plan ahead</p><h3 id="ko-summer-heading">2027 여름 프로그램</h3></div><p>RSJP와 RSJP Express는 2027년 여름 프로그램입니다. 연도별 모집 정보는 확인된 후 공개합니다.</p></div>
-      <div class="programme-grid en-programme-grid">
-        {summerProgrammes.map((programme) => {
-          if (!programme) return null;
-          const page = koreanProgrammePages[programme.id as keyof typeof koreanProgrammePages];
-          return <article class={`programme-card programme-card--${programme.goals[0]} en-programme-card--summer`}>
-            <div class="programme-card__visual en-programme-card__visual"><img src={image(programme.image)} alt={page.heroAlt} width="960" height="640" loading="lazy" decoding="async" /><span>{programme.code}</span><small>{page.family}</small></div>
-            <div class="programme-card__body"><div class="en-programme-status en-programme-status--summer"><span>2027 Summer Program</span></div><div class="programme-card__meta programme-card__meta--status"><span>{page.campus}</span></div><h3>{page.name}</h3><dl class="ko-programme-timing"><div><dt>지원</dt><dd>{timing[programme.id].application}</dd></div><div><dt>일정</dt><dd>{timing[programme.id].dates}</dd></div></dl><p>{page.lead}</p><a class="en-programme-card__link" href={`${base}ko/programs/${programme.id}/`}>{detailLabel[programme.id]} <span aria-hidden="true">→</span></a></div>
-          </article>;
-        })}
-      </div>
-    </section>
+    <section class="en-programme-group en-programme-group--current"><div class="en-programme-group__heading"><div><p>Current offerings</p><h3>현재 프로그램</h3></div><p>지원 전에 상세 페이지에서 일정, 참가 조건, 비용과 신청 정보를 확인하세요.</p></div><div class="programme-grid en-programme-grid">{currentProgrammes.map((programme) => { if (!programme) return null; const page = koreanProgrammePages[programme.id as keyof typeof koreanProgrammePages]; return <article class={`programme-card programme-card--${programme.goals[0]} en-programme-card--recruiting`}><div class="programme-card__visual en-programme-card__visual"><img src={image(programme.image)} alt={page.heroAlt} width="960" height="640" loading="lazy"/><span>{programme.code}</span><small>{page.family}</small></div><div class="programme-card__body"><div class="en-programme-status en-programme-status--recruiting"><span>{offering[programme.id].status}</span></div><div class="programme-card__meta programme-card__meta--status"><span>{page.campus}</span></div><h3>{page.name}</h3><dl class="ko-programme-timing"><div><dt>지원</dt><dd>{applicationLabel(programme.id)}</dd></div><div><dt>일정</dt><dd>{koRange(programme.id)}</dd></div></dl><p>{page.lead}</p><a class="en-programme-card__link" href={`${base}ko/programs/${programme.id}/`}>{detailLabel[programme.id]} <span>→</span></a></div></article>; })}</div></section>
+    <section class="en-programme-group en-programme-group--summer"><div class="en-programme-group__heading"><div><p>Plan ahead</p><h3>{summerYear} 여름 프로그램</h3></div><p>RSJP와 RSJP Express의 연도별 모집 정보는 공식 확인 후 공개합니다.</p></div><div class="programme-grid en-programme-grid">{summerProgrammes.map((programme) => { if (!programme) return null; const page = koreanProgrammePages[programme.id as keyof typeof koreanProgrammePages]; return <article class={`programme-card programme-card--${programme.goals[0]} en-programme-card--summer`}><div class="programme-card__visual en-programme-card__visual"><img src={image(programme.image)} alt={page.heroAlt} width="960" height="640" loading="lazy"/><span>{programme.code}</span><small>{page.family}</small></div><div class="programme-card__body"><div class="en-programme-status en-programme-status--summer"><span>{offering[programme.id].academicYear} Summer Program</span></div><div class="programme-card__meta programme-card__meta--status"><span>{page.campus}</span></div><h3>{page.name}</h3><dl class="ko-programme-timing"><div><dt>지원</dt><dd>{applicationLabel(programme.id)}</dd></div><div><dt>일정</dt><dd>{offering[programme.id].programmeDates ? koRange(programme.id) : `${offering[programme.id].academicYear}년 여름`}</dd></div></dl><p>{page.lead}</p><a class="en-programme-card__link" href={`${base}ko/programs/${programme.id}/`}>{detailLabel[programme.id]} <span>→</span></a></div></article>; })}</div></section>
   </div>
-
-  {customProgramme && <aside class="partner-programme partner-programme--expanded en-partner" id="custom-programs" aria-labelledby="ko-custom-title"><div class="partner-programme__label">대학·교육기관 대상</div><div class="partner-programme__content"><div class="partner-programme__lead"><p class="section-kicker">교육 목적에 맞춰 설계</p><h2 id="ko-custom-title">귀 대학과 함께 만드는 맞춤형 단기 프로그램</h2><p>해외 대학 및 교육기관의 학생 단체를 대상으로 교육 목적, 일정, 참가 인원, 학습 내용과 캠퍼스를 협의하며 프로그램을 설계합니다.</p><p class="partner-programme__promise">Custom Programs는 개인 지원 프로그램이 아닙니다. 대학 또는 교육기관 담당자와 협의하여 구성합니다.</p></div><div class="partner-programme__themes"><p>협의 가능한 주제 예시</p><ul><li>일본어와 일본문화</li><li>비즈니스</li><li>마케팅</li><li>기업가정신</li><li>데이터사이언스</li><li>AI</li><li>미디어</li><li>대중문화</li></ul></div></div></aside>}
+  {customProgramme && <aside class="partner-programme partner-programme--expanded en-partner"><div class="partner-programme__label">대학·교육기관 대상</div><div class="partner-programme__content"><div class="partner-programme__lead"><p class="section-kicker">교육 목적에 맞춰 설계</p><h2>귀 대학과 함께 만드는 맞춤형 단기 프로그램</h2><p>해외 대학 및 교육기관의 학생 단체를 대상으로 교육 목적, 일정, 참가 인원, 학습 내용과 캠퍼스를 협의하며 프로그램을 설계합니다.</p></div><div class="partner-programme__themes"><p>협의 가능한 주제 예시</p><ul><li>일본어와 일본문화</li><li>비즈니스</li><li>마케팅</li><li>기업가정신</li><li>데이터사이언스</li><li>AI</li><li>미디어</li><li>대중문화</li></ul></div></div></aside>}
 </div></section>
 
-<section class="en-experience" id="why-ritsumeikan" aria-labelledby="ko-experience-title"><div class="site-shell"><div class="section-intro"><p class="section-kicker">Why Ritsumeikan</p><h2 id="ko-experience-title">캠퍼스에서 배우고, 사람을 만나고, 일본을 맥락 속에서 이해합니다.</h2><p class="en-section-lead">프로그램에 따라 수업, 학생 교류, 문화 학습과 현장 경험이 서로 연결됩니다.</p></div><div class="en-experience__grid"><article><span>01</span><h3>학문적 학습</h3><p>일본어 능력을 키우거나 전문 주제를 집중적으로 탐구합니다.</p></article><article><span>02</span><h3>학생 교류</h3><p>프로그램에 포함되는 경우 리츠메이칸 학생들과의 교류도 학습의 일부가 됩니다.</p></article><article><span>03</span><h3>일본을 맥락 속에서</h3><p>문화와 지역을 통해 교실에서 배운 내용을 실제 환경과 연결합니다.</p></article></div></div></section>
-
-<section class="en-evidence" id="global-reach" aria-labelledby="ko-evidence-title"><div class="site-shell"><div class="section-intro"><p class="section-kicker">Global Reach</p><h2 id="ko-evidence-title">세계 여러 대학의 학생들이 리츠메이칸 단기 프로그램에 참가해 왔습니다.</h2><p class="en-section-lead">2023~2026년 4개 일본어 프로그램의 확인된 참가 실적입니다.</p></div><dl class="en-evidence__stats"><div><dt>{evidence.participants}</dt><dd>참가자</dd></div><div><dt>{evidence.institutions}</dt><dd>대학·기관</dd></div><div><dt>{evidence.countriesOrRegions}</dt><dd>국가·지역</dd></div></dl><p class="en-evidence__note">국가·지역은 참가자의 국적이 아니라 소속 대학·기관의 소재지를 기준으로 합니다. 과거 참가 실적이 현재의 협정 관계를 의미하지는 않습니다.</p></div></section>
-
-<section class="en-photo-story" aria-labelledby="ko-photo-title"><div class="site-shell"><div class="section-intro"><p class="section-kicker">Campus and community</p><h2 id="ko-photo-title">단기 유학의 일상을 사진으로 만나보세요.</h2><p class="en-section-lead">수업, 교류와 활동의 비중은 프로그램마다 다릅니다. 아래 사진은 과거 단기 프로그램의 모습입니다.</p></div><div class="en-photo-story__grid"><figure><img src={image('IMG_8178.JPG')} alt="리츠메이칸대학교에서 함께 공부하는 학생들" loading="lazy" decoding="async" width="1200" height="800" /><figcaption>캠퍼스에서 함께 배우기</figcaption></figure><figure><img src={image('IMG_5092.JPG')} alt="교토에서 문화 활동에 참가하는 학생들" loading="lazy" decoding="async" width="1200" height="800" /><figcaption>문화와 지역을 학습의 일부로</figcaption></figure><figure><img src={image('IMG_1687.JPG')} alt="리츠메이칸대학교 캠퍼스" loading="lazy" decoding="async" width="1200" height="800" /><figcaption>일본 대학 캠퍼스에서 보내는 시간</figcaption></figure></div></div></section>
-
-<section class="en-support" id="support" aria-labelledby="ko-support-title"><div class="site-shell en-support__inner"><div><p class="section-kicker">Support</p><h2 id="ko-support-title">출국 전 필요한 정보를 명확하게 안내합니다.</h2><p>지원 조건, 숙소, 비용, 일정은 해당 프로그램과 연도의 정보가 확인된 후 공개합니다. 공식 정보는 각 프로그램 상세 페이지에서 확인하세요.</p></div><a class="action-button action-button--dark" href={`${base}en/`}>English site</a></div></section>
-
-<style>
-  .en-recruitment-banner { display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.5fr); gap:1.5rem; align-items:center; margin-top:2.25rem; padding:clamp(1.5rem,3vw,2.2rem); border-radius:1.2rem; background:linear-gradient(135deg,#7f1f2d 0%,#9b2e3e 55%,#6d1825 100%); color:#fff; box-shadow:0 18px 44px rgba(74,23,31,.16); }
-  .en-recruitment-banner__eyebrow,.en-programme-group__heading>div>p{margin:0 0 .45rem;font-size:.75rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
-  .en-recruitment-banner h3{margin:0;font-size:clamp(1.7rem,3vw,2.6rem);line-height:1.12;color:#fff;word-break:keep-all}.en-recruitment-banner__copy>p:last-child{margin:.8rem 0 0;color:rgba(255,255,255,.84);line-height:1.65}.en-recruitment-banner__links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.75rem}.en-recruitment-banner__links a{display:grid;min-height:112px;align-content:center;gap:.25rem;padding:1rem 1.1rem;border:1px solid rgba(255,255,255,.26);border-radius:.9rem;background:rgba(255,255,255,.1);color:#fff;text-decoration:none}.en-recruitment-banner__links a>span{font-size:.72rem;font-weight:800;color:#f8d9df}.en-recruitment-banner__links strong{font-size:1.3rem}.en-recruitment-banner__links small{color:rgba(255,255,255,.82)}
-  .en-programme-groups{display:grid;gap:clamp(2.8rem,5vw,4.5rem);margin-top:2.4rem}.en-programme-group__heading{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:1.5rem;align-items:end;padding:0 0 1rem;border-bottom:1px solid #ddd4ce}.en-programme-group__heading>div>p{color:#8b2432}.en-programme-group__heading h3{margin:0;font-size:clamp(1.7rem,2.7vw,2.45rem);line-height:1.12}.en-programme-group__heading>p{margin:0;color:#665f5a;line-height:1.65}.en-programme-group--recruiting .en-programme-group__heading{border-bottom:3px solid #8b2432}.en-programme-status{margin-bottom:.55rem}.en-programme-status span{display:inline-flex;min-height:30px;align-items:center;padding:.3rem .65rem;border-radius:999px;font-size:.72rem;font-weight:800}.en-programme-status--recruiting span{background:#8b2432;color:#fff}.en-programme-status--summer span{border:1px solid #9caaaf;background:#edf3f5;color:#294652}.en-programme-card--recruiting{border-color:rgba(139,36,50,.32)!important;box-shadow:0 16px 38px rgba(94,31,42,.09)!important}
-  .ko-programme-timing{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin:.8rem 0 .9rem}.ko-programme-timing div{padding:.65rem .7rem;border:1px solid #e1d9d4;border-radius:.65rem;background:#fffaf7}.ko-programme-timing dt{font-size:.68rem;font-weight:800;color:#8b2432}.ko-programme-timing dd{margin:.15rem 0 0;font-size:.8rem;font-weight:700;color:#3b3532}
-  @media(max-width:760px){.en-recruitment-banner,.en-programme-group__heading{grid-template-columns:1fr}}
-  @media(max-width:560px){.en-recruitment-banner{padding:1.2rem;gap:1rem}.en-recruitment-banner__links{grid-template-columns:1fr 1fr;gap:.55rem}.en-recruitment-banner__links a{min-height:98px;padding:.8rem}.en-recruitment-banner__links strong{font-size:1.05rem}.ko-programme-timing{grid-template-columns:1fr}.ko-programme-timing div{display:grid;grid-template-columns:64px 1fr;align-items:center}.ko-programme-timing dd{margin:0;text-align:right}.en-programme-group__heading{gap:.6rem}.en-programme-group__heading h3{font-size:1.75rem}.en-programme-group__heading>p{font-size:.88rem}}
-  @media(max-width:350px){.en-recruitment-banner__links{grid-template-columns:1fr}}
-</style>
+<section class="en-experience" id="why-ritsumeikan"><div class="site-shell"><div class="section-intro"><p class="section-kicker">Why Ritsumeikan</p><h2>캠퍼스에서 배우고, 사람을 만나고, 일본을 맥락 속에서 이해합니다.</h2><p class="en-section-lead">프로그램에 따라 수업, 학생 교류, 문화 학습과 현장 경험이 서로 연결됩니다.</p></div><div class="en-experience__grid"><article><span>01</span><h3>학문적 학습</h3><p>일본어 능력을 키우거나 전문 주제를 집중적으로 탐구합니다.</p></article><article><span>02</span><h3>학생 교류</h3><p>프로그램에 포함되는 경우 리츠메이칸 학생들과의 교류도 학습의 일부가 됩니다.</p></article><article><span>03</span><h3>일본을 맥락 속에서</h3><p>문화와 지역을 통해 교실에서 배운 내용을 실제 환경과 연결합니다.</p></article></div></div></section>
+<section class="en-evidence" id="global-reach"><div class="site-shell"><div class="section-intro"><p class="section-kicker">Global Reach</p><h2>세계 여러 대학의 학생들이 리츠메이칸 단기 프로그램에 참가해 왔습니다.</h2><p class="en-section-lead">2023~2026년 4개 일본어 프로그램의 확인된 참가 실적입니다.</p></div><dl class="en-evidence__stats"><div><dt>{evidence.participants}</dt><dd>참가자</dd></div><div><dt>{evidence.institutions}</dt><dd>대학·기관</dd></div><div><dt>{evidence.countriesOrRegions}</dt><dd>국가·지역</dd></div></dl></div></section>
+<section class="en-photo-story"><div class="site-shell"><div class="section-intro"><p class="section-kicker">Campus and community</p><h2>단기 유학의 일상을 사진으로 만나보세요.</h2></div><div class="en-photo-story__grid"><figure><img src={image('IMG_8178.JPG')} alt="단기 프로그램 수업" loading="lazy"/><figcaption>캠퍼스에서 함께 배우기</figcaption></figure><figure><img src={image('IMG_5092.JPG')} alt="문화 학습" loading="lazy"/><figcaption>문화와 장소에서 배우기</figcaption></figure><figure><img src={image('IMG_1687.JPG')} alt="학생 교류" loading="lazy"/><figcaption>캠퍼스와 사람을 만나기</figcaption></figure></div></div></section>
+<section class="en-support" id="support"><div class="site-shell en-support__inner"><div><p class="section-kicker">Next step</p><h2>지원 전, 해당 연도의 확정 정보를 확인하세요.</h2><p>일정, 참가비, 자격, 숙소와 신청 절차는 확인된 값만 공개합니다.</p></div><a class="action-button action-button--primary" href="#program-finder">프로그램 찾기</a></div></section>

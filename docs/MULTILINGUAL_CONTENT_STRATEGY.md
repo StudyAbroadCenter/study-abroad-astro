@@ -16,6 +16,79 @@ The facts must remain consistent across languages:
 
 The framing, rhythm, examples and calls to action may differ by language.
 
+## Japanese canonical role
+
+The Japanese edition is the canonical institutional narrative for the Study Abroad Center website. It must do more than recruit participants.
+
+It should explain, with auditable evidence:
+
+- the scale and reach of inbound short-term programmes;
+- how incoming students and Ritsumeikan students learn together;
+- how student exchange contributes to campus internationalisation;
+- what has actually been implemented, using real programme photography and verified aggregate evidence;
+- how evidence is counted and governed;
+- where data is not yet verified.
+
+The Japanese edition may consciously address institutional stakeholders, including university leadership, partner units and public-policy audiences. It must not imply formal alignment, funding or endorsement by a government programme unless separately verified.
+
+A key editorial rule is: **show what happened, not what we wish had happened.** No inferred participant counts, vanity counters or estimated co-learning numbers.
+
+## International-language role
+
+The English, Korean and Chinese editions should remain recruitment-first. Their primary task is to help international students and partner institutions understand why a programme is attractive and how to participate.
+
+They should prioritise:
+
+- programme purpose and academic experience;
+- dates, fees, eligibility and application steps;
+- campus and accommodation;
+- student connection, Buddy activity and co-learning as concrete programme benefits;
+- practical support and safety;
+- clear calls to action.
+
+They do not need to reproduce the full Japanese institutional / policy narrative. Co-learning should be visible because it improves the student experience, not because every locale must repeat the same institutional framing.
+
+## Single-source factual model
+
+Annual facts must be edited once and rendered consistently in every locale. The target architecture is:
+
+```ts
+programmeFacts = {
+  id,
+  year,
+  dates,
+  fee,
+  deadline,
+  eligibility,
+  accommodation,
+  cancellation,
+  source,
+  verifiedAt
+}
+
+programmeCopy = {
+  ja: {...},
+  en: {...},
+  ko: {...},
+  zhHant: {...},
+  zhHans: {...}
+}
+```
+
+A future Markdown-backed implementation may store language-neutral annual facts in frontmatter and locale-authored copy separately. Changing a date, fee or deadline in the verified fact source must update all locale renderings without manually editing the same number in five pages.
+
+High-risk prose such as eligibility, cancellation, health and legal conditions must not be silently machine-translated and published. A Japanese factual change should mark affected locale copy for review.
+
+## Evidence architecture
+
+Public evidence is aggregate and non-PII.
+
+- inbound participation evidence: verified source dataset;
+- co-learning evidence: separate verified aggregate dataset;
+- operational Buddy / matching data: outside the public Astro repository.
+
+Unique students and total participations must be separate metrics. Unverified metrics are hidden, not displayed as zero.
+
 ## Recommended publication order
 
 ### 1. Japanese and English together
