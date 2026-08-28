@@ -2,10 +2,10 @@
 import ChineseHomeLayout from '../../components/ChineseHomeLayout.astro';
 import ChineseHome from '../../components/ChineseHome.astro';
 import HomeLanguageSwitcher from '../../components/HomeLanguageSwitcher.astro';
-import { chineseHomeCopy } from '../../data/chinese-localisation';
-const c = chineseHomeCopy['zh-CN'];
+const title = '立命馆大学短期留学项目 | Study Abroad Center';
+const description = '查看立命馆大学的日语、日本文化与专业主题短期项目。年度日期、费用、申请资格与住宿信息只在确认后发布。';
 ---
-<ChineseHomeLayout locale="zh-CN" title={c.title} description={c.description} robots="noindex,nofollow">
+<ChineseHomeLayout locale="zh-CN" title={title} description={description} robots="noindex,nofollow">
   <HomeLanguageSwitcher currentLocale="zh-CN" />
   <ChineseHome locale="zh-CN" />
 </ChineseHomeLayout>
