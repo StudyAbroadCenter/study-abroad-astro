@@ -12,6 +12,7 @@ const presentationFiles = [
   'src/data/english-programme-pages.ts',
   'src/data/korean-programme-pages.ts',
   'src/data/chinese-localisation.ts',
+  'src/components/ProgramFinder.astro',
   'src/components/ProgrammePageShell.astro',
   'src/components/EnglishHome.astro',
   'src/components/KoreanHome.astro',
