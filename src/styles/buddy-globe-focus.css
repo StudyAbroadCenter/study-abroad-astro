@@ -1,24 +1,23 @@
 .buddy-global__globe {
-  min-height: 560px;
-  background:
-    radial-gradient(circle at 78% 12%, rgba(255, 247, 181, 0.68), transparent 16%),
-    linear-gradient(180deg, #80cff8 0%, #d9f2ff 100%);
+  min-height: 0;
+  aspect-ratio: 1200 / 620;
+  overflow: hidden;
+  border: 1px solid rgba(139, 36, 50, 0.18);
+  border-radius: 14px;
+  background: #f7f4ef;
+  box-shadow: 0 12px 32px rgba(56, 45, 40, 0.06);
 }
 
+/* Formal infographic treatment: remove the previous sky, sun and decorative copy. */
 .buddy-global__globe::before,
-.buddy-global__globe::after {
+.buddy-global__globe::after,
+.buddy-global__sun,
+.buddy-global__hub-label,
+.buddy-global__connection-caption {
   display: none;
 }
 
-.buddy-global__sun {
-  z-index: 0;
-  width: 150px;
-  height: 150px;
-  right: 7%;
-  top: 4%;
-  opacity: 0.8;
-}
-
+/* Keep the SVG and HTML country markers on exactly the same 1200 x 620 coordinate system. */
 .buddy-global__sphere {
   position: absolute;
   inset: 0;
@@ -29,298 +28,128 @@
   filter: none;
 }
 
-.buddy-global__map-grid path {
-  fill: none;
-  stroke: rgba(255, 255, 255, 0.2);
-  stroke-width: 2;
+.buddy-global__sphere > rect {
+  fill: #f7f4ef !important;
+}
+
+/* A clean institutional map rather than a playful illustrated globe. */
+.buddy-global__map-grid {
+  display: none;
 }
 
 .buddy-global__lands {
-  filter: drop-shadow(0 7px 12px rgba(38, 115, 154, 0.12));
+  fill: #d7d0c8 !important;
+  opacity: 0.98;
+  filter: none;
 }
 
-.buddy-global__route {
-  fill: none;
-  stroke: rgba(255, 255, 255, 0.9);
-  stroke-width: 4;
-  stroke-linecap: round;
-  stroke-dasharray: 11 14;
-  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.72));
-  animation: buddy-route-flow 4.2s linear infinite;
+/* Thin Ritsumeikan-colour routes. Curves remain geographic, but without animation or arrows. */
+.buddy-global__routes {
+  marker-end: none;
 }
 
-.buddy-global__route:nth-of-type(2n) {
-  animation-duration: 5s;
-  opacity: 0.78;
-}
-
+.buddy-global__route,
+.buddy-global__route:nth-of-type(2n),
 .buddy-global__route:nth-of-type(3n) {
-  animation-duration: 5.8s;
-  opacity: 0.66;
+  fill: none;
+  stroke: rgba(139, 36, 50, 0.58);
+  stroke-width: 1.35;
+  stroke-linecap: round;
+  stroke-dasharray: 4 6;
+  opacity: 0.92;
+  filter: none;
+  animation: none;
 }
 
-.buddy-global__ritsumeikan-ring {
-  stroke: rgba(255, 255, 255, 0.95);
-  stroke-width: 4;
-  transform-origin: 660px 273px;
-  animation: buddy-hub-pulse 2.8s ease-out infinite;
-}
-
+/* Country names already appear in the legend, so the map keeps only precise origin dots. */
 .buddy-global__marker {
-  z-index: 4;
-}
-
-.buddy-global__marker i {
+  z-index: 3;
+  display: block;
   width: 9px;
   height: 9px;
-  background: #ff6860;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
 }
 
 .buddy-global__marker b {
-  font-size: 0.61rem;
-  background: rgba(255, 255, 255, 0.9);
+  display: none;
 }
 
-.buddy-global__hub-label {
-  position: absolute;
-  z-index: 6;
-  left: 55%;
-  top: 44%;
-  display: grid;
-  gap: 2px;
-  transform: translate(-50%, 34px);
-  padding: 7px 10px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 8px 24px rgba(23, 74, 110, 0.14);
-  color: #173653;
-  text-align: center;
-  white-space: nowrap;
-  pointer-events: none;
-  backdrop-filter: blur(8px);
+.buddy-global__marker i {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border: 1.5px solid #ffffff;
+  border-radius: 50%;
+  background: #8b2432;
+  box-shadow: 0 1px 4px rgba(80, 45, 47, 0.18);
 }
 
-.buddy-global__hub-label strong {
-  color: #9f2238;
-  font-size: 0.9rem;
-  line-height: 1.15;
+/* Keep only a small R mark around Japan; remove the large central university label. */
+.buddy-global__ritsumeikan-ring {
+  display: none;
 }
 
-.buddy-global__hub-label span {
-  font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.04em;
+.buddy-global__sphere > circle:not(.buddy-global__ritsumeikan-ring) {
+  transform-box: view-box;
+  transform-origin: 660px 273px;
+  transform: scale(0.58);
+  fill: #ffffff;
+  stroke: #8b2432;
+  stroke-width: 3;
 }
 
-.buddy-global__connection-caption {
-  position: absolute;
-  z-index: 5;
-  left: 50%;
-  bottom: 18px;
-  transform: translateX(-50%);
-  width: max-content;
-  max-width: calc(100% - 40px);
-  margin: 0;
-  padding: 9px 15px;
-  border: 1px solid rgba(255, 255, 255, 0.72);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.78);
-  box-shadow: 0 10px 30px rgba(26, 91, 146, 0.12);
-  color: #173653;
-  font-size: 0.77rem;
-  font-weight: 850;
-  letter-spacing: 0.03em;
-  text-align: center;
-  backdrop-filter: blur(10px);
+.buddy-global__sphere > text {
+  transform-box: view-box;
+  transform-origin: 660px 273px;
+  transform: scale(0.62);
+  fill: #8b2432;
+  font-size: 20px;
+  font-weight: 900;
 }
 
-@keyframes buddy-route-flow {
-  to { stroke-dashoffset: -100; }
+/* Keep the evidence panel and country list restrained and document-like. */
+.buddy-global__evidence {
+  border: 1px solid rgba(139, 36, 50, 0.1);
+  border-radius: 16px;
+  background: #fffdf9;
+  box-shadow: none;
 }
 
-@keyframes buddy-hub-pulse {
-  0% { opacity: 0.9; transform: scale(0.82); }
-  70%, 100% { opacity: 0; transform: scale(1.85); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .buddy-global__route,
-  .buddy-global__ritsumeikan-ring {
-    animation: none;
-  }
+.buddy-global__countries span {
+  border-color: rgba(139, 36, 50, 0.12);
+  background: #fffdf9;
+  box-shadow: none;
 }
 
 @media (max-width: 900px) {
   .buddy-global__globe {
-    min-height: 500px;
-  }
-
-  .buddy-global__marker b {
-    font-size: 0.56rem;
-    padding: 4px 6px;
+    border-radius: 12px;
   }
 }
 
 @media (max-width: 620px) {
   .buddy-global__globe {
-    min-height: 410px;
-    border-radius: 24px;
-  }
-
-  .buddy-global__marker b {
-    display: none;
-  }
-
-  .buddy-global__marker i {
-    width: 8px;
-    height: 8px;
-  }
-
-  .buddy-global__hub-label {
-    transform: translate(-50%, 25px);
-    padding: 6px 8px;
-  }
-
-  .buddy-global__hub-label strong {
-    font-size: 0.78rem;
-  }
-
-  .buddy-global__hub-label span {
-    font-size: 0.62rem;
-  }
-
-  .buddy-global__connection-caption {
-    bottom: 12px;
-    font-size: 0.68rem;
-  }
-}
-
-@media (max-width: 360px) {
-  .buddy-global__globe {
-    min-height: 360px;
-  }
-
-  .buddy-global__connection-caption {
-    max-width: calc(100% - 24px);
-    padding: 7px 10px;
-    font-size: 0.64rem;
-  }
-}
-
-/* Desktop/tablet map clarity pass.
-   Country labels are deliberately spaced for readability rather than strict cartographic precision.
-   Routes are drawn from the same HTML marker that owns each country label, so the line and label can never drift apart. */
-@media (min-width: 621px) {
-  .buddy-global__globe {
-    container-type: size;
-  }
-
-  /* Replace the SVG routes with thinner rays tied directly to the visible country markers. */
-  .buddy-global__routes,
-  .buddy-global__sphere > circle,
-  .buddy-global__sphere > text {
-    display: none;
-  }
-
-  .buddy-global__marker {
-    z-index: 4;
-  }
-
-  .buddy-global__marker::after {
-    position: absolute;
-    z-index: -1;
-    left: 4px;
-    top: 50%;
-    width: hypot(var(--route-x), var(--route-y));
-    height: 1.25px;
-    transform: translateY(-50%) rotate(atan2(var(--route-y), var(--route-x)));
-    transform-origin: left center;
-    background: rgba(255, 255, 255, 0.82);
-    box-shadow: 0 0 2px rgba(255, 255, 255, 0.42);
-    content: '';
-    pointer-events: none;
-  }
-
-  .buddy-global__marker i {
-    width: 8px;
-    height: 8px;
-    border-width: 1.5px;
-  }
-
-  .buddy-global__marker b {
-    padding: 5px 8px;
-    border-color: rgba(255, 255, 255, 0.9);
-    background: rgba(255, 255, 255, 0.94);
-    box-shadow: 0 5px 15px rgba(18, 84, 140, 0.12);
-    font-size: 0.64rem;
-    line-height: 1.05;
-  }
-
-  /* Compact centre hub: the rays converge on this exact HTML coordinate. */
-  .buddy-global__hub-label {
-    left: 55%;
-    top: 46%;
-    gap: 1px;
-    min-width: 74px;
-    transform: translate(-50%, -50%);
-    padding: 5px 7px 6px;
-    border: 1px solid rgba(159, 34, 56, 0.16);
+    min-height: 260px;
+    aspect-ratio: auto;
     border-radius: 10px;
-    box-shadow: 0 7px 18px rgba(23, 74, 110, 0.12);
   }
 
-  .buddy-global__hub-label::before {
-    display: grid;
-    width: 24px;
-    height: 24px;
-    margin: 0 auto 2px;
-    place-items: center;
-    border: 2px solid #9f2238;
-    border-radius: 50%;
-    background: #fff;
-    color: #9f2238;
-    content: 'R';
-    font-size: 0.78rem;
-    font-weight: 900;
-    line-height: 1;
+  /* The map itself carries the routes on narrow screens; hide HTML dots so aspect-ratio changes cannot create drift. */
+  .buddy-global__marker {
+    display: none;
   }
 
-  .buddy-global__hub-label strong {
-    font-size: 0.7rem;
-    line-height: 1.1;
+  .buddy-global__route,
+  .buddy-global__route:nth-of-type(2n),
+  .buddy-global__route:nth-of-type(3n) {
+    stroke-width: 1.1;
+    stroke-dasharray: 3 5;
   }
+}
 
-  .buddy-global__hub-label span {
-    font-size: 0.5rem;
-    line-height: 1.15;
-    letter-spacing: 0.02em;
+@media (prefers-reduced-motion: reduce) {
+  .buddy-global__route {
+    animation: none;
   }
-
-  /* Europe / Middle East */
-  .buddy-global__marker[title^='フィンランド '] { --x:25%!important; --y:12%!important; --route-x:30cqw; --route-y:34cqh; }
-  .buddy-global__marker[title^='イギリス '] { --x:17%!important; --y:24%!important; --route-x:38cqw; --route-y:22cqh; }
-  .buddy-global__marker[title^='オランダ '] { --x:28%!important; --y:22%!important; --route-x:27cqw; --route-y:24cqh; }
-  .buddy-global__marker[title^='ポーランド '] { --x:32%!important; --y:30%!important; --route-x:23cqw; --route-y:16cqh; }
-  .buddy-global__marker[title^='ルーマニア '] { --x:24%!important; --y:38%!important; --route-x:31cqw; --route-y:8cqh; }
-  .buddy-global__marker[title^='アゼルバイジャン '] { --x:34%!important; --y:41%!important; --route-x:21cqw; --route-y:5cqh; }
-  .buddy-global__marker[title^='トルクメニスタン '] { --x:42%!important; --y:29%!important; --route-x:13cqw; --route-y:17cqh; }
-  .buddy-global__marker[title^='カタール '] { --x:26%!important; --y:52%!important; --route-x:29cqw; --route-y:-6cqh; }
-  .buddy-global__marker[title^='サウジアラビア '] { --x:34%!important; --y:61%!important; --route-x:21cqw; --route-y:-15cqh; }
-
-  /* East / Southeast Asia */
-  .buddy-global__marker[title^='中国 '] { --x:41%!important; --y:50%!important; --route-x:14cqw; --route-y:-4cqh; }
-  .buddy-global__marker[title^='韓国 '] { --x:68%!important; --y:28%!important; --route-x:-13cqw; --route-y:18cqh; }
-  .buddy-global__marker[title^='台湾 '] { --x:72%!important; --y:42%!important; --route-x:-17cqw; --route-y:4cqh; }
-  .buddy-global__marker[title^='香港 '] { --x:72%!important; --y:54%!important; --route-x:-17cqw; --route-y:-8cqh; }
-  .buddy-global__marker[title^='マカオ '] { --x:58%!important; --y:62%!important; --route-x:-3cqw; --route-y:-16cqh; }
-  .buddy-global__marker[title^='シンガポール '] { --x:50%!important; --y:70%!important; --route-x:5cqw; --route-y:-24cqh; }
-
-  /* Americas */
-  .buddy-global__marker[title^='カナダ '] { --x:80%!important; --y:18%!important; --route-x:-25cqw; --route-y:28cqh; }
-  .buddy-global__marker[title^='アメリカ '] { --x:83%!important; --y:33%!important; --route-x:-28cqw; --route-y:13cqh; }
-  .buddy-global__marker[title^='メキシコ '] { --x:84%!important; --y:56%!important; --route-x:-29cqw; --route-y:-10cqh; }
-
-  /* Oceania */
-  .buddy-global__marker[title^='オーストラリア '] { --x:64%!important; --y:79%!important; --route-x:-9cqw; --route-y:-33cqh; }
-  .buddy-global__marker[title^='ニュージーランド '] { --x:75%!important; --y:88%!important; --route-x:-20cqw; --route-y:-42cqh; }
 }
