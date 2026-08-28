@@ -1,0 +1,84 @@
+---
+import { shortTermParticipationEvidence, participationHistorySource } from '../data/participation-history';
+import {
+  documentedCoLearningActivities,
+  verifiedCoLearningMetrics,
+  coLearningEvidenceGovernance,
+} from '../data/co-learning-evidence';
+import '../styles/co-learning-evidence.css';
+
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const image = (path: string) => `${base}images/${path.replace(/^\//, '')}`;
+const hasVerifiedCoLearningMetrics = verifiedCoLearningMetrics.length > 0;
+---
+<section class="co-learning-evidence" id="co-learning-evidence" aria-labelledby="co-learning-evidence-title">
+  <div class="site-shell co-learning-evidence__intro">
+    <div>
+      <p class="co-learning-evidence__kicker">MULTICULTURAL CO-LEARNING · EVIDENCE</p>
+      <h2 id="co-learning-evidence-title"><span>共に学んだことを</span><span>事実で示す</span></h2>
+    </div>
+    <div class="co-learning-evidence__lead">
+      <p>短期留学生を何人迎えたかだけでなく、キャンパスでどんな出会いと学びをつくったか。その実践を、写真と検証できるデータで残していきます。</p>
+      <p>数字は大きく見せるためではなく、実際に行ったことを説明できる形にするために使います。</p>
+    </div>
+  </div>
+
+  <div class="site-shell co-learning-evidence__reach" aria-label="検証済み短期受入実績">
+    <div class="co-learning-evidence__reach-copy">
+      <p>まず、世界から迎えた実績</p>
+      <strong>{participationHistorySource.period}</strong>
+      <small>検証済み定型4プログラム</small>
+    </div>
+    <dl>
+      <div><dt>{shortTermParticipationEvidence.participants.toLocaleString('ja-JP')}</dt><dd>参加者</dd></div>
+      <div><dt>{shortTermParticipationEvidence.countriesOrRegions}</dt><dd>国・地域</dd></div>
+      <div><dt>{shortTermParticipationEvidence.institutions}</dt><dd>大学・機関</dd></div>
+    </dl>
+  </div>
+
+  <div class="site-shell co-learning-evidence__activities" aria-label="多文化共修の実施例">
+    {documentedCoLearningActivities.map((activity) => (
+      <article class="co-learning-evidence__activity">
+        <figure>
+          <img src={image(activity.image)} alt={activity.imageAlt} loading="lazy" decoding="async" />
+          <figcaption>{activity.evidenceNote}</figcaption>
+        </figure>
+        <div>
+          <h3>{activity.title}</h3>
+          <p>{activity.summary}</p>
+        </div>
+      </article>
+    ))}
+  </div>
+
+  <div class="site-shell co-learning-evidence__measurement">
+    <div>
+      <p class="co-learning-evidence__measurement-kicker">MEASURE WHAT ACTUALLY HAPPENED</p>
+      <h3>共修の人数も、根拠が整ったものから公開する</h3>
+      <p>{coLearningEvidenceGovernance.currentStatus}</p>
+    </div>
+
+    {hasVerifiedCoLearningMetrics ? (
+      <dl class="co-learning-evidence__metrics">
+        {verifiedCoLearningMetrics.map((metric) => (
+          <div>
+            <dt>{metric.value.toLocaleString('ja-JP')}<span>{metric.unit}</span></dt>
+            <dd>{metric.label}</dd>
+            <small>{metric.period}</small>
+          </div>
+        ))}
+      </dl>
+    ) : (
+      <div class="co-learning-evidence__pending" role="note">
+        <strong>未検証の人数は掲載しません</strong>
+        <p>立命館学生の実人数、延べ参加回数、活動回数などは、集計定義と根拠資料を確認したうえで公開します。</p>
+      </div>
+    )}
+  </div>
+
+  <div class="site-shell co-learning-evidence__footer">
+    <p><strong>公開ルール：</strong>{coLearningEvidenceGovernance.publicDataRule} {coLearningEvidenceGovernance.countingRule}</p>
+    <a href={`${base}buddy/`}>Buddy & Global Connectionsを見る <span aria-hidden="true">→</span></a>
+  </div>
+</section>
