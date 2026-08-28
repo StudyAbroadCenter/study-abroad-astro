@@ -153,3 +153,138 @@
     animation: none;
   }
 }
+
+/* Static verified evidence map. The visual map is a fixed asset; the country list remains live text. */
+.buddy-global__scene {
+  grid-template-columns: minmax(0, 1fr) 19rem;
+  gap: 30px;
+  align-items: start;
+}
+
+.buddy-global__globe {
+  aspect-ratio: 1240 / 865;
+  border: 0;
+  border-radius: 16px;
+  background-color: #f7efee;
+  background-image: url('/images/evidence/buddy-global-map-2023-2026.webp');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  box-shadow: none;
+}
+
+/* Hide the previous generated SVG layer; the approved static visual now owns the map. */
+.buddy-global__globe > * {
+  display: none !important;
+}
+
+.buddy-global__legend {
+  gap: 14px;
+}
+
+.buddy-global__evidence {
+  padding: 20px 18px;
+  border: 1px solid rgba(139, 36, 50, 0.16);
+  border-radius: 14px;
+  background: #fffaf8;
+}
+
+.buddy-global__evidence::before {
+  display: block;
+  margin-bottom: 6px;
+  color: #8b2432;
+  content: 'RSJP・RWJP（5週間）';
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.buddy-global__evidence > span {
+  color: #8b2432;
+}
+
+.buddy-global__countries {
+  counter-reset: buddy-country;
+  display: grid;
+  gap: 0;
+  padding: 2px 0;
+}
+
+.buddy-global__countries span {
+  counter-increment: buddy-country;
+  display: flex;
+  align-items: center;
+  gap: 0.52rem;
+  padding: 0.47rem 0.35rem;
+  border: 0;
+  border-bottom: 1px solid rgba(139, 36, 50, 0.12);
+  border-radius: 0;
+  background: transparent;
+  color: #271f1f;
+  font-size: 0.9rem;
+  font-weight: 720;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.buddy-global__countries span::before {
+  width: 1.6rem;
+  flex: 0 0 1.6rem;
+  color: rgba(39, 31, 31, 0.58);
+  content: counter(buddy-country) '.';
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.buddy-global__countries span::after {
+  margin-left: auto;
+  color: #8b2432;
+  font-size: 0.88rem;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+}
+
+.buddy-global__countries span:nth-child(1)::after { content: '89名'; }
+.buddy-global__countries span:nth-child(2)::after { content: '76名'; }
+.buddy-global__countries span:nth-child(3)::after { content: '57名'; }
+.buddy-global__countries span:nth-child(4)::after { content: '18名'; }
+.buddy-global__countries span:nth-child(5)::after { content: '11名'; }
+.buddy-global__countries span:nth-child(6)::after { content: '9名'; }
+.buddy-global__countries span:nth-child(7)::after { content: '7名'; }
+.buddy-global__countries span:nth-child(8)::after { content: '7名'; }
+.buddy-global__countries span:nth-child(9)::after { content: '3名'; }
+.buddy-global__countries span:nth-child(10)::after { content: '3名'; }
+.buddy-global__countries span:nth-child(11)::after { content: '2名'; }
+.buddy-global__countries span:nth-child(12)::after { content: '2名'; }
+.buddy-global__countries span:nth-child(n+13)::after { content: '1名'; }
+
+@media (max-width: 960px) {
+  .buddy-global__scene {
+    grid-template-columns: 1fr;
+  }
+
+  .buddy-global__globe {
+    width: 100%;
+  }
+
+  .buddy-global__countries {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 24px;
+  }
+}
+
+@media (max-width: 620px) {
+  .buddy-global__globe {
+    min-height: 0;
+    aspect-ratio: 1240 / 865;
+    border-radius: 10px;
+  }
+
+  .buddy-global__countries {
+    grid-template-columns: 1fr;
+  }
+
+  .buddy-global__countries span {
+    font-size: 0.86rem;
+  }
+}
