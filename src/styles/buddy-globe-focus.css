@@ -1,208 +1,138 @@
-.buddy-global__globe {
-  min-height: 560px;
-  background:
-    radial-gradient(circle at 78% 12%, rgba(255, 247, 181, 0.68), transparent 16%),
-    linear-gradient(180deg, #80cff8 0%, #d9f2ff 100%);
-}
-
-.buddy-global__globe::before,
-.buddy-global__globe::after {
-  display: none;
-}
-
-.buddy-global__sun {
-  z-index: 0;
-  width: 150px;
-  height: 150px;
-  right: 7%;
-  top: 4%;
-  opacity: 0.8;
-}
-
-.buddy-global__sphere {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  width: 100%;
-  height: 100%;
-  transform: none;
-  filter: none;
-}
-
-.buddy-global__map-grid path {
-  fill: none;
-  stroke: rgba(255, 255, 255, 0.2);
-  stroke-width: 2;
-}
-
-.buddy-global__lands {
-  filter: drop-shadow(0 7px 12px rgba(38, 115, 154, 0.12));
-}
-
-.buddy-global__route {
-  fill: none;
-  stroke: rgba(255, 255, 255, 0.9);
-  stroke-width: 4;
-  stroke-linecap: round;
-  stroke-dasharray: 11 14;
-  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.72));
-  animation: buddy-route-flow 4.2s linear infinite;
-}
-
-.buddy-global__route:nth-of-type(2n) {
-  animation-duration: 5s;
-  opacity: 0.78;
-}
-
-.buddy-global__route:nth-of-type(3n) {
-  animation-duration: 5.8s;
-  opacity: 0.66;
-}
-
-.buddy-global__ritsumeikan-ring {
-  stroke: rgba(255, 255, 255, 0.95);
-  stroke-width: 4;
-  transform-origin: 660px 273px;
-  animation: buddy-hub-pulse 2.8s ease-out infinite;
-}
-
-.buddy-global__marker {
-  z-index: 4;
-}
-
-.buddy-global__marker i {
-  width: 9px;
-  height: 9px;
-  background: #ff6860;
-}
-
-.buddy-global__marker b {
-  font-size: 0.61rem;
-  background: rgba(255, 255, 255, 0.9);
-}
-
-.buddy-global__hub-label {
-  position: absolute;
-  z-index: 6;
-  left: 55%;
-  top: 44%;
+.buddy-global__scene {
   display: grid;
-  gap: 2px;
-  transform: translate(-50%, 34px);
-  padding: 7px 10px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 8px 24px rgba(23, 74, 110, 0.14);
-  color: #173653;
-  text-align: center;
-  white-space: nowrap;
-  pointer-events: none;
-  backdrop-filter: blur(8px);
+  grid-template-columns: minmax(0, 1fr) 19rem;
+  gap: 30px;
+  align-items: start;
 }
 
-.buddy-global__hub-label strong {
-  color: #9f2238;
+/* Verified participation map: authoritative geography rendered as a crisp SVG asset. */
+.buddy-global__globe {
+  position: relative;
+  min-height: 0;
+  aspect-ratio: 1008 / 576;
+  overflow: hidden;
+  border: 0;
+  border-radius: 16px;
+  background-color: #f7eeec;
+  background-image: url('/images/evidence/buddy-global-map-2023-2026.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  box-shadow: none;
+}
+
+/* The verified SVG asset owns the map visual; keep the previous illustrative layer out of view. */
+.buddy-global__globe > * {
+  display: none !important;
+}
+
+/* Evidence summary and ranked country/region list. */
+.buddy-global__legend {
+  gap: 14px;
+}
+
+.buddy-global__evidence {
+  padding: 20px 18px;
+  border: 1px solid rgba(139, 36, 50, 0.16);
+  border-radius: 14px;
+  background: #fffaf8;
+  box-shadow: none;
+}
+
+.buddy-global__evidence::before {
+  display: block;
+  margin-bottom: 6px;
+  color: #8b2432;
+  content: 'RSJP・RWJP（5週間）';
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.buddy-global__evidence > span {
+  color: #8b2432;
+}
+
+.buddy-global__countries {
+  counter-reset: buddy-country;
+  display: grid;
+  gap: 0;
+  padding: 2px 0;
+}
+
+.buddy-global__countries span {
+  counter-increment: buddy-country;
+  display: flex;
+  align-items: center;
+  gap: 0.52rem;
+  padding: 0.47rem 0.35rem;
+  border: 0;
+  border-bottom: 1px solid rgba(139, 36, 50, 0.12);
+  border-radius: 0;
+  background: transparent;
+  color: #271f1f;
   font-size: 0.9rem;
-  line-height: 1.15;
+  font-weight: 720;
+  line-height: 1.2;
+  white-space: nowrap;
 }
 
-.buddy-global__hub-label span {
-  font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.04em;
+.buddy-global__countries span::before {
+  width: 1.6rem;
+  flex: 0 0 1.6rem;
+  color: rgba(39, 31, 31, 0.58);
+  content: counter(buddy-country) '.';
+  font-variant-numeric: tabular-nums;
+  text-align: right;
 }
 
-.buddy-global__connection-caption {
-  position: absolute;
-  z-index: 5;
-  left: 50%;
-  bottom: 18px;
-  transform: translateX(-50%);
-  width: max-content;
-  max-width: calc(100% - 40px);
-  margin: 0;
-  padding: 9px 15px;
-  border: 1px solid rgba(255, 255, 255, 0.72);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.78);
-  box-shadow: 0 10px 30px rgba(26, 91, 146, 0.12);
-  color: #173653;
-  font-size: 0.77rem;
-  font-weight: 850;
-  letter-spacing: 0.03em;
-  text-align: center;
-  backdrop-filter: blur(10px);
+.buddy-global__countries span::after {
+  margin-left: auto;
+  color: #8b2432;
+  font-size: 0.88rem;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
 }
 
-@keyframes buddy-route-flow {
-  to { stroke-dashoffset: -100; }
-}
+.buddy-global__countries span:nth-child(1)::after { content: '89名'; }
+.buddy-global__countries span:nth-child(2)::after { content: '76名'; }
+.buddy-global__countries span:nth-child(3)::after { content: '57名'; }
+.buddy-global__countries span:nth-child(4)::after { content: '18名'; }
+.buddy-global__countries span:nth-child(5)::after { content: '11名'; }
+.buddy-global__countries span:nth-child(6)::after { content: '9名'; }
+.buddy-global__countries span:nth-child(7)::after { content: '7名'; }
+.buddy-global__countries span:nth-child(8)::after { content: '7名'; }
+.buddy-global__countries span:nth-child(9)::after { content: '3名'; }
+.buddy-global__countries span:nth-child(10)::after { content: '3名'; }
+.buddy-global__countries span:nth-child(11)::after { content: '2名'; }
+.buddy-global__countries span:nth-child(12)::after { content: '2名'; }
+.buddy-global__countries span:nth-child(n+13)::after { content: '1名'; }
 
-@keyframes buddy-hub-pulse {
-  0% { opacity: 0.9; transform: scale(0.82); }
-  70%, 100% { opacity: 0; transform: scale(1.85); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .buddy-global__route,
-  .buddy-global__ritsumeikan-ring {
-    animation: none;
+@media (max-width: 960px) {
+  .buddy-global__scene {
+    grid-template-columns: 1fr;
   }
-}
 
-@media (max-width: 900px) {
   .buddy-global__globe {
-    min-height: 500px;
+    width: 100%;
   }
 
-  .buddy-global__marker b {
-    font-size: 0.56rem;
-    padding: 4px 6px;
+  .buddy-global__countries {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 24px;
   }
 }
 
 @media (max-width: 620px) {
   .buddy-global__globe {
-    min-height: 410px;
-    border-radius: 24px;
+    border-radius: 10px;
   }
 
-  .buddy-global__marker b {
-    display: none;
+  .buddy-global__countries {
+    grid-template-columns: 1fr;
   }
 
-  .buddy-global__marker i {
-    width: 8px;
-    height: 8px;
-  }
-
-  .buddy-global__hub-label {
-    transform: translate(-50%, 25px);
-    padding: 6px 8px;
-  }
-
-  .buddy-global__hub-label strong {
-    font-size: 0.78rem;
-  }
-
-  .buddy-global__hub-label span {
-    font-size: 0.62rem;
-  }
-
-  .buddy-global__connection-caption {
-    bottom: 12px;
-    font-size: 0.68rem;
-  }
-}
-
-@media (max-width: 360px) {
-  .buddy-global__globe {
-    min-height: 360px;
-  }
-
-  .buddy-global__connection-caption {
-    max-width: calc(100% - 24px);
-    padding: 7px 10px;
-    font-size: 0.64rem;
+  .buddy-global__countries span {
+    font-size: 0.86rem;
   }
 }

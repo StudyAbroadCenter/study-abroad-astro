@@ -29,7 +29,9 @@ const statusLabel = coreFact?.status === 'Confirmed'
       <div class="programme-page__hero-copy">
         <p class="programme-page__eyebrow">{programme.category}</p>
         <p class="programme-page__code">{programme.code}</p>
-        <h1>{isCustom ? '大学ごとに 日本での学びを設計する' : programme.title}</h1>
+        <h1 class={isCustom ? 'programme-page__hero-title programme-page__hero-title--custom' : 'programme-page__hero-title'}>
+          {isCustom ? <><span>大学ごとに 日本での</span><span>学びを設計する</span></> : programme.title}
+        </h1>
         <p class="programme-page__lead">{isCustom ? '海外大学・教育機関からの学生団体を対象に、期間・内容・実施場所を相談しながらつくる短期受入プログラムです。' : programme.lead}</p>
         {programme.isNewProgramme && <p class="programme-page__new">新規企画</p>}
       </div>
@@ -50,3 +52,29 @@ const statusLabel = coreFact?.status === 'Confirmed'
 
   <section class="programme-page__section programme-page__section--dark" id="before-you-apply" aria-labelledby="before-you-apply-title"><div class="site-shell programme-page__split"><div><p class="section-kicker">{isCustom ? 'ご相談' : '応募前の確認'}</p><h2 id="before-you-apply-title">{isCustom ? 'まず 大学・機関としてご相談ください' : '大切な条件は 応募する前に'}</h2></div><div class="programme-page__body-copy"><p>{isCustom ? '希望時期、参加人数、教育目的、関心のあるテーマ等を伺い、実施可能性を確認します。留学サポートデスクでは英語での相談・調整が可能です。' : coreFact ? coreFact.notes.join('。') + '。' : '応募資格、費用、宿泊、キャンセル条件、必要書類など、参加判断に必要な情報を応募前に確認できる状態を目指します。'}</p><p class="programme-page__status">{isCustom ? '個人学生向けの応募フォームではなく、海外大学・教育機関の担当者向け問い合わせ導線を使用します。' : coreFact?.status === 'Working plan' ? '計画情報は正式決定後に更新します。一般参加者と団体参加者で条件が異なる場合は、誤解が生じないよう案内を分離します。' : '募集状況と応募方法は、正式な情報を確認してから掲載します。'}</p>{isCustom && <a class="action-button action-button--primary" href={`${base}contact/`}>大学・機関として相談する</a>}</div></div></section>
 </article>
+
+<style>
+  .programme-page__hero-title--custom {
+    max-width: none;
+    font-size: clamp(2.25rem, 5vw, 4.25rem);
+    line-height: 1.06;
+    letter-spacing: -0.045em;
+  }
+
+  .programme-page__hero-title--custom span {
+    display: block;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 799px) {
+    .programme-page__hero-title--custom {
+      font-size: clamp(2.15rem, 8vw, 3.4rem);
+    }
+  }
+
+  @media (max-width: 420px) {
+    .programme-page__hero-title--custom {
+      font-size: clamp(1.9rem, 7.4vw, 2.4rem);
+    }
+  }
+</style>

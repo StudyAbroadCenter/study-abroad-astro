@@ -1,0 +1,233 @@
+/* Japanese homepage visibility pass — 2026-08-28
+   This file is loaded last on the Japanese homepage only.
+   It addresses the six visual review points without changing multilingual pages. */
+
+/* 01 — Make small institutional / helper copy readable. */
+.programme-finder .partner-programme__label {
+  padding: 1rem 1.35rem !important;
+  color: #4e4541 !important;
+  font-size: clamp(.88rem, 1.1vw, 1rem) !important;
+  font-weight: 800 !important;
+  line-height: 1.45 !important;
+  letter-spacing: .035em !important;
+}
+
+.programme-finder .partner-programme .section-kicker,
+.experience-pillars__kicker {
+  font-size: clamp(.78rem, 1vw, .9rem) !important;
+  line-height: 1.55 !important;
+}
+
+.experience-pillars__lead > small {
+  font-size: clamp(.84rem, 1vw, .94rem) !important;
+  line-height: 1.7 !important;
+}
+
+/* 02 — Give the four learning pillars real visual context and stronger numbering. */
+.experience-pillar {
+  background-color: #fff !important;
+  background-image:
+    linear-gradient(90deg, rgba(255,255,255,.99) 0%, rgba(255,255,255,.96) 48%, rgba(255,255,255,.80) 70%, rgba(255,255,255,.42) 100%),
+    var(--pillar-photo) !important;
+  background-position: center, right center !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+}
+
+.experience-pillar--language {
+  --pillar-photo: url('/images/programs/rwjp/real/rwjp-real-japanese-class.webp');
+}
+
+.experience-pillar--colearning {
+  --pillar-photo: url('/images/programs/rwjp/real/rwjp-real-learning-hub.webp');
+}
+
+.experience-pillar--culture {
+  --pillar-photo: url('/images/programs/rwjp/real/rwjp-real-culture-tatami.webp');
+}
+
+.experience-pillar--field {
+  --pillar-photo: url('/images/programs/rwjp/real/rwjp-real-kyoto-field.webp');
+}
+
+.experience-pillar header > span {
+  color: #9f2435 !important;
+  font-size: clamp(1.25rem, 1.8vw, 1.65rem) !important;
+  font-weight: 850 !important;
+  line-height: 1 !important;
+  letter-spacing: -.035em !important;
+}
+
+.experience-pillar header > p {
+  color: #69615c !important;
+  font-size: clamp(.72rem, .85vw, .82rem) !important;
+  line-height: 1.5 !important;
+}
+
+.experience-pillar h3 {
+  max-width: 74% !important;
+}
+
+.experience-pillar__body {
+  max-width: 76% !important;
+  color: #403b38 !important;
+}
+
+.experience-pillar__examples summary {
+  font-size: clamp(.82rem, 1vw, .92rem) !important;
+}
+
+/* 03 — Tighten the hand-off from the international-learning statement to Evidence. */
+.international-impact--site {
+  padding-bottom: clamp(2.6rem, 4.2vw, 3.8rem) !important;
+}
+
+.international-impact--site .international-impact__outro {
+  gap: clamp(1rem, 2.4vw, 2rem) !important;
+  margin-top: clamp(1.8rem, 3vw, 2.8rem) !important;
+  padding-top: 1.35rem !important;
+}
+
+.international-impact--site .international-impact__outro-copy {
+  line-height: 1.48 !important;
+}
+
+.co-learning-evidence {
+  padding-top: clamp(3rem, 4.8vw, 4.5rem) !important;
+  padding-bottom: clamp(3.8rem, 6vw, 5.5rem) !important;
+}
+
+.co-learning-evidence__intro {
+  gap: clamp(1.5rem, 3.6vw, 3.5rem) !important;
+  align-items: center !important;
+}
+
+.co-learning-evidence h2 {
+  line-height: .93 !important;
+  letter-spacing: -.05em !important;
+}
+
+.co-learning-evidence__lead {
+  gap: .65rem !important;
+  line-height: 1.72 !important;
+}
+
+.co-learning-evidence__reach {
+  margin-top: clamp(2rem, 4vw, 3.4rem) !important;
+}
+
+/* 04 — Make the Buddy / Global Connections route impossible to miss. */
+.co-learning-evidence__footer {
+  gap: clamp(1.4rem, 3vw, 3rem) !important;
+  margin-top: clamp(1.8rem, 3vw, 2.5rem) !important;
+}
+
+.co-learning-evidence__footer a {
+  display: grid !important;
+  width: min(100%, 28rem) !important;
+  min-height: 5.4rem !important;
+  align-content: center !important;
+  gap: .25rem !important;
+  border: 1px solid rgba(159,36,53,.45) !important;
+  border-radius: 1rem !important;
+  padding: 1.05rem 1.25rem !important;
+  background: #fff !important;
+  color: #8b2432 !important;
+  box-shadow: 0 .8rem 2rem rgba(63,42,37,.08) !important;
+  font-size: clamp(1.05rem, 1.5vw, 1.28rem) !important;
+  font-weight: 850 !important;
+  line-height: 1.35 !important;
+  text-decoration: none !important;
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease !important;
+}
+
+.co-learning-evidence__footer a::before {
+  content: '立命館学生 × 受入学生　交流・共修の実践';
+  color: #655d58;
+  font-size: .72rem;
+  font-weight: 750;
+  line-height: 1.4;
+  letter-spacing: .035em;
+}
+
+.co-learning-evidence__footer a span {
+  margin-left: .25rem;
+  font-size: 1.35em !important;
+}
+
+.co-learning-evidence__footer a:hover {
+  border-color: #8b2432 !important;
+  box-shadow: 0 1rem 2.4rem rgba(63,42,37,.13) !important;
+  transform: translateY(-2px);
+  text-decoration: none !important;
+}
+
+/* 05 — Representative-country facts remain in canonical participation data.
+   Do not duplicate or hard-code verified country facts in CSS. */
+
+@media (min-width: 821px) {
+  .co-learning-evidence__intro {
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, .88fr) !important;
+  }
+
+  .co-learning-evidence h2 {
+    font-size: clamp(3rem, 4.55vw, 4.35rem) !important;
+  }
+
+  .co-learning-evidence h2 span {
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 820px) {
+  .experience-pillar {
+    background-image:
+      linear-gradient(90deg, rgba(255,255,255,.99) 0%, rgba(255,255,255,.95) 58%, rgba(255,255,255,.72) 100%),
+      var(--pillar-photo) !important;
+  }
+
+  .experience-pillar h3,
+  .experience-pillar__body {
+    max-width: 88% !important;
+  }
+
+  .co-learning-evidence__footer a {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 620px) {
+  .programme-finder .partner-programme__label {
+    padding: .9rem 1.1rem !important;
+    font-size: .9rem !important;
+  }
+
+  .experience-pillar {
+    background-image:
+      linear-gradient(90deg, rgba(255,255,255,.99) 0%, rgba(255,255,255,.96) 70%, rgba(255,255,255,.80) 100%),
+      var(--pillar-photo) !important;
+  }
+
+  .experience-pillar h3,
+  .experience-pillar__body {
+    max-width: 100% !important;
+  }
+
+  .international-impact--site {
+    padding-bottom: 2.6rem !important;
+  }
+
+  .co-learning-evidence {
+    padding-top: 2.8rem !important;
+  }
+
+  .co-learning-evidence h2 {
+    line-height: .98 !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .co-learning-evidence__footer a {
+    transition: none !important;
+  }
+}
