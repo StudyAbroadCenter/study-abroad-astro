@@ -162,25 +162,8 @@
   text-decoration: none !important;
 }
 
-/* 05 — Representative flags from verified multi-participant five-week records.
-   These eight countries/regions each have multiple verified participants and are
-   therefore safe examples inside the wider 27-country/region headline KPI. */
-.global-evidence--site .global-evidence__stats > div:nth-child(2)::after {
-  content: '複数参加の確認済み代表例　🇦🇺  🇺🇸  🇰🇷  🇨🇦  🇳🇿  🇬🇧  🇨🇳  🇹🇼';
-  display: block;
-  margin-top: .8rem;
-  color: #625a55 !important;
-  font-size: clamp(.72rem, .92vw, .82rem) !important;
-  font-weight: 650 !important;
-  line-height: 1.6 !important;
-  letter-spacing: .01em !important;
-  white-space: normal;
-}
-
-/* Keep the representative flag line legible whichever earlier theme colours the KPI card. */
-.global-evidence--site .global-evidence__stats > div:nth-child(2) {
-  min-width: 0;
-}
+/* 05 — Representative-country facts remain in canonical participation data.
+   Do not duplicate or hard-code verified country facts in CSS. */
 
 @media (min-width: 821px) {
   .co-learning-evidence__intro {
@@ -240,11 +223,6 @@
 
   .co-learning-evidence h2 {
     line-height: .98 !important;
-  }
-
-  .global-evidence--site .global-evidence__stats > div:nth-child(2)::after {
-    margin-top: .65rem;
-    font-size: .78rem !important;
   }
 }
 
