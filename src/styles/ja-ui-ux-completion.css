@@ -1,0 +1,332 @@
+/* Japanese site UI/UX completion pass — 2026-08-30
+ * Loaded last by StudentRecruitmentLayout.
+ * Scope: Japanese presentation only. No programme facts or application rules.
+ * Goals: readable type, natural Japanese wrapping, tighter vertical rhythm,
+ * consistent touch targets and calm density at desktop / 390px / 320px.
+ */
+
+:root {
+  --ja-ui-label: 0.82rem;
+  --ja-ui-note: 0.84rem;
+  --ja-ui-body: 1rem;
+  --ja-ui-touch: 44px;
+}
+
+/* Japanese line-breaking: prefer semantic lines and avoid orphaned fragments. */
+main :where(h1, h2, h3) {
+  text-wrap: balance;
+  line-break: strict;
+  word-break: normal;
+  overflow-wrap: normal;
+}
+
+main :where(p, li, dd, summary) {
+  line-break: strict;
+  word-break: normal;
+  overflow-wrap: anywhere;
+}
+
+/* Labels are accents, not fine print. */
+main :where(
+  .section-kicker,
+  .programme-page__eyebrow,
+  .programme-page__code,
+  .programme-page__new,
+  .programme-page__draft-note strong,
+  .programme-page__pending-grid span,
+  .rwjp-flagship__kicker,
+  .rwjpx__kicker,
+  .rdsp__kicker
+) {
+  font-size: var(--ja-ui-label) !important;
+  line-height: 1.5 !important;
+}
+
+/* Utility/navigation links should remain readable without competing with headings. */
+main :where(a, button, summary) {
+  min-height: var(--ja-ui-touch);
+}
+
+main a:not(.action-button) {
+  font-size: max(0.82rem, 13px);
+}
+
+.action-button {
+  min-height: var(--ja-ui-touch);
+  align-items: center;
+  justify-content: center;
+  line-height: 1.35 !important;
+}
+
+/* Footer is part of the task path, not legal microcopy. */
+.recruitment-footer p,
+.recruitment-footer small {
+  font-size: var(--ja-ui-note) !important;
+  line-height: 1.7 !important;
+}
+
+/* Shared utility pages: Programs / About / FAQ / Contact. */
+.jp-utility {
+  padding-top: clamp(6.25rem, 8vw, 7.5rem) !important;
+  padding-bottom: clamp(4rem, 5vw, 5rem) !important;
+}
+
+.jp-utility__intro {
+  gap: clamp(1.6rem, 4vw, 3.75rem) !important;
+  padding-bottom: clamp(2.1rem, 4vw, 3.5rem) !important;
+}
+
+.jp-utility__intro h1 {
+  max-width: 12em !important;
+  font-size: clamp(2.35rem, 4vw, 3.8rem) !important;
+  line-height: 1.08 !important;
+  letter-spacing: -0.045em !important;
+}
+
+.jp-utility__lead {
+  line-height: 1.8 !important;
+}
+
+.jp-utility section > h2 {
+  max-width: 22ch;
+  line-height: 1.22;
+  text-wrap: pretty;
+}
+
+.jp-utility__programme-list {
+  margin-top: clamp(1.75rem, 3vw, 2.5rem) !important;
+  gap: 0.9rem !important;
+}
+
+.jp-utility__programme-list article {
+  padding: clamp(1.25rem, 2.2vw, 1.65rem) !important;
+}
+
+.jp-utility__programme-list p {
+  font-size: 0.96rem !important;
+  line-height: 1.75 !important;
+}
+
+.jp-utility details {
+  padding: 1.1rem 0 !important;
+}
+
+.jp-utility summary {
+  font-size: 1rem !important;
+  line-height: 1.6 !important;
+}
+
+/* Generic programme shell: reduce billboard-scale type and dead space. */
+.programme-page__hero {
+  padding-top: clamp(5.25rem, 7vw, 6.75rem) !important;
+  padding-bottom: clamp(3rem, 5vw, 4.5rem) !important;
+}
+
+.programme-page h1 {
+  max-width: 14ch !important;
+  font-size: clamp(2.8rem, 6.5vw, 5.6rem) !important;
+  line-height: 0.98 !important;
+  letter-spacing: -0.035em !important;
+}
+
+.programme-page__lead {
+  margin-top: 1.4rem !important;
+  line-height: 1.75 !important;
+}
+
+.programme-page__draft-note {
+  max-width: 30rem !important;
+}
+
+.programme-page__draft-note p,
+.programme-page__status {
+  font-size: 0.92rem !important;
+  line-height: 1.75 !important;
+}
+
+.programme-page__jump-inner {
+  gap: 0.65rem 1.5rem !important;
+  padding-top: 0.45rem !important;
+  padding-bottom: 0.45rem !important;
+  scrollbar-width: thin;
+}
+
+.programme-page__jump a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--ja-ui-touch);
+  font-size: 0.9rem !important;
+  font-weight: 650;
+}
+
+.programme-page__section {
+  padding: clamp(3.5rem, 5.5vw, 5.25rem) 0 !important;
+}
+
+.programme-page__section h2 {
+  max-width: 17ch !important;
+  font-size: clamp(2rem, 4vw, 3.6rem) !important;
+  line-height: 1.16 !important;
+}
+
+.programme-page__section-heading {
+  margin-bottom: clamp(1.75rem, 3vw, 2.35rem) !important;
+}
+
+.programme-page__body-copy {
+  gap: 0.85rem !important;
+}
+
+.programme-page__pending-grid > div {
+  gap: 0.6rem !important;
+  padding: clamp(1.2rem, 2.5vw, 1.5rem) !important;
+}
+
+.programme-page__pending-grid p,
+.programme-page__facts dd {
+  font-size: 0.96rem !important;
+  line-height: 1.7 !important;
+}
+
+.programme-page__facts > div {
+  padding: 0.9rem 0 !important;
+}
+
+/* Flagship Japanese pages: protect legibility of remaining microcopy. */
+.rwjp-flagship :where(p, li, dd, summary, a):not(.global-evidence__network *),
+.rwjpx :where(p, li, dd, summary, a):not(.rwjpx__phone *, .rwjpx__feed *),
+.rdsp :where(p, li, dd, summary, a) {
+  font-size: max(0.8rem, 12.8px);
+}
+
+.rwjp-flagship :where(section, .rwjp-practical, .rwjp-decision, .rwjp-fit),
+.rwjpx section,
+.rdsp section {
+  scroll-margin-top: 80px;
+}
+
+/* Keep page rhythm consistent without flattening intentional editorial moments. */
+@media (min-width: 901px) {
+  .jp-utility section + section {
+    margin-top: 3.5rem !important;
+  }
+}
+
+@media (max-width: 620px) {
+  :root {
+    --ja-ui-label: 0.8rem;
+    --ja-ui-note: 0.82rem;
+  }
+
+  .site-shell {
+    width: min(100% - 32px, var(--shell)) !important;
+  }
+
+  .jp-utility {
+    padding-top: 5.75rem !important;
+    padding-bottom: 3.5rem !important;
+  }
+
+  .jp-utility__intro {
+    gap: 1.35rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  .jp-utility__intro h1 {
+    font-size: clamp(2.15rem, 9.5vw, 2.65rem) !important;
+    line-height: 1.08 !important;
+  }
+
+  .jp-utility__actions {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 0.65rem !important;
+    margin-top: 1.4rem !important;
+  }
+
+  .jp-utility__actions .action-button {
+    width: 100%;
+  }
+
+  .jp-utility__programme-list {
+    grid-template-columns: 1fr !important;
+  }
+
+  .programme-page__hero {
+    padding-top: 5.4rem !important;
+    padding-bottom: 2.75rem !important;
+  }
+
+  .programme-page h1,
+  .programme-page__hero-title--custom {
+    max-width: 100% !important;
+    font-size: clamp(2.35rem, 10.6vw, 3.05rem) !important;
+    line-height: 1.02 !important;
+    letter-spacing: -0.035em !important;
+  }
+
+  .programme-page__hero-title--custom span {
+    white-space: normal !important;
+  }
+
+  .programme-page__lead {
+    margin-top: 1.15rem !important;
+    font-size: 1rem !important;
+    line-height: 1.75 !important;
+  }
+
+  .programme-page__hero-inner,
+  .programme-page__split {
+    gap: 1.5rem !important;
+  }
+
+  .programme-page__section {
+    padding: 3.35rem 0 !important;
+  }
+
+  .programme-page__section h2 {
+    max-width: 100% !important;
+    font-size: clamp(1.9rem, 8.5vw, 2.35rem) !important;
+    line-height: 1.17 !important;
+  }
+
+  .programme-page__section-heading h2 {
+    margin-bottom: 0.95rem !important;
+  }
+
+  .programme-page__pending-grid > div {
+    padding: 1.15rem !important;
+  }
+
+  .programme-page__facts > div {
+    gap: 0.3rem !important;
+    padding: 0.8rem 0 !important;
+  }
+
+  .programme-page__facts dt {
+    font-size: 0.86rem !important;
+  }
+
+  .programme-page__facts dd {
+    font-size: 0.96rem !important;
+  }
+
+  .recruitment-footer__inner {
+    gap: 1.35rem !important;
+  }
+}
+
+@media (max-width: 340px) {
+  .site-shell {
+    width: min(100% - 28px, var(--shell)) !important;
+  }
+
+  .jp-utility__intro h1 {
+    font-size: 2.05rem !important;
+  }
+
+  .programme-page h1,
+  .programme-page__hero-title--custom {
+    font-size: 2.25rem !important;
+  }
+}
