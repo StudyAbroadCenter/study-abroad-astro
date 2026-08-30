@@ -9,8 +9,9 @@
   "scripts": {
     "images:immersive": "node scripts/generate-immersive-images.mjs",
     "audit:facts": "node scripts/audit-offering-facts.mjs",
+    "audit:images": "node scripts/audit-shared-images.mjs",
     "dev": "npm run images:immersive && astro dev",
-    "build": "npm run audit:facts && npm run images:immersive && astro check && astro build",
+    "build": "npm run audit:facts && npm run audit:images && npm run images:immersive && astro check && astro build",
     "preview": "astro preview",
     "check": "astro check"
   },

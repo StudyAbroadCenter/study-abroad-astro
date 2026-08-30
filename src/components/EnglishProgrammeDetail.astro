@@ -1,5 +1,6 @@
 ---
 import type { EnglishProgrammePage } from '../data/english-programme-pages';
+import { programmes } from '../data/programs';
 import '../styles/english-programme-detail.css';
 
 interface Props {
@@ -7,13 +8,17 @@ interface Props {
 }
 
 const { page } = Astro.props;
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const sharedProgramme = programmes.find((programme) => programme.id === page.id);
+const heroImage = sharedProgramme ? `${base}images/${sharedProgramme.image}` : page.heroImage;
 ---
 
 <article class={`epd epd--${page.status}`} data-program-id={page.id} data-program-status={page.status}>
   <section class="epd-hero" aria-labelledby={`${page.id}-title`}>
     <img
       class="epd-hero__image"
-      src={page.heroImage}
+      src={heroImage}
       alt={page.heroAlt}
       width="1600"
       height="900"

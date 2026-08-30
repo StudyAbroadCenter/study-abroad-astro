@@ -1,3 +1,5 @@
+import { sharedSiteImages } from './shared-site-images';
+
 // Current programme registry for the static MVP.
 //
 // IMPORTANT: operational values in this registry are not institutional Sources of Truth
@@ -56,7 +58,7 @@ export const programmes: Programme[] = [
     audience: 'individual',
     goals: ['japanese-culture'],
     campus: 'kinugasa',
-    image: 'IMG_8178.JPG',
+    image: sharedSiteImages.programmes.rsjp,
     copy: {
       ja: {
         name: 'Ritsumeikan Summer Japanese Program',
@@ -87,7 +89,7 @@ export const programmes: Programme[] = [
     audience: 'individual',
     goals: ['japanese-culture'],
     campus: 'kinugasa',
-    image: 'IMG_5092.JPG',
+    image: sharedSiteImages.programmes['rsjp-express'],
     copy: {
       ja: {
         name: 'RSJP Express',
@@ -118,7 +120,7 @@ export const programmes: Programme[] = [
     audience: 'individual',
     goals: ['japanese-culture'],
     campus: 'kinugasa',
-    image: 'IMG_8263.JPG',
+    image: sharedSiteImages.programmes.rwjp,
     copy: {
       ja: {
         name: 'Ritsumeikan Winter Japanese Program',
@@ -149,7 +151,7 @@ export const programmes: Programme[] = [
     audience: 'individual',
     goals: ['japanese-culture'],
     campus: 'kinugasa',
-    image: 'IMG_1588.JPG',
+    image: sharedSiteImages.programmes['rwjp-express'],
     copy: {
       ja: {
         name: 'RWJP Express',
@@ -180,7 +182,7 @@ export const programmes: Programme[] = [
     audience: 'individual',
     goals: ['specialist'],
     campus: 'oic',
-    image: 'IMG_3725.JPG',
+    image: sharedSiteImages.programmes.rdsp,
     copy: {
       ja: {
         name: 'RDSP',
@@ -211,7 +213,7 @@ export const programmes: Programme[] = [
     audience: 'individual',
     goals: ['specialist'],
     campus: 'oic',
-    image: 'IMG_6091.JPG',
+    image: sharedSiteImages.programmes.rbmp,
     copy: {
       ja: {
         name: 'Ritsumeikan Business Management Program',
@@ -242,7 +244,7 @@ export const programmes: Programme[] = [
     audience: 'partner',
     goals: ['partner'],
     campus: 'programme-dependent',
-    image: 'IMG_1687.JPG',
+    image: sharedSiteImages.programmes['custom-programs'],
     copy: {
       ja: {
         name: 'Custom Programs',

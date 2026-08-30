@@ -1,5 +1,6 @@
 ---
 import type { ProgrammePageDraft } from '../data/programme-page-drafts';
+import { sharedSiteImages } from '../data/shared-site-images';
 import RwjpDecisionPanel from './RwjpDecisionPanel.astro';
 import RwjpPracticalGuide from './RwjpPracticalGuide.astro';
 import '../styles/rwjp-flagship.css';
@@ -10,8 +11,26 @@ interface Props { programme: ProgrammePageDraft; }
 const { programme } = Astro.props;
 const rawBase = import.meta.env.BASE_URL;
 const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
-const asset = (name: string) => `${base}images/programs/rwjp/${name}`;
-const realAsset = (name: string) => `${base}images/programs/rwjp/real/${name}`;
+const shared = (path: string) => `${base}images/${path}`;
+const rwjpAssetByName: Record<string, string> = {
+  'rwjp-kyoto-winter.webp': sharedSiteImages.rwjp.hero,
+  'rwjp-winter-life.webp': sharedSiteImages.rwjp.winterLife,
+  'rwjp-japanese-class.webp': sharedSiteImages.rwjp.japaneseClass,
+  'rwjp-student-interaction.webp': sharedSiteImages.rwjp.studentInteraction,
+  'rwjp-cultural-experience.webp': sharedSiteImages.rwjp.culturalExperience,
+  'rwjp-cultural-activity.webp': sharedSiteImages.rwjp.culturalActivity,
+  'rwjp-presentation.webp': sharedSiteImages.rwjp.presentation,
+  'rwjp-learning-evidence.webp': sharedSiteImages.rwjp.learningEvidence,
+};
+const rwjpRealByName: Record<string, string> = {
+  'rwjp-real-japanese-class.webp': sharedSiteImages.rwjp.real.classroom,
+  'rwjp-real-learning-hub.webp': sharedSiteImages.rwjp.real.interaction,
+  'rwjp-real-academic-presentation.webp': sharedSiteImages.rwjp.real.presentation,
+  'rwjp-real-culture-tatami.webp': sharedSiteImages.rwjp.real.culture,
+  'rwjp-real-kyoto-field.webp': sharedSiteImages.rwjp.real.kyoto,
+};
+const asset = (name: string) => shared(rwjpAssetByName[name] ?? `programs/rwjp/${name}`);
+const realAsset = (name: string) => shared(rwjpRealByName[name] ?? `programs/rwjp/real/${name}`);
 ---
 <article class="rwjp-flagship">
   <header class="rwjp-flagship__hero"><div class="site-shell rwjp-flagship__hero-grid"><div class="rwjp-flagship__hero-copy"><p class="rwjp-flagship__eyebrow">{programme.category} · {programme.code}</p><h1>京都で<br /><em>5週間暮らしてみる</em></h1><p class="rwjp-flagship__lead">日本語講座のある日は、午前を中心にしっかり学ぶ。授業が終われば、そこから先はあなたの時間。RWJPは、日本語の勉強と「京都で暮らす」を一つにする5週間です。</p><p class="rwjp-flagship__micro">日本語を学ぶ · 京都で暮らす</p></div><figure class="rwjp-flagship__hero-photo" data-ja-overlay="冬の京都で 5週間暮らす"><img class="crop-winter" src={asset('rwjp-kyoto-winter.webp')} alt="冬の京都で過ごす短期プログラムの様子" width="1600" height="1067" decoding="async" /><figcaption>冬の京都で過ごす時間も、RWJPの5週間の一部です。</figcaption></figure></div></header>

@@ -1,5 +1,6 @@
 ---
 import '../styles/real-photo-story.css';
+import { sharedSiteImages } from '../data/shared-site-images';
 
 const rawBase = import.meta.env.BASE_URL;
 const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
@@ -7,49 +8,49 @@ const image = (path: string) => `${base}images/${path}`;
 
 const scenes = [
   {
-    src: image('hero/hero-kinugasa-clocktower.jpg'),
+    src: image(sharedSiteImages.home.story.campus),
     alt: '立命館大学衣笠キャンパスの時計台とキャンパス風景',
     label: 'キャンパス',
     caption: '大学で過ごす時間から始まる',
     className: 'real-photo-story__item--feature',
   },
   {
-    src: image('programs/rwjp/real/rwjp-real-japanese-class.webp'),
+    src: image(sharedSiteImages.home.story.classroom),
     alt: '大学の教室で日本語を学ぶ短期受入プログラムの学生たち',
     label: '学ぶ',
     caption: '教室で学ぶ',
     className: 'real-photo-story__item--standard',
   },
   {
-    src: image('programs/rwjp/real/rwjp-real-learning-hub.webp'),
+    src: image(sharedSiteImages.home.story.interaction),
     alt: '学生が集まり学びを共有する短期受入プログラムの活動風景',
     label: '交流',
     caption: '学生と出会い ことばを使う',
     className: 'real-photo-story__item--standard',
   },
   {
-    src: image('programs/rwjp/real/rwjp-real-academic-presentation.webp'),
+    src: image(sharedSiteImages.home.story.presentation),
     alt: '教室で発表を聞く短期受入プログラムの学生たち',
     label: '伝える',
     caption: '学んだことを伝える',
     className: 'real-photo-story__item--wide',
   },
   {
-    src: image('programs/rwjp/real/rwjp-real-culture-tatami.webp'),
+    src: image(sharedSiteImages.home.story.culture),
     alt: '畳の部屋で日本文化を学ぶ短期受入プログラムの学生たち',
     label: '文化',
     caption: '見るだけで終わらせない',
     className: 'real-photo-story__item--standard',
   },
   {
-    src: image('programs/rwjp/real/rwjp-real-kyoto-field.webp'),
+    src: image(sharedSiteImages.home.story.kyoto),
     alt: '京都でグループ活動を行う短期受入プログラムの学生たち',
     label: '京都',
     caption: 'キャンパスの外へ',
     className: 'real-photo-story__item--standard',
   },
   {
-    src: image('programs/rwjp/rwjp-student-interaction.webp'),
+    src: image(sharedSiteImages.home.story.studentInteraction),
     alt: '学生同士が交流する関連活動のイメージ',
     label: '交流',
     caption: '学生同士が交流する場面',
