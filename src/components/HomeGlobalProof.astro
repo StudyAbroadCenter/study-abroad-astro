@@ -1,0 +1,119 @@
+---
+import { participationHistorySource, shortTermParticipationEvidence } from '../data/participation-history';
+import '../styles/home-global-proof.css';
+
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const image = (path: string) => `${base}images/${path.replace(/^\//, '')}`;
+
+const proofStats = [
+  { value: shortTermParticipationEvidence.participants.toLocaleString('ja-JP'), label: '参加者', note: '定型4プログラム' },
+  { value: String(shortTermParticipationEvidence.countriesOrRegions), label: '国・地域', note: '大学・機関所在地ベース' },
+  { value: String(shortTermParticipationEvidence.institutions), label: '大学・機関', note: '2023–2026' },
+];
+
+const learningBridge = [
+  {
+    eyebrow: 'LEARN',
+    title: '日本語・専門分野を学ぶ',
+    body: '日本語、日本文化、英語による専門講義など、目的に応じた学びへつなげます。',
+    image: 'programs/rwjp/real/rwjp-real-japanese-class.webp',
+    alt: '短期受入プログラムの日本語授業の様子',
+  },
+  {
+    eyebrow: 'CONNECT',
+    title: '学生と共に学ぶ',
+    body: 'Buddy、ゼミ、学生団体との交流を、単なる交流ではなく共に学ぶ機会へ。',
+    image: 'programs/rwjp/real/rwjp-real-learning-hub.webp',
+    alt: '立命館の学生と留学生が交流しながら学ぶ様子',
+  },
+  {
+    eyebrow: 'EXPERIENCE',
+    title: '日本を教室にする',
+    body: '文化体験、地域学習、企業訪問など、キャンパスの外にも学びを広げます。',
+    image: 'programs/rwjp/real/rwjp-real-kyoto-field.webp',
+    alt: '京都でフィールド学習を行う学生の様子',
+  },
+];
+---
+<section class="home-global-proof" aria-labelledby="home-global-proof-title">
+  <div class="site-shell home-global-proof__intro">
+    <div>
+      <p class="home-global-proof__kicker">VERIFIED GLOBAL REACH · {participationHistorySource.period}</p>
+      <h2 id="home-global-proof-title">
+        <span>世界から集まり、立命館で学び、</span>
+        <span>学生とつながる。</span>
+      </h2>
+    </div>
+    <div class="home-global-proof__lead">
+      <p>検証済みの定型4プログラムでは、2023–2026年に522名、27か国・地域、114大学・機関から参加がありました。</p>
+      <p class="home-global-proof__source">国・地域は参加者の国籍ではなく、大学・機関の所在地で整理しています。Custom Programsは別集計です。</p>
+    </div>
+  </div>
+
+  <div class="site-shell home-global-proof__evidence">
+    <div class="home-global-proof__footprint" aria-label="世界各地から立命館へ広がる参加実績のイメージ">
+      <div class="home-global-proof__orbit home-global-proof__orbit--one"></div>
+      <div class="home-global-proof__orbit home-global-proof__orbit--two"></div>
+      <div class="home-global-proof__orbit home-global-proof__orbit--three"></div>
+      <div class="home-global-proof__origin">
+        <span>RITSUMEIKAN</span>
+        <strong>世界から立命館へ</strong>
+        <small>27か国・地域</small>
+      </div>
+      <div class="home-global-proof__flagline" aria-hidden="true">🇦🇺 🇺🇸 🇰🇷 🇨🇦 🇳🇿 🇬🇧 🇨🇳 🇹🇼 🇸🇬 🇭🇰</div>
+      <p>同じ地図を繰り返すのではなく、トップでは「広がり」を簡潔に。詳しいつながりはBuddyページで紹介します。</p>
+      <a href={`${base}buddy/`}>世界とのつながりを見る →</a>
+    </div>
+
+    <dl class="home-global-proof__stats" aria-label="2023年から2026年の検証済み短期受入プログラム参加実績">
+      {proofStats.map((stat) => (
+        <div>
+          <dt>{stat.label}</dt>
+          <dd>{stat.value}{stat.label === '参加者' ? '名' : ''}</dd>
+          <span>{stat.note}</span>
+        </div>
+      ))}
+    </dl>
+  </div>
+
+  <div class="site-shell home-global-proof__bridge">
+    <div class="home-global-proof__bridge-heading">
+      <p>NUMBERS TO LEARNING</p>
+      <h3><span>来るだけで終わらない。</span><span>学びと交流へつなげる。</span></h3>
+      <p>参加実績は入口です。立命館では、授業、学生交流、文化・地域での学びを一つの経験としてつなげます。</p>
+    </div>
+    <div class="home-global-proof__cards">
+      {learningBridge.map((item) => (
+        <article>
+          <img src={image(item.image)} alt={item.alt} loading="lazy" decoding="async" />
+          <div>
+            <span>{item.eyebrow}</span>
+            <h4>{item.title}</h4>
+            <p>{item.body}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+
+  <div class="site-shell home-global-proof__next">
+    <div>
+      <p>NEXT STEP</p>
+      <h3>次は、あなたへ。</h3>
+      <span>実績を見るだけで終わらず、次の参加と新しい大学連携へつなげます。</span>
+    </div>
+    <div class="home-global-proof__next-actions">
+      <a class="home-global-proof__action home-global-proof__action--primary" href={`${base}#program-finder`}>
+        <small>個人で参加する方</small>
+        <strong>自分に合うプログラムを探す</strong>
+        <span>→</span>
+      </a>
+      <a class="home-global-proof__action" href={`${base}programs/custom-programs/`}>
+        <small>海外大学・教育機関の方</small>
+        <strong>Custom Programを相談する</strong>
+        <span>→</span>
+      </a>
+    </div>
+  </div>
+</section>
