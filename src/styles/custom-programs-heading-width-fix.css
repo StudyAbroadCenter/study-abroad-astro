@@ -29,6 +29,22 @@
     line-break: strict;
   }
 
+  /* WHY RITSUMEIKAN: lock the requested two-line editorial copy visually. */
+  .custom-programs-page .cp-purpose h2 {
+    font-size: 0;
+  }
+
+  .custom-programs-page .cp-purpose h2::before {
+    content: '授業だけでも、観光だけでもない。\A大学教育として、日本で学ぶ';
+    display: block;
+    white-space: pre-line;
+    font-size: clamp(3rem, 5vw, 4.7rem);
+    font-weight: 900;
+    line-height: 1.08;
+    letter-spacing: -0.04em;
+    color: var(--cp-ink);
+  }
+
   /* Keep every intended desktop headline at two lines except WHY RITSUMEIKAN. */
   .custom-programs-page .cp-pillars .cp-section-heading h2 {
     font-size: clamp(2.65rem, 3.9vw, 3.9rem);
