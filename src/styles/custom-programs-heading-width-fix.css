@@ -29,9 +29,13 @@
     line-break: strict;
   }
 
-  /* WHY RITSUMEIKAN: lock the requested two-line editorial copy visually. */
+  /* WHY RITSUMEIKAN: show only the requested two-line editorial copy. */
   .custom-programs-page .cp-purpose h2 {
-    font-size: 0;
+    font-size: 0 !important;
+  }
+
+  .custom-programs-page .cp-purpose h2 > span {
+    display: none !important;
   }
 
   .custom-programs-page .cp-purpose h2::before {
