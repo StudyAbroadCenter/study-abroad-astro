@@ -7,12 +7,12 @@ const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL :
   description="短期受入プログラムのお問い合わせ先は、対象プログラムと質問内容に応じてご案内します。留学サポートデスクでは英語での対応が可能です。"
   robots="noindex,nofollow"
 >
-  <article class="jp-utility">
+  <article class="jp-utility jp-contact-page">
     <div class="site-shell">
       <header class="jp-utility__intro">
         <div>
           <p class="section-kicker">お問い合わせ</p>
-          <h1>必要な情報へ 迷わずつながる</h1>
+          <h1 class="jp-contact-page__title"><span>必要な情報へ</span><span>迷わずつながる</span></h1>
         </div>
         <p class="jp-utility__lead">日程、費用、募集条件などの基本情報は、まず各プログラムページで確認できるよう整備しています。個別確認が必要な内容は、対象プログラムの正式な窓口をご案内します。留学サポートデスクでは英語での対応が可能です。</p>
       </header>
@@ -28,7 +28,7 @@ const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL :
           <p>日本語・日本文化、専門テーマなどから入口を選べます。まずは自分に近いプログラムを探してみてください。</p>
           <a class="programme-card__link" href={`${base}#program-finder`}>条件から探す →</a>
         </section>
-        <section class="jp-utility__card">
+        <section class="jp-utility__card jp-contact-page__institution-card">
           <h2>海外大学・教育機関のご担当者</h2>
           <p>Custom Programsは個人申込型ではありません。学生団体の受入について、教育目的、期間、テーマ、参加人数、実施キャンパス等を相談しながら設計します。英語での相談・調整も可能です。</p>
           <a class="programme-card__link" href={`${base}programs/custom-programs/`}>Custom Programsを見る →</a>
@@ -42,3 +42,34 @@ const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL :
     </div>
   </article>
 </StudentRecruitmentLayout>
+
+<style>
+  .jp-contact-page__title {
+    max-width: none;
+    font-size: clamp(2.65rem, 4.35vw, 4.2rem);
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+  }
+
+  .jp-contact-page__title span {
+    display: block;
+    white-space: nowrap;
+  }
+
+  .jp-contact-page__institution-card h2 {
+    white-space: nowrap;
+    font-size: clamp(1.32rem, 1.7vw, 1.72rem);
+    letter-spacing: -0.02em;
+  }
+
+  @media (max-width: 760px) {
+    .jp-contact-page__title {
+      font-size: clamp(2.2rem, 10vw, 3.2rem);
+    }
+
+    .jp-contact-page__title span,
+    .jp-contact-page__institution-card h2 {
+      white-space: normal;
+    }
+  }
+</style>
