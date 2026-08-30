@@ -77,7 +77,30 @@
 
   .custom-programs-page .cp-wide-heading > p:last-child,
   .custom-programs-page .cp-section-heading > p:last-child {
-    max-width: 1180px;
+    max-width: 1320px;
+  }
+
+  /* Allow card copy to wrap inside its own box; only the large editorial headings are locked. */
+  .custom-programs-page .cp-pillar {
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .custom-programs-page .cp-pillar h3 {
+    word-break: normal;
+    overflow-wrap: anywhere;
+    line-break: strict;
+  }
+
+  .custom-programs-page .cp-pillar:last-child h3 {
+    font-size: 1.34rem;
+  }
+
+  /* Keep the explanatory sentence together across the wider desktop canvas. */
+  .custom-programs-page .cp-tailor .cp-wide-heading > p:last-child {
+    max-width: none;
+    white-space: nowrap;
+    font-size: .98rem;
   }
 
   .custom-programs-page .cp-glance .cp-shell {
@@ -91,7 +114,6 @@
 
   .custom-programs-page .cp-partner-list strong,
   .custom-programs-page .cp-example-panel__header h3,
-  .custom-programs-page .cp-pillar h3,
   .custom-programs-page .cp-value__grid h3 {
     word-break: keep-all;
     overflow-wrap: normal;
@@ -111,5 +133,9 @@
   .custom-programs-page .cp-example-panel__header h3 {
     word-break: normal;
     overflow-wrap: anywhere;
+  }
+
+  .custom-programs-page .cp-tailor .cp-wide-heading > p:last-child {
+    white-space: normal;
   }
 }
