@@ -1,11 +1,11 @@
 ---
 import { rwjp2027Facts, isKnownFact, rwjp2027JourneyLinks, isJourneyLinkReady } from '../data/rwjp/index';
+import { sharedSiteImages } from '../data/shared-site-images';
 
 const f = rwjp2027Facts;
 const rawBase = import.meta.env.BASE_URL;
 const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
-const asset = (name: string) => `${base}images/programs/rwjp/${name}`;
-const realAsset = (name: string) => `${base}images/programs/rwjp/real/${name}`;
+const sharedImage = (path: string) => `${base}images/${path}`;
 const formatDate = (iso: string) => new Intl.DateTimeFormat('en-CA', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(`${iso}T00:00:00Z`));
 const formatRange = (start: string, end: string) => `${formatDate(start)}–${formatDate(end)}`;
 const formatMoney = (value: number) => `JPY ${value.toLocaleString('en-US')}`;
@@ -27,7 +27,7 @@ const applicationReady = isJourneyLinkReady(applicationLink) && Boolean(applicat
 ---
 <article class="rw27">
   <section class="rw27-hero" aria-labelledby="rw27-title">
-    <img class="rw27-hero__image" src={asset('rwjp-winter-life.webp')} alt="Students experiencing winter in Kyoto during a short-term program" width="1600" height="900" fetchpriority="high" decoding="async" />
+    <img class="rw27-hero__image" src={sharedImage(sharedSiteImages.rwjp.hero)} alt="Students experiencing winter in Kyoto during a short-term program" width="1600" height="900" fetchpriority="high" decoding="async" />
     <div class="rw27-hero__shade" aria-hidden="true"></div>
     <div class="rw27-shell rw27-hero__content">
       <p class="rw27-kicker rw27-kicker--light">2027 · Ritsumeikan Winter Japanese Program</p>
@@ -61,9 +61,9 @@ const applicationReady = isJourneyLinkReady(applicationLink) && Boolean(applicat
   <section class="rw27-experience" id="experience" aria-labelledby="rw27-experience-title"><div class="rw27-shell">
     <div class="rw27-heading"><p class="rw27-kicker">What the five weeks can feel like</p><h2 id="rw27-experience-title">Classroom, campus, city.</h2><p>These photographs show past or related short-term program settings. Exact activities and interaction formats vary by offering.</p></div>
     <div class="rw27-story-grid">
-      <figure><img src={realAsset('rwjp-real-japanese-class.webp')} alt="Students studying Japanese in a Ritsumeikan classroom" loading="lazy" decoding="async" /><figcaption><span>01</span><strong>Study with structure</strong><p>Classes, presentations, quizzes and examinations create an academic rhythm.</p></figcaption></figure>
-      <figure><img src={asset('rwjp-student-interaction.webp')} alt="Students interacting during a Ritsumeikan short-term program" loading="lazy" decoding="async" /><figcaption><span>02</span><strong>Use what you learn</strong><p>Student interaction can add another context for language and university life.</p></figcaption></figure>
-      <figure><img src={asset('rwjp-cultural-experience.webp')} alt="Students taking part in a cultural learning activity" loading="lazy" decoding="async" /><figcaption><span>03</span><strong>Learn through place</strong><p>Cultural sessions connect academic study with the environment around you.</p></figcaption></figure>
+      <figure><img src={sharedImage(sharedSiteImages.rwjp.real.classroom)} alt="Students studying Japanese in a Ritsumeikan classroom" loading="lazy" decoding="async" /><figcaption><span>01</span><strong>Study with structure</strong><p>Classes, presentations, quizzes and examinations create an academic rhythm.</p></figcaption></figure>
+      <figure><img src={sharedImage(sharedSiteImages.rwjp.studentInteraction)} alt="Students interacting during a Ritsumeikan short-term program" loading="lazy" decoding="async" /><figcaption><span>02</span><strong>Use what you learn</strong><p>Student interaction can add another context for language and university life.</p></figcaption></figure>
+      <figure><img src={sharedImage(sharedSiteImages.rwjp.real.culture)} alt="Students taking part in a cultural learning activity" loading="lazy" decoding="async" /><figcaption><span>03</span><strong>Learn through place</strong><p>Cultural sessions connect academic study with the environment around you.</p></figcaption></figure>
     </div>
   </div></section>
 
@@ -78,7 +78,7 @@ const applicationReady = isJourneyLinkReady(applicationLink) && Boolean(applicat
   </div></section>
 
   <section class="rw27-stay" id="stay" aria-labelledby="rw27-stay-title"><div class="rw27-shell rw27-stay__grid">
-    <div class="rw27-stay__photo"><img src={asset('rwjp-kyoto-winter.webp')} alt="Winter in Kyoto during the RWJP period" loading="lazy" decoding="async" /></div>
+    <div class="rw27-stay__photo"><img src={sharedImage(sharedSiteImages.rwjp.hero)} alt="Winter in Kyoto during the RWJP period" loading="lazy" decoding="async" /></div>
     <div class="rw27-stay__copy"><p class="rw27-kicker">Taishogun Dormitory</p><h2 id="rw27-stay-title">A practical base near campus.</h2><p>Short-program rooms accommodate up to four students. Room assignments are decided by the university. Showers, toilets and kitchen facilities are shared; Wi-Fi is available and meals are not provided.</p>
       <dl class="rw27-stay__facts"><div><dt>Stay</dt><dd data-fact="accommodation-dates">{accommodationDates}</dd></div><div><dt>Additional fee</dt><dd data-fact="accommodation-fee">{accommodationFee}</dd></div><div><dt>Commute</dt><dd data-fact="accommodation-commute">About 20 minutes on foot to Kinugasa Campus; Kyoto City Bus Route 53 is also available.</dd></div><div><dt>Room</dt><dd data-fact="accommodation-room">Up to four students; room allocation is decided by the university.</dd></div></dl>
       <p class="rw27-note">Bus fare is not included in the program fee. Bicycle use is prohibited during the program for safety reasons.</p>
