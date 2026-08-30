@@ -6,7 +6,7 @@ import RwjpExpressFlagshipPage from '../../components/RwjpExpressFlagshipPage.as
 import RwjpExpressAcademicLoad from '../../components/RwjpExpressAcademicLoad.astro';
 import InternationalLearningImpact from '../../components/InternationalLearningImpact.astro';
 import GlobalLearningEvidence from '../../components/GlobalLearningEvidence.astro';
-import CampusJourney from '../../components/CampusJourney.astro';
+import CustomProgramsPage from '../../components/CustomProgramsPage.astro';
 import { programmePageDrafts, type ProgrammePageDraft } from '../../data/programme-page-drafts';
 import { rwjp2027Facts, isKnownFact } from '../../data/rwjp/index';
 import '../../styles/rwjp-cinematic-hero.css';
@@ -22,7 +22,9 @@ const isCustom = programme.id === 'custom-programs';
 const f = rwjp2027Facts;
 const title = isRwjp
   ? `2027 RWJP | ${isKnownFact(f.officialName) ? f.officialName.value : 'Ritsumeikan Winter Japanese Program'} | 立命館大学`
-  : `${programme.title} | 立命館大学 短期受入プログラム`;
+  : isCustom
+    ? 'Custom Programs | 海外大学・教育機関向け短期受入 | 立命館大学'
+    : `${programme.title} | 立命館大学 短期受入プログラム`;
 const rwjpProgrammeDates = isKnownFact(f.programmeDates)
   ? `${f.programmeDates.value.start.replaceAll('-', '/')}〜${f.programmeDates.value.end.replaceAll('-', '/')}`
   : '日程確認中';
@@ -35,7 +37,7 @@ const description = isRwjp
   : isRwjpExpress
     ? `${programme.title}。短期間に集中して日本語と日本文化を学ぶ冬期プログラム。2023–2026年のRWJP Express参加実績は71名、6か国・地域、15大学・機関。`
     : isCustom
-      ? '海外大学・教育機関からの学生団体を対象に、教育目的、期間、内容、参加人数、実施キャンパス等を相談しながら設計する立命館大学のCustom Programs。留学サポートデスクでは英語での対応が可能です。'
+      ? '海外大学・教育機関向けCustom Programs。日本語学習、英語による専門講義、学生との共修、企業・地域での学び、日本文化体験を組み合わせ、各大学の教育目的に応じた短期プログラムを設計します。過去の実施例をもとに、まずはオンラインミーティングでご相談ください。'
       : `${programme.title}のプログラムページを制作中です。確認済みの情報から順に掲載します。`;
 const photoDisclaimer = isRwjpExpress
   ? '掲載写真はレイアウト確認用の参考写真で、RWJP Express固有の実施写真ではありません　正式写真の確認後に差し替えます'
@@ -55,10 +57,7 @@ const photoDisclaimer = isRwjpExpress
       <GlobalLearningEvidence context="rwjp-express" />
     </>
   ) : isCustom ? (
-    <>
-      <ProgrammePageShell programme={programme} />
-      <CampusJourney />
-    </>
+    <CustomProgramsPage />
   ) : (
     <ProgrammePageShell programme={programme} />
   )}
