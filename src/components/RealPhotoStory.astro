@@ -7,55 +7,13 @@ const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
 const image = (path: string) => `${base}images/${path}`;
 
 const scenes = [
-  {
-    src: image(sharedSiteImages.home.story.campus),
-    alt: '立命館大学衣笠キャンパスの時計台とキャンパス風景',
-    label: 'キャンパス',
-    caption: '大学で過ごす時間から始まる',
-    className: 'real-photo-story__item--feature',
-  },
-  {
-    src: image(sharedSiteImages.home.story.classroom),
-    alt: '大学の教室で日本語を学ぶ短期受入プログラムの学生たち',
-    label: '学ぶ',
-    caption: '教室で学ぶ',
-    className: 'real-photo-story__item--standard',
-  },
-  {
-    src: image(sharedSiteImages.home.story.interaction),
-    alt: '学生が集まり学びを共有する短期受入プログラムの活動風景',
-    label: '交流',
-    caption: '学生と出会い ことばを使う',
-    className: 'real-photo-story__item--standard',
-  },
-  {
-    src: image(sharedSiteImages.home.story.presentation),
-    alt: '教室で発表を聞く短期受入プログラムの学生たち',
-    label: '伝える',
-    caption: '学んだことを伝える',
-    className: 'real-photo-story__item--wide',
-  },
-  {
-    src: image(sharedSiteImages.home.story.culture),
-    alt: '畳の部屋で日本文化を学ぶ短期受入プログラムの学生たち',
-    label: '文化',
-    caption: '見るだけで終わらせない',
-    className: 'real-photo-story__item--standard',
-  },
-  {
-    src: image(sharedSiteImages.home.story.kyoto),
-    alt: '京都でグループ活動を行う短期受入プログラムの学生たち',
-    label: '京都',
-    caption: 'キャンパスの外へ',
-    className: 'real-photo-story__item--standard',
-  },
-  {
-    src: image(sharedSiteImages.home.story.studentInteraction),
-    alt: '学生同士が交流する関連活動のイメージ',
-    label: '交流',
-    caption: '学生同士が交流する場面',
-    className: 'real-photo-story__item--standard',
-  },
+  { src: image(sharedSiteImages.home.story.campus), alt: '立命館大学衣笠キャンパスの時計台とキャンパス風景', label: 'キャンパス', caption: '大学で過ごす時間から始まる', className: 'real-photo-story__item--feature' },
+  { src: image(sharedSiteImages.home.story.classroom), alt: '大学の教室で日本語を学ぶ短期受入プログラムの学生たち', label: '学ぶ', caption: '教室で学ぶ', className: 'real-photo-story__item--standard' },
+  { src: image(sharedSiteImages.home.story.interaction), alt: '学生が集まり学びを共有する短期受入プログラムの活動風景', label: '交流', caption: '学生と出会い ことばを使う', className: 'real-photo-story__item--standard' },
+  { src: image(sharedSiteImages.home.story.presentation), alt: '教室で発表を聞く短期受入プログラムの学生たち', label: '伝える', caption: '学んだことを伝える', className: 'real-photo-story__item--wide' },
+  { src: image(sharedSiteImages.home.story.culture), alt: '畳の部屋で日本文化を学ぶ短期受入プログラムの学生たち', label: '文化', caption: '見るだけで終わらせない', className: 'real-photo-story__item--standard' },
+  { src: image(sharedSiteImages.home.story.kyoto), alt: '京都でグループ活動を行う短期受入プログラムの学生たち', label: '京都', caption: 'キャンパスの外へ', className: 'real-photo-story__item--standard' },
+  { src: image(sharedSiteImages.home.story.studentInteraction), alt: '学生同士が交流する関連活動のイメージ', label: '交流', caption: '学生同士が交流する場面', className: 'real-photo-story__item--standard' },
 ];
 ---
 <section class="real-photo-story" aria-labelledby="real-photo-story-title">
@@ -72,14 +30,11 @@ const scenes = [
       {scenes.map((scene) => (
         <figure class={`real-photo-story__item ${scene.className}`}>
           <img src={scene.src} alt={scene.alt} loading="lazy" decoding="async" />
-          <figcaption>
-            <span>{scene.label}</span>
-            <strong>{scene.caption}</strong>
-          </figcaption>
+          <figcaption><span>{scene.label}</span><strong>{scene.caption}</strong></figcaption>
         </figure>
       ))}
     </div>
 
-    <p class="real-photo-story__note">写真は過去の実施・関連活動の記録です。個人が特定されにくいよう一部をトリミング・加工しています。実施内容はプログラム・年度により異なります。</p>
+    <p class="real-photo-story__note">写真は過去のプログラム・関連活動の様子です。実施内容はプログラム・年度により異なります。</p>
   </div>
 </section>

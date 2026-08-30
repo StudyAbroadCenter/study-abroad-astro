@@ -34,7 +34,7 @@ export const programmePageDrafts: ProgrammePageDraft[] = [
     category: '日本語・日本文化',
     title: 'Ritsumeikan Summer Japanese Program',
     lead: '日本語から広がる 日本での学び',
-    emphasis: '日本語の学習を軸に、日本文化やキャンパスでの体験へ学びを広げる短期プログラムです。年度ごとの日程・参加条件は、正式に確認できた情報から掲載します。',
+    emphasis: '日本語の学習を軸に、日本文化やキャンパスでの体験へ学びを広げる夏の短期留学プログラムです。',
     campus: '衣笠キャンパス',
   },
   {
@@ -43,7 +43,7 @@ export const programmePageDrafts: ProgrammePageDraft[] = [
     category: '日本語・日本文化',
     title: 'RSJP Express',
     lead: '短い期間に 日本語と日本文化を濃く学ぶ',
-    emphasis: '限られた期間だからこそ、日本語・文化・交流を密度高く体験します。年度ごとの日程・参加条件は、正式に確認できた情報から掲載します。',
+    emphasis: '限られた期間に、日本語学習、日本文化、キャンパスでの交流を密度高く経験する短期留学プログラムです。',
     campus: '衣笠キャンパス',
   },
   {
@@ -61,7 +61,7 @@ export const programmePageDrafts: ProgrammePageDraft[] = [
     category: '日本語・日本文化',
     title: 'RWJP Express',
     lead: '2週間だから踏み出せる 日本留学',
-    emphasis: '日本語講座と文化学習を短い期間に凝縮し、キャンパスや京都での体験につなげる冬の短期プログラムです。年度ごとの日程・費用等は共有された確認済み情報から表示します。',
+    emphasis: '日本語講座と文化学習を短い期間に凝縮し、キャンパスや京都での体験につなげる冬の短期留学プログラムです。',
     campus: '衣笠キャンパス',
   },
   {
@@ -70,7 +70,7 @@ export const programmePageDrafts: ProgrammePageDraft[] = [
     category: 'AI・データサイエンス・ロボティクス',
     title: 'RDSP',
     lead: 'AIとデータサイエンスを 日本で学ぶ',
-    emphasis: '大阪いばらきキャンパス（OIC）を拠点に、AI、データサイエンス、ロボティクス等を扱います。立命館大学教員による講義に加え、学生イベント、Buddy活動、Microsoft Base Ritsumeikanでの協働学習を組み合わせます。年度別の日程・募集条件は、確定情報のみ掲載します。',
+    emphasis: '大阪いばらきキャンパス（OIC）を拠点に、AI、データサイエンス、ロボティクス等を扱う専門分野型の短期留学プログラムです。',
     campus: '大阪いばらきキャンパス（OIC）',
   },
   {
@@ -79,7 +79,7 @@ export const programmePageDrafts: ProgrammePageDraft[] = [
     category: 'ビジネス・マネジメント',
     title: 'Ritsumeikan Business Management Program',
     lead: 'ビジネスの学びを 教室の外へ',
-    emphasis: '大阪いばらきキャンパス（OIC）で、ビジネス・マネジメント講義に学生との共修、文化体験、フィールド訪問を組み合わせる短期プログラムです。一般参加者と引率者帯同団体では宿泊条件が異なるため、案内を分けて掲載します。年度ごとの日程・費用等は共有された確認済み情報から表示します。',
+    emphasis: '大阪いばらきキャンパス（OIC）で、ビジネス・マネジメントの学びに学生との共修、文化体験、フィールドでの学習を組み合わせる短期留学プログラムです。',
     campus: '大阪いばらきキャンパス（OIC）',
     isNewProgramme: true,
   },
@@ -89,7 +89,7 @@ export const programmePageDrafts: ProgrammePageDraft[] = [
     category: '海外大学・教育機関向け',
     title: '大学・機関向けカスタムプログラム',
     lead: '大学ごとに 日本での学びを設計する',
-    emphasis: '個人申込型ではなく、海外の大学・教育機関から学生団体を受け入れるプログラムです。教育目的、期間、テーマ、参加人数等を伺い、授業、学生交流、文化体験、フィールドワーク、実施キャンパス等を相談しながら設計します。留学サポートデスクでは英語での相談・調整が可能です。',
+    emphasis: '海外の大学・教育機関から学生団体を受け入れる短期留学プログラムです。教育目的、期間、テーマ、参加人数等を伺い、授業、学生交流、文化体験、フィールドワーク、実施キャンパス等を相談しながら設計します。留学サポートデスクでは英語での相談・調整が可能です。',
   },
 ];
 

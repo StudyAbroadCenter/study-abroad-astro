@@ -5,7 +5,7 @@ import ProgramFinder from '../components/ProgramFinder.astro';
 import ExperiencePillars from '../components/ExperiencePillars.astro';
 import InternationalLearningImpact from '../components/InternationalLearningImpact.astro';
 import CoLearningEvidence from '../components/CoLearningEvidence.astro';
-import GlobalLearningEvidence from '../components/GlobalLearningEvidence.astro';
+import HomeGlobalProof from '../components/HomeGlobalProof.astro';
 import RealPhotoStory from '../components/RealPhotoStory.astro';
 import ParticipantDay from '../components/ParticipantDay.astro';
 import SupportPreview from '../components/SupportPreview.astro';
@@ -16,15 +16,15 @@ import '../styles/ja-mobile-final-fixes.css';
 import '../styles/ja-home-visibility-pass.css';
 ---
 <StudentRecruitmentLayout
-  title="立命館大学 短期受入プログラム"
-  description="立命館大学の短期受入プログラム。日本語・日本文化、学生共修、専門テーマから、自分に合う学びを探せます。海外大学・教育機関向けには、目的に合わせて設計するCustom Programsも用意しています。2023–2026年の定型4プログラムには522名、27か国・地域、114大学・機関から参加がありました。"
+  title="立命館大学の短期留学｜日本語・日本文化・専門分野を京都・大阪で学ぶ"
+  description="立命館大学の短期留学・短期受入プログラム。京都・大阪で日本語、日本文化、学生との共修、ビジネス、AI・データサイエンスなどを学べます。海外大学・教育機関向けCustom Programsにも対応。2023–2026年の定型4プログラムには522名、27か国・地域、114大学・機関から参加がありました。"
 >
   <RecruitmentHero />
   <ProgramFinder />
   <ExperiencePillars />
   <InternationalLearningImpact context="site" />
   <CoLearningEvidence />
-  <GlobalLearningEvidence context="site" />
+  <HomeGlobalProof />
   <RealPhotoStory />
   <ParticipantDay />
   <SupportPreview />
@@ -40,9 +40,7 @@ import '../styles/ja-home-visibility-pass.css';
     color: #2b2623;
   }
 
-  .finder-controls {
-    gap: 18px;
-  }
+  .finder-controls { gap: 18px; }
 
   .finder-controls fieldset {
     min-height: 148px;
@@ -64,9 +62,7 @@ import '../styles/ja-home-visibility-pass.css';
     color: #241f1c;
   }
 
-  .finder-controls fieldset legend + * {
-    clear: both;
-  }
+  .finder-controls fieldset legend + * { clear: both; }
 
   .finder-controls fieldset legend > span {
     display: inline-grid;
@@ -81,8 +77,15 @@ import '../styles/ja-home-visibility-pass.css';
     font-weight: 900;
   }
 
-  .finder-controls__fact-note {
-    justify-content: flex-start !important;
+  .finder-controls__fact-note { justify-content: flex-start !important; }
+
+  .finder-results-heading > small,
+  .home-global-proof__footprint > p,
+  .ja-recruitment-spotlight__status--working,
+  .ja-recruitment-spotlight__status--pending,
+  .programme-card__recruitment--working,
+  .programme-card__recruitment--pending {
+    display: none !important;
   }
 
   @media (max-width: 760px) {

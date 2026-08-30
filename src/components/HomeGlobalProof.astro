@@ -1,0 +1,153 @@
+---
+import { participationHistorySource, shortTermParticipationEvidence } from '../data/participation-history';
+import '../styles/home-global-proof.css';
+
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const image = (path: string) => `${base}images/${path.replace(/^\//, '')}`;
+
+const proofStats = [
+  { value: shortTermParticipationEvidence.participants.toLocaleString('ja-JP'), label: '参加者', note: '定型4プログラム' },
+  { value: String(shortTermParticipationEvidence.countriesOrRegions), label: '国・地域', note: '大学・機関所在地ベース' },
+  { value: String(shortTermParticipationEvidence.institutions), label: '大学・機関', note: '2023–2026' },
+];
+
+const flagCountries = [
+  { code: 'au', label: 'オーストラリア' },
+  { code: 'us', label: 'アメリカ' },
+  { code: 'kr', label: '韓国' },
+  { code: 'ca', label: 'カナダ' },
+  { code: 'nz', label: 'ニュージーランド' },
+  { code: 'gb', label: 'イギリス' },
+  { code: 'cn', label: '中国' },
+  { code: 'tw', label: '台湾' },
+  { code: 'sg', label: 'シンガポール' },
+  { code: 'hk', label: '香港' },
+] as const;
+
+const learningBridge = [
+  {
+    eyebrow: 'LEARN',
+    title: '日本語・専門分野を学ぶ',
+    body: '日本語、日本文化、英語による専門講義など、目的に応じた学びへつなげます。',
+    image: 'programs/rwjp/real/rwjp-real-japanese-class.webp',
+    alt: '短期受入プログラムの日本語授業の様子',
+  },
+  {
+    eyebrow: 'CONNECT',
+    title: '学生と共に学ぶ',
+    body: 'Buddy、ゼミ、学生団体との交流を、単なる交流ではなく共に学ぶ機会へ。',
+    image: 'programs/rwjp/real/rwjp-real-learning-hub.webp',
+    alt: '立命館の学生と留学生が交流しながら学ぶ様子',
+  },
+  {
+    eyebrow: 'EXPERIENCE',
+    title: '日本を教室にする',
+    body: '文化体験、地域学習、企業訪問など、キャンパスの外にも学びを広げます。',
+    image: 'programs/rwjp/real/rwjp-real-kyoto-field.webp',
+    alt: '京都でフィールド学習を行う学生の様子',
+  },
+];
+---
+<section class="home-global-proof" aria-labelledby="home-global-proof-title">
+  <div class="site-shell home-global-proof__intro">
+    <div>
+      <p class="home-global-proof__kicker">VERIFIED GLOBAL REACH · {participationHistorySource.period}</p>
+      <h2 id="home-global-proof-title">
+        <span>世界から集まり、立命館で学び、</span>
+        <span>学生とつながる。</span>
+      </h2>
+    </div>
+    <div class="home-global-proof__lead">
+      <p>検証済みの定型4プログラムでは、2023–2026年に522名、27か国・地域、114大学・機関から参加がありました。</p>
+      <p class="home-global-proof__source">国・地域は参加者の国籍ではなく、大学・機関の所在地で整理しています。Custom Programsは別集計です。</p>
+    </div>
+  </div>
+
+  <div class="site-shell home-global-proof__evidence">
+    <div class="home-global-proof__footprint" aria-label="世界各地から立命館へ広がる参加実績のイメージ">
+      <div class="home-global-proof__orbit home-global-proof__orbit--one"></div>
+      <div class="home-global-proof__orbit home-global-proof__orbit--two"></div>
+      <div class="home-global-proof__orbit home-global-proof__orbit--three"></div>
+      <div class="home-global-proof__origin">
+        <span>RITSUMEIKAN</span>
+        <strong>世界から立命館へ</strong>
+        <small>27か国・地域</small>
+      </div>
+
+      <svg class="home-global-proof__flag-sprite" aria-hidden="true" width="0" height="0">
+        <defs>
+          <symbol id="flag-au" viewBox="0 0 60 40"><rect width="60" height="40" fill="#012169"/><path d="M0 0L26 18M26 0L0 18" stroke="#fff" stroke-width="6"/><path d="M0 0L26 18M26 0L0 18" stroke="#c8102e" stroke-width="2"/><path d="M13 0V18M0 9H26" stroke="#fff" stroke-width="8"/><path d="M13 0V18M0 9H26" stroke="#c8102e" stroke-width="4"/><circle cx="44" cy="22" r="3" fill="#fff"/><circle cx="50" cy="31" r="2" fill="#fff"/><circle cx="39" cy="31" r="2" fill="#fff"/></symbol>
+          <symbol id="flag-us" viewBox="0 0 60 40"><rect width="60" height="40" fill="#fff"/><path d="M0 3H60M0 9H60M0 15H60M0 21H60M0 27H60M0 33H60M0 39H60" stroke="#b22234" stroke-width="4"/><rect width="28" height="21" fill="#3c3b6e"/><circle cx="6" cy="6" r="1" fill="#fff"/><circle cx="14" cy="6" r="1" fill="#fff"/><circle cx="22" cy="6" r="1" fill="#fff"/><circle cx="10" cy="13" r="1" fill="#fff"/><circle cx="18" cy="13" r="1" fill="#fff"/></symbol>
+          <symbol id="flag-kr" viewBox="0 0 60 40"><rect width="60" height="40" fill="#fff"/><path d="M30 13a7 7 0 1 1 0 14a7 7 0 1 1 0-14" fill="#cd2e3a"/><path d="M30 27a7 7 0 0 1 0-14a3.5 3.5 0 0 0 0 7a3.5 3.5 0 0 1 0 7" fill="#0047a0"/><path d="M8 8l8 5M10 5l8 5M44 27l8 5M42 30l8 5" stroke="#111" stroke-width="2"/></symbol>
+          <symbol id="flag-ca" viewBox="0 0 60 40"><rect width="60" height="40" fill="#fff"/><rect width="12" height="40" fill="#d80621"/><rect x="48" width="12" height="40" fill="#d80621"/><path d="M30 8l3 7l6-2l-3 6l5 3l-7 2l1 8h-10l1-8l-7-2l5-3l-3-6l6 2z" fill="#d80621"/></symbol>
+          <symbol id="flag-nz" viewBox="0 0 60 40"><rect width="60" height="40" fill="#012169"/><path d="M0 0L26 18M26 0L0 18" stroke="#fff" stroke-width="6"/><path d="M0 0L26 18M26 0L0 18" stroke="#c8102e" stroke-width="2"/><path d="M13 0V18M0 9H26" stroke="#fff" stroke-width="8"/><path d="M13 0V18M0 9H26" stroke="#c8102e" stroke-width="4"/><circle cx="44" cy="12" r="2.6" fill="#c8102e" stroke="#fff"/><circle cx="50" cy="22" r="2.6" fill="#c8102e" stroke="#fff"/><circle cx="40" cy="28" r="2.6" fill="#c8102e" stroke="#fff"/></symbol>
+          <symbol id="flag-gb" viewBox="0 0 60 40"><rect width="60" height="40" fill="#012169"/><path d="M0 0L60 40M60 0L0 40" stroke="#fff" stroke-width="9"/><path d="M0 0L60 40M60 0L0 40" stroke="#c8102e" stroke-width="4"/><path d="M30 0V40M0 20H60" stroke="#fff" stroke-width="13"/><path d="M30 0V40M0 20H60" stroke="#c8102e" stroke-width="7"/></symbol>
+          <symbol id="flag-cn" viewBox="0 0 60 40"><rect width="60" height="40" fill="#de2910"/><path d="M12 7l2 5l5 .2l-4 3l1.5 5l-4.5-3l-4.5 3l1.5-5l-4-3l5-.2z" fill="#ffde00"/><circle cx="24" cy="8" r="1.5" fill="#ffde00"/><circle cx="28" cy="14" r="1.5" fill="#ffde00"/><circle cx="27" cy="21" r="1.5" fill="#ffde00"/></symbol>
+          <symbol id="flag-tw" viewBox="0 0 60 40"><rect width="60" height="40" fill="#fe0000"/><rect width="30" height="20" fill="#000095"/><circle cx="15" cy="10" r="6" fill="#fff"/><circle cx="15" cy="10" r="3.8" fill="#fff" stroke="#000095" stroke-width="1"/></symbol>
+          <symbol id="flag-sg" viewBox="0 0 60 40"><rect width="60" height="20" fill="#ef3340"/><rect y="20" width="60" height="20" fill="#fff"/><circle cx="16" cy="10" r="7" fill="#fff"/><circle cx="19" cy="9" r="6" fill="#ef3340"/><circle cx="26" cy="5" r="1.2" fill="#fff"/><circle cx="28" cy="10" r="1.2" fill="#fff"/><circle cx="25" cy="15" r="1.2" fill="#fff"/></symbol>
+          <symbol id="flag-hk" viewBox="0 0 60 40"><rect width="60" height="40" fill="#de2910"/><g fill="#fff"><ellipse cx="30" cy="12" rx="3" ry="8" transform="rotate(0 30 20)"/><ellipse cx="30" cy="12" rx="3" ry="8" transform="rotate(72 30 20)"/><ellipse cx="30" cy="12" rx="3" ry="8" transform="rotate(144 30 20)"/><ellipse cx="30" cy="12" rx="3" ry="8" transform="rotate(216 30 20)"/><ellipse cx="30" cy="12" rx="3" ry="8" transform="rotate(288 30 20)"/></g></symbol>
+        </defs>
+      </svg>
+      <div class="home-global-proof__flagline" aria-label="主な参加大学・機関所在地">
+        {flagCountries.map((country) => (
+          <span class="home-global-proof__flag-item" title={country.label}>
+            <svg viewBox="0 0 60 40" role="img" aria-label={country.label}><use href={`#flag-${country.code}`}></use></svg>
+          </span>
+        ))}
+      </div>
+      <p>同じ地図を繰り返すのではなく、トップでは「広がり」を簡潔に。詳しいつながりはBuddyページで紹介します。</p>
+      <a href={`${base}buddy/`}>世界とのつながりを見る →</a>
+    </div>
+
+    <dl class="home-global-proof__stats" aria-label="2023年から2026年の検証済み短期受入プログラム参加実績">
+      {proofStats.map((stat) => (
+        <div>
+          <dt>{stat.label}</dt>
+          <dd>{stat.value}{stat.label === '参加者' ? '名' : ''}</dd>
+          <span>{stat.note}</span>
+        </div>
+      ))}
+    </dl>
+  </div>
+
+  <div class="site-shell home-global-proof__bridge">
+    <div class="home-global-proof__bridge-heading">
+      <p>NUMBERS TO LEARNING</p>
+      <h3><span>来るだけで終わらない。</span><span>学びと交流へつなげる。</span></h3>
+      <p>参加実績は入口です。立命館では、授業、学生交流、文化・地域での学びを一つの経験としてつなげます。</p>
+    </div>
+    <div class="home-global-proof__cards">
+      {learningBridge.map((item) => (
+        <article>
+          <img src={image(item.image)} alt={item.alt} loading="lazy" decoding="async" />
+          <div>
+            <span>{item.eyebrow}</span>
+            <h4>{item.title}</h4>
+            <p>{item.body}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+
+  <div class="site-shell home-global-proof__next">
+    <div>
+      <p>NEXT STEP</p>
+      <h3>次は、あなたへ。</h3>
+      <span>実績を見るだけで終わらず、次の参加と新しい大学連携へつなげます。</span>
+    </div>
+    <div class="home-global-proof__next-actions">
+      <a class="home-global-proof__action home-global-proof__action--primary" href={`${base}#program-finder`}>
+        <small>個人で参加する方</small>
+        <strong>自分に合うプログラムを探す</strong>
+        <span>→</span>
+      </a>
+      <a class="home-global-proof__action" href={`${base}programs/custom-programs/`}>
+        <small>海外大学・教育機関の方</small>
+        <strong>Custom Programを相談する</strong>
+        <span>→</span>
+      </a>
+    </div>
+  </div>
+</section>

@@ -2,10 +2,22 @@
 import KoreanStudentRecruitmentLayout from '../../components/KoreanStudentRecruitmentLayout.astro';
 import KoreanHome from '../../components/KoreanHome.astro';
 import HomeLanguageSwitcher from '../../components/HomeLanguageSwitcher.astro';
-const title = '리츠메이칸대학교 단기 프로그램 | 일본 단기 유학';
-const description = '리츠메이칸대학교의 일본어·일본문화 및 테마형 단기 프로그램을 한국어로 확인하세요. 연도별 일정, 비용, 지원 자격과 숙소 정보는 확인된 내용만 공개합니다.';
+const title = '일본 단기 유학 | 리츠메이칸대학교 단기 프로그램';
+const description = '리츠메이칸대학교에서 일본어·일본문화, 비즈니스, AI·데이터사이언스 등을 배우는 일본 단기 유학 프로그램을 확인하세요. 교토·오사카 캠퍼스에서의 학습과 학생 교류, 대학 단체 맞춤형 프로그램을 안내합니다.';
 ---
 <KoreanStudentRecruitmentLayout title={title} description={description} robots="noindex,nofollow">
   <HomeLanguageSwitcher currentLocale="ko" />
   <KoreanHome />
 </KoreanStudentRecruitmentLayout>
+
+<style is:global>
+  .en-recruitment-banner__copy > p:last-child,
+  .finder-results-heading > small,
+  .en-programme-group__heading > p,
+  .en-programme-status {
+    display: none !important;
+  }
+  .en-programme-card__link { font-size: 0; }
+  .en-programme-card__link::before { content: '프로그램 상세 보기'; font-size: .92rem; }
+  .en-programme-card__link > span { font-size: .92rem; }
+</style>
