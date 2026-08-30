@@ -9,8 +9,8 @@ const individualProgrammes = programmes.filter((programme) => programme.audience
 const partnerProgrammes = programmes.filter((programme) => programme.audience === 'partner');
 ---
 <StudentRecruitmentLayout
-  title="プログラム一覧 | 立命館大学 短期受入プログラム"
-  description="個人参加型の短期受入プログラムと、海外大学・教育機関向けCustom Programsを分けて案内します。"
+  title="立命館大学の短期留学プログラム一覧｜日本語・日本文化・専門分野"
+  description="立命館大学の短期留学・短期受入プログラム一覧。日本語・日本文化、ビジネス、AI・データサイエンスなどの個人参加型プログラムと、海外大学・教育機関向けCustom Programsをご案内します。"
   robots="noindex,nofollow"
 >
   <article class="jp-utility">
@@ -18,10 +18,10 @@ const partnerProgrammes = programmes.filter((programme) => programme.audience ==
       <header class="jp-utility__intro">
         <div>
           <p class="section-kicker">プログラム一覧</p>
-          <h1>参加する人で 入口を分ける</h1>
+          <h1>目的に合う短期留学を探す</h1>
         </div>
         <div>
-          <p class="jp-utility__lead">個人で参加する学生向けプログラムと、海外大学・教育機関から学生団体を受け入れるCustom Programsは、申込方法も設計方法も異なります。</p>
+          <p class="jp-utility__lead">個人で参加する学生向けプログラムと、海外大学・教育機関から学生団体を受け入れるCustom Programsをご案内します。</p>
           <div class="jp-utility__actions">
             <a class="action-button action-button--primary" href={`${base}#program-finder`}>個人向けを探す</a>
             <a class="action-button action-button--dark" href={hrefFor('custom-programs')}>大学・機関向けを見る</a>
@@ -31,8 +31,8 @@ const partnerProgrammes = programmes.filter((programme) => programme.audience ==
 
       <section aria-labelledby="individual-programmes-title">
         <p class="section-kicker">個人で参加する方へ</p>
-        <h2 id="individual-programmes-title">自分で選び 自分で応募するプログラム</h2>
-        <p>実施キャンパスはプログラムごとに決まっています。参加者が衣笠・OIC・BKCから自由に選択する仕組みではありません。</p>
+        <h2 id="individual-programmes-title">日本語・日本文化、専門分野から選ぶ</h2>
+        <p>実施キャンパスはプログラムごとに異なります。日程、費用、参加条件、学習内容は各プログラムページでご確認ください。</p>
         <div class="jp-utility__programme-list" aria-label="個人参加型短期受入プログラム一覧">
           {individualProgrammes.map((programme) => {
             const publicCopy = getProgrammePublicDescriptor(programme.id);
@@ -40,8 +40,7 @@ const partnerProgrammes = programmes.filter((programme) => programme.audience ==
               <article>
                 <p class="section-kicker">{programme.code}</p>
                 <h3>{publicCopy?.name ?? programme.code}</h3>
-                <p>{publicCopy?.summary ?? '詳細情報を確認中です。'}</p>
-                <p><strong>{publicCopy?.status ?? '詳細確認中'}</strong></p>
+                <p>{publicCopy?.summary ?? programme.lead}</p>
                 <a href={hrefFor(programme.id)}>詳細ページを見る →</a>
               </article>
             );
@@ -51,8 +50,8 @@ const partnerProgrammes = programmes.filter((programme) => programme.audience ==
 
       <section style="margin-top:4rem;" aria-labelledby="partner-programmes-title">
         <p class="section-kicker">海外大学・教育機関のご担当者へ</p>
-        <h2 id="partner-programmes-title">学生団体のために 一緒に設計する</h2>
-        <p>Custom Programsは個人申込型ではありません。教育目的、期間、テーマ、参加人数等を伺い、授業、交流、文化体験、フィールドワーク、実施キャンパス等を相談しながら設計します。留学サポートデスクでは英語での対応が可能です。</p>
+        <h2 id="partner-programmes-title">大学の教育目的に合わせて日本での学びを設計する</h2>
+        <p>Custom Programsは、海外大学・教育機関の学生団体向け短期留学プログラムです。教育目的、期間、テーマ、参加人数等を伺い、日本語学習、英語による専門講義、学生交流、日本文化体験、企業・地域での学びなどを組み合わせます。</p>
         <div class="jp-utility__programme-list" aria-label="海外大学・教育機関向けプログラム">
           {partnerProgrammes.map((programme) => {
             const publicCopy = getProgrammePublicDescriptor(programme.id);
@@ -60,16 +59,13 @@ const partnerProgrammes = programmes.filter((programme) => programme.audience ==
               <article>
                 <p class="section-kicker">大学・機関向け</p>
                 <h3>{publicCopy?.name ?? 'Custom Programs'}</h3>
-                <p>{publicCopy?.summary ?? '大学・機関向けに相談しながら設計するプログラムです。'}</p>
-                <p><strong>個人申込対象外</strong></p>
+                <p>{publicCopy?.summary ?? '海外大学・教育機関の教育目的に合わせて相談しながら設計する短期留学プログラムです。'}</p>
                 <a href={hrefFor(programme.id)}>大学・機関向けページを見る →</a>
               </article>
             );
           })}
         </div>
       </section>
-
-      <p class="real-photo-story__note" style="margin-top:2rem;">日程、期間、キャンパス、費用、募集状況などは、確認済みの情報だけを各詳細ページで案内します。比較のために未確認値を推測して補うことはしません。</p>
     </div>
   </article>
 </StudentRecruitmentLayout>

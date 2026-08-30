@@ -21,26 +21,28 @@ const isRwjpExpress = programme.id === 'rwjp-express';
 const isCustom = programme.id === 'custom-programs';
 const f = rwjp2027Facts;
 const title = isRwjp
-  ? `2027 RWJP | ${isKnownFact(f.officialName) ? f.officialName.value : 'Ritsumeikan Winter Japanese Program'} | 立命館大学`
-  : isCustom
-    ? 'Custom Programs | 海外大学・教育機関向け短期受入 | 立命館大学'
-    : `${programme.title} | 立命館大学 短期受入プログラム`;
+  ? `2027 RWJP｜日本語・日本文化を京都で学ぶ｜立命館大学`
+  : isRwjpExpress
+    ? `RWJP Express｜短期集中で日本語・日本文化を学ぶ｜立命館大学`
+    : isCustom
+      ? '海外大学向けカスタム短期留学プログラム｜Custom Programs｜立命館大学'
+      : `${programme.title}｜立命館大学の短期留学プログラム`;
 const rwjpProgrammeDates = isKnownFact(f.programmeDates)
   ? `${f.programmeDates.value.start.replaceAll('-', '/')}〜${f.programmeDates.value.end.replaceAll('-', '/')}`
-  : '日程確認中';
-const rwjpFee = isKnownFact(f.programmeFee) ? `${f.programmeFee.value.toLocaleString('ja-JP')}円` : '参加費確認中';
+  : '';
+const rwjpFee = isKnownFact(f.programmeFee) ? `${f.programmeFee.value.toLocaleString('ja-JP')}円` : '';
 const rwjpApplication = isKnownFact(f.applicationPeriod)
   ? `${f.applicationPeriod.value.start.replaceAll('-', '/')}〜${f.applicationPeriod.value.end.replaceAll('-', '/')}`
-  : '応募期間確認中';
+  : '';
 const description = isRwjp
-  ? `2027 RWJP。${rwjpProgrammeDates}、冬の京都で日本語を学び、立命館の学生との交流機会を通じてキャンパスの国際教育にもつながる5週間の短期プログラム。参加費${rwjpFee}、応募期間${rwjpApplication}。2023–2026年のRWJP参加実績は140名、9か国・地域、18大学・機関。`
+  ? `立命館大学RWJP。冬の京都で日本語・日本文化を学び、立命館の学生との交流を通じて日本での学びを深める5週間の短期留学プログラム。${rwjpProgrammeDates ? `日程${rwjpProgrammeDates}。` : ''}${rwjpFee ? `参加費${rwjpFee}。` : ''}${rwjpApplication ? `応募期間${rwjpApplication}。` : ''}2023–2026年の参加実績は140名、9か国・地域、18大学・機関。`
   : isRwjpExpress
-    ? `${programme.title}。短期間に集中して日本語と日本文化を学ぶ冬期プログラム。2023–2026年のRWJP Express参加実績は71名、6か国・地域、15大学・機関。`
+    ? `${programme.title}。立命館大学で短期間に集中して日本語と日本文化を学ぶ冬期短期留学プログラム。2023–2026年のRWJP Express参加実績は71名、6か国・地域、15大学・機関。`
     : isCustom
-      ? '海外大学・教育機関向けCustom Programs。日本語学習、英語による専門講義、学生との共修、企業・地域での学び、日本文化体験を組み合わせ、各大学の教育目的に応じた短期プログラムを設計します。過去の実施例をもとに、まずはオンラインミーティングでご相談ください。'
-      : `${programme.title}のプログラムページを制作中です。確認済みの情報から順に掲載します。`;
+      ? '海外大学・教育機関向けのカスタム短期留学プログラム。日本語学習、英語による専門講義、学生との共修、企業・地域での学び、日本文化体験を組み合わせ、各大学の教育目的に応じて立命館大学での短期プログラムを設計します。'
+      : `立命館大学の${programme.title}。日本で学ぶ短期留学プログラムとして、学びの内容、参加条件、実施場所などをご案内します。`;
 const photoDisclaimer = isRwjpExpress
-  ? '掲載写真はレイアウト確認用の参考写真で、RWJP Express固有の実施写真ではありません　正式写真の確認後に差し替えます'
+  ? '掲載写真は過去の関連プログラムの様子です。実施内容は年度・プログラムにより異なります。'
   : undefined;
 ---
 <StudentRecruitmentLayout title={title} description={description} robots="noindex,nofollow" photoDisclaimer={photoDisclaimer}>
