@@ -14,16 +14,23 @@
   border: 0;
   border-radius: 16px;
   background-color: #f7eeec;
-  background-image: url('/images/evidence/buddy-global-map-2023-2026.svg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
+  background-image:
+    url('/images/evidence/buddy-global-map-2023-2026.svg'),
+    url('/images/evidence/buddy-global-map-2023-2026.png');
+  background-repeat: no-repeat, no-repeat;
+  background-position: center, center;
+  background-size: contain, contain;
   box-shadow: none;
 }
 
 /* The verified SVG asset owns the map visual; keep the previous illustrative layer out of view. */
 .buddy-global__globe > * {
   display: none !important;
+}
+
+.buddy-global__globe::before,
+.buddy-global__globe::after {
+  display: none;
 }
 
 /* Evidence summary and ranked country/region list. */
