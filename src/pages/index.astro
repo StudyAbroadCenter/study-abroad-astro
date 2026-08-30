@@ -40,9 +40,7 @@ import '../styles/ja-home-visibility-pass.css';
     color: #2b2623;
   }
 
-  .finder-controls {
-    gap: 18px;
-  }
+  .finder-controls { gap: 18px; }
 
   .finder-controls fieldset {
     min-height: 148px;
@@ -64,9 +62,7 @@ import '../styles/ja-home-visibility-pass.css';
     color: #241f1c;
   }
 
-  .finder-controls fieldset legend + * {
-    clear: both;
-  }
+  .finder-controls fieldset legend + * { clear: both; }
 
   .finder-controls fieldset legend > span {
     display: inline-grid;
@@ -81,8 +77,16 @@ import '../styles/ja-home-visibility-pass.css';
     font-weight: 900;
   }
 
-  .finder-controls__fact-note {
-    justify-content: flex-start !important;
+  .finder-controls__fact-note { justify-content: flex-start !important; }
+
+  /* Public-page cleanup: internal data/governance notes must not appear to visitors. */
+  .finder-results-heading > small,
+  .home-global-proof__footprint > p,
+  .ja-recruitment-spotlight__status--working,
+  .ja-recruitment-spotlight__status--pending,
+  .programme-card__recruitment--working,
+  .programme-card__recruitment--pending {
+    display: none !important;
   }
 
   @media (max-width: 760px) {
