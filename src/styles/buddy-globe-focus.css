@@ -51,9 +51,10 @@
   margin-bottom: 6px;
   color: #8b2432;
   content: 'RSJP・RWJP（5週間）';
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   font-weight: 900;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
+  line-height: 1.45;
 }
 
 .buddy-global__evidence > span {
@@ -72,15 +73,15 @@
   display: flex;
   align-items: center;
   gap: 0.52rem;
-  padding: 0.47rem 0.35rem;
+  padding: 0.5rem 0.35rem;
   border: 0;
   border-bottom: 1px solid rgba(139, 36, 50, 0.12);
   border-radius: 0;
   background: transparent;
   color: #271f1f;
-  font-size: 0.9rem;
+  font-size: 0.94rem;
   font-weight: 720;
-  line-height: 1.2;
+  line-height: 1.35;
   white-space: nowrap;
 }
 
@@ -96,7 +97,7 @@
 .buddy-global__countries span::after {
   margin-left: auto;
   color: #8b2432;
-  font-size: 0.88rem;
+  font-size: 0.92rem;
   font-weight: 900;
   font-variant-numeric: tabular-nums;
 }
@@ -114,6 +115,83 @@
 .buddy-global__countries span:nth-child(11)::after { content: '2名'; }
 .buddy-global__countries span:nth-child(12)::after { content: '2名'; }
 .buddy-global__countries span:nth-child(n+13)::after { content: '1名'; }
+
+/* UI polish pass after PR #79: improve reading size, wrapping and vertical rhythm. */
+.buddy-section-kicker,
+.buddy-hero__eyebrow {
+  font-size: clamp(0.76rem, 0.9vw, 0.84rem) !important;
+  line-height: 1.45 !important;
+  letter-spacing: 0.12em !important;
+}
+
+.buddy-hero__note,
+.buddy-opportunity__number,
+.buddy-journey__index,
+.buddy-journey__english,
+.buddy-join__status span,
+.buddy-photo-ribbon figcaption span,
+.buddy-global__evidence > span,
+.buddy-global__evidence small {
+  font-size: 0.84rem !important;
+  line-height: 1.5 !important;
+}
+
+.buddy-intro,
+.buddy-opportunities,
+.buddy-journey,
+.buddy-global,
+.buddy-support,
+.buddy-join {
+  padding-top: clamp(4.2rem, 6vw, 5.4rem) !important;
+  padding-bottom: clamp(4.2rem, 6vw, 5.4rem) !important;
+}
+
+.buddy-intro h2,
+.buddy-opportunities h2,
+.buddy-journey h2,
+.buddy-global h2,
+.buddy-support h2,
+.buddy-join h2 {
+  line-height: 1.2 !important;
+  text-wrap: pretty;
+}
+
+.buddy-intro h2 span,
+.buddy-opportunities h2 span,
+.buddy-journey h2 span,
+.buddy-global h2 span,
+.buddy-support h2 span,
+.buddy-join h2 span,
+.buddy-journey__statement strong span {
+  text-wrap: pretty;
+}
+
+.buddy-intro__copy,
+.buddy-opportunities__header > p,
+.buddy-journey__intro > p:last-child,
+.buddy-global__header > p,
+.buddy-support__copy,
+.buddy-join__panel > div:first-child > p:last-child {
+  font-size: clamp(0.98rem, 1vw, 1.06rem);
+  line-height: 1.75 !important;
+}
+
+.buddy-opportunities__header,
+.buddy-global__header {
+  gap: 1.4rem !important;
+}
+
+.buddy-global__scene {
+  margin-top: 1.8rem !important;
+}
+
+.buddy-journey__track {
+  margin-top: 2.2rem !important;
+}
+
+.buddy-journey__statement {
+  margin-top: 2.4rem !important;
+}
 
 @media (max-width: 960px) {
   .buddy-global__scene {
@@ -140,6 +218,51 @@
   }
 
   .buddy-global__countries span {
-    font-size: 0.86rem;
+    font-size: 0.92rem;
+    white-space: normal;
+  }
+
+  .buddy-hero h1 {
+    font-size: clamp(2rem, 9vw, 2.45rem) !important;
+    line-height: 1.15 !important;
+  }
+
+  .buddy-hero h1 span,
+  .buddy-hero__lead span {
+    text-wrap: pretty;
+  }
+
+  .buddy-intro,
+  .buddy-opportunities,
+  .buddy-journey,
+  .buddy-global,
+  .buddy-support,
+  .buddy-join {
+    padding-top: 3.5rem !important;
+    padding-bottom: 3.5rem !important;
+  }
+
+  .buddy-intro h2,
+  .buddy-opportunities h2,
+  .buddy-journey h2,
+  .buddy-global h2,
+  .buddy-support h2,
+  .buddy-join h2 {
+    font-size: clamp(1.75rem, 8vw, 2.05rem) !important;
+    line-height: 1.22 !important;
+  }
+
+  .buddy-opportunity {
+    gap: 0.9rem !important;
+    padding: 1.25rem 0 !important;
+  }
+
+  .buddy-opportunity h3 {
+    font-size: 1.2rem !important;
+  }
+
+  .buddy-global__scene,
+  .buddy-journey__track {
+    margin-top: 1.5rem !important;
   }
 }
