@@ -31,6 +31,7 @@
 
   /* WHY RITSUMEIKAN: show only the requested two-line editorial copy. */
   .custom-programs-page .cp-purpose h2 {
+    max-width: 1240px !important;
     font-size: 0 !important;
   }
 
@@ -41,11 +42,11 @@
   .custom-programs-page .cp-purpose h2::before {
     content: '授業だけでも、観光だけでもない。\A大学教育として、日本で学ぶ';
     display: block;
-    white-space: pre-line;
-    font-size: clamp(3rem, 5vw, 4.7rem);
+    white-space: pre;
+    font-size: clamp(2.9rem, 3.8vw, 3.9rem);
     font-weight: 900;
     line-height: 1.08;
-    letter-spacing: -0.04em;
+    letter-spacing: -0.045em;
     color: var(--cp-ink);
   }
 
