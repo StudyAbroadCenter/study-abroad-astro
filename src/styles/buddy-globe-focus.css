@@ -26,6 +26,11 @@
   display: none !important;
 }
 
+.buddy-global__globe::before,
+.buddy-global__globe::after {
+  display: none;
+}
+
 /* Evidence summary and ranked country/region list. */
 .buddy-global__legend {
   gap: 14px;
