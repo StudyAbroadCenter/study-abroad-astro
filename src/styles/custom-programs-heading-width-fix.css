@@ -1,0 +1,94 @@
+/* Custom Programs heading/width refinements — Japanese parent layout.
+   Desktop headings use deliberate <br> breaks and avoid mid-phrase wrapping.
+   Mobile returns to natural Japanese wrapping for viewport safety. */
+
+@media (min-width: 981px) {
+  .custom-programs-page .cp-shell {
+    width: min(1480px, calc(100% - 48px));
+    padding-inline: clamp(24px, 3vw, 52px);
+  }
+
+  .custom-programs-page .cp-section-heading,
+  .custom-programs-page .cp-wide-heading {
+    max-width: none;
+    width: 100%;
+  }
+
+  .custom-programs-page .cp-section-heading h2,
+  .custom-programs-page .cp-wide-heading h2,
+  .custom-programs-page .cp-value h2,
+  .custom-programs-page .cp-partners h2,
+  .custom-programs-page .cp-examples h2,
+  .custom-programs-page .cp-gallery h2,
+  .custom-programs-page .cp-tailor h2,
+  .custom-programs-page .cp-glance h2 {
+    max-width: none;
+    width: 100%;
+    word-break: keep-all;
+    overflow-wrap: normal;
+    line-break: strict;
+  }
+
+  /* Keep every intended desktop headline at two lines except WHY RITSUMEIKAN. */
+  .custom-programs-page .cp-pillars .cp-section-heading h2 {
+    font-size: clamp(2.65rem, 3.9vw, 3.9rem);
+  }
+
+  .custom-programs-page .cp-value .cp-section-heading h2 {
+    font-size: clamp(2.7rem, 3.9vw, 4rem);
+  }
+
+  .custom-programs-page .cp-partners .cp-wide-heading h2 {
+    font-size: clamp(2.55rem, 3vw, 3rem);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+  }
+
+  .custom-programs-page .cp-examples .cp-wide-heading h2,
+  .custom-programs-page .cp-gallery .cp-wide-heading h2,
+  .custom-programs-page .cp-tailor .cp-wide-heading h2 {
+    font-size: clamp(2.7rem, 3.8vw, 3.9rem);
+  }
+
+  .custom-programs-page .cp-glance .cp-wide-heading h2 {
+    font-size: clamp(2.65rem, 3.6vw, 3.7rem);
+  }
+
+  .custom-programs-page .cp-wide-heading > p:last-child,
+  .custom-programs-page .cp-section-heading > p:last-child {
+    max-width: 1180px;
+  }
+
+  .custom-programs-page .cp-glance .cp-shell {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.15fr);
+    gap: clamp(48px, 5vw, 86px);
+  }
+
+  .custom-programs-page .cp-wide-heading--glance > p:last-child {
+    max-width: 620px;
+  }
+
+  .custom-programs-page .cp-partner-list strong,
+  .custom-programs-page .cp-example-panel__header h3,
+  .custom-programs-page .cp-pillar h3,
+  .custom-programs-page .cp-value__grid h3 {
+    word-break: keep-all;
+    overflow-wrap: normal;
+  }
+}
+
+@media (max-width: 980px) {
+  .custom-programs-page .cp-section-heading h2,
+  .custom-programs-page .cp-wide-heading h2,
+  .custom-programs-page .cp-value h2,
+  .custom-programs-page .cp-partners h2,
+  .custom-programs-page .cp-examples h2,
+  .custom-programs-page .cp-gallery h2,
+  .custom-programs-page .cp-tailor h2,
+  .custom-programs-page .cp-glance h2,
+  .custom-programs-page .cp-partner-list strong,
+  .custom-programs-page .cp-example-panel__header h3 {
+    word-break: normal;
+    overflow-wrap: anywhere;
+  }
+}
