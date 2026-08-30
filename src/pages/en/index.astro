@@ -4,9 +4,21 @@ import EnglishHome from '../../components/EnglishHome.astro';
 import HomeLanguageSwitcher from '../../components/HomeLanguageSwitcher.astro';
 ---
 <EnglishStudentRecruitmentLayout
-  title="Short-Term Programs | Ritsumeikan University"
-  description="Explore short-term study at Ritsumeikan University through Japanese language and culture, thematic programs and custom programs for partner institutions."
+  title="Short-Term Study Abroad in Japan | Ritsumeikan University"
+  description="Explore short-term study abroad in Japan at Ritsumeikan University. Study Japanese language and culture, business, AI and data science, connect with students, and discover custom programs for university groups in Kyoto and Osaka."
 >
   <HomeLanguageSwitcher currentLocale="en" />
   <EnglishHome />
 </EnglishStudentRecruitmentLayout>
+
+<style is:global>
+  .en-finder__note,
+  .en-recruitment-banner__copy > p:last-child,
+  .en-programme-group__heading > p,
+  .en-programme-status {
+    display: none !important;
+  }
+  .en-programme-card__link { font-size: 0; }
+  .en-programme-card__link::before { content: 'View program details'; font-size: .92rem; }
+  .en-programme-card__link > span { font-size: .92rem; }
+</style>

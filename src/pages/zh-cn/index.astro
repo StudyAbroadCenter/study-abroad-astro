@@ -2,10 +2,22 @@
 import ChineseHomeLayout from '../../components/ChineseHomeLayout.astro';
 import ChineseHome from '../../components/ChineseHome.astro';
 import HomeLanguageSwitcher from '../../components/HomeLanguageSwitcher.astro';
-const title = '立命馆大学短期留学项目 | Study Abroad Center';
-const description = '查看立命馆大学的日语、日本文化与专业主题短期项目。年度日期、费用、申请资格与住宿信息只在确认后发布。';
+const title = '日本短期留学 | 立命馆大学短期项目';
+const description = '了解立命馆大学在日本京都与大阪开设的短期留学项目，包括日语、日本文化、商务、AI与数据科学、学生交流，以及面向海外大学团体的定制项目。';
 ---
 <ChineseHomeLayout locale="zh-CN" title={title} description={description} robots="noindex,nofollow">
   <HomeLanguageSwitcher currentLocale="zh-CN" />
   <ChineseHome locale="zh-CN" />
 </ChineseHomeLayout>
+
+<style is:global>
+  .en-recruitment-banner__copy > p:last-child,
+  .finder-results-heading > small,
+  .en-programme-group__heading > p,
+  .en-programme-status {
+    display: none !important;
+  }
+  .en-programme-card__link { font-size: 0; }
+  .en-programme-card__link::before { content: '查看项目详情'; font-size: .92rem; }
+  .en-programme-card__link > span { font-size: .92rem; }
+</style>

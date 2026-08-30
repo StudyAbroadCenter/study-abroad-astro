@@ -2,10 +2,22 @@
 import ChineseHomeLayout from '../../components/ChineseHomeLayout.astro';
 import ChineseHome from '../../components/ChineseHome.astro';
 import HomeLanguageSwitcher from '../../components/HomeLanguageSwitcher.astro';
-const title = '立命館大學短期留學課程 | Study Abroad Center';
-const description = '查看立命館大學的日語、日本文化與專業主題短期課程。年度日期、費用、申請資格與住宿資訊只在確認後公布。';
+const title = '日本短期留學 | 立命館大學短期課程';
+const description = '了解立命館大學在日本京都與大阪的短期留學課程，包括日語、日本文化、商業、AI與資料科學、學生交流，以及面向海外大學團體的客製化課程。';
 ---
 <ChineseHomeLayout locale="zh-TW" title={title} description={description} robots="noindex,nofollow">
   <HomeLanguageSwitcher currentLocale="zh-TW" />
   <ChineseHome locale="zh-TW" />
 </ChineseHomeLayout>
+
+<style is:global>
+  .en-recruitment-banner__copy > p:last-child,
+  .finder-results-heading > small,
+  .en-programme-group__heading > p,
+  .en-programme-status {
+    display: none !important;
+  }
+  .en-programme-card__link { font-size: 0; }
+  .en-programme-card__link::before { content: '查看課程詳情'; font-size: .92rem; }
+  .en-programme-card__link > span { font-size: .92rem; }
+</style>
