@@ -10,6 +10,8 @@ const requirements = [
   ['src/components/EnglishProgrammeDetail.astro', ['sharedProgramme.image']],
   ['src/components/KoreanProgrammeDetail.astro', ['sharedProgramme.image']],
   ['src/components/ChineseProgrammeDetail.astro', ['sharedProgramme.image']],
+  ['src/components/RwjpFlagshipPage.astro', ['sharedSiteImages.rwjp.hero', 'sharedSiteImages.rwjp.real.classroom']],
+  ['src/components/EnglishRwjp2027PageV2.astro', ['sharedSiteImages.rwjp.hero', 'sharedSiteImages.rwjp.real.classroom']],
   ['src/data/rwjp-express-media.ts', ['sharedSiteImages.rwjp']],
 ];
 
@@ -21,6 +23,7 @@ const forbidden = [
   ['src/components/KoreanHome.astro', /(?:image|img)\(\s*['"](?:\/images\/)?programs\//g],
   ['src/components/ChineseHome.astro', /(?:image|img)\(\s*['"](?:\/images\/)?programs\//g],
   ['src/data/programs.ts', /image:\s*['"]/g],
+  ['src/components/EnglishRwjp2027PageV2.astro', /(?:asset|realAsset)\(\s*['"]rwjp-/g],
 ];
 
 let failed = false;
