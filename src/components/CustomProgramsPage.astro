@@ -1,0 +1,381 @@
+---
+import { sharedSiteImages } from '../data/shared-site-images';
+
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const imageUrl = (path: string) => `${base}images/${path.replace(/^\//, '')}`;
+const contactHref = `${base}contact/`;
+
+const pastPartners = [
+  'University of Oklahoma',
+  'Rutgers University',
+  'James Madison University',
+  'Case Western Reserve University',
+  'Shanghai Jiao Tong University',
+  'University of North Carolina at Asheville',
+  'University of Adelaide',
+  'University of Alberta',
+  'Kyung Hee University',
+  'Yonsei University',
+  'Inha University',
+  'Florida International University',
+  'Princeton University',
+  'George Brown College',
+  'RMIT University',
+  'The Chinese University of Hong Kong',
+  'City University of Hong Kong',
+];
+
+const pillars = [
+  {
+    key: 'LEARN',
+    title: '日本語と専門分野を学ぶ',
+    text: '短期集中型の日本語学習に加え、国際関係、経営学、データサイエンス、ポップカルチャー等の専門講義を英語で組み込むことができます。',
+  },
+  {
+    key: 'CONNECT',
+    title: '立命館の学生と学ぶ',
+    text: 'ゼミ、Buddy、学生団体、クラブ活動等との交流を、単なる交流行事ではなく、学生同士が一緒に学ぶ機会として設計します。',
+  },
+  {
+    key: 'EXPERIENCE',
+    title: '京都・大阪を教室にする',
+    text: '企業訪問、日本文化体験、地域学習、フィールドワークを、貴学の教育目的と結びつけてプログラムに組み込みます。',
+  },
+  {
+    key: 'DESIGN',
+    title: '貴学の目的に合わせて組み直す',
+    text: '過去の実施例をそのまま提供するのではなく、期間、人数、学生層、専門分野、希望内容に応じて再構成します。',
+  },
+];
+
+const programmeExamples = [
+  {
+    id: 'oklahoma',
+    label: 'Oklahoma',
+    university: 'University of Oklahoma',
+    status: '2026 実施例',
+    dates: '2026年5月18日〜6月5日',
+    focus: 'Business × Company Visits × Buddy',
+    intro: 'ビジネスを学ぶ授業に、企業等へのフィールド訪問、日本文化体験、Buddyとの交流を組み合わせた例です。',
+    days: [
+      { day: 'START', type: 'support', title: 'Orientation & Campus Tour', note: '初日に学習・生活のオリエンテーション。キャンパス利用や滞在中のサポートにつなげます。' },
+      { day: 'WEEK 1', type: 'academic', title: 'Business Study', note: '大学側の教育目的に応じた授業を軸に構成。専門テーマは相談により調整します。' },
+      { day: 'WEEK 1', type: 'connect', title: 'Buddy Learning', note: 'Buddyは生活支援だけでなく、授業参加や昼食交流など学びの一部として組み込めます。' },
+      { day: 'WEEK 2', type: 'field', title: 'Company / Field Visit', note: '企業訪問等を学習テーマと接続。訪問先は時期・受入状況により調整が必要です。' },
+      { day: 'WEEK 2', type: 'culture', title: 'Japanese Cultural Activity', note: '文化体験は目的と日程に応じて選択。別の文化体験への変更も相談できます。' },
+      { day: 'FINAL', type: 'support', title: 'Completion Ceremony', note: '最終日に学びを振り返り、修了証書を授与する構成も可能です。' },
+    ],
+  },
+  {
+    id: 'rutgers',
+    label: 'Rutgers',
+    university: 'Rutgers University',
+    status: '2026 実施例',
+    dates: '2026年6月15日〜7月6日',
+    focus: 'Politics & Peace Studies × Field Learning',
+    intro: '政治・平和学を中心に、立命館による専門講義、日本語学習、広島でのフィールド学習を組み合わせた例です。',
+    days: [
+      { day: 'START', type: 'support', title: 'Orientation & Campus Tour', note: '受入初日に大学・キャンパス環境を理解し、プログラム全体の目的を共有します。' },
+      { day: 'WEEK 1', type: 'academic', title: 'Specialized Lectures in English', note: '国際関係・政治・平和学など、専門講義は英語で実施できます。テーマは学内調整の上で検討します。' },
+      { day: 'WEEK 1', type: 'academic', title: 'Optional Japanese', note: '専門学習に加えて、日本語授業を短時間組み込む構成も可能です。' },
+      { day: 'WEEK 2', type: 'connect', title: 'Seminar / Student Exchange', note: 'ゼミ交流など、日本人学生との共修を専門テーマに接続して設計できます。' },
+      { day: 'FIELD', type: 'field', title: 'Hiroshima Field Trip', note: '教室での学びを現地で深めるフィールド学習。訪問地・日数は教育目的に応じて検討します。' },
+      { day: 'FINAL', type: 'support', title: 'Completion', note: '修了証書を授与し、大学の学習プログラムとして完結させます。' },
+    ],
+  },
+  {
+    id: 'jmu',
+    label: 'JMU',
+    university: 'James Madison University',
+    status: '2026 実施例',
+    dates: '2026年5月25日〜6月12日',
+    focus: 'Japanese Language × Kyoto × Buddy',
+    intro: '日本語学習を中心に、京都でのフィールドワーク、歴史回廊ガイド、Buddyとの交流を組み合わせた例です。',
+    days: [
+      { day: 'START', type: 'support', title: 'Orientation', note: '初日に学習と生活の導入を行い、短期間でも安心して日本で学べる環境を整えます。' },
+      { day: 'WEEK 1', type: 'academic', title: 'Japanese Language', note: '日本語授業は参加人数・レベル・目的に応じて構成を調整できます。' },
+      { day: 'WEEK 1', type: 'connect', title: 'Lunch with Buddies', note: 'Buddyとの昼食や交流を通じて、日本語を教室外で使う機会をつくります。' },
+      { day: 'WEEK 2', type: 'field', title: 'Kyoto Historic Corridor', note: '歴史回廊ガイド等、学生団体・地域学習と連携した体験も組み込めます。' },
+      { day: 'WEEK 2', type: 'academic', title: 'Presentation', note: 'プレゼンテーションや成果発表を入れ、体験で終わらず学びとして残す構成も可能です。' },
+      { day: 'FINAL', type: 'support', title: 'Completion Ceremony', note: '最終日に修了式を行い、修了証書を授与します。' },
+    ],
+  },
+  {
+    id: 'cwru',
+    label: 'CWRU',
+    university: 'Case Western Reserve University',
+    status: '2026 実施例',
+    dates: '2026年5月19日〜5月29日',
+    focus: 'Japanese Culture × Buddy × Faculty-led',
+    intro: '日本文化をテーマに、先方大学教員による授業、文化体験、立命館Buddyとの交流を組み合わせた例です。',
+    days: [
+      { day: 'START', type: 'support', title: 'Orientation & Campus Tour', note: '短期間でも大学生活に入りやすいよう、到着後の導入を設けます。' },
+      { day: 'WEEK 1', type: 'academic', title: 'Faculty-led Classes', note: '先方大学の教員による授業と、立命館側の活動を組み合わせるFaculty-led型にも対応できます。' },
+      { day: 'WEEK 1', type: 'culture', title: 'Japanese Cultural Study', note: '文化体験は授業テーマとの接続を意識して組み込みます。' },
+      { day: 'WEEK 2', type: 'connect', title: 'Buddy Activities', note: 'Buddyとの散策や共修など、学生同士の直接交流を学習体験にできます。' },
+      { day: 'WEEK 2', type: 'field', title: 'Kyoto Learning', note: '京都の文化資源をフィールドとして活用。訪問先は目的・季節・混雑状況等を踏まえて検討します。' },
+      { day: 'FINAL', type: 'support', title: 'Completion Certificate', note: '最終日に修了証書を授与する構成が可能です。' },
+    ],
+  },
+  {
+    id: 'cityuhk',
+    label: 'CityUHK',
+    university: 'City University of Hong Kong',
+    status: '2026 設計例',
+    dates: '4週間型として設計',
+    focus: 'Academic Coursework × Campus Life × Transcript',
+    intro: '4週間のStudy Tourとして、大学科目、課題・レポート、キャンパス利用、修了証書・成績関連手続きを含めて設計した例です。',
+    days: [
+      { day: 'WEEK 1', type: 'support', title: 'Arrival & Academic Setup', note: '登録、学内ID、オリエンテーション等を含む受入設計。具体的な手順は案件ごとに調整します。' },
+      { day: 'WEEK 1', type: 'academic', title: 'Academic Coursework', note: '大学教育として課題・レポート等を伴う構成も相談できます。' },
+      { day: 'WEEK 2', type: 'academic', title: 'Specialized Learning', note: '専門内容は英語での実施を基本に、テーマと担当可能性を学内で調整します。' },
+      { day: 'WEEK 3', type: 'connect', title: 'Campus Experience', note: '図書館・キャンパス施設等を利用し、大学で学ぶ体験として設計します。' },
+      { day: 'WEEK 4', type: 'field', title: 'Applied / Field Learning', note: '教室外の学びを組み合わせる場合、訪問先・内容・移動を含めて実現可能性を確認します。' },
+      { day: 'FINAL', type: 'support', title: 'Certificate / Academic Record', note: '案件の設計に応じて、修了証書や成績関連の手続きを組み込むことがあります。' },
+    ],
+  },
+];
+
+const flexible = [
+  '日本語授業の時間数・レベル',
+  '英語による専門講義のテーマ',
+  '講義・交流・体験の比率',
+  '日本文化体験の内容',
+  'Buddy・ゼミ・学生団体との交流形式',
+  '企業・地域訪問の有無',
+  '期間と1日の学習構成',
+];
+
+const coordination = [
+  '特定企業・特定教員の指定',
+  '受入先の繁忙期・学年暦に左右される活動',
+  '短い準備期間での大規模な新規手配',
+  '15名未満の新規案件',
+  '極端に過密な行程',
+  'すべての希望内容を同時に実施する構成',
+  '宿泊・施設の空き状況に左右される手配',
+];
+
+const gallery = [
+  { image: sharedSiteImages.rwjp.real.classroom, label: 'LEARN', title: '日本語・専門学習', text: '授業をプログラムの軸に置きます。専門講義は英語での実施が可能です。' },
+  { image: sharedSiteImages.rwjp.real.interaction, label: 'CONNECT', title: '学生との共修', text: 'Buddy、ゼミ、学生団体など、立命館の学生と直接学ぶ場をつくります。' },
+  { image: sharedSiteImages.rwjp.real.presentation, label: 'OUTPUT', title: '成果を残す', text: 'プレゼンテーションや振り返りを入れ、体験を学習成果へつなげます。' },
+  { image: sharedSiteImages.rwjp.real.culture, label: 'CULTURE', title: '日本文化体験', text: '文化体験を単独イベントにせず、テーマや授業と接続して設計します。' },
+  { image: sharedSiteImages.rwjp.real.kyoto, label: 'FIELD', title: '京都・大阪で学ぶ', text: 'キャンパスの外も学びの場として、地域・文化・企業等との接点をつくります。' },
+  { image: sharedSiteImages.programmes.rbmp, label: 'SPECIALIST', title: '専門テーマ', text: '経営、国際関係、データサイエンス、ポップカルチャー等、目的に応じて検討します。' },
+];
+---
+
+<article class="custom-programs-page">
+  <section class="cp-hero" aria-labelledby="cp-title">
+    <img class="cp-hero__image" src={imageUrl(sharedSiteImages.programmes['custom-programs'])} alt="立命館大学で学ぶ学生たちのイメージ" width="1600" height="1067" />
+    <div class="cp-hero__veil"></div>
+    <div class="site-shell cp-hero__inner">
+      <p class="cp-eyebrow">CUSTOM PROGRAMS FOR UNIVERSITIES</p>
+      <h1 id="cp-title"><span>大学ごとに、</span><span>立命館ならではの</span><span>日本での学びを。</span></h1>
+      <p class="cp-hero__lead">日本語学習、英語による専門講義、学生との共修、企業・地域での学び、日本文化体験。立命館の教育資源を組み合わせ、貴学の教育目的に応じた短期プログラムを一緒に設計します。</p>
+      <div class="cp-hero__actions">
+        <a class="cp-button cp-button--primary" href="#programme-examples">実例を見る</a>
+        <a class="cp-button cp-button--ghost" href={contactHref}>オンラインミーティングを相談する</a>
+      </div>
+      <dl class="cp-hero__facts">
+        <div><dt>GROUP SIZE</dt><dd>新規相談の目安 15名〜</dd></div>
+        <div><dt>DURATION</dt><dd>約2週間の実施例が中心</dd></div>
+        <div><dt>CAMPUS</dt><dd>衣笠 / OICを中心に検討</dd></div>
+        <div><dt>SUPPORT</dt><dd>バイリンガル対応</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="cp-purpose">
+    <div class="site-shell cp-purpose__grid">
+      <div>
+        <p class="cp-section-label">WHY RITSUMEIKAN</p>
+        <h2>授業だけでも、<br />観光だけでもない。<br /><strong>大学教育として、日本での時間をつくる。</strong></h2>
+      </div>
+      <div class="cp-purpose__copy">
+        <p>立命館の教員、学生、ゼミ、学生団体、キャンパス、そして京都・大阪という学びの環境を一つにつなぎます。</p>
+        <p>「既存のプログラムを選ぶ」のではなく、<strong>貴学のカリキュラムに、日本での学びを組み込む</strong>という発想から始めます。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cp-pillars">
+    <div class="site-shell">
+      <div class="cp-section-heading">
+        <p class="cp-section-label">WHAT WE CAN BUILD TOGETHER</p>
+        <h2>立命館だから組み合わせられる、4つの学び</h2>
+      </div>
+      <div class="cp-pillar-grid">
+        {pillars.map((pillar, index) => (
+          <article class="cp-pillar">
+            <span class="cp-pillar__number">0{index + 1}</span>
+            <small>{pillar.key}</small>
+            <h3>{pillar.title}</h3>
+            <p>{pillar.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="cp-value">
+    <div class="site-shell">
+      <div class="cp-section-heading cp-section-heading--light">
+        <p class="cp-section-label">VALUE FOR YOUR UNIVERSITY</p>
+        <h2>学生・大学・担当者。<br />それぞれに意味のあるプログラムへ。</h2>
+      </div>
+      <div class="cp-value__grid">
+        <article><span>FOR STUDENTS</span><h3>日本留学への第一歩に</h3><p>短期間、英語による専門学習、バイリンガル対応を組み合わせ、長期留学より参加しやすい入口をつくります。</p></article>
+        <article><span>FOR UNIVERSITIES</span><h3>国際教育の見える特色に</h3><p>貴学の専門分野や教育方針と日本での学びを接続し、他の大学とは異なるFaculty-led / Short-term Study Abroadの形をつくります。</p></article>
+        <article><span>FOR COORDINATORS</span><h3>実施しやすく、育てやすく</h3><p>現地での受入・調整を支援し、初年度の実施をもとに翌年度以降の改善・定番化につなげることができます。</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="cp-partners" aria-labelledby="cp-partners-title">
+    <div class="site-shell">
+      <div class="cp-partners__intro">
+        <div>
+          <p class="cp-section-label">PAST CUSTOM PROGRAM PARTNERS</p>
+          <h2 id="cp-partners-title">世界の大学と、<br />それぞれ違うプログラムをつくってきました。</h2>
+        </div>
+        <p>以下は過去の実施大学・機関例です。各大学の教育目的や学生層に応じて、内容・期間・学習テーマは異なります。</p>
+      </div>
+      <div class="cp-partner-list">
+        {pastPartners.map((partner, index) => <div><span>{String(index + 1).padStart(2, '0')}</span><strong>{partner}</strong></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="cp-examples" id="programme-examples" aria-labelledby="cp-examples-title">
+    <div class="site-shell">
+      <div class="cp-section-heading">
+        <p class="cp-section-label">REAL PROGRAMME EXAMPLES</p>
+        <h2 id="cp-examples-title">実際のプログラムから見る、<br /><strong>日本での学びの組み立て方。</strong></h2>
+        <p>2026年の実施記録・設計記録から代表的な構成を抜粋しています。個別契約の費用や内部運用情報は掲載せず、教育内容と調整の考え方が伝わる形に整理しています。</p>
+      </div>
+
+      <div class="cp-example-tabs" role="tablist" aria-label="大学別プログラム例">
+        {programmeExamples.map((example, index) => (
+          <button type="button" role="tab" aria-selected={index === 0 ? 'true' : 'false'} aria-controls={`example-${example.id}`} data-example-tab={example.id} class:list={['cp-example-tab', { 'is-active': index === 0 }]}>
+            <strong>{example.label}</strong><small>{example.status}</small>
+          </button>
+        ))}
+      </div>
+
+      <div class="cp-example-panels">
+        {programmeExamples.map((example, index) => (
+          <section id={`example-${example.id}`} role="tabpanel" data-example-panel={example.id} class="cp-example-panel" hidden={index !== 0}>
+            <header class="cp-example-panel__header">
+              <div><p>{example.status}</p><h3>{example.university}</h3><span>{example.dates}</span></div>
+              <div><strong>{example.focus}</strong><p>{example.intro}</p></div>
+            </header>
+            <div class="cp-schedule" aria-label={`${example.university}の代表的なプログラム構成`}>
+              {example.days.map((item) => (
+                <article class={`cp-schedule__item cp-schedule__item--${item.type}`}>
+                  <span class="cp-schedule__day">{item.day}</span>
+                  <h4>{item.title}</h4>
+                  <p>{item.note}</p>
+                </article>
+              ))}
+            </div>
+            <p class="cp-example-panel__note">この内容をそのまま提供するものではありません。貴学の教育目的、期間、人数、希望テーマ、学年暦、受入先の状況等を確認しながら調整します。</p>
+          </section>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="cp-gallery">
+    <div class="site-shell">
+      <div class="cp-section-heading">
+        <p class="cp-section-label">LEARNING IN ACTION</p>
+        <h2>写真で見る、学びの組み合わせ。</h2>
+        <p>Custom Programsでは、授業・交流・フィールドでの学びを一つのストーリーとして設計します。掲載写真はStudy Abroad Centerの活動イメージで、実際のCustom Programs写真へ順次差し替えられる構造にしています。</p>
+      </div>
+      <div class="cp-gallery__grid">
+        {gallery.map((item, index) => (
+          <figure class:list={['cp-gallery__item', { 'cp-gallery__item--wide': index === 0 || index === 3 }]}>
+            <img src={imageUrl(item.image)} alt={`${item.title}の活動イメージ`} loading="lazy" decoding="async" width="960" height="640" />
+            <figcaption><small>{item.label}</small><h3>{item.title}</h3><p>{item.text}</p></figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="cp-tailor">
+    <div class="site-shell">
+      <div class="cp-section-heading">
+        <p class="cp-section-label">CUSTOM DOES NOT MEAN UNLIMITED</p>
+        <h2>できることを広げながら、<br />実現可能な形に整えます。</h2>
+        <p>Custom Programsは「何でも自由にできる」仕組みではありません。教育効果と実現可能性の両方を確認しながら、一緒に設計します。</p>
+      </div>
+      <div class="cp-tailor__grid">
+        <article class="cp-tailor__card cp-tailor__card--yes"><span>WHAT WE CAN TAILOR</span><h3>調整しやすい内容</h3><ul>{flexible.map((item) => <li>{item}</li>)}</ul></article>
+        <article class="cp-tailor__card cp-tailor__card--check"><span>WHAT REQUIRES COORDINATION</span><h3>条件により調整が必要な内容</h3><ul>{coordination.map((item) => <li>{item}</li>)}</ul></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="cp-glance">
+    <div class="site-shell cp-glance__grid">
+      <div><p class="cp-section-label">AT A GLANCE</p><h2>まず知っていただきたい<br />基本的な考え方</h2></div>
+      <dl>
+        <div><dt>対象</dt><dd>海外大学・教育機関の学生団体</dd></div>
+        <div><dt>人数</dt><dd>新規相談は15名以上を目安に検討</dd></div>
+        <div><dt>期間</dt><dd>2週間程度の実施例が多い</dd></div>
+        <div><dt>主な実施場所</dt><dd>衣笠キャンパス / 大阪いばらきキャンパス（OIC）を中心に検討</dd></div>
+        <div><dt>専門講義</dt><dd>英語で実施</dd></div>
+        <div><dt>日本語</dt><dd>希望に応じて短期集中型の日本語学習を組み込み可能</dd></div>
+        <div><dt>宿泊</dt><dd>ホテル等をプログラム内容とあわせて個別に調整</dd></div>
+        <div><dt>事務局</dt><dd>バイリンガル対応</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="cp-cta">
+    <div class="site-shell cp-cta__inner">
+      <p class="cp-section-label">LET'S DESIGN IT TOGETHER</p>
+      <h2><span>貴学のカリキュラムに、</span><span>立命館での学びを。</span></h2>
+      <p>これまで相談を受けてから考えるだけだったCustom Programsを、これからは実例と可能性を先にお見せしながら一緒に育てていきます。まずはオンラインミーティングで、希望時期・参加予定人数・関心分野・学生層をお聞かせください。</p>
+      <a class="cp-button cp-button--primary cp-button--large" href={contactHref}>オンラインミーティングを相談する <span aria-hidden="true">→</span></a>
+      <small>特定の企業・教員・施設等を保証するものではありません。実施可否は内容・時期・人数等を確認した上でご相談します。</small>
+    </div>
+  </section>
+</article>
+
+<style>
+.custom-programs-page{--cp-red:#8d1d2c;--cp-deep:#241b1c;--cp-ink:#2c2624;--cp-muted:#6f6661;--cp-paper:#f7f4f0;--cp-line:#ddd5cf;color:var(--cp-ink);background:#fff}.custom-programs-page *{box-sizing:border-box}.cp-section-label,.cp-eyebrow{margin:0 0 14px;font-size:.72rem;font-weight:900;letter-spacing:.16em;color:var(--cp-red)}.cp-section-heading{max-width:920px;margin-bottom:34px}.cp-section-heading h2,.cp-partners h2,.cp-glance h2{margin:0;font-size:clamp(2.25rem,4.9vw,4.75rem);font-weight:900;line-height:1.08;letter-spacing:-.035em;text-wrap:balance}.cp-section-heading>p:last-child{max-width:760px;margin:18px 0 0;font-size:1rem;line-height:1.95;color:var(--cp-muted)}
+.cp-hero{position:relative;min-height:780px;display:flex;align-items:flex-end;overflow:hidden;background:#231a1b}.cp-hero__image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 42%}.cp-hero__veil{position:absolute;inset:0;background:linear-gradient(90deg,rgba(25,14,16,.88) 0%,rgba(25,14,16,.65) 48%,rgba(25,14,16,.22) 78%,rgba(25,14,16,.14) 100%),linear-gradient(0deg,rgba(22,13,14,.72) 0%,transparent 48%)}.cp-hero__inner{position:relative;z-index:1;width:100%;padding-top:150px;padding-bottom:58px;color:#fff}.cp-eyebrow{color:#fff;opacity:.82}.cp-hero h1{max-width:980px;margin:0;font-size:clamp(3rem,7.6vw,7rem);font-family:inherit;font-weight:900;line-height:.98;letter-spacing:-.055em}.cp-hero h1 span{display:block}.cp-hero h1 span:nth-child(2){color:#f1d8d8}.cp-hero__lead{max-width:760px;margin:30px 0 0;font-size:clamp(1.05rem,1.55vw,1.3rem);font-weight:650;line-height:1.9;color:rgba(255,255,255,.94)}.cp-hero__actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}.cp-button{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:52px;border-radius:999px;padding:13px 23px;font-weight:850;text-decoration:none;transition:transform .18s ease,background .18s ease}.cp-button:hover{transform:translateY(-2px)}.cp-button--primary{background:#fff;color:var(--cp-red)}.cp-button--ghost{border:1px solid rgba(255,255,255,.55);background:rgba(255,255,255,.08);color:#fff}.cp-button--large{min-height:62px;padding:17px 28px;background:var(--cp-red);color:#fff;font-size:1.02rem}.cp-hero__facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;max-width:1040px;margin:46px 0 0;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.22)}.cp-hero__facts div{padding:16px 18px;background:rgba(26,15,17,.55);backdrop-filter:blur(8px)}.cp-hero__facts dt{font-size:.62rem;font-weight:900;letter-spacing:.12em;color:rgba(255,255,255,.65)}.cp-hero__facts dd{margin:6px 0 0;font-size:.91rem;font-weight:800;color:#fff}
+.cp-purpose{padding:100px 0;background:#fff}.cp-purpose__grid{display:grid;grid-template-columns:1.2fr .8fr;gap:70px;align-items:end}.cp-purpose h2{margin:0;font-size:clamp(2.4rem,5.2vw,5.1rem);font-weight:700;line-height:1.08;letter-spacing:-.045em}.cp-purpose h2 strong{font-weight:900;color:var(--cp-red)}.cp-purpose__copy{padding-bottom:8px}.cp-purpose__copy p{margin:0 0 22px;font-size:1.08rem;line-height:2;color:var(--cp-muted)}.cp-purpose__copy strong{color:var(--cp-ink);font-weight:900}
+.cp-pillars{padding:96px 0;background:var(--cp-paper)}.cp-pillar-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--cp-line);border-left:1px solid var(--cp-line)}.cp-pillar{min-height:330px;padding:28px;border-right:1px solid var(--cp-line);border-bottom:1px solid var(--cp-line);background:#fff}.cp-pillar__number{display:block;font-size:2.4rem;font-weight:300;color:#c7beb8}.cp-pillar small{display:block;margin-top:28px;font-size:.68rem;font-weight:900;letter-spacing:.13em;color:var(--cp-red)}.cp-pillar h3{margin:12px 0 14px;font-size:1.45rem;font-weight:900;line-height:1.35}.cp-pillar p{margin:0;font-size:.94rem;line-height:1.85;color:var(--cp-muted)}
+.cp-value{padding:98px 0;background:var(--cp-deep);color:#fff}.cp-section-heading--light .cp-section-label{color:#d79ca4}.cp-section-heading--light h2{color:#fff}.cp-value__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.cp-value__grid article{padding:32px;border:1px solid rgba(255,255,255,.17);background:rgba(255,255,255,.055)}.cp-value__grid span{font-size:.65rem;font-weight:900;letter-spacing:.13em;color:#d9a0a8}.cp-value__grid h3{margin:12px 0 12px;font-size:1.45rem;font-weight:900}.cp-value__grid p{margin:0;line-height:1.85;color:rgba(255,255,255,.76)}
+.cp-partners{padding:104px 0;background:#fff}.cp-partners__intro{display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:end;margin-bottom:40px}.cp-partners__intro>p{margin:0 0 6px;font-size:1rem;line-height:1.9;color:var(--cp-muted)}.cp-partner-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--cp-line)}.cp-partner-list div{display:flex;gap:12px;align-items:flex-start;padding:15px 12px;border-bottom:1px solid var(--cp-line)}.cp-partner-list span{font-size:.66rem;font-weight:900;color:#a89e98}.cp-partner-list strong{font-size:.94rem;line-height:1.45}
+.cp-examples{padding:104px 0;background:var(--cp-paper);scroll-margin-top:90px}.cp-example-tabs{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 12px;margin-bottom:18px;scrollbar-width:thin}.cp-example-tab{flex:1 0 150px;display:grid;gap:2px;min-height:68px;border:1px solid var(--cp-line);border-radius:10px;padding:12px 15px;background:#fff;color:var(--cp-ink);text-align:left;cursor:pointer}.cp-example-tab strong{font-size:1rem;font-weight:900}.cp-example-tab small{font-size:.7rem;color:var(--cp-muted)}.cp-example-tab.is-active{border-color:var(--cp-red);background:var(--cp-red);color:#fff}.cp-example-tab.is-active small{color:rgba(255,255,255,.8)}.cp-example-panel{border:1px solid var(--cp-line);border-radius:18px;padding:34px;background:#fff;box-shadow:0 18px 48px rgba(72,52,47,.06)}.cp-example-panel__header{display:grid;grid-template-columns:.8fr 1.2fr;gap:36px;padding-bottom:26px;border-bottom:1px solid var(--cp-line)}.cp-example-panel__header>div:first-child p{margin:0 0 6px;font-size:.7rem;font-weight:900;letter-spacing:.09em;color:var(--cp-red)}.cp-example-panel__header h3{margin:0;font-size:clamp(1.8rem,3vw,3rem);font-weight:900;line-height:1.15}.cp-example-panel__header span{display:block;margin-top:8px;color:var(--cp-muted);font-weight:650}.cp-example-panel__header>div:last-child strong{display:block;margin-bottom:10px;font-size:1.08rem;font-weight:900}.cp-example-panel__header>div:last-child p{margin:0;line-height:1.85;color:var(--cp-muted)}.cp-schedule{display:grid;grid-template-columns:repeat(6,minmax(175px,1fr));gap:10px;overflow-x:auto;padding:26px 2px 12px}.cp-schedule__item{position:relative;min-height:245px;border-radius:12px;padding:20px 17px 18px;border:1px solid #ddd;background:#fff}.cp-schedule__item:after{content:'';position:absolute;left:22px;bottom:-8px;width:16px;height:16px;background:inherit;border-right:1px solid currentColor;border-bottom:1px solid currentColor;transform:rotate(45deg);opacity:.18}.cp-schedule__day{font-size:.63rem;font-weight:900;letter-spacing:.1em}.cp-schedule__item h4{margin:28px 0 12px;font-size:1.05rem;font-weight:900;line-height:1.35}.cp-schedule__item p{margin:0;font-size:.83rem;line-height:1.7;color:#5f5752}.cp-schedule__item--academic{background:#f7edf0;border-color:#dcbcc4;color:#7f1d2d}.cp-schedule__item--connect{background:#eef5f0;border-color:#c8dccd;color:#2e6040}.cp-schedule__item--field{background:#edf2f7;border-color:#c8d4df;color:#355b79}.cp-schedule__item--culture{background:#f8f2e8;border-color:#e2d2b4;color:#75561d}.cp-schedule__item--support{background:#f1efed;border-color:#d8d2cd;color:#514740}.cp-example-panel__note{margin:18px 0 0;border-left:3px solid var(--cp-red);padding:10px 0 10px 16px;font-size:.82rem;line-height:1.75;color:var(--cp-muted)}
+.cp-gallery{padding:104px 0;background:#fff}.cp-gallery__grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.cp-gallery__item{position:relative;min-height:360px;margin:0;overflow:hidden;border-radius:14px;background:#222}.cp-gallery__item--wide{grid-column:span 2}.cp-gallery__item img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .4s ease}.cp-gallery__item:hover img{transform:scale(1.025)}.cp-gallery__item:after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(22,16,16,.88),rgba(22,16,16,.04) 72%)}.cp-gallery__item figcaption{position:absolute;z-index:2;left:0;right:0;bottom:0;padding:24px;color:#fff}.cp-gallery__item small{font-size:.62rem;font-weight:900;letter-spacing:.14em;color:#f0bcc4}.cp-gallery__item h3{margin:7px 0 6px;font-size:1.35rem;font-weight:900}.cp-gallery__item p{max-width:520px;margin:0;font-size:.86rem;line-height:1.65;color:rgba(255,255,255,.82)}
+.cp-tailor{padding:104px 0;background:var(--cp-paper)}.cp-tailor__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.cp-tailor__card{padding:32px;border-radius:14px;background:#fff;border:1px solid var(--cp-line)}.cp-tailor__card>span{font-size:.65rem;font-weight:900;letter-spacing:.12em}.cp-tailor__card--yes>span{color:#39704c}.cp-tailor__card--check>span{color:#8c5e26}.cp-tailor__card h3{margin:10px 0 20px;font-size:1.5rem;font-weight:900}.cp-tailor__card ul{list-style:none;margin:0;padding:0}.cp-tailor__card li{position:relative;padding:11px 0 11px 27px;border-top:1px solid #ece7e3;line-height:1.55}.cp-tailor__card li:before{position:absolute;left:2px;top:11px;font-weight:900}.cp-tailor__card--yes li:before{content:'✓';color:#39704c}.cp-tailor__card--check li:before{content:'△';color:#8c5e26}
+.cp-glance{padding:100px 0;background:#fff}.cp-glance__grid{display:grid;grid-template-columns:.7fr 1.3fr;gap:70px}.cp-glance dl{margin:0;border-top:2px solid var(--cp-ink)}.cp-glance dl div{display:grid;grid-template-columns:170px 1fr;gap:20px;padding:18px 4px;border-bottom:1px solid var(--cp-line)}.cp-glance dt{font-size:.78rem;font-weight:900;color:var(--cp-red)}.cp-glance dd{margin:0;font-size:.96rem;font-weight:700;line-height:1.6}
+.cp-cta{padding:110px 0;background:linear-gradient(135deg,#2a2021,#171112);color:#fff}.cp-cta__inner{max-width:980px;text-align:center}.cp-cta .cp-section-label{color:#dbaab1}.cp-cta h2{margin:0;font-size:clamp(2.9rem,6vw,6.1rem);font-weight:900;line-height:1.02;letter-spacing:-.05em}.cp-cta h2 span{display:block}.cp-cta__inner>p:not(.cp-section-label){max-width:760px;margin:26px auto 30px;font-size:1.05rem;line-height:1.95;color:rgba(255,255,255,.8)}.cp-cta .cp-button{margin-top:2px}.cp-cta__inner>small{display:block;max-width:720px;margin:22px auto 0;font-size:.72rem;line-height:1.65;color:rgba(255,255,255,.58)}
+@media(max-width:980px){.cp-hero{min-height:720px}.cp-hero__facts{grid-template-columns:repeat(2,1fr)}.cp-purpose__grid,.cp-partners__intro,.cp-example-panel__header,.cp-glance__grid{grid-template-columns:1fr;gap:28px}.cp-pillar-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.cp-value__grid{grid-template-columns:1fr}.cp-partner-list{grid-template-columns:repeat(2,minmax(0,1fr))}.cp-gallery__grid{grid-template-columns:repeat(2,minmax(0,1fr))}.cp-gallery__item--wide{grid-column:span 1}.cp-glance dl div{grid-template-columns:150px 1fr}}
+@media(max-width:680px){.cp-hero{min-height:760px}.cp-hero__inner{padding-top:120px;padding-bottom:34px}.cp-hero h1{font-size:clamp(3rem,14.5vw,4.25rem);line-height:1.01;letter-spacing:-.06em}.cp-hero__lead{font-size:1rem;line-height:1.8}.cp-hero__actions{display:grid}.cp-button{width:100%}.cp-hero__facts{grid-template-columns:1fr;margin-top:30px}.cp-purpose,.cp-pillars,.cp-value,.cp-partners,.cp-examples,.cp-gallery,.cp-tailor,.cp-glance,.cp-cta{padding:72px 0}.cp-purpose h2,.cp-section-heading h2,.cp-partners h2,.cp-glance h2{font-size:clamp(2.15rem,10.2vw,3.3rem);line-height:1.08}.cp-pillar-grid,.cp-partner-list,.cp-gallery__grid,.cp-tailor__grid{grid-template-columns:1fr}.cp-pillar{min-height:auto}.cp-partner-list div{padding-left:4px;padding-right:4px}.cp-example-panel{padding:20px 16px}.cp-schedule{grid-template-columns:repeat(6,78vw)}.cp-schedule__item{min-height:220px}.cp-gallery__item{min-height:330px}.cp-glance dl div{grid-template-columns:1fr;gap:5px}.cp-cta h2{font-size:clamp(2.6rem,12vw,4.15rem)}.cp-cta__inner>p:not(.cp-section-label){font-size:.98rem}}
+@media(prefers-reduced-motion:reduce){.cp-button,.cp-gallery__item img{transition:none}}
+</style>
+
+<script>
+  const tabs = Array.from(document.querySelectorAll('[data-example-tab]'));
+  const panels = Array.from(document.querySelectorAll('[data-example-panel]'));
+  const activate = (id) => {
+    tabs.forEach((tab) => {
+      const active = tab.getAttribute('data-example-tab') === id;
+      tab.classList.toggle('is-active', active);
+      tab.setAttribute('aria-selected', String(active));
+    });
+    panels.forEach((panel) => {
+      panel.toggleAttribute('hidden', panel.getAttribute('data-example-panel') !== id);
+    });
+  };
+  tabs.forEach((tab) => tab.addEventListener('click', () => activate(tab.getAttribute('data-example-tab'))));
+</script>
