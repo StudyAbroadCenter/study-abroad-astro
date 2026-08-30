@@ -40,7 +40,7 @@ const partnerProgrammes = programmes.filter((programme) => programme.audience ==
               <article>
                 <p class="section-kicker">{programme.code}</p>
                 <h3>{publicCopy?.name ?? programme.code}</h3>
-                <p>{publicCopy?.summary ?? programme.lead}</p>
+                <p>{publicCopy?.summary ?? programme.copy.ja.summary}</p>
                 <a href={hrefFor(programme.id)}>詳細ページを見る →</a>
               </article>
             );
