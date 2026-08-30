@@ -3,6 +3,7 @@ import { programmes } from '../data/programs';
 import { shortTermParticipationEvidence } from '../data/participation-history';
 import { chineseHomeCopy, getChineseProgrammePages, type ChineseLocale } from '../data/chinese-localisation';
 import { getCurrentOfferingFact } from '../data/current-offerings';
+import { sharedSiteImages } from '../data/shared-site-images';
 
 interface Props { locale: ChineseLocale }
 const { locale } = Astro.props;
@@ -39,7 +40,7 @@ const timing = Object.fromEntries([...rec, ...sum].map((id) => [id, {
 }])) as Record<string, { application: string; dates: string }>;
 ---
 <section class="recruitment-hero en-hero">
-  <img class="recruitment-hero__image" src={img('/images/IMG_1588.JPG')} alt={cn ? '参加立命馆大学短期留学项目的学生' : '參加立命館大學短期留學課程的學生'} width="1600" height="1067" loading="eager" />
+  <img class="recruitment-hero__image" src={img(sharedSiteImages.home.hero)} alt={cn ? '参加立命馆大学短期留学项目的学生' : '參加立命館大學短期留學課程的學生'} width="1600" height="1067" loading="eager" />
   <div class="recruitment-hero__overlay"></div>
   <div class="site-shell recruitment-hero__content en-hero__content">
     <p class="recruitment-hero__location">{c.heroEyebrow}</p>
@@ -64,5 +65,5 @@ const timing = Object.fromEntries([...rec, ...sum].map((id) => [id, {
 
 <section class="en-experience" id="why-ritsumeikan"><div class="site-shell"><div class="section-intro"><p class="section-kicker">Why Ritsumeikan</p><h2>{c.experienceTitle}</h2></div><div class="en-experience__grid"><article><span>01</span><h3>{cn ? '学术学习' : '學術學習'}</h3><p>{cn ? '提升日语能力，或围绕专业主题深入探索。' : '提升日語能力，或圍繞專業主題深入探索。'}</p></article><article><span>02</span><h3>{cn ? '学生交流' : '學生交流'}</h3><p>{cn ? '项目包含交流时，与立命馆学生的互动也是学习的一部分。' : '課程包含交流時，與立命館學生的互動也是學習的一部分。'}</p></article><article><span>03</span><h3>{cn ? '理解日本' : '理解日本'}</h3><p>{cn ? '通过文化与地区体验，把课堂内容放进真实环境。' : '透過文化與地區體驗，把課堂內容放進真實環境。'}</p></article></div></div></section>
 <section class="en-evidence" id="global-reach"><div class="site-shell"><div class="section-intro"><p class="section-kicker">Global Reach</p><h2>{c.globalTitle}</h2></div><dl class="en-evidence__stats"><div><dt>{evidence.participants}</dt><dd>{cn ? '参加者' : '參加者'}</dd></div><div><dt>{evidence.institutions}</dt><dd>{cn ? '大学・机构' : '大學・機構'}</dd></div><div><dt>{evidence.countriesOrRegions}</dt><dd>{cn ? '国家・地区' : '國家・地區'}</dd></div></dl></div></section>
-<section class="en-photo-story"><div class="site-shell"><div class="section-intro"><p class="section-kicker">Campus and community</p><h2>{cn ? '看看短期留学的真实日常。' : '看看短期留學的真實日常。'}</h2></div><div class="en-photo-story__grid"><figure><img src={img('/images/IMG_8178.JPG')} alt={cn ? '短期项目课堂学习' : '短期課程課堂學習'} loading="lazy"/><figcaption>{cn ? '课堂学习' : '課堂學習'}</figcaption></figure><figure><img src={img('/images/IMG_5092.JPG')} alt={cn ? '学生文化体验' : '學生文化體驗'} loading="lazy"/><figcaption>{cn ? '文化学习' : '文化學習'}</figcaption></figure><figure><img src={img('/images/IMG_1687.JPG')} alt={cn ? '学生交流活动' : '學生交流活動'} loading="lazy"/><figcaption>{cn ? '校园与交流' : '校園與交流'}</figcaption></figure></div></div></section>
+<section class="en-photo-story"><div class="site-shell"><div class="section-intro"><p class="section-kicker">Campus and community</p><h2>{cn ? '看看短期留学的真实日常。' : '看看短期留學的真實日常。'}</h2></div><div class="en-photo-story__grid"><figure><img src={img(sharedSiteImages.home.story.classroom)} alt={cn ? '短期项目课堂学习' : '短期課程課堂學習'} loading="lazy"/><figcaption>{cn ? '课堂学习' : '課堂學習'}</figcaption></figure><figure><img src={img(sharedSiteImages.home.story.culture)} alt={cn ? '学生文化体验' : '學生文化體驗'} loading="lazy"/><figcaption>{cn ? '文化学习' : '文化學習'}</figcaption></figure><figure><img src={img(sharedSiteImages.home.story.interaction)} alt={cn ? '学生交流活动' : '學生交流活動'} loading="lazy"/><figcaption>{cn ? '校园与交流' : '校園與交流'}</figcaption></figure></div></div></section>
 <section class="en-support" id="support"><div class="site-shell en-support__inner"><div><p class="section-kicker">Next step</p><h2>{c.supportTitle}</h2><p>{c.supportBody}</p></div><a class="action-button action-button--primary" href="#program-finder">{c.find}</a></div></section>
