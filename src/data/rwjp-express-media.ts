@@ -1,3 +1,5 @@
+import { sharedSiteImages } from './shared-site-images';
+
 export type RwjpExpressMediaStatus = 'provisional' | 'verified';
 
 export interface RwjpExpressMediaItem {
@@ -18,17 +20,16 @@ export interface RwjpExpressMediaItem {
 }
 
 /**
- * RWJP Express media source of truth.
- *
- * Current entries intentionally point to provisional RWJP imagery so the
- * production layout can be reviewed before Express-specific assets are supplied.
- * When verified Express photos/video arrive, replace paths here rather than
- * scattering replacements through the page component.
+ * RWJP Express presentation media.
+ * Asset paths come from the shared multilingual registry so Japanese-master
+ * photo changes propagate to all language editions that use the same role.
+ * Express-specific verified assets can replace the shared key when approved,
+ * but should still be registered in shared-site-images.ts first.
  */
 export const rwjpExpressMedia: RwjpExpressMediaItem[] = [
   {
     id: 'hero-main',
-    src: 'images/programs/rwjp/rwjp-cultural-activity.webp',
+    src: `images/${sharedSiteImages.rwjp.culturalActivity}`,
     alt: '日本で文化活動に参加するイメージ',
     role: 'hero',
     status: 'provisional',
@@ -37,7 +38,7 @@ export const rwjpExpressMedia: RwjpExpressMediaItem[] = [
   },
   {
     id: 'class',
-    src: 'images/programs/rwjp/rwjp-japanese-class.webp',
+    src: `images/${sharedSiteImages.rwjp.japaneseClass}`,
     alt: '日本語授業に取り組むイメージ',
     role: 'class',
     status: 'provisional',
@@ -45,7 +46,7 @@ export const rwjpExpressMedia: RwjpExpressMediaItem[] = [
   },
   {
     id: 'culture',
-    src: 'images/programs/rwjp/rwjp-cultural-experience.webp',
+    src: `images/${sharedSiteImages.rwjp.culturalExperience}`,
     alt: '文化体験のイメージ',
     role: 'culture',
     status: 'provisional',
@@ -53,7 +54,7 @@ export const rwjpExpressMedia: RwjpExpressMediaItem[] = [
   },
   {
     id: 'people',
-    src: 'images/programs/rwjp/rwjp-student-interaction.webp',
+    src: `images/${sharedSiteImages.rwjp.studentInteraction}`,
     alt: '学生同士が交流するイメージ',
     role: 'people',
     status: 'provisional',
@@ -61,7 +62,7 @@ export const rwjpExpressMedia: RwjpExpressMediaItem[] = [
   },
   {
     id: 'city',
-    src: 'images/programs/rwjp/rwjp-kyoto-winter.webp',
+    src: `images/${sharedSiteImages.rwjp.hero}`,
     alt: '京都の街で過ごすイメージ',
     role: 'city',
     status: 'provisional',
@@ -69,7 +70,7 @@ export const rwjpExpressMedia: RwjpExpressMediaItem[] = [
   },
   {
     id: 'weekend',
-    src: 'images/programs/rwjp/rwjp-kyoto-winter.webp',
+    src: `images/${sharedSiteImages.rwjp.hero}`,
     alt: '週末に京都を歩くイメージ',
     role: 'weekend',
     status: 'provisional',
@@ -83,7 +84,7 @@ export const rwjpExpressReel = {
   futureVideo: {
     enabled: false,
     src: '',
-    poster: 'images/programs/rwjp/rwjp-cultural-activity.webp',
+    poster: `images/${sharedSiteImages.rwjp.culturalActivity}`,
     recommendedDurationSeconds: '15–30',
   },
   frames: ['hero-main', 'class', 'people', 'city'],
