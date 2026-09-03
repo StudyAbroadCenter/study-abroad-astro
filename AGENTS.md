@@ -4,14 +4,23 @@
 
 Follow these rules before writing or changing code.
 
-## 0. Repository Reality
+## 0. Supreme visual implementation rule
 
-The repository itself is the source of truth for the current implementation state.
+For any substantial visual design, redesign, mockup implementation, pattern work, or multilingual visual adaptation, `docs/handbook/24_CREATIVE_FRONTEND_FIDELITY_CONSTITUTION.md` is the highest visual implementation rule in this repository.
+
+Approved mockups and design patterns are specifications, not loose inspiration. Existing components, Pinwheel-derived structures, Astro conventions, previous implementations and reusable cards are not visual authority. Do not simplify distinctive composition for convenience.
+
+Do not claim visual verification unless the actual rendered browser result was inspected. Build success is not visual completion.
+
+## 1. Repository Reality
+
+The repository itself is the source of truth for the current implementation state, but not automatically the source of truth for approved visual intent.
 
 Before making programme-facing changes:
 
 - read the relevant current code and data,
 - read the relevant handbook specification,
+- read `docs/handbook/24_CREATIVE_FRONTEND_FIDELITY_CONSTITUTION.md` for visual/pattern work,
 - distinguish prototype/placeholder content from verified current programme facts,
 - never relabel fictional, sample, historical, or provisional content as current verified information.
 
@@ -25,20 +34,21 @@ For English localisation work, also read and apply `docs/handbook/23_ENGLISH_LOC
 
 A factual conflict is a blocker. Do not choose the value that appears most plausible.
 
-## 1. Read Before Editing
+## 2. Read Before Editing
 
 Before implementation:
 
 1. understand the requested outcome,
 2. inspect the relevant existing files,
-3. inspect existing components, utilities, styles, and data,
-4. identify the smallest safe change,
-5. check mobile impact,
-6. check whether shared data or global styles are affected.
+3. identify and inspect the authoritative visual reference when visual work is involved,
+4. inspect existing components, utilities, styles, and data,
+5. identify the smallest safe change that still preserves approved design intent,
+6. check mobile impact,
+7. check whether shared data or global styles are affected.
 
-Do not create a new solution before checking whether the project already has one.
+Do not create a new solution before checking whether the project already has one. Do not reuse an existing solution if it degrades an approved visual specification.
 
-## 2. Scope Control
+## 3. Scope Control
 
 Change only what is necessary.
 
@@ -52,9 +62,9 @@ Do not:
 
 Prefer focused, reviewable changes.
 
-## 3. Simplicity
+## 4. Simplicity
 
-Choose the simplest implementation that fully satisfies the current requirement.
+Choose the least complex implementation that fully satisfies both the functional requirement and the approved design.
 
 Avoid:
 
@@ -65,7 +75,9 @@ Avoid:
 - duplicate implementations,
 - architecture designed for hypothetical features.
 
-## 4. Existing Capabilities First
+Simplicity must not be used as permission to flatten a distinctive approved design.
+
+## 5. Existing Capabilities First
 
 Before adding a dependency:
 
@@ -76,7 +88,7 @@ Before adding a dependency:
 
 Do not add packages for functionality already available.
 
-## 5. No Guessing
+## 6. No Guessing
 
 Never invent programme facts or technical facts.
 
@@ -89,24 +101,20 @@ Do not infer:
 - capacity,
 - accommodation conditions,
 - requirements,
-- commands that do not exist in the repository.
+- commands that do not exist in the repository,
+- visual approval from a build or code review alone.
 
-If a fact is needed and cannot be verified, stop and surface the uncertainty.
+If a fact or authoritative visual reference is needed and cannot be verified, stop and surface the uncertainty.
 
-## 6. UI Preservation
+## 7. UI Preservation / Fidelity
 
-Unless redesign is explicitly requested:
+Unless redesign is explicitly requested, preserve established visual behaviour. When redesign or pattern implementation is requested, follow the approved reference rather than blindly preserving legacy layout.
 
-- preserve typography,
-- preserve colours,
-- preserve established spacing,
-- preserve interaction patterns,
-- preserve responsive behaviour,
-- preserve neighbouring components.
+For substantial visual work, apply `docs/handbook/24_CREATIVE_FRONTEND_FIDELITY_CONSTITUTION.md`, including actual browser render/reference comparison and correction of material deviations.
 
-Reuse existing design tokens and patterns before creating new ones.
+Reuse design tokens and components only when they preserve the approved composition.
 
-## 7. Mobile First
+## 8. Mobile First
 
 Primary reference width: `390px`.
 
@@ -119,28 +127,17 @@ Every relevant UI change must remain usable at:
 - tablet,
 - desktop.
 
-Do not solve desktop issues by degrading mobile usability.
+Do not solve desktop issues by degrading mobile usability. Expressive layouts may use separate mobile art direction rather than shrinking desktop.
 
-## 8. Data
+## 9. Data
 
 Do not repeatedly hard-code programme facts inside UI components.
 
-Where practical, use shared structured data for:
+Where practical, use shared structured data for dates, fees, application periods, capacity, status, accommodation, campus/location and eligibility.
 
-- dates,
-- fees,
-- application periods,
-- capacity,
-- status,
-- accommodation,
-- campus/location,
-- eligibility.
+For multilingual work, locale-specific copy must not become a separate factual source. Design may localise; facts may not.
 
-UI components display programme facts; they should not become independent fact stores.
-
-For multilingual work, locale-specific copy must not become a separate factual source. A verified date, fee, eligibility rule, campus, status, or other programme condition should be maintained in shared canonical data wherever practical and then rendered/localised for each published language.
-
-## 9. CMS
+## 10. CMS
 
 Do not introduce a CMS unless explicitly approved.
 
@@ -148,47 +145,23 @@ Keep content/data sufficiently separated from presentation to make future migrat
 
 Do not build CMS-like abstractions merely because a CMS may exist later.
 
-## 10. Performance
+## 11. Performance
 
-Prefer:
+Prefer static output, minimal JavaScript, Astro-native features, responsive images and limited hydration.
 
-- static output,
-- minimal JavaScript,
-- Astro-native features,
-- responsive images,
-- limited hydration.
+Performance is a constraint to measure and solve alongside fidelity, not an assumed excuse for visual simplification. If performance is invoked to change an approved design, demonstrate the conflict where measurable and test alternatives first.
 
-Hydrate only when interaction requires it.
+## 12. Accessibility
 
-## 11. Accessibility
+Use semantic HTML and preserve logical heading order, keyboard usability, visible focus states, sufficient contrast, meaningful labels and meaningful alt text.
 
-Use semantic HTML and preserve:
+## 13. Decision Making
 
-- logical heading order,
-- keyboard usability,
-- visible focus states,
-- sufficient contrast,
-- meaningful labels,
-- meaningful alt text.
+If uncertainty is minor, reversible, low-risk, and does not affect facts or significant visual design, choose the simplest reasonable option and continue.
 
-## 12. Decision Making
+Ask or stop before proceeding when uncertainty materially affects programme facts, architecture, security, data integrity, external services, cost, significant UX, or significant visual design.
 
-If uncertainty is minor, reversible, low-risk, and does not affect facts:
-
-choose the simplest reasonable option and continue.
-
-Ask or stop before proceeding when uncertainty materially affects:
-
-- programme facts,
-- architecture,
-- security,
-- data integrity,
-- external services,
-- cost,
-- significant UX,
-- significant visual design.
-
-## 13. Verification
+## 14. Verification
 
 Before considering a task complete:
 
@@ -197,16 +170,15 @@ Before considering a task complete:
 - confirm no unnecessary dependency was added,
 - confirm no unrelated file changed,
 - check responsive behaviour,
-- run existing build/type/lint/test commands when they are actually defined by the repository.
+- run existing build/type/lint/test commands when actually defined,
+- for substantial visual work, actually render and inspect affected desktop/mobile surfaces,
+- for multilingual visual work, independently inspect each affected published locale,
+- compare against the authoritative reference and resolve or explicitly record material deviations.
 
-Do not invent validation commands.
+Do not invent validation commands. Do not describe uninspected UI as verified.
 
-## 14. Final Rule
+## 15. Final Rule
 
-When two solutions are equally correct, choose the one that is:
+When two solutions are equally faithful and correct, choose the one that is easier to understand, maintain and remove, less dependent on hidden behaviour, and less likely to affect unrelated functionality.
 
-1. easier to understand,
-2. easier to maintain,
-3. easier to remove,
-4. less dependent on hidden behaviour,
-5. less likely to affect unrelated functionality.
+When one solution is easier but materially less faithful to the approved design, it is not equally correct.
