@@ -8,9 +8,11 @@ Follow these rules before writing or changing code.
 
 For any substantial visual design, redesign, mockup implementation, pattern work, or multilingual visual adaptation, `docs/handbook/24_CREATIVE_FRONTEND_FIDELITY_CONSTITUTION.md` is the highest visual implementation rule in this repository.
 
+The mandatory operating procedure is `docs/handbook/25_VISUAL_FIDELITY_PRODUCTION_PROTOCOL.md`.
+
 Approved mockups and design patterns are specifications, not loose inspiration. Existing components, Pinwheel-derived structures, Astro conventions, previous implementations and reusable cards are not visual authority. Do not simplify distinctive composition for convenience.
 
-Do not claim visual verification unless the actual rendered browser result was inspected. Build success is not visual completion.
+Do not claim visual verification unless the actual rendered browser result was inspected. Build success is not visual completion. For fidelity-led work, use the protocol's Reference -> Measurement -> Blueprint -> Browser Comparison/Convergence -> Acceptance gates and retain a Visual QA Record.
 
 ## 1. Repository Reality
 
@@ -21,6 +23,7 @@ Before making programme-facing changes:
 - read the relevant current code and data,
 - read the relevant handbook specification,
 - read `docs/handbook/24_CREATIVE_FRONTEND_FIDELITY_CONSTITUTION.md` for visual/pattern work,
+- read `docs/handbook/25_VISUAL_FIDELITY_PRODUCTION_PROTOCOL.md` for substantial visual implementation,
 - distinguish prototype/placeholder content from verified current programme facts,
 - never relabel fictional, sample, historical, or provisional content as current verified information.
 
@@ -41,10 +44,11 @@ Before implementation:
 1. understand the requested outcome,
 2. inspect the relevant existing files,
 3. identify and inspect the authoritative visual reference when visual work is involved,
-4. inspect existing components, utilities, styles, and data,
-5. identify the smallest safe change that still preserves approved design intent,
-6. check mobile impact,
-7. check whether shared data or global styles are affected.
+4. complete the Visual Measurement and Implementation Blueprint required by the production protocol for substantial mockup/pattern work,
+5. inspect existing components, utilities, styles, and data,
+6. identify the smallest safe change that still preserves approved design intent,
+7. check mobile impact,
+8. check whether shared data or global styles are affected.
 
 Do not create a new solution before checking whether the project already has one. Do not reuse an existing solution if it degrades an approved visual specification.
 
@@ -110,7 +114,7 @@ If a fact or authoritative visual reference is needed and cannot be verified, st
 
 Unless redesign is explicitly requested, preserve established visual behaviour. When redesign or pattern implementation is requested, follow the approved reference rather than blindly preserving legacy layout.
 
-For substantial visual work, apply `docs/handbook/24_CREATIVE_FRONTEND_FIDELITY_CONSTITUTION.md`, including actual browser render/reference comparison and correction of material deviations.
+For substantial visual work, apply both `docs/handbook/24_CREATIVE_FRONTEND_FIDELITY_CONSTITUTION.md` and `docs/handbook/25_VISUAL_FIDELITY_PRODUCTION_PROTOCOL.md`, including measurement, blueprinting, actual browser comparison and correction of material deviations.
 
 Reuse design tokens and components only when they preserve the approved composition.
 
@@ -173,7 +177,10 @@ Before considering a task complete:
 - run existing build/type/lint/test commands when actually defined,
 - for substantial visual work, actually render and inspect affected desktop/mobile surfaces,
 - for multilingual visual work, independently inspect each affected published locale,
-- compare against the authoritative reference and resolve or explicitly record material deviations.
+- compare against the authoritative reference and resolve or explicitly record material deviations,
+- complete the production protocol's Visual QA Record and seven-axis scoring for fidelity-led mockup/pattern work.
+
+For fidelity-led mockup/pattern work, target overall visual fidelity >= 9.5/10, no applicable axis below 9.0 without explicit acceptance, and Composition/Geometry >= 9.2 for signature art-directed sections.
 
 Do not invent validation commands. Do not describe uninspected UI as verified.
 
