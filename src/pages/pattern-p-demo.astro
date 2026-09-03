@@ -1,0 +1,90 @@
+---
+const programs = [
+  { code: 'RWJP', title: 'Ritsumeikan Winter & Summer Program', copy: 'Academic courses in English with Japanese culture experiences.', image: '/images/IMG_1396.JPG', tone: 'red' },
+  { code: 'RWJP Express', title: 'Intensive short-term study', copy: 'Focused learning in a compact programme format.', image: '/images/IMG_1400.JPG', tone: 'gold' },
+  { code: 'RDSP', title: 'Research & Discussion Short-term Program', copy: 'Research, discussion and collaborative learning.', image: '/images/IMG_1588.JPG', tone: 'green' },
+  { code: 'RBMP', title: 'Ritsumeikan Business Management Program', copy: 'Business learning with practical and cross-cultural perspectives.', image: '/images/IMG_1656.JPG', tone: 'navy' },
+];
+const stories = [
+  { quote: 'Kyoto became a classroom beyond the campus.', meta: 'Short-term programme', image: '/images/IMG_1687.JPG' },
+  { quote: 'I learned by sharing ideas with people from different backgrounds.', meta: 'Global learning', image: '/images/IMG_3725.JPG' },
+  { quote: 'The programme connected academic study with everyday life in Japan.', meta: 'Campus experience', image: '/images/IMG_5092.JPG' },
+];
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>Pattern P — Short-Term Study in Kyoto</title>
+  <meta name="description" content="Visual fidelity demo of the approved Pattern P short-term study concept." />
+</head>
+<body>
+  <main class="page" id="top">
+    <header class="header">
+      <a class="brand" href="#top" aria-label="Ritsumeikan University home"><span class="brandMark">R</span><span>Ritsumeikan University</span></a>
+      <nav class="nav" aria-label="Primary navigation"><a href="#programs">Programs</a><a href="#campus">Campus Life</a><a href="#stories">Student Stories</a><a href="#apply">Apply</a><a href="#news">FAQ</a></nav>
+      <div class="tools"><span>◎ English</span><span>⌕</span></div>
+    </header>
+
+    <section class="hero">
+      <div class="heroImage"><img src="/images/IMG_6091.JPG" alt="Students at Ritsumeikan University" /></div>
+      <div class="heroCopy"><div class="heroMotif" aria-hidden="true">京</div><p class="eyebrow">RITSUMEIKAN SHORT-TERM STUDY</p><h1>Short-Term<br/>Study in Kyoto</h1><p class="heroLead">Learn, explore, and connect<br/>at Ritsumeikan University.</p><div class="heroActions"><a class="btn light" href="#programs">Explore Programs <span>→</span></a><a class="btn outline" href="#apply">Apply Now</a></div></div>
+    </section>
+
+    <section class="section programs" id="programs">
+      <div class="side"><p class="kicker">PROGRAMS</p><h2>Find the program<br/>that fits you</h2><a href="#programs">View all programs →</a></div>
+      <div class="programGrid">
+        {programs.map((p) => <article class="programCard"><img src={p.image} alt="" /><div class="programBody"><h3 class={p.tone}>{p.code}</h3><p class="programTitle">{p.title}</p><p>{p.copy}</p><a class={`circle ${p.tone}Bg`} href="#apply" aria-label={`Explore ${p.code}`}>→</a></div></article>)}
+      </div>
+    </section>
+
+    <section class="section why" id="campus">
+      <div class="side"><p class="kicker">WHY RITSUMEIKAN</p><h2>Why study at<br/>Ritsumeikan?</h2><a href="#campus">Discover more →</a></div>
+      <div class="mosaic">
+        <article class="tile tall"><img src="/images/IMG_6985.JPG" alt="Academic learning"/><div class="overlay"><h3>Academic<br/>Excellence</h3><p>Learn through globally minded academic experiences.</p></div></article>
+        <article class="tile top"><img src="/images/IMG_7053.JPG" alt="Ritsumeikan campus"/><div class="overlay"><h3>Kyoto:<br/>Your Classroom</h3><p>Study where history, culture and innovation meet.</p></div></article>
+        <article class="tile small"><img src="/images/IMG_7289.JPG" alt="Students together"/><div class="overlay"><h3>Global<br/>Community</h3><p>Connect with students from around the world.</p></div></article>
+        <article class="tile wide"><img src="/images/IMG_7328.JPG" alt="Cultural experience"/><div class="overlay"><h3>Culture<br/>Everyday</h3><p>Experience Japanese culture through daily life and activities.</p></div><a class="goldArrow" href="#stories" aria-label="Explore culture">→</a></article>
+      </div>
+    </section>
+
+    <section class="section storySection" id="stories">
+      <div class="side"><p class="kicker">STORIES</p><h2>Student Stories</h2><a href="#stories">Read more stories →</a></div>
+      <div class="storyGrid">
+        {stories.map((s) => <article class="storyCard"><img src={s.image} alt=""/><div><p class="quote">“{s.quote}”</p><p class="storyMeta">Student story<br/><span>{s.meta}</span></p></div><span class="storyArrow">→</span></article>)}
+      </div>
+    </section>
+
+    <section class="section life">
+      <div class="side"><p class="kicker">LIFE IN KYOTO</p><h2>Study. Explore.<br/>Belong.</h2><a href="#campus">See more →</a></div>
+      <div class="lifeGrid">
+        <article class="lifeCard"><img src="/images/IMG_8178.JPG" alt="Campus life"/><div><h3>Vibrant Campus</h3><p>Modern facilities and welcoming learning spaces.</p></div></article>
+        <article class="lifeCard"><img src="/images/IMG_1396.JPG" alt="Learning together"/><div><h3>Learn Together</h3><p>Spaces designed for connection and co-creation.</p></div></article>
+        <article class="lifeCard"><img src="/images/IMG_1400.JPG" alt="Student activities"/><div><h3>Student Activities</h3><p>Clubs, events and shared experiences.</p></div></article>
+        <article class="lifeCard"><img src="/images/IMG_1588.JPG" alt="Student support"/><div><h3>Support You Can Count On</h3><p>Guidance before, during and after your stay.</p></div></article>
+      </div>
+    </section>
+
+    <section class="section news" id="news">
+      <div class="side"><p class="kicker">UPDATES</p><h2>News &amp;<br/>Deadlines</h2><a href="#news">View all news →</a></div>
+      <div class="newsGrid">
+        <article><span>APPLICATION</span><h3>Application information</h3><p>Check each programme page for the current application period and requirements.</p><b>→</b></article>
+        <article><span>ORIENTATION</span><h3>Before you arrive</h3><p>Programme-specific orientation details are provided to confirmed participants.</p><b>→</b></article>
+        <article><span>PROGRAMMES</span><h3>Find your best fit</h3><p>Compare programme themes, duration and learning style.</p><b>→</b></article>
+        <article class="timeline"><span>START HERE</span><h3>Application Timeline</h3><p>Plan your journey step by step.</p><b>→</b></article>
+      </div>
+    </section>
+
+    <section class="finalCta" id="apply"><div><p class="kickerLight">YOUR NEXT CHAPTER</p><h2>Ready to start your journey?</h2><p>Make Kyoto your classroom.</p></div><a class="btn light" href="#programs">Explore Programs →</a></section>
+    <footer class="footer"><div class="footerBrand"><span class="brandMark">R</span><strong>Ritsumeikan<br/>University</strong><p>Shaping Peace. Inspiring the Future.</p></div><div><strong>Programs</strong><a href="#programs">RWJP</a><a href="#programs">RWJP Express</a><a href="#programs">RDSP</a><a href="#programs">RBMP</a></div><div><strong>Campus Life</strong><a href="#campus">About Kyoto</a><a href="#campus">Student Support</a><a href="#stories">Activities</a></div><div><strong>Resources</strong><a href="#news">Apply</a><a href="#news">FAQ</a><a href="#news">Contact</a></div><div><strong>Connect</strong><span>Instagram · YouTube · LinkedIn</span></div></footer>
+  </main>
+
+<style>
+:global(html){scroll-behavior:smooth}:global(body){margin:0}.page{--red:#a30d18;--ink:#171717;--green:#204f3c;--gold:#c6901d;--navy:#163356;background:#fff;color:var(--ink);font-family:Arial,Helvetica,sans-serif}.header{height:78px;display:grid;grid-template-columns:1.1fr auto 1fr;align-items:center;padding:0 3.3vw;border-bottom:1px solid #ececec;position:sticky;top:0;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);z-index:20}.brand{display:flex;align-items:center;gap:12px;font-weight:700;text-decoration:none;color:var(--ink);font-size:20px}.brandMark{font-family:Georgia,serif;font-size:42px;line-height:1;color:var(--red)}.nav{display:flex;gap:34px;justify-content:center}.nav a,.tools{color:#222;text-decoration:none;font-size:14px}.tools{display:flex;gap:20px;justify-content:flex-end}.hero{display:grid;grid-template-columns:1.08fr 1fr;min-height:610px}.heroImage{overflow:hidden;background:#ddd}.heroImage img{width:100%;height:100%;object-fit:cover;filter:saturate(.88) contrast(.98)}.heroCopy{position:relative;background:linear-gradient(135deg,#8d0d17 0%,#ba111f 58%,#9a0714 100%);color:#fff;padding:80px 7vw 70px;display:flex;flex-direction:column;justify-content:center;overflow:hidden}.heroMotif{position:absolute;right:4vw;bottom:-40px;font-family:Georgia,serif;font-size:260px;font-weight:700;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.12);transform:rotate(-8deg)}.eyebrow,.kicker,.kickerLight{font-size:12px;letter-spacing:.14em;font-weight:700}.heroCopy h1{font-size:clamp(56px,5vw,82px);line-height:.95;letter-spacing:-.04em;margin:18px 0 26px;max-width:680px}.heroLead{font-size:22px;line-height:1.35;margin:0 0 34px}.heroActions{display:flex;gap:14px}.btn{display:inline-flex;align-items:center;justify-content:space-between;gap:30px;padding:16px 22px;border-radius:3px;text-decoration:none;font-weight:700;font-size:14px}.light{background:#fff;color:#111;min-width:180px}.outline{border:1px solid rgba(255,255,255,.7);color:#fff;min-width:130px}.section{display:grid;grid-template-columns:210px 1fr;gap:34px;max-width:1460px;margin:0 auto;padding:58px 40px}.side{padding-top:10px}.side h2{font-size:30px;line-height:1.04;margin:10px 0 24px;letter-spacing:-.03em}.side>a{font-size:12px;color:var(--red);text-decoration:none;font-weight:700}.kicker{color:var(--red);margin:0}.programGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}.programCard{border:1px solid #e8e4df;background:#fff;min-height:430px;position:relative}.programCard>img{width:100%;height:145px;object-fit:cover}.programBody{padding:20px 18px 58px}.programBody h3{font-size:22px;margin:0 0 6px}.programBody p{font-size:13px;line-height:1.45;color:#333}.programTitle{font-weight:700;color:#111!important}.red{color:var(--red)}.gold{color:var(--gold)}.green{color:var(--green)}.navy{color:var(--navy)}.circle,.goldArrow{position:absolute;right:16px;bottom:16px;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;text-decoration:none;color:#fff}.redBg{background:var(--red)}.goldBg{background:var(--gold)}.greenBg{background:var(--green)}.navyBg{background:var(--navy)}.why{padding-top:28px}.mosaic{display:grid;grid-template-columns:1.1fr 1.2fr 1fr;grid-template-rows:250px 230px;gap:14px}.tile{position:relative;overflow:hidden;background:#ddd}.tile img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease}.tile:hover img{transform:scale(1.025)}.tall{grid-row:1/3}.top{grid-column:2}.small{grid-column:3}.wide{grid-column:2/4;grid-row:2}.overlay{position:absolute;inset:0;padding:24px;color:#fff;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(to top,rgba(0,0,0,.62),rgba(0,0,0,.05) 62%)}.overlay h3{font-size:26px;line-height:.98;margin:0 0 8px;letter-spacing:-.03em}.overlay p{font-size:13px;line-height:1.4;max-width:250px;margin:0}.goldArrow{background:var(--gold);z-index:3}.storyGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.storyCard{min-height:180px;border:1px solid #eee4dd;background:#faf8f5;display:grid;grid-template-columns:36% 1fr 32px;align-items:stretch}.storyCard img{width:100%;height:100%;object-fit:cover}.storyCard>div{padding:20px 16px}.quote{font-family:Georgia,serif;font-size:17px;line-height:1.35;margin:0 0 20px}.storyMeta{font-size:12px;font-weight:700}.storyMeta span{font-weight:400;color:#6c6c6c}.storyArrow{align-self:end;margin:0 12px 14px 0;background:var(--red);color:#fff;width:28px;height:28px;border-radius:50%;display:grid;place-items:center}.lifeGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px}.lifeCard{position:relative;min-height:250px;overflow:hidden}.lifeCard img{width:100%;height:100%;object-fit:cover}.lifeCard div{position:absolute;inset:auto 0 0;padding:18px;color:#fff;background:linear-gradient(to top,rgba(0,0,0,.72),transparent)}.lifeCard h3{margin:0 0 4px;font-size:20px}.lifeCard p{margin:0;font-size:12px;line-height:1.4}.newsGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.newsGrid article{background:#f7f3ed;padding:22px;min-height:175px;position:relative;border-top:3px solid transparent}.newsGrid article span{font-size:10px;color:var(--red);font-weight:700;letter-spacing:.08em}.newsGrid article h3{font-size:18px;margin:16px 0 8px}.newsGrid article p{font-size:12px;line-height:1.45;color:#555}.newsGrid article b{position:absolute;right:18px;bottom:14px}.timeline{background:var(--green)!important;color:#fff}.timeline span,.timeline p{color:#fff!important}.finalCta{margin-top:10px;background:linear-gradient(90deg,#940b16,#b61220 62%,#8d0813);color:#fff;display:flex;justify-content:space-between;align-items:center;padding:34px max(40px,calc((100vw - 1380px)/2))}.finalCta h2{font-size:36px;margin:4px 0}.finalCta p{margin:0}.kickerLight{color:#f5c7ca}.footer{display:grid;grid-template-columns:1.5fr repeat(4,1fr);gap:40px;padding:42px max(40px,calc((100vw - 1380px)/2)) 54px;border-bottom:20px solid #1f1f1f;font-size:12px}.footer>div{display:flex;flex-direction:column;gap:9px}.footer a{text-decoration:none;color:#333}.footerBrand{display:grid!important;grid-template-columns:auto 1fr;column-gap:10px;align-items:start}.footerBrand p{grid-column:1/3;color:#777}.footerBrand strong{font-size:19px;line-height:1.05}.footer .brandMark{font-size:54px}
+@media(max-width:1100px){.header{grid-template-columns:1fr auto}.nav{display:none}.section{grid-template-columns:170px 1fr;padding-left:24px;padding-right:24px}.programGrid{grid-template-columns:repeat(2,1fr)}.mosaic{grid-template-columns:1fr 1fr;grid-template-rows:260px 220px 220px}.tall{grid-row:1/3}.top{grid-column:2}.small{grid-column:2}.wide{grid-column:1/3;grid-row:3}.lifeGrid,.newsGrid{grid-template-columns:repeat(2,1fr)}.storyGrid{grid-template-columns:1fr}.footer{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:760px){.header{height:66px;padding:0 18px}.brand{font-size:15px}.brandMark{font-size:34px}.tools span:first-child{display:none}.hero{display:flex;flex-direction:column}.heroImage{height:46vh;min-height:360px}.heroCopy{padding:52px 24px 56px}.heroCopy h1{font-size:54px}.heroLead{font-size:19px}.heroActions{flex-direction:column;align-items:flex-start}.section{display:block;padding:44px 18px}.side{display:grid;grid-template-columns:1fr auto;align-items:end;margin-bottom:24px}.side .kicker{grid-column:1/3}.side h2{font-size:28px;margin-bottom:0}.programGrid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px}.programCard{min-width:78vw;scroll-snap-align:start}.mosaic{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:300px 210px 240px}.tall{grid-column:1/3;grid-row:1}.top{grid-column:1;grid-row:2}.small{grid-column:2;grid-row:2}.wide{grid-column:1/3;grid-row:3}.storyCard{grid-template-columns:34% 1fr 30px}.lifeGrid{grid-template-columns:1fr 1fr}.lifeCard{min-height:220px}.newsGrid{grid-template-columns:1fr}.finalCta{display:block;padding:32px 22px}.finalCta .light{margin-top:22px}.footer{grid-template-columns:1fr 1fr;padding:36px 22px}.footerBrand{grid-column:1/3}.heroMotif{font-size:180px}}
+@media(max-width:430px){.heroImage{height:340px;min-height:0}.heroCopy h1{font-size:47px}.mosaic{grid-template-columns:1fr;grid-template-rows:320px 220px 220px 250px}.tall,.top,.small,.wide{grid-column:1;grid-row:auto}.lifeGrid{grid-template-columns:1fr}.footer{grid-template-columns:1fr}.footerBrand{grid-column:1}.side{display:block}.side>a{display:inline-block;margin-top:12px}}
+</style>
+</body>
+</html>
