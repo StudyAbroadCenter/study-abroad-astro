@@ -1,55 +1,44 @@
-# Pattern P Short-Term Study Demo — Visual Measurement & Implementation Blueprint
+# Pattern P × RSJP Experience System — Comparison Test
 
 Status: implementation branch `pattern-p-short-term-demo`
-Authoritative reference: user-approved Pattern P short-term study mockup generated in ChatGPT on 2026-09-04.
-Target: high-fidelity implementation demo for visual review; not production publication.
+Purpose: compare the current RSJP Experience System with a Pattern P editorial-brand implementation without changing production pages.
 
-## Visual Measurement
-Reference: Pattern P short-term study mockup
-Reference viewport: portrait full-page mockup, approximately 1024 px wide source image
-Hero/section height: implementation targets a 610 px desktop hero while preserving the mockup's near 50/50 image/red split and dominant red panel.
-Headline x/y/width: right hero panel, upper-middle alignment, approximately 70% of panel width; two-line `Short-Term / Study in Kyoto` composition.
-Primary image x/y/w/h: left half of hero, full-height crop; image remains edge-to-edge and dominant.
-Secondary images: programme cards use shallow landscape crops; editorial mosaic mixes tall, medium and wide crops; student stories use image+quote modules; Life in Kyoto uses four image tiles.
-Overlap/z-order: hero red panel contains subtle oversized outlined Japanese character motif behind semantic content; photo-overlay cards place text gradients above imagery.
-Whitespace: large white gutters between editorial groups, deliberately tighter gaps inside mosaics.
-Navigation/CTA: restrained white header; two hero CTAs; red final CTA band.
-Typography/line breaks: bold neutral sans-serif, short headings, controlled line breaks matching the approved mockup hierarchy.
-Crop/focal point: assertive `object-fit: cover` crops are used to preserve geometry.
-Native image dimensions checked: repository image files are multi-megapixel originals by file metadata; production image-role suitability still requires final visual inspection.
+## Product philosophy carried into the Pattern P test
+- Student-centred recruitment experience, not a university information portal.
+- Accuracy before persuasion; decision-critical facts must never be hidden under visual polish.
+- Programme discovery must help students choose the right programme rather than merely display programme names.
+- Mobile is a primary surface; 390px must preserve identity, key value, essential facts and next action.
+- Authentic programme photography has priority over generic decorative imagery.
+- Buddy / co-learning is part of the learning ecosystem, not a decorative side activity.
+- Inbound participation should visibly connect to Ritsumeikan student learning, outbound study and long-term connections.
+- Multilingual delivery is one product family: Japanese is the controlled master experience; facts remain shared while communication is naturally localised.
+- Public evidence must be verified, scoped and privacy-safe.
 
-## Implementation Blueprint
-Surface/pattern: Pattern P — Modular Editorial Brand Grid / Story Mosaic
-Authoritative reference: approved short-term study mockup
+## Pattern P translation
+Pattern P is used as the visual language rather than the product strategy. The current RSJP strategy remains the governing product logic.
 
-| Region | Visual requirement | Rendering strategy | Responsive/locale strategy | Risk |
-|---|---|---|---|---|
-| Header | quiet, white, low-height navigation | CSS Grid / semantic nav | collapse primary nav on tablet/mobile | low |
-| Hero | split photo/red art-directed composition | CSS Grid desktop; stacked art direction mobile | mobile reorders to image then red content | medium |
-| Programmes | side label + four compact cards | CSS Grid; horizontal scroll mobile | two-column tablet, scroll rail mobile | low |
-| Why Ritsumeikan | signature unequal mosaic | explicit CSS Grid spans | dedicated tablet/mobile compositions | high |
-| Student Stories | editorial quote cards | 3-column grid -> single column | preserve image/text split | low |
-| Life in Kyoto | four photographic tiles | image overlay tiles | 2-column tablet, 1-column small mobile | low |
-| News/Deadlines | editorial tiles, final contrasting tile | 4-column grid | 2-column tablet, 1-column mobile | low |
-| Final CTA | strong deep-red horizontal band | flex row | stacked mobile | low |
-| Footer | restrained institutional footer | multi-column grid | collapse progressively | low |
+| RSJP principle | Pattern P expression |
+|---|---|
+| Programme discovery | mixed-scale programme mosaic with clear routes to detail pages |
+| Decision-critical facts | dedicated contrasting decision tile and clarity section |
+| Authenticity | existing real programme photographs |
+| Buddy / co-learning | yellow editorial statement + documented activity mosaic + learning journey |
+| Global evidence | large dark proof field using verified 2023–2026 aggregate evidence |
+| Multilingual product family | language mosaic explaining same-facts / native-communication principle |
+| Institutional impact | ecosystem diagram connecting inbound, co-learning, outbound and partner network |
+| Mobile clarity | separate stacked / horizontal-rail composition rather than desktop shrinkage |
 
-Desktop: preserve split hero, side-label editorial sections and unequal mosaic geometry.
-Tablet: retain editorial asymmetry with reduced column count; avoid converting all modules to equal cards.
-Mobile: separately art-directed stacked hero and mosaic; programme cards become a controlled horizontal rail.
-Locale differences: English demo only. Future Japanese version may alter measure, line breaks and tile heights without changing facts.
-Typography: neutral bold sans-serif; brand personality comes primarily from composition, photography, red field and editorial scale.
-Images: reuse existing repository imagery for the implementation test; production should replace any context-mismatched image after photo-content review.
-Motion: restrained hover image scale only; no decorative animation required.
-Accessibility/performance evidence: semantic sections/nav/links, alt text on content images, no JS required for the core layout, CSS-only responsive design.
+## Verified data used
+The page imports `programmePublicDescriptors`, `shortTermParticipationEvidence`, and `documentedCoLearningActivities` from the repository. It does not invent dates, fees, eligibility, accommodation conditions or programme status.
 
-## Visual QA Record
-Reference: approved Pattern P short-term study mockup
-Implementation URL/build: pending Vercel Preview Deployment
-Browser render inspected: no — pending Preview Deployment
-Screenshot/reference compared: no — pending Preview Deployment
-Images checked: partial — repository image files selected and high-resolution; final crops pending browser review
-Overflow checked: pending
-No unexplained Major deviation: pending
-Overall >= 9.5: pending
-Final: NOT READY until browser comparison is completed.
+## Visual QA
+Authoritative visual language: Pattern P — Modular Editorial Brand Grid / Story Mosaic.
+Product authority: current repository product/UX/design/localisation specifications and verified data sources.
+
+Next gate after this single batched commit:
+1. wait for one Vercel Preview Deployment;
+2. inspect `/pattern-p-demo` at representative desktop and mobile widths;
+3. compare against both the approved Pattern P visual reference and the current production homepage;
+4. record material deviations before any further push.
+
+Vercel saving rule for this test: batch corrections before the next commit; do not push cosmetic changes one by one.
