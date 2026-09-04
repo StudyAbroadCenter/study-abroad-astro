@@ -1,0 +1,197 @@
+---
+import { programmePublicDescriptors } from '../data/programme-public-descriptors';
+import { shortTermParticipationEvidence } from '../data/participation-history';
+import { documentedCoLearningActivities } from '../data/co-learning-evidence';
+
+const rawBase = import.meta.env.BASE_URL;
+const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+const image = (path: string) => `${base}images/${path}`;
+
+const featuredIds = ['rwjp', 'rwjp-express', 'rdsp', 'rbmp', 'custom-programs'];
+const programmes = featuredIds
+  .map((id) => programmePublicDescriptors.find((item) => item.id === id))
+  .filter(Boolean);
+
+const programmeImages: Record<string, string> = {
+  rwjp: 'programs/rwjp/real/rwjp-real-japanese-class.webp',
+  'rwjp-express': 'programs/rwjp/real/rwjp-real-culture-tatami.webp',
+  rdsp: 'IMG_1588.JPG',
+  rbmp: 'IMG_1656.JPG',
+  'custom-programs': 'IMG_3725.JPG',
+};
+---
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Pattern P × RSJP Experience System — Test</title>
+  <meta name="description" content="現行の短期留学サイトの思想をPattern PのEditorial Brand Gridに移植した比較用テストサイト。" />
+</head>
+<body>
+  <main class="page" id="top">
+    <header class="header">
+      <a class="brand" href="#top"><span class="mark">R</span><span><strong>Ritsumeikan University</strong><small>Study Abroad Center</small></span></a>
+      <nav class="nav" aria-label="テストサイト内ナビゲーション">
+        <a href="#programmes">プログラム</a>
+        <a href="#learning">共修・Buddy</a>
+        <a href="#proof">実績</a>
+        <a href="#languages">多言語</a>
+      </nav>
+      <div class="headerAction"><span>日本語 MASTER</span><a href="#programmes">プログラムを探す →</a></div>
+    </header>
+
+    <section class="hero">
+      <div class="heroMedia">
+        <img src={image('programs/rwjp/real/rwjp-real-kyoto-field.webp')} alt="京都でグループ活動を行う短期留学生" />
+        <p class="photoNote">REAL PROGRAMME PHOTOGRAPHY</p>
+      </div>
+      <div class="heroMessage">
+        <p class="eyebrow">RITSUMEIKAN SHORT-TERM STUDY</p>
+        <h1>短期留学を、<br/>受入で終わらせない。</h1>
+        <p class="heroLead">世界から学生が来る。立命館の学生と学ぶ。<br/>その出会いが、次の留学と次のつながりを生む。</p>
+        <div class="actions">
+          <a class="button buttonLight" href="#programmes">自分に合うプログラムを探す <span>→</span></a>
+          <a class="button buttonGhost" href="#learning">共修・Buddyを見る</a>
+        </div>
+        <div class="heroProof"><strong>Accuracy before persuasion.</strong><span>日程・費用・条件は確認済み情報を優先して提示する。</span></div>
+        <div class="heroKanji" aria-hidden="true">学</div>
+      </div>
+    </section>
+
+    <section class="introBand">
+      <p>STUDENT-CENTRED RECRUITMENT EXPERIENCE</p>
+      <div><strong>見つける</strong><span>自分に合う入口から</span></div>
+      <div><strong>理解する</strong><span>必要な事実をすぐに</span></div>
+      <div><strong>想像する</strong><span>リアルな学びと生活を</span></div>
+      <div><strong>次へ進む</strong><span>迷わないCTAで</span></div>
+    </section>
+
+    <section class="section programmeSection" id="programmes">
+      <header class="sectionHead">
+        <p class="kicker">PROGRAMME DISCOVERY</p>
+        <h2>プログラム名からではなく、<br/>「何をしたいか」から選べる。</h2>
+        <p>現行サイトのProgram Finder思想を、Pattern Pの大小モジュールへ置き換える。</p>
+      </header>
+      <div class="programmeMosaic">
+        {programmes.map((programme, index) => programme && (
+          <article class:list={['programmeTile', `programmeTile--${index + 1}`]}>
+            <img src={image(programmeImages[programme.id])} alt="" />
+            <div class="programmeShade"></div>
+            <div class="programmeCopy">
+              <p>{programme.status}</p>
+              <h3>{programme.name}</h3>
+              {programme.experienceLine && <strong>{programme.experienceLine}</strong>}
+              <span>{programme.summary}</span>
+              <a href={`/programs/${programme.id}/`}>詳細を見る →</a>
+            </div>
+          </article>
+        ))}
+        <article class="decisionTile">
+          <p>DECISION FIRST</p>
+          <h3>日程・費用・Eligibility・Accommodation</h3>
+          <span>判断に必要な事実は、装飾の下に隠さない。</span>
+          <a href="/programs/">すべてのプログラムを見る →</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="ecosystem" id="learning">
+      <div class="ecosystemStatement">
+        <p class="kickerDark">BEYOND INBOUND</p>
+        <h2>世界への最初の一歩は、<br/>キャンパスの中にある。</h2>
+        <p>短期留学生を迎えることを、立命館学生の学びにも変える。<br/>交流 → 留学 → 再交流 → 長期的なつながりへ。</p>
+        <a href="/buddy/">Buddy & Global Connections →</a>
+      </div>
+      <div class="journey" aria-label="国際共修の循環">
+        <div><small>01</small><strong>MEET</strong><span>出会う</span></div>
+        <b>→</b>
+        <div><small>02</small><strong>LEARN</strong><span>共に学ぶ</span></div>
+        <b>→</b>
+        <div><small>03</small><strong>GO ABROAD</strong><span>海外へ行く</span></div>
+        <b>→</b>
+        <div><small>04</small><strong>MEET AGAIN</strong><span>再会する</span></div>
+      </div>
+      <div class="activityGrid">
+        {documentedCoLearningActivities.map((activity, i) => (
+          <figure class:list={['activity', i === 0 && 'activity--large']}>
+            <img src={image(activity.image)} alt={activity.imageAlt} />
+            <figcaption><small>DOCUMENTED ACTIVITY</small><strong>{activity.title}</strong><span>{activity.summary}</span></figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
+
+    <section class="proof" id="proof">
+      <header>
+        <p>GLOBAL EVIDENCE / 2023–2026</p>
+        <h2>「国際的です」ではなく、<br/>根拠を見せる。</h2>
+        <span>公開できる検証済み集計だけを使い、実績の範囲と定義を明示する。</span>
+      </header>
+      <div class="proofNumbers">
+        <article><strong>{shortTermParticipationEvidence.participants}</strong><span>参加者</span></article>
+        <article><strong>{shortTermParticipationEvidence.countriesOrRegions}</strong><span>か国・地域</span></article>
+        <article><strong>{shortTermParticipationEvidence.institutions}</strong><span>大学・機関</span></article>
+      </div>
+      <div class="proofScope"><strong>Scope matters.</strong><span>2023–2026年の定型4プログラムの検証済み参加実績。数字を大きく見せるために範囲を曖昧にしない。</span></div>
+    </section>
+
+    <section class="languageSection section" id="languages">
+      <header class="sectionHead compact">
+        <p class="kicker">ONE PRODUCT FAMILY</p>
+        <h2>翻訳サイトではなく、<br/>多言語の「同じプロダクト」。</h2>
+        <p>事実は一つ。伝え方は、それぞれの言語で自然に。</p>
+      </header>
+      <div class="languageMosaic">
+        <article class="langMaster"><small>CONTROLLED MASTER</small><strong>日本語</strong><p>情報設計・ページ階層・写真・CTA・意味をコントロールするMaster Experience。</p></article>
+        <article><strong>English</strong><p>日本語の語順を移さず、海外学生が最初から英語で読める文章として再構成。</p></article>
+        <article><strong>한국어</strong><p>英語版のコピーではなく、日本語Masterと同じ検証済み事実から自然な韓国語版へ。</p></article>
+        <article class="langColor"><strong>简体中文 / 繁體中文</strong><p>文字変換ではなく、それぞれの読者に合わせた独立したローカライズ。</p></article>
+        <article class="langRule"><small>CORE RULE</small><h3>Same facts.<br/>Native communication.</h3><p>Design may localise. Facts may not.</p></article>
+      </div>
+    </section>
+
+    <section class="institutionalWow">
+      <div class="wowCopy">
+        <p>SHORT-TERM STUDY ECOSYSTEM</p>
+        <h2>プログラムを並べるサイトから、<br/>国際共修の循環を見せるサイトへ。</h2>
+      </div>
+      <div class="wowDiagram">
+        <div class="node red"><span>INBOUND</span><strong>海外学生</strong></div>
+        <div class="node yellow"><span>CO-LEARNING</span><strong>共に学ぶ</strong></div>
+        <div class="node green"><span>OUTBOUND</span><strong>立命館学生</strong></div>
+        <div class="node cream"><span>NETWORK</span><strong>大学・機関</strong></div>
+        <div class="centre"><strong>RITSUMEIKAN</strong><span>learning connects people</span></div>
+      </div>
+    </section>
+
+    <section class="support section">
+      <header class="sectionHead compact"><p class="kicker">CLARITY BUILDS TRUST</p><h2>見やすさは、デザインではなく機能。</h2></header>
+      <div class="supportGrid">
+        <article><span>01</span><h3>重要情報を埋めない</h3><p>日程、期間、費用、募集状況、Eligibility、Accommodationへ最短で到達。</p></article>
+        <article><span>02</span><h3>スマホを最初に考える</h3><p>390pxでも「何のプログラムか」「重要な事実」「次の行動」が見える。</p></article>
+        <article><span>03</span><h3>リアルな写真を使う</h3><p>観光地の美しさだけでなく、実際の授業・交流・活動を優先する。</p></article>
+        <article><span>04</span><h3>分からないことは分からないと書く</h3><p>未確定情報を魅力的なコピーで埋めない。Accuracy before persuasion.</p></article>
+      </div>
+    </section>
+
+    <section class="finalCta">
+      <div><p>START WITH THE RIGHT PROGRAMME</p><h2>あなたの短期留学を、<br/>ここから選ぶ。</h2></div>
+      <a href="/programs/">プログラムを探す →</a>
+    </section>
+
+    <footer class="footer">
+      <div class="footerBrand"><span class="mark">R</span><strong>Ritsumeikan University<br/>Study Abroad Center</strong></div>
+      <div><small>PATTERN P TEST SURFACE</small><p>現行RSJP Experience Systemの思想をPattern Pへ移植した比較用ページです。</p></div>
+      <div class="footerLinks"><a href="/">現行ホーム</a><a href="/programs/">Programs</a><a href="/buddy/">Buddy</a></div>
+    </footer>
+  </main>
+</body>
+</html>
+
+<style>
+:global(*){box-sizing:border-box}:global(html){scroll-behavior:smooth}:global(body){margin:0;background:#fff;color:#171717;font-family:Inter,"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic",Arial,sans-serif}.page{--red:#a40d1b;--red2:#be1122;--ink:#171717;--green:#1f513d;--yellow:#e5b12b;--cream:#f4efe7;--line:#e6e0d9}.header{height:80px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 3.2vw;border-bottom:1px solid #eee;background:rgba(255,255,255,.96);position:sticky;top:0;z-index:30;backdrop-filter:blur(9px)}.brand{display:flex;align-items:center;gap:12px;color:#171717;text-decoration:none}.brand>span:last-child{display:flex;flex-direction:column;line-height:1.05}.brand strong{font-size:16px}.brand small{font-size:10px;color:#777;margin-top:5px;letter-spacing:.05em}.mark{font-family:Georgia,serif;color:var(--red);font-size:42px;line-height:1}.nav{display:flex;gap:28px}.nav a{color:#333;text-decoration:none;font-size:13px;font-weight:700}.headerAction{display:flex;align-items:center;justify-content:flex-end;gap:18px}.headerAction span{font-size:10px;letter-spacing:.08em;color:#777}.headerAction a{background:#171717;color:#fff;text-decoration:none;padding:11px 15px;font-size:12px;font-weight:800}.hero{display:grid;grid-template-columns:1.05fr .95fr;min-height:650px}.heroMedia{position:relative;overflow:hidden;background:#ddd}.heroMedia img{width:100%;height:100%;object-fit:cover;object-position:center}.photoNote{position:absolute;left:24px;bottom:18px;background:#fff;padding:8px 10px;margin:0;font-size:9px;letter-spacing:.12em;font-weight:800}.heroMessage{position:relative;background:linear-gradient(135deg,#8d0a16,var(--red2));color:#fff;padding:82px 7vw 65px;display:flex;flex-direction:column;justify-content:center;overflow:hidden}.eyebrow,.kicker,.kickerDark{font-size:11px;letter-spacing:.16em;font-weight:900;margin:0}.heroMessage h1{font-size:clamp(48px,5vw,78px);line-height:1.08;letter-spacing:-.055em;margin:20px 0 24px;max-width:700px}.heroLead{font-size:19px;line-height:1.7;margin:0 0 32px;position:relative;z-index:2}.actions{display:flex;gap:12px;position:relative;z-index:2}.button{display:inline-flex;align-items:center;justify-content:space-between;gap:26px;padding:15px 18px;text-decoration:none;font-size:12px;font-weight:900}.buttonLight{background:#fff;color:#111;min-width:250px}.buttonGhost{border:1px solid rgba(255,255,255,.65);color:#fff}.heroProof{margin-top:44px;padding-top:18px;border-top:1px solid rgba(255,255,255,.3);display:flex;flex-direction:column;gap:5px;position:relative;z-index:2}.heroProof strong{font-size:12px}.heroProof span{font-size:11px;opacity:.8}.heroKanji{position:absolute;right:1vw;bottom:-90px;font-family:serif;font-size:300px;font-weight:900;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.11);transform:rotate(-6deg)}.introBand{display:grid;grid-template-columns:1.1fr repeat(4,1fr);gap:0;border-bottom:1px solid var(--line);background:#fff}.introBand>p{margin:0;padding:26px 3.5vw;font-size:10px;letter-spacing:.14em;font-weight:900;display:flex;align-items:center}.introBand>div{padding:22px;border-left:1px solid var(--line);display:flex;flex-direction:column;gap:4px}.introBand strong{font-size:15px}.introBand span{font-size:11px;color:#666}.section{max-width:1500px;margin:0 auto;padding:76px 42px}.sectionHead{display:grid;grid-template-columns:220px 1fr 1fr;gap:28px;align-items:start;margin-bottom:34px}.sectionHead .kicker{color:var(--red);padding-top:9px}.sectionHead h2{font-size:clamp(30px,3vw,48px);line-height:1.12;letter-spacing:-.04em;margin:0}.sectionHead>p:last-child{font-size:14px;line-height:1.8;color:#5a5551;max-width:480px;margin:8px 0 0}.sectionHead.compact{grid-template-columns:220px 1.25fr .75fr}.programmeMosaic{display:grid;grid-template-columns:1.35fr .8fr .8fr;grid-template-rows:290px 260px 220px;gap:12px}.programmeTile{position:relative;overflow:hidden;background:#ccc;min-height:0}.programmeTile img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease}.programmeTile:hover img{transform:scale(1.02)}.programmeShade{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.78),rgba(0,0,0,.04) 70%)}.programmeCopy{position:absolute;inset:0;padding:24px;color:#fff;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start}.programmeCopy>p{font-size:9px;letter-spacing:.08em;background:rgba(255,255,255,.9);color:#222;padding:5px 7px;margin:0 0 10px}.programmeCopy h3{font-size:28px;line-height:1;margin:0 0 7px;letter-spacing:-.04em}.programmeCopy strong{font-size:14px;margin-bottom:7px}.programmeCopy>span{font-size:11px;line-height:1.5;max-width:420px;opacity:.92}.programmeCopy a{color:#fff;font-size:11px;font-weight:900;margin-top:13px;text-decoration:none}.programmeTile--1{grid-row:1/3}.programmeTile--2{grid-column:2}.programmeTile--3{grid-column:3}.programmeTile--4{grid-column:2/4;grid-row:2}.programmeTile--5{grid-column:1/3;grid-row:3}.decisionTile{grid-column:3;grid-row:3;background:var(--yellow);padding:26px;display:flex;flex-direction:column;justify-content:flex-end}.decisionTile p{font-size:9px;letter-spacing:.14em;font-weight:900}.decisionTile h3{font-size:21px;line-height:1.1;margin:9px 0}.decisionTile span{font-size:12px;line-height:1.5}.decisionTile a{color:#111;font-size:11px;font-weight:900;text-decoration:none;margin-top:18px}.ecosystem{background:var(--cream);padding:0 0 74px}.ecosystemStatement{display:grid;grid-template-columns:220px 1.2fr 1fr auto;gap:28px;align-items:end;padding:70px max(42px,calc((100vw - 1416px)/2));background:var(--yellow)}.kickerDark{color:#191919;align-self:start;padding-top:8px}.ecosystemStatement h2{font-size:clamp(34px,3.6vw,58px);line-height:1.08;letter-spacing:-.05em;margin:0}.ecosystemStatement>p:not(.kickerDark){font-size:14px;line-height:1.8;margin:0}.ecosystemStatement a{color:#111;text-decoration:none;font-size:12px;font-weight:900;white-space:nowrap}.journey{max-width:1416px;margin:0 auto;padding:32px 42px;display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;align-items:center;gap:12px;border-bottom:1px solid #d9d0c2}.journey div{display:flex;flex-direction:column}.journey small{font-size:9px;color:#8a8176}.journey strong{font-size:16px;margin:4px 0}.journey span{font-size:12px;color:#6b6258}.journey b{font-size:20px;color:#9c8e80}.activityGrid{max-width:1416px;margin:0 auto;padding:28px 42px 0;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:12px}.activity{margin:0;position:relative;min-height:300px;overflow:hidden}.activity img{width:100%;height:100%;object-fit:cover}.activity figcaption{position:absolute;inset:auto 0 0;padding:20px;color:#fff;background:linear-gradient(to top,rgba(0,0,0,.72),transparent)}.activity figcaption{display:flex;flex-direction:column}.activity small{font-size:9px;letter-spacing:.12em}.activity strong{font-size:22px;margin:6px 0}.activity span{font-size:11px;line-height:1.5;max-width:360px}.activity--large{min-height:390px}.proof{background:#171717;color:#fff;padding:82px max(42px,calc((100vw - 1416px)/2))}.proof>header{display:grid;grid-template-columns:220px 1.2fr .8fr;gap:28px;align-items:start}.proof header>p{font-size:10px;letter-spacing:.14em;font-weight:900;margin:10px 0 0}.proof h2{font-size:clamp(38px,4vw,62px);line-height:1.05;letter-spacing:-.05em;margin:0}.proof header>span{font-size:13px;line-height:1.8;color:#c8c8c8;margin-top:10px}.proofNumbers{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:58px;border-top:1px solid #404040;border-bottom:1px solid #404040}.proofNumbers article{padding:35px;border-right:1px solid #404040}.proofNumbers article:last-child{border-right:0}.proofNumbers strong{display:block;font-size:clamp(70px,9vw,140px);line-height:.9;letter-spacing:-.07em}.proofNumbers span{display:block;font-size:13px;margin-top:14px;color:#d0d0d0}.proofScope{margin-top:28px;display:flex;gap:18px;align-items:flex-start;max-width:820px}.proofScope strong{color:var(--yellow);font-size:12px}.proofScope span{font-size:11px;line-height:1.6;color:#aaa}.languageMosaic{display:grid;grid-template-columns:1.1fr 1fr .9fr;grid-template-rows:220px 220px;gap:12px}.languageMosaic article{padding:26px;border:1px solid var(--line);display:flex;flex-direction:column;justify-content:flex-end}.languageMosaic strong{font-size:27px;letter-spacing:-.03em}.languageMosaic p{font-size:12px;line-height:1.65;margin:10px 0 0}.languageMosaic small{font-size:9px;letter-spacing:.14em;font-weight:900;margin-bottom:auto}.langMaster{grid-row:1/3;background:var(--red);color:#fff;border:0!important}.langMaster strong{font-size:54px}.langColor{background:var(--green);color:#fff;border:0!important}.langRule{grid-column:3;grid-row:1/3;background:var(--yellow);border:0!important}.langRule h3{font-size:36px;line-height:1.03;letter-spacing:-.05em;margin:12px 0}.institutionalWow{display:grid;grid-template-columns:.9fr 1.1fr;min-height:590px;background:#f3f0ea}.wowCopy{padding:80px 6vw;display:flex;flex-direction:column;justify-content:center}.wowCopy>p{font-size:10px;letter-spacing:.14em;font-weight:900}.wowCopy h2{font-size:clamp(40px,4vw,64px);line-height:1.08;letter-spacing:-.055em;margin:18px 0}.wowDiagram{position:relative;background:#fff;min-height:590px;overflow:hidden}.node{position:absolute;width:185px;height:150px;padding:20px;display:flex;flex-direction:column;justify-content:flex-end}.node span{font-size:9px;letter-spacing:.12em}.node strong{font-size:22px;margin-top:5px}.node.red{left:7%;top:9%;background:var(--red);color:#fff}.node.yellow{right:8%;top:15%;background:var(--yellow)}.node.green{left:13%;bottom:9%;background:var(--green);color:#fff}.node.cream{right:12%;bottom:8%;background:var(--cream)}.centre{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:210px;height:210px;border-radius:50%;background:#171717;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:2}.centre:before,.centre:after{content:"";position:absolute;width:410px;height:1px;background:#d3cdc3;z-index:-1}.centre:before{transform:rotate(33deg)}.centre:after{transform:rotate(-33deg)}.centre strong{font-size:18px}.centre span{font-size:10px;color:#aaa;margin-top:6px}.supportGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.supportGrid article{border-top:4px solid var(--red);background:#f8f5f0;padding:28px;min-height:240px}.supportGrid span{font-size:11px;color:var(--red);font-weight:900}.supportGrid h3{font-size:20px;line-height:1.2;margin:25px 0 10px}.supportGrid p{font-size:12px;line-height:1.7;color:#5c5752}.finalCta{background:var(--red);color:#fff;padding:60px max(42px,calc((100vw - 1416px)/2));display:flex;justify-content:space-between;align-items:end}.finalCta p{font-size:10px;letter-spacing:.14em;font-weight:900}.finalCta h2{font-size:clamp(36px,4vw,62px);line-height:1.04;letter-spacing:-.05em;margin:12px 0 0}.finalCta a{background:#fff;color:#111;text-decoration:none;padding:16px 20px;font-size:12px;font-weight:900}.footer{padding:42px 3.5vw;display:grid;grid-template-columns:1fr 1.4fr .8fr;gap:40px;border-top:1px solid var(--line);align-items:start}.footerBrand{display:flex;align-items:center;gap:14px}.footerBrand strong{font-size:13px;line-height:1.4}.footer>div:nth-child(2) small{font-size:9px;letter-spacing:.12em;font-weight:900}.footer>div:nth-child(2) p{font-size:11px;color:#666;line-height:1.6}.footerLinks{display:flex;justify-content:flex-end;gap:18px}.footerLinks a{font-size:11px;color:#333;text-decoration:none;font-weight:800}
+@media(max-width:1050px){.header{grid-template-columns:1fr auto}.nav{display:none}.hero{grid-template-columns:1fr 1fr}.sectionHead,.sectionHead.compact{grid-template-columns:170px 1fr}.sectionHead>p:last-child{grid-column:2}.programmeMosaic{grid-template-columns:1fr 1fr;grid-template-rows:330px 250px 250px 220px}.programmeTile--1{grid-column:1/3;grid-row:1}.programmeTile--2{grid-column:1;grid-row:2}.programmeTile--3{grid-column:2;grid-row:2}.programmeTile--4{grid-column:1/3;grid-row:3}.programmeTile--5{grid-column:1;grid-row:4}.decisionTile{grid-column:2;grid-row:4}.ecosystemStatement{grid-template-columns:170px 1fr}.ecosystemStatement>p:not(.kickerDark),.ecosystemStatement>a{grid-column:2}.activityGrid{grid-template-columns:1.2fr 1fr}.activity:last-child{grid-column:1/3}.proof>header{grid-template-columns:170px 1fr}.proof header>span{grid-column:2}.languageMosaic{grid-template-columns:1fr 1fr}.langMaster{grid-row:1/3}.langRule{grid-column:1/3;grid-row:auto}.institutionalWow{grid-template-columns:1fr}.supportGrid{grid-template-columns:1fr 1fr}}
+@media(max-width:700px){.header{height:68px;padding:0 18px}.brand strong{font-size:13px}.brand small{display:none}.mark{font-size:34px}.headerAction span{display:none}.headerAction a{padding:9px 10px;font-size:10px}.hero{display:flex;flex-direction:column;min-height:0}.heroMedia{height:48vh;min-height:330px}.heroMessage{padding:42px 22px 36px}.heroMessage h1{font-size:46px}.heroLead{font-size:15px}.actions{flex-direction:column;align-items:stretch}.button{width:100%}.heroProof{margin-top:30px}.heroKanji{font-size:190px;bottom:-55px}.introBand{display:grid;grid-template-columns:1fr 1fr}.introBand>p{grid-column:1/3;padding:18px 20px}.introBand>div{border-top:1px solid var(--line);padding:16px 20px}.introBand>div:nth-child(even){border-left:0}.section{padding:54px 18px}.sectionHead,.sectionHead.compact{display:block;margin-bottom:25px}.sectionHead .kicker{margin-bottom:12px}.sectionHead h2{font-size:34px}.sectionHead>p:last-child{margin-top:14px}.programmeMosaic{display:flex;overflow-x:auto;gap:10px;scroll-snap-type:x mandatory;padding-bottom:8px}.programmeTile,.decisionTile{min-width:83vw;height:420px;scroll-snap-align:start;grid-column:auto!important;grid-row:auto!important}.decisionTile{height:420px}.ecosystemStatement{display:block;padding:48px 20px}.ecosystemStatement h2{font-size:38px;margin:16px 0}.ecosystemStatement>p:not(.kickerDark){margin-bottom:22px}.journey{padding:24px 20px;display:flex;overflow-x:auto;gap:12px}.journey div{min-width:125px}.journey b{flex:0 0 auto}.activityGrid{padding:20px;display:block}.activity,.activity--large{height:340px;min-height:0;margin-bottom:10px}.proof{padding:58px 20px}.proof>header{display:block}.proof h2{font-size:40px;margin:16px 0}.proofNumbers{grid-template-columns:1fr}.proofNumbers article{border-right:0;border-bottom:1px solid #404040;padding:28px 0}.proofNumbers strong{font-size:92px}.proofScope{display:block}.proofScope strong{display:block;margin-bottom:8px}.languageMosaic{display:block}.languageMosaic article{min-height:220px;margin-bottom:10px}.langMaster{min-height:340px!important}.langRule{min-height:280px!important}.institutionalWow{display:block;min-height:0}.wowCopy{padding:58px 20px}.wowCopy h2{font-size:42px}.wowDiagram{min-height:550px}.node{width:145px;height:125px}.node strong{font-size:17px}.node.red{left:4%;top:5%}.node.yellow{right:4%;top:9%}.node.green{left:5%;bottom:5%}.node.cream{right:5%;bottom:6%}.centre{width:165px;height:165px}.centre:before,.centre:after{width:300px}.supportGrid{grid-template-columns:1fr}.supportGrid article{min-height:190px}.finalCta{padding:48px 20px;display:block}.finalCta h2{font-size:42px;margin-bottom:28px}.finalCta a{display:inline-block}.footer{padding:34px 20px;display:block}.footer>div{margin-bottom:24px}.footerLinks{justify-content:flex-start;flex-wrap:wrap}}
+</style>

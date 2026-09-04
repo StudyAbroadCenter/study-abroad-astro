@@ -1,0 +1,30 @@
+---
+import PrototypeShell from '../../components/PatternPJPrototypeShell.astro';
+import { documentedCoLearningActivities } from '../../data/co-learning-evidence';
+import { sharedSiteImages } from '../../data/shared-site-images';
+const image=(p:string)=>`/images/${p}`;
+---
+<PrototypeShell active="stories" title="学びの風景 | 立命館大学 Study Abroad Center" description="立命館大学の短期受入プログラムで行われた授業、文化体験、フィールド活動などの学びの風景をご紹介します。">
+  <header class="pageHero">
+    <div><p class="kicker">REAL PROGRAMME SCENES</p><h1><span>学びの風景から、</span><span>短期留学を知る。</span></h1></div>
+    <p class="lead">教室で学ぶ。文化を共に体験する。京都で活動する。過去の短期受入プログラム実施写真から、立命館での学びの場面をご紹介します。</p>
+  </header>
+
+  <section class="shell" style="padding-top:42px">
+    <div class="photoStoryGrid">
+      {documentedCoLearningActivities.map((a)=><article class="photoStory"><img src={image(a.image)} alt={a.imageAlt}/><div class="caption"><p class="kicker">DOCUMENTED ACTIVITY</p><h3>{a.title}</h3><p>{a.summary}</p><small>{a.evidenceNote}</small></div></article>)}
+    </div>
+  </section>
+
+  <header class="editorialHead">
+    <div><p class="kicker">LEARNING IN ACTION</p><h2><span>ことばを学び、</span><span>人と出会う。</span></h2></div>
+    <div><p>短期受入プログラムでは、授業と学生交流、文化体験、地域での活動をつなぎながら学びを広げます。</p></div>
+  </header>
+  <section class="sectionGridWide">
+    <div class="mosaic">
+      <article class="mTile tall"><img src={image(sharedSiteImages.rwjp.real.presentation)} alt="短期留学プログラムでの発表"/><div class="mOverlay"><h3>発表する</h3><p>学んだことを自分のことばで伝える。</p></div></article>
+      <article class="mTile"><img src={image(sharedSiteImages.rwjp.real.interaction)} alt="学生同士の交流"/><div class="mOverlay"><h3>共に考える</h3><p>学生同士の対話から学びを深める。</p></div></article>
+      <article class="mTile wide"><img src={image(sharedSiteImages.rwjp.real.kyoto)} alt="京都でのフィールド活動"/><div class="mOverlay"><h3>街へ出る</h3><p>キャンパスの外でも学びを続ける。</p></div></article>
+    </div>
+  </section>
+</PrototypeShell>

@@ -1,0 +1,33 @@
+---
+import PrototypeShell from '../../components/PatternPJPrototypeShell.astro';
+import { programmePublicDescriptors } from '../../data/programme-public-descriptors';
+import { sharedSiteImages } from '../../data/shared-site-images';
+const image=(p:string)=>`/images/${p}`;
+const imageMap:Record<string,string>={rsjp:sharedSiteImages.programmes.rsjp,'rsjp-express':sharedSiteImages.programmes['rsjp-express'],rwjp:sharedSiteImages.programmes.rwjp,'rwjp-express':sharedSiteImages.programmes['rwjp-express'],rdsp:sharedSiteImages.programmes.rdsp,rbmp:sharedSiteImages.programmes.rbmp,'custom-programs':sharedSiteImages.programmes['custom-programs']};
+const hrefFor=(id:string)=>id==='rwjp'?'/pattern-pj-prototype/rwjp/':id==='custom-programs'?'/pattern-pj-prototype/custom-programs/':`/pattern-pj-prototype/programs/${id}/`;
+---
+<PrototypeShell active="programs" title="短期留学プログラム | 立命館大学 Study Abroad Center" description="立命館大学の短期留学・短期受入プログラム一覧。日本語、日本文化、専門分野、Custom Programsなどから目的に合うプログラムを探せます。">
+  <header class="pageHero">
+    <div><p class="kicker">PROGRAMS</p><h1><span>短期留学プログラムを</span><span>探す</span></h1></div>
+    <p class="lead">日本語・日本文化を学ぶプログラム、短期集中型プログラム、専門テーマ型プログラム、海外大学・教育機関向けCustom Programsをご案内します。</p>
+  </header>
+
+  <header class="editorialHead">
+    <div><p class="kicker">FIND YOUR PROGRAM</p><h2><span>「何を学びたいか」から</span><span>選べる。</span></h2></div>
+    <div><p>年度ごとの期間・実施内容・条件は各プログラムの詳細ページで確認できます。</p></div>
+  </header>
+
+  <section class="programEditorial">
+    {programmePublicDescriptors.map((p,i)=><article class={`programTile ${i===0?'feature':''}`}>
+      <img src={image(imageMap[p.id])} alt=""/>
+      <div class="body"><p class="kicker">{p.id.toUpperCase()}</p><h3>{p.name}</h3>{p.experienceLine&&<strong>{p.experienceLine}</strong>}<p>{p.summary}</p><div class="status">{p.status}</div><a class="textLink" href={hrefFor(p.id)}>詳細を見る →</a></div>
+    </article>)}
+  </section>
+
+  <section class="softBand">
+    <header class="editorialHead">
+      <div><p class="kicker">CHOOSE WITH CONFIDENCE</p><h2><span>必要な情報を、</span><span>迷わず確認できる。</span></h2></div>
+      <div><p>日程、費用、申込期間、参加条件、宿舎など、参加判断に必要な情報は各Program Detailで分かりやすく整理します。</p></div>
+    </header>
+  </section>
+</PrototypeShell>

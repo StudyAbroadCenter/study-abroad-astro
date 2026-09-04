@@ -1,0 +1,67 @@
+---
+import PrototypeShell from '../../components/PatternPJPrototypeShell.astro';
+import { programmePublicDescriptors } from '../../data/programme-public-descriptors';
+import { sharedSiteImages } from '../../data/shared-site-images';
+import { shortTermParticipationEvidence } from '../../data/participation-history';
+import { documentedCoLearningActivities } from '../../data/co-learning-evidence';
+const image=(p:string)=>`/images/${p}`;
+const featured=programmePublicDescriptors.filter(p=>['rwjp','rwjp-express','rdsp','rbmp'].includes(p.id));
+const imageMap:Record<string,string>={rwjp:sharedSiteImages.programmes.rwjp,'rwjp-express':sharedSiteImages.programmes['rwjp-express'],rdsp:sharedSiteImages.programmes.rdsp,rbmp:sharedSiteImages.programmes.rbmp};
+---
+<PrototypeShell active="home" title="立命館大学の短期留学 | Study Abroad Center" description="立命館大学の短期留学・短期受入プログラム。日本語、日本文化、専門分野、学生との共修を京都・大阪で学べます。">
+  <section class="splitHero">
+    <div class="media"><img src={image(sharedSiteImages.home.hero)} alt="立命館大学の短期留学プログラムの様子" /></div>
+    <div class="heroPanel">
+      <p class="eyebrow">RITSUMEIKAN SHORT-TERM STUDY</p>
+      <h1><span>日本で学ぶ時間を、</span><span>立命館から。</span></h1>
+      <p>日本語・日本文化、専門分野、学生との共修。京都・大阪のキャンパスから、自分に合う学び方を見つける。</p>
+      <div class="actions"><a class="btn light" href="/pattern-pj-prototype/programs/">プログラムを探す →</a><a class="btn ghost" href="/pattern-pj-prototype/buddy/">Buddyを見る</a></div>
+    </div>
+  </section>
+
+  <header class="editorialHead">
+    <div><p class="kicker">PROGRAMS</p><h2><span>自分に合うプログラムを</span><span>見つける</span></h2></div>
+    <div><p>日本語・日本文化を中心に学ぶプログラムから、専門分野を扱う短期プログラムまで。年度別の条件は各詳細ページで確認できます。</p><p><a class="textLink" href="/pattern-pj-prototype/programs/">すべてのプログラムを見る →</a></p></div>
+  </header>
+  <section class="programEditorial">
+    {featured.map((p,i)=><article class={`programTile ${i===0?'feature':''}`}><img src={image(imageMap[p.id])} alt=""/><div class="body"><p class="kicker">{p.id.toUpperCase()}</p><h3>{p.name}</h3>{p.experienceLine&&<strong>{p.experienceLine}</strong>}<p>{p.summary}</p><div class="status">{p.status}</div>{p.id==='rwjp'&&<a class="textLink" href="/pattern-pj-prototype/rwjp/">2027年度の詳細を見る →</a>}</div></article>)}
+  </section>
+
+  <section class="proofBand">
+    <div class="proofGrid">
+      <h2><span>世界から来る。</span><span>キャンパスでつながる。</span></h2>
+      <div class="metric"><b>{shortTermParticipationEvidence.participants}</b><span>参加者 / {shortTermParticipationEvidence.period}</span></div>
+      <div class="metric"><b>{shortTermParticipationEvidence.countriesOrRegions}</b><span>か国・地域</span></div>
+      <div class="metric"><b>{shortTermParticipationEvidence.institutions}</b><span>大学・機関</span></div>
+    </div>
+  </section>
+
+  <header class="editorialHead">
+    <div><p class="kicker">CO-LEARNING</p><h2><span>学ぶ場所は、</span><span>教室だけではない。</span></h2></div>
+    <div><p>短期留学生と立命館の学生が、ことばや文化を共有しながら共に学ぶ。交流を、次の留学や長期的なつながりへ広げます。</p><p><a class="textLink" href="/pattern-pj-prototype/buddy/">Buddy & Global Connections →</a></p></div>
+  </header>
+  <section class="sectionGridWide">
+    <div class="mosaic">
+      {documentedCoLearningActivities.map((a,i)=><article class={`mTile ${i===0?'tall':i===2?'wide':''}`}><img src={image(a.image)} alt={a.imageAlt}/><div class="mOverlay"><h3>{a.title}</h3><p>{a.summary}</p></div></article>)}
+    </div>
+  </section>
+
+  <section class="softBand">
+    <header class="editorialHead">
+      <div><p class="kicker">MULTILINGUAL</p><h2><span>同じ事実を、</span><span>それぞれの言語で自然に。</span></h2></div>
+      <div><p>日本語をマスター版とし、英語・韓国語・簡体字・繁体字へ展開。事実は共通データで管理し、文章は各言語の読者に自然な形で伝えます。</p></div>
+    </header>
+  </section>
+
+  <header class="editorialHead">
+    <div><p class="kicker">STUDY IN JAPAN</p><h2><span>学ぶ。出会う。</span><span>京都・大阪へ広がる。</span></h2></div>
+    <div><p>授業、学生交流、文化体験、フィールドワーク。短い滞在の中でも、学びをキャンパスの外へつなげます。</p></div>
+  </header>
+  <section class="sectionGridWide">
+    <div class="mosaic">
+      <article class="mTile tall"><img src={image(sharedSiteImages.rwjp.real.classroom)} alt="日本語を学ぶ短期留学生"/><div class="mOverlay"><h3>Learn</h3><p>教室で学ぶ。</p></div></article>
+      <article class="mTile"><img src={image(sharedSiteImages.rwjp.real.interaction)} alt="学生交流"/><div class="mOverlay"><h3>Meet</h3><p>キャンパスで出会う。</p></div></article>
+      <article class="mTile wide"><img src={image(sharedSiteImages.rwjp.real.kyoto)} alt="京都でのフィールド活動"/><div class="mOverlay"><h3>Go beyond campus</h3><p>京都・大阪で学びを広げる。</p></div></article>
+    </div>
+  </section>
+</PrototypeShell>

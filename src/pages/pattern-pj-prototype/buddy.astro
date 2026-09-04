@@ -1,0 +1,109 @@
+---
+import PrototypeShell from '../../components/PatternPJPrototypeShell.astro';
+import { sharedSiteImages } from '../../data/shared-site-images';
+const image=(p:string)=>`/images/${p}`;
+const values=[
+  {icon:'↔',title:'つながる',body:'留学生と出会い、ことばや文化を共有する。'},
+  {icon:'♡',title:'支える',body:'生活や学習の場で、互いにできることを持ち寄る。'},
+  {icon:'◎',title:'広がる',body:'違う背景や考え方に触れ、世界との距離を縮める。'},
+  {icon:'↗',title:'成長する',body:'交流を、次の学びや留学への一歩につなげる。'},
+];
+const journey=[
+  ['01','Meet','出会う','キャンパスで留学生と出会う'],
+  ['02','Learn','共に学ぶ','ことばと文化の違いを知る'],
+  ['03','Go Abroad','海外へ行く','交流が留学への一歩になる'],
+  ['04','Meet Again','再会する','海外や日本でまた会える'],
+  ['05','Stay Connected','つながり続ける','出会いが一生の人的財産になる'],
+];
+const activities=[
+  {title:'日本語講座で話す',body:'留学生と一緒に学びながら、日本語で会話を楽しむ。',image:sharedSiteImages.rwjp.real.classroom},
+  {title:'文化体験を楽しむ',body:'日本文化を一緒に体験して、違いを知る。',image:sharedSiteImages.rwjp.real.culture},
+  {title:'キャンパスでつながる',body:'授業やランチ、学内活動から自然な交流をつくる。',image:sharedSiteImages.rwjp.real.interaction},
+  {title:'街へ出る',body:'京都での活動を通して、同じ経験を共有する。',image:sharedSiteImages.rwjp.real.kyoto},
+  {title:'共に考える',body:'学びや発表の場でも、ことばを交わしながら理解を深める。',image:sharedSiteImages.rwjp.real.presentation},
+];
+const sampleFaces=[
+  {src:'https://images.unsplash.com/photo-1758270704625-cf6f1898853d?auto=format&fit=crop&q=80&w=900',credit:'Vitaly Gariev / Unsplash',message:'英語に自信がなくても大丈夫'},
+  {src:'https://images.unsplash.com/photo-1758270704524-596810e891b5?auto=format&fit=crop&q=80&w=900',credit:'Vitaly Gariev / Unsplash',message:'1回だけの参加からでも大丈夫'},
+  {src:'https://images.unsplash.com/photo-1781583716707-26ec9170ca0d?auto=format&fit=crop&q=80&w=900',credit:'Evan Marvell / Unsplash',message:'世界への入口はキャンパスにもある'},
+];
+---
+<PrototypeShell active="buddy" title="Buddy & Global Connections | 立命館大学 Study Abroad Center" description="短期留学生と立命館大学の学生が、キャンパスで出会い、共に学び、次の留学や長期的なつながりへ広げるBuddy & Global Connections。">
+  <div class="jPage">
+    <div class="jFrame">
+      <aside class="jSide" aria-label="Buddy navigation">
+        <div class="jSideBrand">Buddy<small>Ritsumeikan University</small></div>
+        <nav>
+          <a href="#top">ホーム</a>
+          <a href="#about-buddy">バディとは</a>
+          <a href="#activities">活動内容</a>
+          <a href="#journey">つながり</a>
+          <a href="#join">参加について</a>
+        </nav>
+      </aside>
+
+      <div class="jMain" id="top">
+        <section class="jHero">
+          <div>
+            <span class="hand">Buddy & Global Connections</span>
+            <h1><span>つながるって、</span><span>世界が広がること。</span></h1>
+            <p class="jHeroCopy">短期留学生と立命館の学生が出会い、互いを理解し、学び合う。世界への最初の一歩は、キャンパスの中にもあります。</p>
+            <p><a class="jButton" href="#join">参加のしかたを見る <span>→</span></a></p>
+            <p class="buddyNote">英語力は問いません。1回から参加できます。</p>
+          </div>
+          <div>
+            <div class="organicPhoto"><img src={image(sharedSiteImages.rwjp.real.interaction)} alt="短期留学生と学生が交流する様子"/></div>
+            <span class="handBig">Be a buddy,<br/>make a connection!</span>
+          </div>
+        </section>
+
+        <section class="jSection" id="about-buddy">
+          <div class="jSectionHead">
+            <div><p class="kicker">ABOUT BUDDY</p><h2>バディって、どんなつながり？</h2></div>
+            <p>短期留学生を迎えることは、立命館の学生にとっても学びのチャンス。まず一度、同じテーブルに座ることから始めよう。</p>
+          </div>
+          <div class="jValues">
+            {values.map(v=><article class="jValue"><div class="jValueIcon">{v.icon}</div><h3>{v.title}</h3><p>{v.body}</p></article>)}
+          </div>
+        </section>
+
+        <section class="jSection" id="journey">
+          <div class="jSectionHead">
+            <div><p class="kicker">FROM ONE ENCOUNTER</p><h2>出会いの、その先へ。</h2></div>
+            <p>交流が留学を生み、留学が再交流を生む。キャンパスでの一つの出会いを、次の学びと長い関係へつなげます。</p>
+          </div>
+          <div class="jFlow">
+            {journey.map(s=><article class="jStep"><div class="jStepIcon">{s[0]}</div><small>{s[1]}</small><b>{s[2]}</b><p>{s[3]}</p></article>)}
+          </div>
+        </section>
+
+        <section class="jSection" id="activities">
+          <div class="jSectionHead">
+            <div><p class="kicker">ACTIVITIES</p><h2>一緒にやってみる。</h2></div>
+            <p>教室、文化体験、キャンパス、京都の街。特別なイベントだけでなく、日常の中にも交流のきっかけがあります。</p>
+          </div>
+          <div class="jActivities">
+            {activities.map(a=><article class="jActivity"><img src={image(a.image)} alt=""/><div><h3>{a.title}</h3><p>{a.body}</p></div></article>)}
+          </div>
+        </section>
+
+        <section class="jSection">
+          <div class="jSectionHead">
+            <div><p class="kicker">START SMALL</p><h2>最初の一歩は、小さくていい。</h2></div>
+            <p>「話してみたい」「一緒に参加してみたい」。そんな気持ちから始められるように、参加の入口を分かりやすくします。</p>
+          </div>
+          <div class="jVoices">
+            {sampleFaces.map(f=><article class="jVoice"><img src={f.src} alt="国際交流ページのイメージ人物写真" referrerpolicy="no-referrer"/><div><strong>{f.message}</strong><small>イメージ写真 / Photo: {f.credit}</small></div></article>)}
+          </div>
+        </section>
+
+        <section class="jCtaWrap" id="join">
+          <div class="jCta">
+            <div><p class="kicker">BUDDY & GLOBAL CONNECTIONS</p><h2>一歩踏み出して、<br/>新しいつながりをつくろう。</h2></div>
+            <a class="jButton" href="#about-buddy">Buddyについて見る <span>→</span></a>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</PrototypeShell>
