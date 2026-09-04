@@ -1,0 +1,19 @@
+---
+import PrototypeShell from '../../components/PatternPJPrototypeShell.astro';
+import { programmePublicDescriptors } from '../../data/programme-public-descriptors';
+import { sharedSiteImages } from '../../data/shared-site-images';
+const image=(p:string)=>`/images/${p}`;
+const imageMap:Record<string,string>={rsjp:sharedSiteImages.programmes.rsjp,'rsjp-express':sharedSiteImages.programmes['rsjp-express'],rwjp:sharedSiteImages.programmes.rwjp,'rwjp-express':sharedSiteImages.programmes['rwjp-express'],rdsp:sharedSiteImages.programmes.rdsp,rbmp:sharedSiteImages.programmes.rbmp,'custom-programs':sharedSiteImages.programmes['custom-programs']};
+---
+<PrototypeShell active="programs" title="Programs | Pattern P + J Prototype">
+  <header class="pageLead"><p class="kicker">PROGRAM DISCOVERY</p><h1>短期留学プログラムを探す</h1><p>ここでは現行RSJPサイトの公開用descriptorをそのまま使用しています。年度別の日程・費用・募集状況など、確認が必要な情報は詳細ページ側で扱います。</p></header>
+  <section class="shell" style="padding-top:20px">
+    <div class="programGrid">
+      {programmePublicDescriptors.map((p)=><article class="programTile">
+        <img src={image(imageMap[p.id])} alt=""/>
+        <div class="body"><p class="kicker">{p.id.toUpperCase()}</p><h3>{p.name}</h3>{p.experienceLine&&<strong style="margin-bottom:8px">{p.experienceLine}</strong>}<p>{p.summary}</p><div class="status">{p.status}</div>{p.id==='rwjp'&&<a class="textLink" style="margin-top:12px" href="/pattern-pj-prototype/rwjp/">2027 RWJP 詳細を見る →</a>}</div>
+      </article>)}
+    </div>
+  </section>
+  <section class="softBand"><div class="quietSection"><h2>情報を選びやすく、事実を隠さない。</h2><p>現行サイトのUXルールに合わせ、Program一覧では選択の入口を短く見せ、日程・費用・eligibility・accommodationなどの判断情報はProgram Detailで明確に提示する設計です。</p></div></section>
+</PrototypeShell>

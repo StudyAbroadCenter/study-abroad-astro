@@ -1,0 +1,19 @@
+---
+import PrototypeShell from '../../components/PatternPJPrototypeShell.astro';
+import { documentedCoLearningActivities } from '../../data/co-learning-evidence';
+import { sharedSiteImages } from '../../data/shared-site-images';
+const image=(p:string)=>`/images/${p}`;
+---
+<PrototypeShell active="stories" title="Student Stories / Real Programme Scenes | Pattern P + J Prototype">
+  <header class="pageLead"><p class="kicker">REAL PROGRAMME SCENES</p><h1>Student Stories</h1><p>この比較用プロトタイプでは、現行リポジトリに確認済みの学生コメントがないため、架空の体験談は作りません。代わりに、実施記録として管理されている写真と説明だけで「学びの場面」を見せます。</p></header>
+  <section class="quietSection"><div class="notice">Accuracy over persuasion：未検証の学生名・所属・コメント・満足度は掲載していません。</div></section>
+  <section class="shell" style="padding-top:10px">
+    <div class="photoStoryGrid">
+      {documentedCoLearningActivities.map((a)=><article class="photoStory"><img src={image(a.image)} alt={a.imageAlt}/><div class="caption"><p class="kicker">DOCUMENTED ACTIVITY</p><h3>{a.title}</h3><p>{a.summary}</p><small>{a.evidenceNote}</small></div></article>)}
+    </div>
+  </section>
+  <section class="shell sectionGrid">
+    <div class="sectionIntro"><p class="kicker">STORY SYSTEM</p><h2>証拠が揃えば<br/>物語にする</h2></div>
+    <div><h2 style="font-size:38px;margin-top:0">名前のある声より先に、確かな事実。</h2><p style="line-height:1.8;max-width:800px">将来、本人同意・出典・対象プログラムが確認できた学生の声が整備された段階で、Pattern Pの大小モジュールとしてStudent Storiesを追加できます。現時点では写真を「過去の短期受入プログラム実施写真」として扱います。</p><img src={image(sharedSiteImages.rwjp.real.presentation)} alt="短期留学プログラムでの発表" style="width:100%;max-height:460px;object-fit:cover;margin-top:25px"/></div>
+  </section>
+</PrototypeShell>

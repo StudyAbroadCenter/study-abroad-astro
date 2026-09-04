@@ -1,0 +1,17 @@
+---
+import PrototypeShell from '../../components/PatternPJPrototypeShell.astro';
+import { sharedSiteImages } from '../../data/shared-site-images';
+const image=(p:string)=>`/images/${p}`;
+---
+<PrototypeShell active="about" title="Why Ritsumeikan | Pattern P + J Prototype">
+  <header class="pageLead"><p class="kicker">STUDY ABROAD CENTER</p><h1>日本で学ぶ時間を<br/>立命館から</h1><p>立命館大学の短期留学・短期受入プログラムでは、日本語・日本文化、専門分野、学生交流、京都・大阪での学びを組み合わせ、多様な学習機会を提供します。</p></header>
+  <section class="shell sectionGrid" style="padding-top:20px">
+    <div class="sectionIntro"><p class="kicker">WHY RITSUMEIKAN</p><h2>学びを<br/>組み合わせる</h2><p>現行Aboutページの4つの説明をPattern Pのモザイクへ再配置。</p></div>
+    <div class="mosaic">
+      <article class="mTile tall"><img src={image(sharedSiteImages.rwjp.real.classroom)} alt="日本語授業"/><div class="mOverlay"><h3>日本語・日本文化を学ぶ</h3><p>日本語の授業を軸に、文化体験やキャンパスでの交流へ学びを広げます。短期間でも、日本でことばを使う経験につなげます。</p></div></article>
+      <article class="mTile"><img src={image(sharedSiteImages.programmes.rdsp)} alt="専門分野の学び"/><div class="mOverlay"><h3>専門分野を英語で学ぶ</h3><p>ビジネス、経営学、AI・データサイエンスなど、プログラムに応じた専門テーマを英語で学ぶ機会があります。</p></div></article>
+      <article class="mTile wide"><img src={image(sharedSiteImages.rwjp.real.interaction)} alt="学生交流"/><div class="mOverlay"><h3>学生と共に学ぶ</h3><p>Buddy、ゼミ、学生団体との活動など、立命館の学生と出会い、共に考え、交流する機会をプログラムに応じて設けます。</p></div></article>
+    </div>
+  </section>
+  <section class="proofBand"><div class="proofGrid"><h2>大学ごとに<br/>日本での学びを設計する。</h2><div style="grid-column:span 3"><p style="font-size:20px;line-height:1.7;max-width:780px">海外大学・教育機関向けCustom Programsでは、教育目的、期間、テーマ、参加人数等を伺い、大学単位の短期留学プログラムを相談しながら設計します。</p><a class="btn light" href="/pattern-pj-prototype/custom-programs/">Custom Programs →</a></div></div></section>
+</PrototypeShell>

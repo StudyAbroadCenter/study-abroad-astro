@@ -1,0 +1,27 @@
+---
+import PrototypeShell from '../../components/PatternPJPrototypeShell.astro';
+import { customProgramPartners, customProgramVisuals } from '../../data/custom-programs-shared';
+import { getProgrammePublicDescriptor } from '../../data/programme-public-descriptors';
+const descriptor=getProgrammePublicDescriptor('custom-programs')!;
+const image=(p:string)=>`/images/${p}`;
+---
+<PrototypeShell active="custom" title="Custom Programs | Pattern P Institutional Prototype">
+  <section class="institutionalHero">
+    <div class="copy"><p class="kicker">FOR OVERSEAS UNIVERSITIES & INSTITUTIONS</p><h1>Custom Programs</h1><p>{descriptor.summary}</p><p><strong>{descriptor.experienceLine}</strong></p></div>
+    <div><img class="cover" src={image(customProgramVisuals.hero)} alt="Custom Programs参考写真"/></div>
+  </section>
+
+  <section class="shell sectionGrid">
+    <div class="sectionIntro"><p class="kicker">DESIGN TOGETHER</p><h2>大学ごとに<br/>学びを設計する</h2><p>現行RSJPサイトの説明範囲内で構成しています。</p></div>
+    <div class="mosaic">
+      <article class="mTile tall"><img src={image(customProgramVisuals.gallery[0].image)} alt="授業"/><div class="mOverlay"><h3>Learn</h3><p>授業・学術テーマ</p></div></article>
+      <article class="mTile"><img src={image(customProgramVisuals.gallery[1].image)} alt="学生交流"/><div class="mOverlay"><h3>Connect</h3><p>学生との交流・共修</p></div></article>
+      <article class="mTile wide"><img src={image(customProgramVisuals.gallery[4].image)} alt="フィールド活動"/><div class="mOverlay"><h3>Field & Culture</h3><p>文化体験・フィールドワーク</p></div></article>
+    </div>
+  </section>
+
+  <section class="softBand"><div class="shell sectionGrid"><div class="sectionIntro"><p class="kicker">PARTNER EVIDENCE</p><h2>これまでの<br/>掲載パートナー</h2><p>現行リポジトリのshared partner listをそのまま使用。</p></div><div class="partnerCloud">{customProgramPartners.map(p=><span>{p.flag} {p.name}</span>)}</div></div></section>
+
+  <section class="quietSection"><h2>相談しながら決める項目</h2><div class="infoRows"><div class="infoRow"><b>Education purpose</b><div>教育目的</div></div><div class="infoRow"><b>Duration</b><div>期間</div></div><div class="infoRow"><b>Theme</b><div>テーマ</div></div><div class="infoRow"><b>Participants</b><div>参加人数</div></div><div class="infoRow"><b>Possible elements</b><div>授業・交流・文化体験・フィールドワーク・実施キャンパス等を相談しながら設計</div></div></div></section>
+  <section class="proofBand"><div class="proofGrid"><h2>Institutional trust,<br/>without bureaucracy.</h2><div style="grid-column:span 3"><p style="font-size:18px;line-height:1.8">Pattern Pのブランド感は残しつつ、海外大学担当者が必要な情報を落ち着いて読めるInstitutional版です。確定していない料金・日程・提供保証は追加していません。</p></div></div></section>
+</PrototypeShell>

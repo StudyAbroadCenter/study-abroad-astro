@@ -1,0 +1,60 @@
+---
+import PrototypeShell from '../../components/PatternPJPrototypeShell.astro';
+import { programmePublicDescriptors } from '../../data/programme-public-descriptors';
+import { sharedSiteImages } from '../../data/shared-site-images';
+import { shortTermParticipationEvidence } from '../../data/participation-history';
+import { documentedCoLearningActivities } from '../../data/co-learning-evidence';
+const image=(p:string)=>`/images/${p}`;
+const featured=programmePublicDescriptors.filter(p=>['rwjp','rwjp-express','rdsp','rbmp'].includes(p.id));
+const imageMap:Record<string,string>={rwjp:sharedSiteImages.programmes.rwjp,'rwjp-express':sharedSiteImages.programmes['rwjp-express'],rdsp:sharedSiteImages.programmes.rdsp,rbmp:sharedSiteImages.programmes.rbmp};
+---
+<PrototypeShell active="home" title="Pattern P + J Prototype | Ritsumeikan Short-Term Study">
+  <section class="splitHero">
+    <div class="media"><img src={image(sharedSiteImages.home.hero)} alt="立命館大学の短期留学プログラム参考写真" /></div>
+    <div class="heroPanel">
+      <p class="eyebrow">RITSUMEIKAN SHORT-TERM STUDY</p>
+      <h1>日本で学ぶ時間を<br/>立命館から。</h1>
+      <p>日本語・日本文化、専門分野、学生との共修。京都・大阪のキャンパスから、短期留学を「参加して終わる経験」にしない。</p>
+      <div class="actions"><a class="btn light" href="/pattern-pj-prototype/programs/">プログラムを探す →</a><a class="btn ghost" href="/pattern-pj-prototype/buddy/">Buddyを見る</a></div>
+    </div>
+  </section>
+
+  <section class="shell sectionGrid">
+    <div class="sectionIntro"><p class="kicker">PROGRAMS</p><h2>自分に合う<br/>入口を見つける</h2><p>現行RSJPサイトの公開用descriptorだけを使用。未確認の年度条件は追加していません。</p><a class="textLink" href="/pattern-pj-prototype/programs/">すべて見る →</a></div>
+    <div class="programGrid">
+      {featured.map((p)=><article class="programTile"><img src={image(imageMap[p.id])} alt=""/><div class="body"><h3>{p.name}</h3><p>{p.summary}</p><div class="status">{p.status}</div></div></article>)}
+    </div>
+  </section>
+
+  <section class="proofBand">
+    <div class="proofGrid">
+      <h2>世界から来る。<br/>キャンパスでつながる。</h2>
+      <div class="metric"><b>{shortTermParticipationEvidence.participants}</b><span>参加者 / {shortTermParticipationEvidence.period}</span></div>
+      <div class="metric"><b>{shortTermParticipationEvidence.countriesOrRegions}</b><span>か国・地域</span></div>
+      <div class="metric"><b>{shortTermParticipationEvidence.institutions}</b><span>大学・機関</span></div>
+    </div>
+  </section>
+
+  <section class="shell sectionGrid">
+    <div class="sectionIntro"><p class="kicker">CO-LEARNING</p><h2>受入で<br/>終わらせない</h2><p>立命館の学生と出会い、共に学び、その出会いを次の留学や再交流へ。</p><a class="textLink" href="/pattern-pj-prototype/buddy/">Buddy & Global Connections →</a></div>
+    <div class="mosaic">
+      {documentedCoLearningActivities.map((a,i)=><article class={`mTile ${i===0?'tall':i===2?'wide':''}`}><img src={image(a.image)} alt={a.imageAlt}/><div class="mOverlay"><h3>{a.title}</h3><p>{a.summary}</p></div></article>)}
+    </div>
+  </section>
+
+  <section class="softBand">
+    <div class="shell sectionGrid">
+      <div class="sectionIntro"><p class="kicker">ONE PRODUCT, MANY LANGUAGES</p><h2>翻訳ではなく<br/>Localisation</h2></div>
+      <div><h2 style="font-size:42px;margin-top:0">日本語 Master → English → 한국어 → 简体中文 → 繁體中文</h2><p style="max-width:820px;line-height:1.8">現行サイトの多言語仕様と同じ考え方で、事実は共通のcanonical dataから、文章は各言語で自然に書く。Pattern Pは固定カードではなくモジュール構成なので、言語ごとの文字量に合わせて再構成できます。</p></div>
+    </div>
+  </section>
+
+  <section class="shell sectionGrid">
+    <div class="sectionIntro"><p class="kicker">NEXT</p><h2>学ぶ。出会う。<br/>次へ進む。</h2></div>
+    <div class="mosaic">
+      <article class="mTile tall"><img src={image(sharedSiteImages.rwjp.real.classroom)} alt="日本語を学ぶ短期留学生"/><div class="mOverlay"><h3>Learn</h3><p>教室で学ぶ。</p></div></article>
+      <article class="mTile"><img src={image(sharedSiteImages.rwjp.real.interaction)} alt="学生交流"/><div class="mOverlay"><h3>Meet</h3><p>キャンパスで出会う。</p></div></article>
+      <article class="mTile wide"><img src={image(sharedSiteImages.rwjp.real.kyoto)} alt="京都でのフィールド活動"/><div class="mOverlay"><h3>Go beyond campus</h3><p>京都・大阪で学びを広げる。</p></div></article>
+    </div>
+  </section>
+</PrototypeShell>
