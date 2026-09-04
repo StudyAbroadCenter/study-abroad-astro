@@ -1,0 +1,78 @@
+---
+import PrototypeShell from '../../../components/PatternPJPrototypeShell.astro';
+import { programmes } from '../../../data/programs';
+import { programmePageDrafts } from '../../../data/programme-page-drafts';
+import { currentOfferingFacts } from '../../../data/current-offerings';
+import { coreProgramme2027Facts } from '../../../data/core-programme-2027-facts';
+import { campusPlaces } from '../../../data/campuses';
+
+export function getStaticPaths(){
+  return ['rsjp','rsjp-express','rwjp-express','rdsp','rbmp'].map(id=>({params:{id}}));
+}
+const { id } = Astro.params;
+const programme = programmes.find(p=>p.id===id)!;
+const draft = programmePageDrafts.find(p=>p.id===id)!;
+const offering = currentOfferingFacts[id as keyof typeof currentOfferingFacts];
+const core = id && ['rwjp-express','rdsp','rbmp'].includes(id) ? coreProgramme2027Facts[id as keyof typeof coreProgramme2027Facts] : null;
+const campus = campusPlaces.find(c=>c.id===(programme.campus==='oic'?'osaka':'kyoto'))!;
+const image=(p:string)=>`/images/${p}`;
+const date=(iso:string|null|undefined)=>{if(!iso)return '確認中'; const [y,m,d]=iso.split('-').map(Number); return `${y}年${m}月${d}日`;};
+const range=(r:{start:string;end:string}|null|undefined)=>r?`${date(r.start)} – ${date(r.end)}`:'確認中';
+const yen=(n:number|null|undefined)=>n==null?'確認中':`${n.toLocaleString('ja-JP')}円`;
+const statusLabel = offering.certainty==='Confirmed'?'2027年度 確認済み情報':offering.certainty==='Provisional'?'2027年度 計画中':'2027年度 詳細確認中';
+---
+<PrototypeShell active="programs" title={`${draft.title} | 立命館大学 Study Abroad Center`} description={draft.emphasis}>
+  <section class="detailHero">
+    <div class="detailHeroCopy">
+      <p class="kicker">{draft.category}</p>
+      <p class="detailCode">{draft.code}</p>
+      <h1>{draft.title}</h1>
+      <p class="detailLead">{draft.lead}</p>
+      <p class="detailSummary">{draft.emphasis}</p>
+      <div class={`detailStatus ${offering.certainty.toLowerCase()}`}>{statusLabel}</div>
+    </div>
+    <div class="detailHeroMedia"><img src={image(programme.image)} alt={programme.copy.ja.imageAlt}/></div>
+  </section>
+
+  <section class="detailFacts">
+    <article><small>PROGRAMME DATES</small><strong>{range(offering.programmeDates)}</strong></article>
+    <article><small>CAMPUS</small><strong>{offering.campusJa}</strong></article>
+    <article><small>PROGRAMME FEE</small><strong>{yen(offering.programmeFeeJPY)}</strong></article>
+    <article><small>APPLICATION</small><strong>{range(offering.applicationPeriod)}</strong></article>
+    <article><small>CHECK-IN / OUT</small><strong>{offering.checkIn?date(offering.checkIn):'確認中'}<br/>{offering.checkOut?date(offering.checkOut):'確認中'}</strong></article>
+    <article><small>MINIMUM</small><strong>{offering.minimumParticipants==null?'確認中':`${offering.minimumParticipants}名`}</strong></article>
+  </section>
+
+  <section class="detailEditorial">
+    <div class="detailTitle"><p class="kicker">THE EXPERIENCE</p><h2>{programme.copy.ja.experienceLine}</h2></div>
+    <div class="detailBody"><p>{programme.copy.ja.summary}</p><p>{draft.emphasis}</p></div>
+  </section>
+
+  {core ? <>
+    <section class="detailDark">
+      <div><p class="kicker">LEARNING</p><h2>このプログラムで学ぶこと</h2></div>
+      <div class="learningGrid">{core.academic.map((item)=><article>{item}</article>)}</div>
+    </section>
+    <section class="detailInfo">
+      <div><p class="kicker">WHO IT IS FOR</p><h2>対象・参加条件</h2><p>{core.audience}</p></div>
+      <div><p class="kicker">ACCOMMODATION</p><h2>宿泊について</h2><p>{core.accommodation}</p></div>
+    </section>
+    {core.notes.length>0&&<section class="detailNotes"><h2>参加前に確認したいこと</h2><ul>{core.notes.map(n=><li>{n}</li>)}</ul></section>}
+  </> : <section class="pendingBand"><div><p class="kicker">2027 INFORMATION</p><h2>年度別情報は、確認できたものから掲載します。</h2></div><p>現在、2027年度の日程・費用・募集期間・宿舎等は正式確認中です。前年情報や推測値は掲載していません。</p></section>}
+
+  <section class="campusFeature">
+    <img src={image(campus.image)} alt={campus.imageAlt}/>
+    <div><p class="kicker">CAMPUS</p><h2>{campus.campusJa}</h2><p>{campus.cityJa}・{campus.locality}。このプログラムの実施場所として案内しているキャンパスです。</p></div>
+  </section>
+
+  <section class="detailNext">
+    <div><p class="kicker">NEXT STEP</p><h2>プログラムを比較して、自分に合う学びを選ぶ。</h2></div>
+    <a class="detailButton" href="/pattern-pj-prototype/programs/">プログラム一覧へ戻る →</a>
+  </section>
+</PrototypeShell>
+
+<style>
+.detailHero{min-height:570px;display:grid;grid-template-columns:.92fr 1.08fr;background:#f4f0e9}.detailHeroCopy{padding:70px 7vw;display:flex;flex-direction:column;justify-content:center}.detailCode{font-size:14px;font-weight:900;letter-spacing:.12em;color:#a81320;margin:10px 0}.detailHero h1{font-size:clamp(42px,4.7vw,68px);line-height:1.03;letter-spacing:-.045em;margin:4px 0 18px;max-width:15ch;text-wrap:balance}.detailLead{font-size:clamp(22px,2.3vw,34px);font-weight:800;line-height:1.28;margin:0 0 18px;max-width:18ch}.detailSummary{font-size:15px;line-height:1.8;color:#4f4f4f;max-width:650px}.detailStatus{margin-top:22px;width:max-content;padding:8px 12px;font-size:11px;font-weight:900;background:#fff;border:1px solid #d9d1c7}.detailStatus.confirmed{color:#1f5c42;border-color:#9fc2b2}.detailStatus.provisional{color:#8a641c;border-color:#d8c188}.detailHeroMedia{min-height:470px;overflow:hidden}.detailHeroMedia img{width:100%;height:100%;object-fit:cover}.detailFacts{max-width:1320px;margin:auto;padding:34px 42px 62px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.detailFacts article{background:#f7f4ef;padding:22px;min-height:125px}.detailFacts small{display:block;font-size:10px;letter-spacing:.12em;font-weight:900;color:#756b63;margin-bottom:11px}.detailFacts strong{font-size:18px;line-height:1.45}.detailEditorial{max-width:1320px;margin:auto;padding:30px 42px 78px;display:grid;grid-template-columns:.9fr 1.1fr;gap:70px;align-items:start}.detailTitle h2,.detailDark h2,.detailInfo h2,.detailNotes h2,.pendingBand h2,.campusFeature h2,.detailNext h2{font-size:clamp(30px,3.2vw,46px);line-height:1.12;letter-spacing:-.035em;margin:8px 0;text-wrap:balance}.detailBody p,.detailInfo p,.pendingBand p,.campusFeature p{font-size:15px;line-height:1.85;color:#4d4d4d}.detailDark{background:#171717;color:#fff;padding:72px 6vw;display:grid;grid-template-columns:.75fr 1.25fr;gap:60px}.learningGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.learningGrid article{min-height:110px;padding:22px;background:#282828;display:flex;align-items:flex-end;font-size:16px;font-weight:800;line-height:1.45}.detailInfo{max-width:1320px;margin:auto;padding:72px 42px;display:grid;grid-template-columns:1fr 1fr;gap:18px}.detailInfo>div{padding:34px;background:#f5f1eb}.detailNotes{max-width:1180px;margin:auto;padding:10px 42px 70px}.detailNotes ul{margin:22px 0 0;padding:0;list-style:none;border-top:1px solid #ddd}.detailNotes li{padding:17px 0;border-bottom:1px solid #ddd;line-height:1.65}.pendingBand{background:#f1e5c9;padding:68px 7vw;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end}.campusFeature{max-width:1320px;margin:78px auto;display:grid;grid-template-columns:1.15fr .85fr;min-height:430px}.campusFeature img{width:100%;height:100%;object-fit:cover}.campusFeature div{padding:50px;background:#f6f2ed;display:flex;flex-direction:column;justify-content:center}.detailNext{background:#a81320;color:#fff;padding:60px 7vw;display:flex;justify-content:space-between;gap:40px;align-items:center}.detailNext h2{max-width:18ch}.detailButton{background:#fff;color:#171717;text-decoration:none;padding:15px 20px;font-weight:900;white-space:nowrap}
+@media(max-width:900px){.detailHero,.detailEditorial,.detailDark,.detailInfo,.pendingBand,.campusFeature{grid-template-columns:1fr}.detailFacts{grid-template-columns:repeat(2,1fr)}.detailHeroMedia{order:-1;min-height:340px}.detailHeroCopy{padding:50px 7vw}.detailNext{align-items:flex-start;flex-direction:column}}
+@media(max-width:620px){.detailFacts{grid-template-columns:1fr;padding-left:20px;padding-right:20px}.detailEditorial,.detailInfo,.detailNotes{padding-left:20px;padding-right:20px}.detailDark{padding:50px 20px}.learningGrid{grid-template-columns:1fr}.pendingBand{padding:50px 20px}.campusFeature{margin:50px 20px}.detailNext{padding:48px 20px}}
+</style>

@@ -4,6 +4,7 @@ import { programmePublicDescriptors } from '../../data/programme-public-descript
 import { sharedSiteImages } from '../../data/shared-site-images';
 const image=(p:string)=>`/images/${p}`;
 const imageMap:Record<string,string>={rsjp:sharedSiteImages.programmes.rsjp,'rsjp-express':sharedSiteImages.programmes['rsjp-express'],rwjp:sharedSiteImages.programmes.rwjp,'rwjp-express':sharedSiteImages.programmes['rwjp-express'],rdsp:sharedSiteImages.programmes.rdsp,rbmp:sharedSiteImages.programmes.rbmp,'custom-programs':sharedSiteImages.programmes['custom-programs']};
+const hrefFor=(id:string)=>id==='rwjp'?'/pattern-pj-prototype/rwjp/':id==='custom-programs'?'/pattern-pj-prototype/custom-programs/':`/pattern-pj-prototype/programs/${id}/`;
 ---
 <PrototypeShell active="programs" title="短期留学プログラム | 立命館大学 Study Abroad Center" description="立命館大学の短期留学・短期受入プログラム一覧。日本語、日本文化、専門分野、Custom Programsなどから目的に合うプログラムを探せます。">
   <header class="pageHero">
@@ -19,7 +20,7 @@ const imageMap:Record<string,string>={rsjp:sharedSiteImages.programmes.rsjp,'rsj
   <section class="programEditorial">
     {programmePublicDescriptors.map((p,i)=><article class={`programTile ${i===0?'feature':''}`}>
       <img src={image(imageMap[p.id])} alt=""/>
-      <div class="body"><p class="kicker">{p.id.toUpperCase()}</p><h3>{p.name}</h3>{p.experienceLine&&<strong>{p.experienceLine}</strong>}<p>{p.summary}</p><div class="status">{p.status}</div>{p.id==='rwjp'&&<a class="textLink" href="/pattern-pj-prototype/rwjp/">2027年度の詳細を見る →</a>}</div>
+      <div class="body"><p class="kicker">{p.id.toUpperCase()}</p><h3>{p.name}</h3>{p.experienceLine&&<strong>{p.experienceLine}</strong>}<p>{p.summary}</p><div class="status">{p.status}</div><a class="textLink" href={hrefFor(p.id)}>詳細を見る →</a></div>
     </article>)}
   </section>
 
