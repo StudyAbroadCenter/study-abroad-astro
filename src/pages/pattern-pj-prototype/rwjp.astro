@@ -8,28 +8,47 @@ const d=(iso:string)=>{const [y,m,day]=iso.split('-').map(Number);return `${y}�
 const dates=rwjp2027Facts.programmeDates.value!;
 const app=rwjp2027Facts.applicationPeriod.value!;
 ---
-<PrototypeShell active="programs" title="RWJP 2027 | Pattern P + J Prototype">
+<PrototypeShell active="programs" title="RWJP 2027 | 立命館大学 Study Abroad Center" description="Ritsumeikan Winter Japanese Program 2027の期間、費用、参加条件、宿舎などをご案内します。">
   <section class="institutionalHero">
-    <div class="copy"><p class="kicker">PROGRAM DETAIL / QUIET PATTERN P</p><h1>{rwjp2027Facts.officialName.value}</h1><p>日本語を中心に、文化体験とキャンパスでの学びをつなぐ冬期プログラム。以下は現行RSJPリポジトリでConfirmedになっている2027年度情報のみを表示しています。</p></div>
-    <div><img class="cover" src={image(sharedSiteImages.rwjp.hero)} alt="RWJPの冬の京都イメージ"/></div>
+    <div class="copy"><p class="kicker">2027 PROGRAM</p><h1>{rwjp2027Facts.officialName.value}</h1><p>日本語を中心に、文化体験とキャンパスでの学びをつなぐ冬期プログラムです。</p></div>
+    <div><img class="cover" src={image(sharedSiteImages.rwjp.hero)} alt="RWJPの冬の京都"/></div>
   </section>
+
   <section class="quietSection">
+    <h2>プログラム概要</h2>
     <div class="factGrid">
       <article class="fact"><small>PROGRAMME DATES</small><strong>{d(dates.start)}<br/>– {d(dates.end)}</strong></article>
-      <article class="fact"><small>DURATION</small><strong>{rwjp2027Facts.durationLabel.value}</strong><p>{rwjp2027Facts.campus.value}</p></article>
+      <article class="fact"><small>DURATION / CAMPUS</small><strong>{rwjp2027Facts.durationLabel.value}</strong><p>{rwjp2027Facts.campus.value}</p></article>
       <article class="fact"><small>PROGRAMME FEE</small><strong>{yen(rwjp2027Facts.programmeFee.value)}</strong></article>
-      <article class="fact"><small>ACCOMMODATION</small><strong>{yen(rwjp2027Facts.accommodationFee.value)}</strong><p>大将軍寮利用時の追加費用</p></article>
+      <article class="fact"><small>ACCOMMODATION</small><strong>{yen(rwjp2027Facts.accommodationFee.value)}</strong><p>大将軍寮を利用する場合の追加費用</p></article>
       <article class="fact"><small>APPLICATION</small><strong>{d(app.start)}<br/>– {d(app.end)}</strong></article>
       <article class="fact"><small>JAPANESE</small><strong>{rwjp2027Facts.japaneseMinutes.value?.toLocaleString()}分</strong><p>{rwjp2027Facts.japaneseClassMinutes.value}分授業 × 1日{rwjp2027Facts.japaneseClassesPerDay.value}コマ</p></article>
       <article class="fact"><small>CULTURE</small><strong>{rwjp2027Facts.cultureSessions.value} sessions</strong><p>各{rwjp2027Facts.cultureSessionMinutes.value}分</p></article>
       <article class="fact"><small>PAYMENT</small><strong>{rwjp2027Facts.paymentMethod.value}</strong></article>
     </div>
   </section>
+
   <section class="quietSection">
-    <h2>参加条件</h2><div class="infoRows"><div class="infoRow"><b>Eligibility</b><div>{rwjp2027Facts.eligibility.value}</div></div><div class="infoRow"><b>Japanese requirement</b><div>{rwjp2027Facts.japaneseRequirement.value}</div></div></div>
+    <h2>参加条件</h2>
+    <div class="infoRows">
+      <div class="infoRow"><b>Eligibility</b><div>{rwjp2027Facts.eligibility.value}</div></div>
+      <div class="infoRow"><b>Japanese requirement</b><div>{rwjp2027Facts.japaneseRequirement.value}</div></div>
+    </div>
   </section>
+
   <section class="quietSection">
-    <h2>宿舎</h2><div class="infoRows"><div class="infoRow"><b>Accommodation</b><div>{rwjp2027Facts.accommodation.value}</div></div><div class="infoRow"><b>Commute</b><div>{rwjp2027Facts.accommodationCommute.value}</div></div><div class="infoRow"><b>Meals / Kitchen</b><div><p>{rwjp2027Facts.accommodationMeals.value}</p><p>{rwjp2027Facts.accommodationKitchen.value}</p></div></div></div>
+    <h2>宿舎・生活</h2>
+    <div class="infoRows">
+      <div class="infoRow"><b>Accommodation</b><div>{rwjp2027Facts.accommodation.value}</div></div>
+      <div class="infoRow"><b>Commute</b><div>{rwjp2027Facts.accommodationCommute.value}</div></div>
+      <div class="infoRow"><b>Meals / Kitchen</b><div><p>{rwjp2027Facts.accommodationMeals.value}</p><p>{rwjp2027Facts.accommodationKitchen.value}</p></div></div>
+    </div>
   </section>
-  <section class="softBand"><div class="quietSection"><h2>Pattern Pを「静かにする」理由</h2><p>Program Detailでは装飾より判断情報を優先します。トップページの大胆なEditorial Mosaicと同じブランド感を残しつつ、事実はFact Gridと情報行で読みやすく整理します。</p></div></section>
+
+  <section class="softBand">
+    <header class="editorialHead">
+      <div><p class="kicker">LEARN IN KYOTO</p><h2><span>教室で学び、</span><span>京都で使う。</span></h2></div>
+      <div><p>日本語の授業だけでなく、文化体験やキャンパスでの学びを通して、日本でことばを使う経験につなげます。</p></div>
+    </header>
+  </section>
 </PrototypeShell>
