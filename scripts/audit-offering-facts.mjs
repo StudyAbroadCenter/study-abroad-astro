@@ -15,6 +15,7 @@ const presentationFiles = [
   'src/components/ProgramFinder.astro',
   'src/components/ProgrammePageShell.astro',
   'src/components/EnglishHome.astro',
+  'src/components/EnglishStudentRecruitmentLayout.astro',
   'src/components/KoreanHome.astro',
   'src/components/ChineseHome.astro',
   'src/pages/ko/index.astro',
