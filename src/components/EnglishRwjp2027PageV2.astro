@@ -70,10 +70,10 @@ const applicationReady = isJourneyLinkReady(applicationLink) && Boolean(applicat
   <section class="rw27-fit" id="fit" aria-labelledby="rw27-fit-title"><div class="rw27-shell rw27-fit__grid">
     <div><p class="rw27-kicker">Who can apply</p><h2 id="rw27-fit-title">Beginners are welcome.<br />The expectations are clear.</h2><p>RWJP is designed for students at different stages of Japanese learning. Eligibility and pre-arrival requirements are not softened for marketing.</p></div>
     <ol class="rw27-rule-list">
-      <li><span>01</span><div><strong>Complete beginners may apply.</strong><p>No prior Japanese study is required.</p></div></li>
-      <li><span>02</span><div><strong>Read hiragana and katakana before the program starts.</strong><p>This is required for every participant.</p></div></li>
+      <li><span>01</span><div><strong>Complete beginners may apply.</strong><p>No prior Japanese study is required, but complete beginners must meet the script requirement before the program starts.</p></div></li>
+      <li><span>02</span><div><strong>Read and write hiragana and katakana before the program starts.</strong><p>Students with no prior Japanese learning experience must meet this requirement. The program does not teach hiragana or katakana.</p></div></li>
       <li><span>03</span><div><strong>JLPT N1 holders are not eligible.</strong><p>RWJP is not intended for students who already hold N1.</p></div></li>
-      <li><span>04</span><div><strong>Remain enrolled through participation.</strong><p>You must be enrolled at a university or graduate school from application through the program. Part-time students are eligible.</p></div></li>
+      <li><span>04</span><div><strong>Remain enrolled at a university throughout the entire program period.</strong><p>All required documents and fees must also be submitted by the designated deadlines.</p></div></li>
     </ol>
   </div></section>
 
@@ -97,15 +97,15 @@ const applicationReady = isJourneyLinkReady(applicationLink) && Boolean(applicat
       <div data-fact-row="cultural-learning"><dt>Cultural learning</dt><dd>{cultureHours !== null ? `${cultureHours} hours` : 'To be confirmed'}{cultureSessions !== null ? ` · ${cultureSessions} sessions` : ''}</dd></div>
       <div data-fact-row="accommodation"><dt>Accommodation</dt><dd>Taishogun Dormitory · {accommodationFee} additional</dd></div>
       <div data-fact-row="accommodation-dates"><dt>Dormitory stay</dt><dd>{accommodationDates}</dd></div>
-      <div data-fact-row="eligibility"><dt>Eligibility</dt><dd>University or graduate-school students enrolled from application through participation; part-time students are eligible.</dd></div>
-      <div data-fact-row="japanese-requirement"><dt>Japanese requirement</dt><dd>Complete beginners may apply. JLPT N1 holders are not eligible. Hiragana and katakana reading is required before the program begins.</dd></div>
-      <div data-fact-row="refund-fee"><dt>Non-refundable amount after payment</dt><dd>{refundFee}, plus any already-incurred arrangement costs that cannot be recovered.</dd></div>
+      <div data-fact-row="eligibility"><dt>Eligibility</dt><dd>Students enrolled at a university throughout the entire program period.</dd></div>
+      <div data-fact-row="japanese-requirement"><dt>Japanese requirement</dt><dd>JLPT N1 holders are not eligible. Students with no prior Japanese learning experience must be able to read and write hiragana and katakana before the program begins; the program does not teach these scripts.</dd></div>
+      <div data-fact-row="refund-fee"><dt>Non-refundable amount after payment</dt><dd>{refundFee} non-refundable administrative fee; the remaining balance is refunded.</dd></div>
     </dl>
   </div></section>
 
   <section class="rw27-policy" aria-label="Payment and cancellation"><div class="rw27-shell rw27-policy__grid">
     <article><p class="rw27-kicker">Payment</p><h2>After admission, by Convera.</h2><p>Payment instructions are sent after admission. The program fee and, if used, the dormitory fee must be paid by the specified deadline. Failure to pay by the deadline results in loss of the place.</p></article>
-    <article><p class="rw27-kicker">Cancellation</p><h2>Know the deduction before you pay.</h2><p>There is no cancellation charge before payment. After payment, {refundFee} plus any non-recoverable costs already incurred for arrangements are deducted; any remaining balance is refunded.</p></article>
+    <article><p class="rw27-kicker">Cancellation</p><h2>Know the deduction before you pay.</h2><p>If a participant cancels for any reason after payment, a non-refundable administrative fee of {refundFee} is deducted from the amount paid and the remaining balance is refunded.</p></article>
   </div></section>
 
   <section class="rw27-apply" id="apply" aria-labelledby="rw27-apply-title"><div class="rw27-shell rw27-apply__grid">
