@@ -7,6 +7,7 @@ OUT = PUBLIC / 'generated'
 OUT.mkdir(parents=True, exist_ok=True)
 
 JOBS = {
+    'home-hero': (PUBLIC / 'IMG_1588.JPG', 1600, None, 82, 'standard'),
     'hero-kinugasa': (PUBLIC / 'hero' / 'hero-kinugasa-clocktower.jpg', 1920, None, 86, 'hero'),
     'rsjp': (PUBLIC / 'IMG_8178.JPG', 720, 480, 76, 'standard'),
     'rsjp-express': (PUBLIC / 'IMG_5092.JPG', 720, 480, 76, 'standard'),
