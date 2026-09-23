@@ -80,9 +80,9 @@ export const rwjp2027Facts: RwjpFacts = {
   paymentMethod: confirmed(paymentMethod),
   paymentPolicy: confirmed(`合格後に事務局から${paymentMethod}による支払い方法と手順を通知します。プログラム費${yen(programmeFee)}と、大将軍寮を利用する場合の宿泊費${yen(accommodationFee)}は、指定された支払期限までに支払います。支払期限までに支払いが完了しない場合、参加資格は失効します。`),
   refundAmount: confirmed(refundDeduction),
-  refundPolicy: confirmed(`参加費を支払う前に辞退する場合、キャンセル料は発生しません。支払後にキャンセルする場合は${yen(refundDeduction)}に加え、キャンセル時点ですでに手配・支出され返金できない費用を差し引いた残額を返金します。`),
-  eligibility: confirmed('申請時からプログラム参加時まで大学または大学院に在籍している学生が対象です。大学入学前の方、卒業後の方は対象外です。社会人でも、大学・大学院にパートタイム学生として在籍している場合は対象です。'),
-  japaneseRequirement: confirmed('JLPT N1保持者は対象外です。日本語学習経験がない方も応募できますが、プログラム開始前までにひらがな・カタカナを読めるようにしておく必要があります。'),
+  refundPolicy: confirmed(`支払後にキャンセルする場合は、支払済み金額から返金不可の事務手数料${yen(refundDeduction)}を差し引き、残額を返金します。`),
+  eligibility: confirmed('プログラム期間全体を通じて大学に在籍している学生が対象です。必要書類と費用は指定された期限までに提出・支払う必要があります。'),
+  japaneseRequirement: confirmed('JLPT N1保持者は対象外です。日本語学習経験がない方は、プログラム開始前までにひらがな・カタカナを読み書きできる必要があります。プログラムではひらがな・カタカナの指導は行いません。'),
   applicationPeriod: confirmed(applicationPeriod),
   programmeFee: confirmed(programmeFee),
 };
