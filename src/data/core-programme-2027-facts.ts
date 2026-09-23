@@ -37,14 +37,14 @@ export const coreProgramme2027Facts: Record<CoreProgrammeFact['id'], CoreProgram
     ...(express.checkOut ? { checkOut: express.checkOut } : {}),
     ...(express.programmeFeeJPY !== null ? { fee: express.programmeFeeJPY } : {}),
     ...(express.minimumParticipants !== null ? { minimumParticipants: express.minimumParticipants } : {}),
-    audience: '大学・大学院に在籍する学生。日本語初学者も応募可能だが、開始前までにひらがな・カタカナを読めること。',
+    audience: 'プログラム期間全体を通じて大学に在籍する学生。日本語未習者は開始前までにひらがな・カタカナを読み書きできること。JLPT N1保持者は対象外。',
     academic: ['日本語講座 1,350分（22.5時間）', '文化学習 360分'],
-    accommodation: '大将軍寮を利用可能。短期プログラム用居室12室、各室最大4名、原則複数人利用。部屋割りは大学が決定。',
+    accommodation: '2月Sessionは大将軍寮または京都市内・衣笠キャンパスから概ね30分以内の自己手配宿舎を利用可能。大将軍寮は12室・各室最大4名の相部屋で、先着順。施設利用料42,500円。',
     notes: [
       express.minimumParticipants !== null ? `最少催行${express.minimumParticipants}名` : '最少催行人数は確認後に掲載',
       express.paymentMethod ? `支払いは${express.paymentMethod}` : '支払方法は確認後に掲載',
       express.refundDeductionJPY !== null
-        ? `支払後の返金では${express.refundDeductionJPY.toLocaleString('ja-JP')}円に加え、返金不能な手配済み費用を控除`
+        ? `支払後のキャンセルでは返金不可の事務手数料${express.refundDeductionJPY.toLocaleString('ja-JP')}円を控除し、残額を返金`
         : '返金条件は確認後に掲載',
     ],
     source: express.source,
