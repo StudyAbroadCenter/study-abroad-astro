@@ -87,6 +87,9 @@ const rsjpExpressYear = rsjpExpressOffering.academicYear;
 const expressMinimum = rwjpExpressOffering.minimumParticipants;
 const expressPayment = rwjpExpressOffering.paymentMethod ?? 'To be confirmed';
 const expressRefund = formatJPY(rwjpExpressOffering.refundDeductionJPY);
+const expressFee = formatJPY(rwjpExpressOffering.programmeFeeJPY);
+const expressAccommodationFee = formatJPY(rwjpExpressOffering.accommodationFeeJPY);
+const expressApplicationPeriod = range(rwjpExpressOffering.applicationPeriod?.start, rwjpExpressOffering.applicationPeriod?.end);
 const rbmpFee = formatJPY(rbmpOffering.programmeFeeJPY);
 const rbmpMinimum = rbmpOffering.minimumParticipants;
 
@@ -232,7 +235,7 @@ export const englishProgrammePages: Record<EnglishProgrammePage['id'], EnglishPr
     status: 'confirmed',
     statusLabel: `${expressYear} core information confirmed`,
     statusNote:
-      `The ${expressYear} dates, academic load, minimum cohort, payment method, refund deduction rule and Taishogun Dormitory framework below are confirmed. Program fee and application period are not shown because they are not yet verified in the current source boundary.`,
+      `The ${expressYear} dates, academic load, minimum cohort, payment method, refund deduction rule and Taishogun Dormitory framework below are confirmed. The February Session program fee, application period, accommodation fee, minimum cohort, payment method and refund rule are confirmed from the approved 2027 application guidelines.`,
     overviewTitle: 'Short in duration. Structured in purpose.',
     overviewText:
       'The program combines a substantial Japanese-language block with cultural learning across an intensive two-week schedule. The compact format is not presented as a lighter academic option.',
@@ -251,13 +254,13 @@ export const englishProgrammePages: Record<EnglishProgrammePage['id'], EnglishPr
     ],
     eligibilityTitle: `Who the ${expressYear} offering is designed for`,
     eligibilityItems: [
-      'University and graduate-school students.',
-      'Complete beginners may apply.',
-      'Every participant must be able to read hiragana and katakana before the program starts.',
+      'Students must be enrolled at a university throughout the entire program period.',
+      'Students with no prior Japanese learning experience must be able to read and write hiragana and katakana before the program starts; these scripts are not taught in the program.',
+      'Students who already hold JLPT N1 are not eligible.',
     ],
     accommodationTitle: `Taishogun Dormitory is available for the ${expressYear} offering.`,
     accommodationText:
-      'Short-program accommodation uses Taishogun Dormitory. There are 12 short-program rooms, each accommodating up to four students. Shared occupancy is the standard and room assignments are decided by the university.',
+      'For the February Session, participants may apply for IH Taishogun or arrange their own accommodation in Kyoto City within approximately 30 minutes of Kinugasa Campus. IH Taishogun has 12 shared rooms, each accommodating up to four residents, and is allocated on a first-come, first-served basis after all required documents have been submitted.',
     facts: [
       { key: 'official-name', label: 'Offering', value: rwjpExpress.offering, status: 'Confirmed' },
       { key: 'programme-dates', label: 'Program dates', value: range(rwjpExpress.dates?.start, rwjpExpress.dates?.end), status: 'Confirmed' },
@@ -268,15 +271,16 @@ export const englishProgrammePages: Record<EnglishProgrammePage['id'], EnglishPr
       { key: 'cultural-learning', label: 'Cultural learning', value: '360 minutes', status: 'Confirmed' },
       { key: 'minimum-participants', label: 'Minimum participants', value: expressMinimum === null ? 'To be confirmed' : String(expressMinimum), status: expressMinimum === null ? 'Pending verification' : 'Confirmed' },
       { key: 'payment', label: 'Payment method', value: expressPayment, status: rwjpExpressOffering.paymentMethod ? 'Confirmed' : 'Pending verification' },
-      { key: 'refund', label: 'Post-payment refund deduction', value: rwjpExpressOffering.refundDeductionJPY === null ? 'To be confirmed' : `${expressRefund} plus any unrecoverable arrangement costs`, status: rwjpExpressOffering.refundDeductionJPY === null ? 'Pending verification' : 'Confirmed' },
-      { key: 'programme-fee', label: 'Program fee', value: 'Not yet published in this English source', status: 'Pending verification' },
-      { key: 'application-period', label: 'Application period', value: 'Not yet published in this English source', status: 'Pending verification' },
+      { key: 'refund', label: 'Post-payment refund deduction', value: rwjpExpressOffering.refundDeductionJPY === null ? 'To be confirmed' : `${expressRefund} non-refundable administrative fee; remaining balance refunded`, status: rwjpExpressOffering.refundDeductionJPY === null ? 'Pending verification' : 'Confirmed' },
+      { key: 'programme-fee', label: 'Program fee', value: expressFee, status: 'Confirmed' },
+      { key: 'accommodation-fee', label: 'IH Taishogun facility-use fee', value: expressAccommodationFee, status: 'Confirmed' },
+      { key: 'application-period', label: 'Application period', value: expressApplicationPeriod, status: 'Confirmed' },
     ],
     nextTitle: `Ready to plan for ${monthDayYear(rwjpExpress.dates?.start).replace(/^[A-Za-z]+ \d+, /, '')}?`,
     nextText:
       'Use the confirmed schedule and academic load for planning. Return to this page for the verified fee and application window before submitting anything.',
     verificationNote:
-      `Verified from the current ${expressYear} RWJP Express programme-team confirmation dated ${rwjpExpress.verifiedAt}. Unverified values are intentionally omitted.`,
+      `Verified against the approved 2027 RWJP / RWJP Express Application Guidelines (updated August 27, 2026). This page represents the February Session; the January Session has different dates, campus and accommodation arrangements.`,
   },
 
   rdsp: {
