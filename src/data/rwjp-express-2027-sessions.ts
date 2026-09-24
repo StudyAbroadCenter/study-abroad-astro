@@ -1,0 +1,41 @@
+export const rwjpExpress2027Sessions = {
+  january: {
+    labelJa: '1月Session',
+    labelEn: 'January Session',
+    programmeDates: { start: '2027-01-19', end: '2027-01-29' },
+    campusJa: '大阪いばらきキャンパス（OIC）',
+    campusEn: 'Osaka Ibaraki Campus (OIC)',
+    applicationPeriod: { start: '2026-10-07', end: '2026-10-21' },
+    paymentDeadline: '2026-11-13',
+    arrival: '2027-01-18',
+    departure: '2027-01-30',
+    accommodationJa: '大学宿舎は提供しません。OICへの通学に適した宿舎を参加者自身で手配します。',
+    accommodationEn: 'University accommodation is not provided. Participants must arrange accommodation suitable for daily attendance at OIC.',
+  },
+  february: {
+    labelJa: '2月Session',
+    labelEn: 'February Session',
+    programmeDates: { start: '2027-02-16', end: '2027-02-26' },
+    campusJa: '衣笠キャンパス（京都）',
+    campusEn: 'Kinugasa Campus, Kyoto',
+    applicationPeriod: { start: '2026-11-04', end: '2026-11-18' },
+    paymentDeadline: '2026-12-11',
+    arrival: '2027-02-15',
+    departure: '2027-02-27',
+    accommodationJa: '大将軍寮（施設利用料42,500円、先着順）または京都市内・衣笠キャンパスから概ね30分以内の自己手配宿舎。',
+    accommodationEn: 'IH Taishogun (JPY 42,500 facility-use fee; first-come, first-served) or self-arranged accommodation in Kyoto City within approximately 30 minutes of Kinugasa Campus.',
+  },
+} as const;
+
+export const rwjpExpress2027Shared = {
+  programmeFeeJPY: 170000,
+  minimumParticipants: 15,
+  maximumParticipants: 48,
+  japaneseMinutes: 1350,
+  japanStudiesMinutes: 360,
+  totalMinutes: 1710,
+  refundDeductionJPY: 27000,
+  paymentMethod: 'Convera GlobalPay',
+  source: '2027_RWJP_Application_Guidelines_FINAL_20260902.pdf (Updated August 27, 2026)',
+  verifiedAt: '2026-09-02',
+} as const;
