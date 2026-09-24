@@ -16,10 +16,10 @@ export interface RwjpFacts {
 }
 
 const offeringFact = getCurrentOfferingFact('rwjp');
-if (!offeringFact) throw new Error('Canonical 2027 RWJP offering facts are missing.');
+if (!offeringFact) throw new Error('Canonical RWJP offering facts are missing.');
 
 const required = <T>(value: T | null, label: string): T => {
-  if (value === null) throw new Error(`Canonical 2027 RWJP fact is missing: ${label}`);
+  if (value === null) throw new Error(`Canonical RWJP fact is missing: ${label}`);
   return value;
 };
 
@@ -83,10 +83,10 @@ export const rwjp2027Facts: RwjpFacts = {
   refundPolicy: confirmed(`支払後にキャンセルする場合は、支払済み金額から返金不可の事務手数料${yen(refundDeduction)}を差し引き、残額を返金します。`),
   eligibility: confirmed('プログラム期間全体を通じて大学に在籍している学生が対象です。必要書類と費用は指定された期限までに提出・支払う必要があります。'),
   japaneseRequirement: confirmed('JLPT N1保持者は対象外です。日本語学習経験がない方は、プログラム開始前までにひらがな・カタカナを読み書きできる必要があります。プログラムではひらがな・カタカナの指導は行いません。'),
-  nominationPeriod: confirmed({ start: '2026-09-16', end: '2026-09-25' }),
+  nominationPeriod: confirmed(required(offeringFact.nominationPeriod, 'nominationPeriod')),
   applicationPeriod: confirmed(applicationPeriod),
-  paymentInstructionsDate: confirmed('2026-10-23'),
-  paymentDeadline: confirmed('2026-11-06'),
+  paymentInstructionsDate: confirmed(required(offeringFact.paymentInstructionsDate, 'paymentInstructionsDate')),
+  paymentDeadline: confirmed(required(offeringFact.paymentDeadline, 'paymentDeadline')),
   programmeFee: confirmed(programmeFee),
   minimumParticipants: confirmed(15),
   maximumParticipants: confirmed(48),
