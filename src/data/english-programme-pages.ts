@@ -89,7 +89,7 @@ const expressMinimum = rwjpExpressOffering.minimumParticipants;
 const expressPayment = rwjpExpressOffering.paymentMethod ?? 'To be confirmed';
 const expressRefund = formatJPY(rwjpExpressOffering.refundDeductionJPY);
 const expressFee = formatJPY(rwjpExpressOffering.programmeFeeJPY);
-const expressAccommodationFee = formatJPY(rwjpExpressOffering.accommodationFeeJPY);
+const expressAccommodationFee = formatJPY(rwjpExpress2027Sessions.february.accommodationFeeJPY);
 const rbmpFee = formatJPY(rbmpOffering.programmeFeeJPY);
 const rbmpMinimum = rbmpOffering.minimumParticipants;
 
