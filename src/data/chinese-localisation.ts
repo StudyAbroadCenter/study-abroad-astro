@@ -96,7 +96,7 @@ const cn: Record<ChineseProgrammeId, LocalPage> = {
     overviewTitle: '短期、集中、以日语学习为核心', overviewText: '适合希望在较短时间内集中学习日语并体验日本大学校园生活的学生。',
     academicTitle: '22.5小时日语＋360分钟文化学习', academicIntro: '日语课程1,350分钟，文化学习360分钟。', academicItems: ['日语课程1,350分钟。', 'Japan Studies 360分钟。', '结合校园学习与交流。'],
     eligibilityTitle: '面向大学在籍学生', eligibilityItems: ['整个项目期间须为大学在籍学生。', '日语零基础申请者须在开始前能读写平假名和片假名。', 'JLPT N1持有者不符合申请条件。'],
-    accommodationTitle: '可使用大将军宿舍', accommodationText: '原则上多人入住，房间分配由大学决定。',
+    accommodationTitle: '住宿条件因场次而异', accommodationText: `1月场次不提供大学住宿，参加者须自行安排适合每天前往OIC的住宿。2月场次可申请大将军宿舍（先到先得，设施使用费${yen(rwjpExpress2027Sessions.february.accommodationFeeJPY)}），或自行安排京都市内、距衣笠校区约30分钟以内的住宿。`,
     facts: [{ label: '1月场次', value: `${range(rwjpExpress2027Sessions.january.programmeDates.start, rwjpExpress2027Sessions.january.programmeDates.end)} · OIC`, status: '已确认' }, { label: '2月场次', value: `${range(rwjpExpress2027Sessions.february.programmeDates.start, rwjpExpress2027Sessions.february.programmeDates.end)} · 衣笠校区`, status: '已确认' }, { label: '最低开班人数', value: offers['rwjp-express'].minimumParticipants === null ? '待确认' : `${offers['rwjp-express'].minimumParticipants}人`, status: offers['rwjp-express'].minimumParticipants === null ? '待确认' : '已确认' }, { label: '日语学习', value: '22.5小时', status: '已确认' }, { label: '文化学习', value: '360分钟', status: '已确认' }, { label: '付款后退款扣除', value: offers['rwjp-express'].refundDeductionJPY === null ? '待确认' : `${yen(offers['rwjp-express'].refundDeductionJPY)}不可退还的行政手续费；其余金额退还`, status: offers['rwjp-express'].refundDeductionJPY === null ? '待确认' : '已确认' }],
     nextTitle: `想参加${offers['rwjp-express'].academicYear} RWJP Express？`, nextText: '申请前请确认最终募集要项与住宿信息。',
   },
