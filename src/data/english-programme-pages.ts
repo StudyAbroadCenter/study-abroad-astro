@@ -261,7 +261,7 @@ export const englishProgrammePages: Record<EnglishProgrammePage['id'], EnglishPr
     ],
     accommodationTitle: `Accommodation differs by ${expressYear} session.`,
     accommodationText:
-      `January Session: ${rwjpExpress2027Sessions.january.accommodationEn} February Session: ${rwjpExpress2027Sessions.february.accommodationEn}`
+      `January Session: ${rwjpExpress2027Sessions.january.accommodationEn} February Session: ${rwjpExpress2027Sessions.february.accommodationEn}`,
     facts: [
       { key: 'official-name', label: 'Offering', value: rwjpExpress.offering, status: 'Confirmed' },
       { key: 'january-session', label: 'January Session', value: 'January 19–29, 2027 · Osaka Ibaraki Campus (OIC)', status: 'Confirmed' },
@@ -278,13 +278,12 @@ export const englishProgrammePages: Record<EnglishProgrammePage['id'], EnglishPr
       { key: 'refund', label: 'Post-payment refund deduction', value: rwjpExpressOffering.refundDeductionJPY === null ? 'To be confirmed' : `${expressRefund} non-refundable administrative fee; remaining balance refunded`, status: rwjpExpressOffering.refundDeductionJPY === null ? 'Pending verification' : 'Confirmed' },
       { key: 'programme-fee', label: 'Program fee', value: expressFee, status: 'Confirmed' },
       { key: 'accommodation-fee', label: 'IH Taishogun facility-use fee', value: expressAccommodationFee, status: 'Confirmed' },
-      { key: 'application-period', label: 'Application period', value: expressApplicationPeriod, status: 'Confirmed' },
     ],
-    nextTitle: `Ready to plan for ${monthDayYear(rwjpExpress.dates?.start).replace(/^[A-Za-z]+ \d+, /, '')}?`,
+    nextTitle: `Planning for RWJP Express ${expressYear}?`,
     nextText:
-      'Use the confirmed schedule and academic load for planning. Return to this page for the verified fee and application window before submitting anything.',
+      'Choose the January or February Session based on the confirmed dates, campus and accommodation conditions, then follow the applicable application window.',
     verificationNote:
-      `Verified against the approved 2027 RWJP / RWJP Express Application Guidelines (updated August 27, 2026). This page represents the February Session; the January Session has different dates, campus and accommodation arrangements.`,
+      `Verified against the approved 2027 RWJP / RWJP Express Application Guidelines (updated August 27, 2026). January and February Session conditions are shown separately where they differ.`,
   },
 
   rdsp: {
