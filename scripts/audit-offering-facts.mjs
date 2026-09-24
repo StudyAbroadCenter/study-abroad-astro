@@ -2,8 +2,11 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const root = process.cwd();
-const canonicalPath = path.join(root, 'src/data/current-offerings.ts');
-const canonical = fs.readFileSync(canonicalPath, 'utf8');
+const canonicalPaths = [
+  path.join(root, 'src/data/current-offerings.ts'),
+  path.join(root, 'src/data/rwjp-express-2027-sessions.ts'),
+];
+const canonical = canonicalPaths.map((file) => fs.readFileSync(file, 'utf8')).join('\n');
 
 // These are audience-facing/editorial surfaces. Mutable annual facts must be
 // derived at render time, not copied into strings here.
@@ -69,7 +72,7 @@ for (const relativePath of presentationFiles) {
 }
 
 if (violations.length > 0) {
-  console.error('Annual offering fact duplication detected outside src/data/current-offerings.ts.');
+  console.error('Annual offering fact duplication detected outside canonical annual-fact data files.');
   console.error('Use canonical structured facts and format/derive the value at render time.');
   for (const violation of violations) console.error(`- ${violation.file}: ${violation.literal}`);
   process.exit(1);
