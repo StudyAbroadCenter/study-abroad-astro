@@ -90,7 +90,6 @@ const expressPayment = rwjpExpressOffering.paymentMethod ?? 'To be confirmed';
 const expressRefund = formatJPY(rwjpExpressOffering.refundDeductionJPY);
 const expressFee = formatJPY(rwjpExpressOffering.programmeFeeJPY);
 const expressAccommodationFee = formatJPY(rwjpExpressOffering.accommodationFeeJPY);
-const expressApplicationPeriod = range(rwjpExpressOffering.applicationPeriod?.start, rwjpExpressOffering.applicationPeriod?.end);
 const rbmpFee = formatJPY(rbmpOffering.programmeFeeJPY);
 const rbmpMinimum = rbmpOffering.minimumParticipants;
 
@@ -265,10 +264,14 @@ export const englishProgrammePages: Record<EnglishProgrammePage['id'], EnglishPr
     facts: [
       { key: 'official-name', label: 'Offering', value: rwjpExpress.offering, status: 'Confirmed' },
       { key: 'january-session', label: 'January Session', value: 'January 19–29, 2027 · Osaka Ibaraki Campus (OIC)', status: 'Confirmed' },
-      { key: 'january-application', label: 'January application period', value: 'October 7–21, 2026', status: 'Confirmed' },
+      { key: 'january-nomination', label: 'January nomination period', value: 'September 23–October 2, 2026', status: 'Confirmed' },
+    { key: 'january-application', label: 'January application period', value: 'October 7–21, 2026', status: 'Confirmed' },
+    { key: 'january-payment', label: 'January payment deadline', value: 'November 13, 2026', status: 'Confirmed' },
       { key: 'january-accommodation', label: 'January accommodation', value: 'Self-arranged only; university accommodation is not provided', status: 'Confirmed' },
       { key: 'february-session', label: 'February Session', value: 'February 16–26, 2027 · Kinugasa Campus, Kyoto', status: 'Confirmed' },
-      { key: 'february-application', label: 'February application period', value: 'November 4–18, 2026', status: 'Confirmed' },
+      { key: 'february-nomination', label: 'February nomination period', value: 'October 21–30, 2026', status: 'Confirmed' },
+    { key: 'february-application', label: 'February application period', value: 'November 4–18, 2026', status: 'Confirmed' },
+    { key: 'february-payment', label: 'February payment deadline', value: 'December 11, 2026', status: 'Confirmed' },
       { key: 'academic-content', label: 'Academic content', value: `${rwjpExpress2027Shared.japaneseMinutes.toLocaleString('en-US')} minutes Japanese + ${rwjpExpress2027Shared.japanStudiesMinutes} minutes Japan Studies`, status: 'Confirmed' },
       
       { key: 'japanese-study', label: 'Japanese study', value: '1,350 minutes · 22.5 hours', status: 'Confirmed' },
