@@ -84,7 +84,10 @@ export const rwjp2027Facts: RwjpFacts = {
   eligibility: confirmed('プログラム期間全体を通じて大学に在籍している学生が対象です。必要書類と費用は指定された期限までに提出・支払う必要があります。'),
   japaneseRequirement: confirmed('JLPT N1保持者は対象外です。日本語学習経験がない方は、プログラム開始前までにひらがな・カタカナを読み書きできる必要があります。プログラムではひらがな・カタカナの指導は行いません。'),
   applicationPeriod: confirmed(applicationPeriod),
-  programmeFee: confirmed(programmeFee),\n  minimumParticipants: confirmed(15),\n  maximumParticipants: confirmed(48),\n  healthRequirement: confirmed('RWJP応募者は、医師が署名した所定の健康診断書を完全に記入して提出する必要があります。'),
+  programmeFee: confirmed(programmeFee),
+  minimumParticipants: confirmed(15),
+  maximumParticipants: confirmed(48),
+  healthRequirement: confirmed('RWJP応募者は、医師が署名した所定の健康診断書を完全に記入して提出する必要があります。'),
 };
 
 export const isKnownFact = <T>(fact: RwjpFact<T>): fact is RwjpFact<T> & { value: T } =>
