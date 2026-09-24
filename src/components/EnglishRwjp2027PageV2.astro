@@ -32,7 +32,7 @@ const applicationReady = isJourneyLinkReady(applicationLink) && Boolean(applicat
     <div class="rw27-shell rw27-hero__content">
       <p class="rw27-kicker rw27-kicker--light">2027 · Ritsumeikan Winter Japanese Program</p>
       <h1 id="rw27-title">Five weeks in Kyoto.<br /><em>Japanese every day.</em></h1>
-      <p class="rw27-hero__lead">A focused winter program for university and graduate students who want serious Japanese study, cultural learning and time to settle into everyday life in Kyoto.</p>
+      <p class="rw27-hero__lead">A focused winter program for university students who want serious Japanese study, Japan Studies and time to settle into everyday life in Kyoto.</p>
       <div class="rw27-hero__actions">
         <a class="rw27-button rw27-button--solid" href="#details">See 2027 dates and fees</a>
         <a class="rw27-button rw27-button--glass" href="#fit">Check eligibility</a>
@@ -79,7 +79,7 @@ const applicationReady = isJourneyLinkReady(applicationLink) && Boolean(applicat
 
   <section class="rw27-stay" id="stay" aria-labelledby="rw27-stay-title"><div class="rw27-shell rw27-stay__grid">
     <div class="rw27-stay__photo"><img src={sharedImage(sharedSiteImages.rwjp.hero)} alt="Winter in Kyoto during the RWJP period" loading="lazy" decoding="async" /></div>
-    <div class="rw27-stay__copy"><p class="rw27-kicker">Taishogun Dormitory</p><h2 id="rw27-stay-title">A practical base near campus.</h2><p>Short-program rooms accommodate up to four students. Room assignments are decided by the university. Showers, toilets and kitchen facilities are shared; Wi-Fi is available and meals are not provided.</p>
+    <div class="rw27-stay__copy"><p class="rw27-kicker">Accommodation</p><h2 id="rw27-stay-title">Choose IH Taishogun or arrange your own stay.</h2><p>RWJP participants may apply for IH Taishogun or arrange their own accommodation in Kyoto City within approximately 30 minutes of Kinugasa Campus. IH Taishogun is allocated on a first-come, first-served basis after all required documents have been submitted; advance reservations are not accepted. Its short-program rooms are shared, with up to four residents per room, and private rooms are not available.</p>
       <dl class="rw27-stay__facts"><div><dt>Stay</dt><dd data-fact="accommodation-dates">{accommodationDates}</dd></div><div><dt>Additional fee</dt><dd data-fact="accommodation-fee">{accommodationFee}</dd></div><div><dt>Commute</dt><dd data-fact="accommodation-commute">About 20 minutes on foot to Kinugasa Campus; Kyoto City Bus Route 53 is also available.</dd></div><div><dt>Room</dt><dd data-fact="accommodation-room">Up to four students; room allocation is decided by the university.</dd></div></dl>
       <p class="rw27-note">Bus fare is not included in the program fee. Bicycle use is prohibited during the program for safety reasons.</p>
     </div>
@@ -95,10 +95,10 @@ const applicationReady = isJourneyLinkReady(applicationLink) && Boolean(applicat
       <div data-fact-row="programme-fee"><dt>Program fee</dt><dd>{programmeFee}</dd></div>
       <div data-fact-row="japanese-study"><dt>Japanese study</dt><dd>{japaneseHours !== null ? `${japaneseHours} hours` : 'To be confirmed'}</dd></div>
       <div data-fact-row="cultural-learning"><dt>Cultural learning</dt><dd>{cultureHours !== null ? `${cultureHours} hours` : 'To be confirmed'}{cultureSessions !== null ? ` · ${cultureSessions} sessions` : ''}</dd></div>
-      <div data-fact-row="accommodation"><dt>Accommodation</dt><dd>Taishogun Dormitory · {accommodationFee} additional</dd></div>
+      <div data-fact-row="accommodation"><dt>Accommodation</dt><dd>IH Taishogun ({accommodationFee} additional) or eligible self-arranged accommodation in Kyoto City</dd></div>
       <div data-fact-row="accommodation-dates"><dt>Dormitory stay</dt><dd>{accommodationDates}</dd></div>
       <div data-fact-row="eligibility"><dt>Eligibility</dt><dd>Students enrolled at a university throughout the entire program period.</dd></div>
-      <div data-fact-row="japanese-requirement"><dt>Japanese requirement</dt><dd>JLPT N1 holders are not eligible. Students with no prior Japanese learning experience must be able to read and write hiragana and katakana before the program begins; the program does not teach these scripts.</dd></div>
+      <div data-fact-row="japanese-requirement"><dt>Japanese requirement</dt><dd>JLPT N1 holders are not eligible. Students with no prior Japanese learning experience must be able to read and write hiragana and katakana before the program begins; the program does not teach these scripts.</dd></div>\n      <div data-fact-row="health-certificate"><dt>Health certificate</dt><dd>RWJP applicants must submit a fully completed health certificate signed by a physician.</dd></div>\n      <div data-fact-row="capacity"><dt>Capacity</dt><dd>Minimum 15 · Maximum 48 participants</dd></div>
       <div data-fact-row="refund-fee"><dt>Non-refundable amount after payment</dt><dd>{refundFee} non-refundable administrative fee; the remaining balance is refunded.</dd></div>
     </dl>
   </div></section>
