@@ -2,7 +2,8 @@
  * Current annual offering facts — single structured source for all language editions.
  *
  * 編集ルール:
- * - 年度・日程・費用・募集期間・チェックイン/アウト・最少催行など、年度で動く事実はここだけを更新する。
+ * - 年度共通の事実はここで管理する。複数Sessionを持つプログラムのSession固有事実は専用Sessionデータで管理する。
+ * - 日程・募集期間・チェックイン/アウト・宿舎費などSession固有値を共通値として置かない。
  * - 日本語・英語・韓国語・中国語の表示側で同じ値を直書きしない。
  * - 未確認値は null のままにし、前年値や推測値で埋めない。
  * - source / verifiedAt は公開用表示ではなく、内部の検証可能性のために保持する。
@@ -120,7 +121,7 @@ export const currentOfferingFacts: Record<CurrentOfferingId, CurrentOfferingFact
     checkIn: null,
     checkOut: null,
     programmeFeeJPY: 170000,
-    accommodationFeeJPY: 42500,
+    accommodationFeeJPY: null,
     minimumParticipants: 15,
     paymentMethod: 'Convera',
     refundDeductionJPY: 27000,
