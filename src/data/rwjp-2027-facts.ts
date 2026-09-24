@@ -12,7 +12,7 @@ export interface RwjpFacts {
   accommodationCurfew: RwjpFact<string>; accommodationCommute: RwjpFact<string>; accommodationClimateControl: RwjpFact<string>; accommodationBedding: RwjpFact<string>;
   accommodationBringYourOwn: RwjpFact<string>; accommodationShowerAccess: RwjpFact<string>; accommodationToiletAccess: RwjpFact<string>; accommodationPolicy: RwjpFact<string>;
   paymentMethod: RwjpFact<string>; paymentPolicy: RwjpFact<string>; refundAmount: RwjpFact<number>; refundPolicy: RwjpFact<string>; eligibility: RwjpFact<string>; japaneseRequirement: RwjpFact<string>;
-  applicationPeriod: RwjpFact<{ start: string; end: string }>; programmeFee: RwjpFact<number>; minimumParticipants: RwjpFact<number>; maximumParticipants: RwjpFact<number>; healthRequirement: RwjpFact<string>;
+  nominationPeriod: RwjpFact<{ start: string; end: string }>; applicationPeriod: RwjpFact<{ start: string; end: string }>; paymentInstructionsDate: RwjpFact<string>; paymentDeadline: RwjpFact<string>; programmeFee: RwjpFact<number>; minimumParticipants: RwjpFact<number>; maximumParticipants: RwjpFact<number>; healthRequirement: RwjpFact<string>; essayRequirement: RwjpFact<string>; communicationRequirement: RwjpFact<string>; participationRequirement: RwjpFact<string>; insurancePolicy: RwjpFact<string>; creditsAndScholarship: RwjpFact<string>;
 }
 
 const offeringFact = getCurrentOfferingFact('rwjp');
@@ -83,11 +83,19 @@ export const rwjp2027Facts: RwjpFacts = {
   refundPolicy: confirmed(`支払後にキャンセルする場合は、支払済み金額から返金不可の事務手数料${yen(refundDeduction)}を差し引き、残額を返金します。`),
   eligibility: confirmed('プログラム期間全体を通じて大学に在籍している学生が対象です。必要書類と費用は指定された期限までに提出・支払う必要があります。'),
   japaneseRequirement: confirmed('JLPT N1保持者は対象外です。日本語学習経験がない方は、プログラム開始前までにひらがな・カタカナを読み書きできる必要があります。プログラムではひらがな・カタカナの指導は行いません。'),
+  nominationPeriod: confirmed({ start: '2026-09-16', end: '2026-09-25' }),
   applicationPeriod: confirmed(applicationPeriod),
+  paymentInstructionsDate: confirmed('2026-10-23'),
+  paymentDeadline: confirmed('2026-11-06'),
   programmeFee: confirmed(programmeFee),
   minimumParticipants: confirmed(15),
   maximumParticipants: confirmed(48),
   healthRequirement: confirmed('RWJP応募者は、医師が署名した所定の健康診断書を完全に記入して提出する必要があります。'),
+  essayRequirement: confirmed('日本語エッセイは応募者本人が、自身の実際の日本語能力で作成する必要があります。入学可否には影響せず、クラス分けの参考に使用します。'),
+  communicationRequirement: confirmed('英語または基礎的な日本語でコミュニケーションできる必要があります。Japan Studiesは日本語または英語で実施される場合があります。'),
+  participationRequirement: confirmed('初日から修了式まで全期間参加し、すべての授業・活動に出席する必要があります。遅れての参加、早期離脱、自己都合による期間短縮は認められません。'),
+  insurancePolicy: confirmed('公式プログラム期間中の急病・けがを対象とする限定的な旅行保険が含まれます。プログラム前後の滞在、個人旅行、移動中は対象外のため、必要な追加保険は参加者自身で手配します。'),
+  creditsAndScholarship: confirmed('立命館大学の単位および本プログラムに対する奨学金の提供はありません。'),
 };
 
 export const isKnownFact = <T>(fact: RwjpFact<T>): fact is RwjpFact<T> & { value: T } =>
