@@ -28,8 +28,8 @@ export const rwjpExpress2027Sessions = {
     arrival: '2027-02-15',
     departure: '2027-02-27',
     accommodationFeeJPY: 42500,
-    accommodationJa: '大将軍寮（施設利用料42,500円、先着順）または京都市内・衣笠キャンパスから概ね30分以内の自己手配宿舎。',
-    accommodationEn: 'IH Taishogun (JPY 42,500 facility-use fee; first-come, first-served) or self-arranged accommodation in Kyoto City within approximately 30 minutes of Kinugasa Campus.',
+    accommodationJa: '大将軍寮（先着順）または京都市内・衣笠キャンパスから概ね30分以内の自己手配宿舎。',
+    accommodationEn: 'IH Taishogun (first-come, first-served) or self-arranged accommodation in Kyoto City within approximately 30 minutes of Kinugasa Campus.',
   },
 } as const;
 
