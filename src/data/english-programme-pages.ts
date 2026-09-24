@@ -110,7 +110,7 @@ export const englishProgrammePages: Record<EnglishProgrammePage['id'], EnglishPr
     headline: 'Learn Japanese in Kyoto. Let the city add context.',
     lead:
       'RSJP centers Japanese-language learning and connects it with campus life, culture and the experience of studying in Kyoto.',
-    campus: 'Osaka Ibaraki Campus or Kinugasa Campus',
+    campus: 'Kinugasa Campus, Kyoto',
     status: 'pending',
     statusLabel: `${rsjpYear} annual details pending verification`,
     statusNote:
@@ -224,7 +224,7 @@ export const englishProgrammePages: Record<EnglishProgrammePage['id'], EnglishPr
     family: 'Japanese Language & Culture',
     title: `${expressYear} RWJP Express | Ritsumeikan University`,
     description:
-      `${expressYear} RWJP Express at Kinugasa Campus in Kyoto runs ${range(rwjpExpress.dates?.start, rwjpExpress.dates?.end)} with 22.5 hours of Japanese study and 360 minutes of cultural learning.`,
+      `${expressYear} RWJP Express offers January and February sessions with the same academic content and program fee, at Osaka Ibaraki Campus and Kinugasa Campus respectively.`,
     japaneseHref: '/programs/rwjp-express/',
     heroImage: '/images/IMG_1588.JPG',
     heroAlt: 'Students connecting during a Ritsumeikan winter short-term program',
@@ -232,7 +232,7 @@ export const englishProgrammePages: Record<EnglishProgrammePage['id'], EnglishPr
     headline: 'Two focused weeks in Japan. Japanese every day.',
     lead:
       'RWJP Express compresses Japanese study and Japan Studies into a focused winter format. In 2027, students can choose a January Session at Osaka Ibaraki Campus or a February Session at Kinugasa Campus in Kyoto.',
-    campus: 'Kinugasa Campus, Kyoto',
+    campus: 'Osaka Ibaraki Campus or Kinugasa Campus',
     status: 'confirmed',
     statusLabel: `${expressYear} core information confirmed`,
     statusNote:
