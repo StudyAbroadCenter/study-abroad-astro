@@ -12,7 +12,7 @@ export interface RwjpFacts {
   accommodationCurfew: RwjpFact<string>; accommodationCommute: RwjpFact<string>; accommodationClimateControl: RwjpFact<string>; accommodationBedding: RwjpFact<string>;
   accommodationBringYourOwn: RwjpFact<string>; accommodationShowerAccess: RwjpFact<string>; accommodationToiletAccess: RwjpFact<string>; accommodationPolicy: RwjpFact<string>;
   paymentMethod: RwjpFact<string>; paymentPolicy: RwjpFact<string>; refundAmount: RwjpFact<number>; refundPolicy: RwjpFact<string>; eligibility: RwjpFact<string>; japaneseRequirement: RwjpFact<string>;
-  applicationPeriod: RwjpFact<{ start: string; end: string }>; programmeFee: RwjpFact<number>;
+  applicationPeriod: RwjpFact<{ start: string; end: string }>; programmeFee: RwjpFact<number>; minimumParticipants: RwjpFact<number>; maximumParticipants: RwjpFact<number>; healthRequirement: RwjpFact<string>;
 }
 
 const offeringFact = getCurrentOfferingFact('rwjp');
@@ -62,7 +62,7 @@ export const rwjp2027Facts: RwjpFacts = {
   cultureMinutes: confirmed(990),
   cultureSessions: confirmed(11),
   cultureSessionMinutes: confirmed(90),
-  accommodation: confirmed('Ritsumeikan University International House TAISHOGUN（大将軍寮）。短期プログラム用居室は12室、各室最大4名。原則として複数人で利用し、部屋割りは大学が決定します。各室には2段ベッド2台、机1、椅子2、スツール2、ハンガーレール・ハンガー、カーテン、エアコン、照明があります。', taishogunBrochure),
+  accommodation: confirmed('大将軍寮または京都市内・衣笠キャンパスから概ね30分以内の自己手配宿舎を利用できます。大将軍寮は必要書類提出後の先着順で、事前予約はできません。短期プログラム用居室は12室、各室最大4名の相部屋で、個室はありません。'),
   accommodationFee: confirmed(accommodationFee),
   accommodationDates: confirmed({ checkIn, checkOut }),
   accommodationWifi: confirmed('無料Wi-Fiあり'),
@@ -84,7 +84,7 @@ export const rwjp2027Facts: RwjpFacts = {
   eligibility: confirmed('プログラム期間全体を通じて大学に在籍している学生が対象です。必要書類と費用は指定された期限までに提出・支払う必要があります。'),
   japaneseRequirement: confirmed('JLPT N1保持者は対象外です。日本語学習経験がない方は、プログラム開始前までにひらがな・カタカナを読み書きできる必要があります。プログラムではひらがな・カタカナの指導は行いません。'),
   applicationPeriod: confirmed(applicationPeriod),
-  programmeFee: confirmed(programmeFee),
+  programmeFee: confirmed(programmeFee),\n  minimumParticipants: confirmed(15),\n  maximumParticipants: confirmed(48),\n  healthRequirement: confirmed('RWJP応募者は、医師が署名した所定の健康診断書を完全に記入して提出する必要があります。'),
 };
 
 export const isKnownFact = <T>(fact: RwjpFact<T>): fact is RwjpFact<T> & { value: T } =>
