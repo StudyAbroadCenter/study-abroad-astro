@@ -39,7 +39,7 @@ export const coreProgramme2027Facts: Record<CoreProgrammeFact['id'], CoreProgram
     ...(express.minimumParticipants !== null ? { minimumParticipants: express.minimumParticipants } : {}),
     audience: 'プログラム期間全体を通じて大学に在籍する学生。日本語未習者は開始前までにひらがな・カタカナを読み書きできること。JLPT N1保持者は対象外。',
     academic: ['日本語講座 1,350分（22.5時間）', '文化学習 360分'],
-    accommodation: '2月Sessionは大将軍寮または京都市内・衣笠キャンパスから概ね30分以内の自己手配宿舎を利用可能。大将軍寮は12室・各室最大4名の相部屋で、先着順。施設利用料42,500円。',
+    accommodation: '1月Sessionは大学宿舎の提供なし・参加者自身で宿舎を手配。2月Sessionは大将軍寮または京都市内・衣笠キャンパスから概ね30分以内の自己手配宿舎を利用可能。大将軍寮は相部屋で、先着順。施設利用料42,500円。',
     notes: [
       express.minimumParticipants !== null ? `最少催行${express.minimumParticipants}名` : '最少催行人数は確認後に掲載',
       express.paymentMethod ? `支払いは${express.paymentMethod}` : '支払方法は確認後に掲載',
