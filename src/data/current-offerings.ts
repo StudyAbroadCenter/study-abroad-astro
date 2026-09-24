@@ -2,7 +2,8 @@
  * Current annual offering facts — single structured source for all language editions.
  *
  * 編集ルール:
- * - 年度・日程・費用・募集期間・チェックイン/アウト・最少催行など、年度で動く事実はここだけを更新する。
+ * - 年度共通の事実はここで管理する。複数Sessionを持つプログラムのSession固有事実は専用Sessionデータで管理する。
+ * - 日程・募集期間・チェックイン/アウト・宿舎費などSession固有値を共通値として置かない。
  * - 日本語・英語・韓国語・中国語の表示側で同じ値を直書きしない。
  * - 未確認値は null のままにし、前年値や推測値で埋めない。
  * - source / verifiedAt は公開用表示ではなく、内部の検証可能性のために保持する。
@@ -23,7 +24,7 @@ export interface CurrentOfferingFact {
   officialName: string;
   status: OfferingStatus;
   certainty: OfferingCertainty;
-  campusId: 'kinugasa' | 'oic';
+  campusId: 'kinugasa' | 'oic' | 'multiple';
   campusJa: string;
   programmeDates: DateRange | null;
   applicationPeriod: DateRange | null;
@@ -99,11 +100,11 @@ export const currentOfferingFacts: Record<CurrentOfferingId, CurrentOfferingFact
     checkOut: '2027-02-12',
     programmeFeeJPY: 370000,
     accommodationFeeJPY: 92500,
-    minimumParticipants: null,
+    minimumParticipants: 15,
     paymentMethod: 'Convera',
     refundDeductionJPY: 54000,
-    source: '2027年度RWJP担当者確認',
-    verifiedAt: '2026-08-18',
+    source: '2027_RWJP_Application_Guidelines_FINAL_20260902.pdf (Updated August 27, 2026)',
+    verifiedAt: '2026-09-02',
   },
   'rwjp-express': {
     id: 'rwjp-express',
@@ -113,19 +114,19 @@ export const currentOfferingFacts: Record<CurrentOfferingId, CurrentOfferingFact
     officialName: 'RWJP Express',
     status: 'Confirmed',
     certainty: 'Confirmed',
-    campusId: 'kinugasa',
-    campusJa: '衣笠キャンパス（京都）',
-    programmeDates: { start: '2027-02-16', end: '2027-02-26' },
+    campusId: 'multiple',
+    campusJa: '1月Session：大阪いばらきキャンパス（OIC）／2月Session：衣笠キャンパス（京都）',
+    programmeDates: null,
     applicationPeriod: null,
-    checkIn: '2027-02-15',
-    checkOut: '2027-02-27',
-    programmeFeeJPY: null,
+    checkIn: null,
+    checkOut: null,
+    programmeFeeJPY: 170000,
     accommodationFeeJPY: null,
     minimumParticipants: 15,
     paymentMethod: 'Convera',
     refundDeductionJPY: 27000,
-    source: '2027年度RWJP Express担当者確認',
-    verifiedAt: '2026-08-18',
+    source: '2027_RWJP_Application_Guidelines_FINAL_20260902.pdf (Updated August 27, 2026; January and February Sessions)',
+    verifiedAt: '2026-09-02',
   },
   rdsp: {
     id: 'rdsp',

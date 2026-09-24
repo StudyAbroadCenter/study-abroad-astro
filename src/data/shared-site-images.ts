@@ -17,7 +17,7 @@ const rwjpReal = {
 
 export const sharedSiteImages = {
   home: {
-    hero: 'IMG_1588.JPG',
+    hero: 'generated/home-hero.webp',
     story: {
       campus: 'hero/hero-kinugasa-clocktower.jpg',
       classroom: rwjpReal.classroom,
@@ -29,13 +29,13 @@ export const sharedSiteImages = {
     },
   },
   programmes: {
-    rsjp: 'IMG_8178.JPG',
-    'rsjp-express': 'IMG_5092.JPG',
-    rwjp: 'IMG_8263.JPG',
-    'rwjp-express': 'IMG_1588.JPG',
-    rdsp: 'IMG_3725.JPG',
-    rbmp: 'IMG_6091.JPG',
-    'custom-programs': 'IMG_1687.JPG',
+    rsjp: 'generated/rsjp.webp',
+    'rsjp-express': 'generated/rsjp-express.webp',
+    rwjp: 'generated/rwjp.webp',
+    'rwjp-express': 'generated/rwjp-express.webp',
+    rdsp: 'generated/rdsp.webp',
+    rbmp: 'generated/rbmp.webp',
+    'custom-programs': 'generated/custom.webp',
   },
   rwjp: {
     hero: 'programs/rwjp/rwjp-kyoto-winter.webp',

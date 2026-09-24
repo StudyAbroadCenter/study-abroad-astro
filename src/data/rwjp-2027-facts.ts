@@ -12,14 +12,14 @@ export interface RwjpFacts {
   accommodationCurfew: RwjpFact<string>; accommodationCommute: RwjpFact<string>; accommodationClimateControl: RwjpFact<string>; accommodationBedding: RwjpFact<string>;
   accommodationBringYourOwn: RwjpFact<string>; accommodationShowerAccess: RwjpFact<string>; accommodationToiletAccess: RwjpFact<string>; accommodationPolicy: RwjpFact<string>;
   paymentMethod: RwjpFact<string>; paymentPolicy: RwjpFact<string>; refundAmount: RwjpFact<number>; refundPolicy: RwjpFact<string>; eligibility: RwjpFact<string>; japaneseRequirement: RwjpFact<string>;
-  applicationPeriod: RwjpFact<{ start: string; end: string }>; programmeFee: RwjpFact<number>;
+  nominationPeriod: RwjpFact<{ start: string; end: string }>; applicationPeriod: RwjpFact<{ start: string; end: string }>; paymentInstructionsDate: RwjpFact<string>; paymentDeadline: RwjpFact<string>; programmeFee: RwjpFact<number>; minimumParticipants: RwjpFact<number>; maximumParticipants: RwjpFact<number>; healthRequirement: RwjpFact<string>; essayRequirement: RwjpFact<string>; communicationRequirement: RwjpFact<string>; participationRequirement: RwjpFact<string>; insurancePolicy: RwjpFact<string>; creditsAndScholarship: RwjpFact<string>;
 }
 
 const offeringFact = getCurrentOfferingFact('rwjp');
-if (!offeringFact) throw new Error('Canonical 2027 RWJP offering facts are missing.');
+if (!offeringFact) throw new Error('Canonical RWJP offering facts are missing.');
 
 const required = <T>(value: T | null, label: string): T => {
-  if (value === null) throw new Error(`Canonical 2027 RWJP fact is missing: ${label}`);
+  if (value === null) throw new Error(`Canonical RWJP fact is missing: ${label}`);
   return value;
 };
 
@@ -62,7 +62,7 @@ export const rwjp2027Facts: RwjpFacts = {
   cultureMinutes: confirmed(990),
   cultureSessions: confirmed(11),
   cultureSessionMinutes: confirmed(90),
-  accommodation: confirmed('Ritsumeikan University International House TAISHOGUN（大将軍寮）。短期プログラム用居室は12室、各室最大4名。原則として複数人で利用し、部屋割りは大学が決定します。各室には2段ベッド2台、机1、椅子2、スツール2、ハンガーレール・ハンガー、カーテン、エアコン、照明があります。', taishogunBrochure),
+  accommodation: confirmed('大将軍寮または京都市内・衣笠キャンパスから概ね30分以内の自己手配宿舎を利用できます。大将軍寮は必要書類提出後の先着順で、事前予約はできません。短期プログラム用居室は12室、各室最大4名の相部屋で、個室はありません。'),
   accommodationFee: confirmed(accommodationFee),
   accommodationDates: confirmed({ checkIn, checkOut }),
   accommodationWifi: confirmed('無料Wi-Fiあり'),
@@ -80,11 +80,22 @@ export const rwjp2027Facts: RwjpFacts = {
   paymentMethod: confirmed(paymentMethod),
   paymentPolicy: confirmed(`合格後に事務局から${paymentMethod}による支払い方法と手順を通知します。プログラム費${yen(programmeFee)}と、大将軍寮を利用する場合の宿泊費${yen(accommodationFee)}は、指定された支払期限までに支払います。支払期限までに支払いが完了しない場合、参加資格は失効します。`),
   refundAmount: confirmed(refundDeduction),
-  refundPolicy: confirmed(`参加費を支払う前に辞退する場合、キャンセル料は発生しません。支払後にキャンセルする場合は${yen(refundDeduction)}に加え、キャンセル時点ですでに手配・支出され返金できない費用を差し引いた残額を返金します。`),
-  eligibility: confirmed('申請時からプログラム参加時まで大学または大学院に在籍している学生が対象です。大学入学前の方、卒業後の方は対象外です。社会人でも、大学・大学院にパートタイム学生として在籍している場合は対象です。'),
-  japaneseRequirement: confirmed('JLPT N1保持者は対象外です。日本語学習経験がない方も応募できますが、プログラム開始前までにひらがな・カタカナを読めるようにしておく必要があります。'),
+  refundPolicy: confirmed(`支払後にキャンセルする場合は、支払済み金額から返金不可の事務手数料${yen(refundDeduction)}を差し引き、残額を返金します。`),
+  eligibility: confirmed('プログラム期間全体を通じて大学に在籍している学生が対象です。必要書類と費用は指定された期限までに提出・支払う必要があります。'),
+  japaneseRequirement: confirmed('JLPT N1保持者は対象外です。日本語学習経験がない方は、プログラム開始前までにひらがな・カタカナを読み書きできる必要があります。プログラムではひらがな・カタカナの指導は行いません。'),
+  nominationPeriod: confirmed(required(offeringFact.nominationPeriod, 'nominationPeriod')),
   applicationPeriod: confirmed(applicationPeriod),
+  paymentInstructionsDate: confirmed(required(offeringFact.paymentInstructionsDate, 'paymentInstructionsDate')),
+  paymentDeadline: confirmed(required(offeringFact.paymentDeadline, 'paymentDeadline')),
   programmeFee: confirmed(programmeFee),
+  minimumParticipants: confirmed(15),
+  maximumParticipants: confirmed(48),
+  healthRequirement: confirmed('RWJP応募者は、医師が署名した所定の健康診断書を完全に記入して提出する必要があります。'),
+  essayRequirement: confirmed('日本語エッセイは応募者本人が、自身の実際の日本語能力で作成する必要があります。入学可否には影響せず、クラス分けの参考に使用します。'),
+  communicationRequirement: confirmed('英語または基礎的な日本語でコミュニケーションできる必要があります。Japan Studiesは日本語または英語で実施される場合があります。'),
+  participationRequirement: confirmed('初日から修了式まで全期間参加し、すべての授業・活動に出席する必要があります。遅れての参加、早期離脱、自己都合による期間短縮は認められません。'),
+  insurancePolicy: confirmed('公式プログラム期間中の急病・けがを対象とする限定的な旅行保険が含まれます。プログラム前後の滞在、個人旅行、移動中は対象外のため、必要な追加保険は参加者自身で手配します。'),
+  creditsAndScholarship: confirmed('立命館大学の単位および本プログラムに対する奨学金の提供はありません。'),
 };
 
 export const isKnownFact = <T>(fact: RwjpFact<T>): fact is RwjpFact<T> & { value: T } =>

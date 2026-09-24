@@ -17,15 +17,15 @@ export interface RwjpJourneyLink {
  * - Never invent or infer a URL.
  * - Only set state='ready' after the programme owner has confirmed the exact public URL/file.
  * - The website must fail closed: null/unconfirmed links are rendered disabled, not guessed.
- * - Annual application dates live in rwjp-2027-facts.ts; this file owns destinations only.
+ * - Annual application dates live in rwjp-2027-facts.ts; this file owns destinations only.\n * - Application Forms are programme- and offering-specific. Never reuse a prior programme/year URL by assumption.
  */
 export const rwjp2027JourneyLinks: Record<RwjpJourneyLink['id'], RwjpJourneyLink> = {
   application: {
     id: 'application',
     labelJa: '2027 RWJPに応募する',
-    descriptionJa: 'Microsoft Formsを利用した一次申請フォームです。氏名、連絡先、日本語学習歴、参加資格確認など、応募判断に必要な最小限の情報を収集し、申請書類の添付は求めません。募集期間中のみ応募ボタンを有効化します。',
-    url: 'https://forms.cloud.microsoft/r/kUpnnQVYxG',
-    state: 'ready',
+    descriptionJa: '2027 RWJP専用の正式なMicrosoft Forms URLは現在調整中です。プログラムごと・募集回ごとに正式URLを確認し、確認後にのみ応募ボタンを有効化します。',
+    url: null,
+    state: 'awaiting-official-url',
     external: true,
   },
   inquiry: {

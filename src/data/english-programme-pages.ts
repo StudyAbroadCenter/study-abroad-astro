@@ -1,5 +1,6 @@
 import { coreProgramme2027Facts } from './core-programme-2027-facts';
 import { getCurrentOfferingFact } from './current-offerings';
+import { rwjpExpress2027Sessions, rwjpExpress2027Shared } from './rwjp-express-2027-sessions';
 
 export type EnglishProgrammeStatus = 'confirmed' | 'working' | 'pending';
 
@@ -87,6 +88,8 @@ const rsjpExpressYear = rsjpExpressOffering.academicYear;
 const expressMinimum = rwjpExpressOffering.minimumParticipants;
 const expressPayment = rwjpExpressOffering.paymentMethod ?? 'To be confirmed';
 const expressRefund = formatJPY(rwjpExpressOffering.refundDeductionJPY);
+const expressFee = formatJPY(rwjpExpressOffering.programmeFeeJPY);
+const expressAccommodationFee = formatJPY(rwjpExpress2027Sessions.february.accommodationFeeJPY);
 const rbmpFee = formatJPY(rbmpOffering.programmeFeeJPY);
 const rbmpMinimum = rbmpOffering.minimumParticipants;
 
@@ -220,19 +223,19 @@ export const englishProgrammePages: Record<EnglishProgrammePage['id'], EnglishPr
     family: 'Japanese Language & Culture',
     title: `${expressYear} RWJP Express | Ritsumeikan University`,
     description:
-      `${expressYear} RWJP Express at Kinugasa Campus in Kyoto runs ${range(rwjpExpress.dates?.start, rwjpExpress.dates?.end)} with 22.5 hours of Japanese study and 360 minutes of cultural learning.`,
+      `${expressYear} RWJP Express offers January and February sessions with the same academic content and program fee, at Osaka Ibaraki Campus and Kinugasa Campus respectively.`,
     japaneseHref: '/programs/rwjp-express/',
     heroImage: '/images/IMG_1588.JPG',
     heroAlt: 'Students connecting during a Ritsumeikan winter short-term program',
     kicker: `${expressYear} · Winter Express · Japanese Language & Culture`,
-    headline: 'Two focused weeks in Kyoto. Japanese every day.',
+    headline: 'Two focused weeks in Japan. Japanese every day.',
     lead:
-      'RWJP Express compresses Japanese study and cultural learning into a focused winter format for university and graduate students.',
-    campus: 'Kinugasa Campus, Kyoto',
+      'RWJP Express compresses Japanese study and Japan Studies into a focused winter format. In 2027, students can choose a January Session at Osaka Ibaraki Campus or a February Session at Kinugasa Campus in Kyoto.',
+    campus: 'Osaka Ibaraki Campus or Kinugasa Campus',
     status: 'confirmed',
     statusLabel: `${expressYear} core information confirmed`,
     statusNote:
-      `The ${expressYear} dates, academic load, minimum cohort, payment method, refund deduction rule and Taishogun Dormitory framework below are confirmed. Program fee and application period are not shown because they are not yet verified in the current source boundary.`,
+      `The approved ${expressYear} guidelines confirm two RWJP Express sessions with the same academic content and program fee. Their dates, campus and accommodation arrangements are different.`,
     overviewTitle: 'Short in duration. Structured in purpose.',
     overviewText:
       'The program combines a substantial Japanese-language block with cultural learning across an intensive two-week schedule. The compact format is not presented as a lighter academic option.',
@@ -247,36 +250,43 @@ export const englishProgrammePages: Record<EnglishProgrammePage['id'], EnglishPr
     academicItems: [
       'Japanese-language classes: 1,350 minutes (22.5 hours).',
       'Cultural learning: 360 minutes.',
-      'A compact winter schedule at Kinugasa Campus in Kyoto.',
+      'The same academic content is offered in both the January and February Sessions.'
     ],
     eligibilityTitle: `Who the ${expressYear} offering is designed for`,
     eligibilityItems: [
-      'University and graduate-school students.',
-      'Complete beginners may apply.',
-      'Every participant must be able to read hiragana and katakana before the program starts.',
+      'Students must be enrolled at a university throughout the entire program period.',
+      'Students with no prior Japanese learning experience must be able to read and write hiragana and katakana before the program starts; these scripts are not taught in the program.',
+      'Students who already hold JLPT N1 are not eligible.',
     ],
-    accommodationTitle: `Taishogun Dormitory is available for the ${expressYear} offering.`,
+    accommodationTitle: `Accommodation differs by ${expressYear} session.`,
     accommodationText:
-      'Short-program accommodation uses Taishogun Dormitory. There are 12 short-program rooms, each accommodating up to four students. Shared occupancy is the standard and room assignments are decided by the university.',
+      `January Session: ${rwjpExpress2027Sessions.january.accommodationEn} February Session: ${rwjpExpress2027Sessions.february.accommodationEn}`,
     facts: [
       { key: 'official-name', label: 'Offering', value: rwjpExpress.offering, status: 'Confirmed' },
-      { key: 'programme-dates', label: 'Program dates', value: range(rwjpExpress.dates?.start, rwjpExpress.dates?.end), status: 'Confirmed' },
-      { key: 'check-in', label: 'Dormitory check-in', value: monthDayYear(rwjpExpress.checkIn), status: 'Confirmed' },
-      { key: 'check-out', label: 'Dormitory check-out', value: monthDayYear(rwjpExpress.checkOut), status: 'Confirmed' },
-      { key: 'campus', label: 'Campus', value: 'Kinugasa Campus, Kyoto', status: 'Confirmed' },
+      { key: 'january-session', label: 'January Session', value: `${range(rwjpExpress2027Sessions.january.programmeDates.start, rwjpExpress2027Sessions.january.programmeDates.end)} · Osaka Ibaraki Campus (OIC)`, status: 'Confirmed' },
+      { key: 'january-nomination', label: 'January nomination period', value: range(rwjpExpress2027Sessions.january.nominationPeriod.start, rwjpExpress2027Sessions.january.nominationPeriod.end), status: 'Confirmed' },
+    { key: 'january-application', label: 'January application period', value: range(rwjpExpress2027Sessions.january.applicationPeriod.start, rwjpExpress2027Sessions.january.applicationPeriod.end), status: 'Confirmed' },
+    { key: 'january-payment', label: 'January payment deadline', value: monthDayYear(rwjpExpress2027Sessions.january.paymentDeadline), status: 'Confirmed' },
+      { key: 'january-accommodation', label: 'January accommodation', value: 'Self-arranged only; university accommodation is not provided', status: 'Confirmed' },
+      { key: 'february-session', label: 'February Session', value: `${range(rwjpExpress2027Sessions.february.programmeDates.start, rwjpExpress2027Sessions.february.programmeDates.end)} · Kinugasa Campus, Kyoto`, status: 'Confirmed' },
+      { key: 'february-nomination', label: 'February nomination period', value: range(rwjpExpress2027Sessions.february.nominationPeriod.start, rwjpExpress2027Sessions.february.nominationPeriod.end), status: 'Confirmed' },
+    { key: 'february-application', label: 'February application period', value: range(rwjpExpress2027Sessions.february.applicationPeriod.start, rwjpExpress2027Sessions.february.applicationPeriod.end), status: 'Confirmed' },
+    { key: 'february-payment', label: 'February payment deadline', value: monthDayYear(rwjpExpress2027Sessions.february.paymentDeadline), status: 'Confirmed' },
+      { key: 'academic-content', label: 'Academic content', value: `${rwjpExpress2027Shared.japaneseMinutes.toLocaleString('en-US')} minutes Japanese + ${rwjpExpress2027Shared.japanStudiesMinutes} minutes Japan Studies`, status: 'Confirmed' },
+      
       { key: 'japanese-study', label: 'Japanese study', value: '1,350 minutes · 22.5 hours', status: 'Confirmed' },
       { key: 'cultural-learning', label: 'Cultural learning', value: '360 minutes', status: 'Confirmed' },
       { key: 'minimum-participants', label: 'Minimum participants', value: expressMinimum === null ? 'To be confirmed' : String(expressMinimum), status: expressMinimum === null ? 'Pending verification' : 'Confirmed' },
       { key: 'payment', label: 'Payment method', value: expressPayment, status: rwjpExpressOffering.paymentMethod ? 'Confirmed' : 'Pending verification' },
-      { key: 'refund', label: 'Post-payment refund deduction', value: rwjpExpressOffering.refundDeductionJPY === null ? 'To be confirmed' : `${expressRefund} plus any unrecoverable arrangement costs`, status: rwjpExpressOffering.refundDeductionJPY === null ? 'Pending verification' : 'Confirmed' },
-      { key: 'programme-fee', label: 'Program fee', value: 'Not yet published in this English source', status: 'Pending verification' },
-      { key: 'application-period', label: 'Application period', value: 'Not yet published in this English source', status: 'Pending verification' },
+      { key: 'refund', label: 'Post-payment refund deduction', value: rwjpExpressOffering.refundDeductionJPY === null ? 'To be confirmed' : `${expressRefund} non-refundable administrative fee; remaining balance refunded`, status: rwjpExpressOffering.refundDeductionJPY === null ? 'Pending verification' : 'Confirmed' },
+      { key: 'programme-fee', label: 'Program fee', value: expressFee, status: 'Confirmed' },
+      { key: 'accommodation-fee', label: 'IH Taishogun facility-use fee', value: expressAccommodationFee, status: 'Confirmed' },
     ],
-    nextTitle: `Ready to plan for ${monthDayYear(rwjpExpress.dates?.start).replace(/^[A-Za-z]+ \d+, /, '')}?`,
+    nextTitle: `Planning for RWJP Express ${expressYear}?`,
     nextText:
-      'Use the confirmed schedule and academic load for planning. Return to this page for the verified fee and application window before submitting anything.',
+      'Choose the January or February Session based on the confirmed dates, campus and accommodation conditions, then follow the applicable application window.',
     verificationNote:
-      `Verified from the current ${expressYear} RWJP Express programme-team confirmation dated ${rwjpExpress.verifiedAt}. Unverified values are intentionally omitted.`,
+      `Verified against the approved 2027 RWJP / RWJP Express Application Guidelines (updated August 27, 2026). January and February Session conditions are shown separately where they differ.`,
   },
 
   rdsp: {

@@ -1,5 +1,6 @@
 import { rwjp2027Facts, isKnownFact } from './rwjp';
 import { coreProgramme2027Facts } from './core-programme-2027-facts';
+import { rwjpExpress2027Sessions } from './rwjp-express-2027-sessions';
 import { getCurrentOfferingFact } from './current-offerings';
 
 export type KoreanProgrammeStatus = 'confirmed' | 'working' | 'pending';
@@ -90,26 +91,26 @@ export const koreanProgrammePages: Record<KoreanProgrammePage['id'], KoreanProgr
     kicker: `${rwjpOffering.academicYear} · Winter · 일본어·일본문화`, headline: '겨울 교토에서 5주 동안 일본어를 깊이 있게 배웁니다.',
     lead: 'RWJP는 일본어 학습을 중심으로 문화 학습, 캠퍼스 생활과 교토에서의 실제 사용을 연결합니다.', campus: '기누가사 캠퍼스 · 교토', status: 'confirmed',
     statusLabel: `${rwjpOffering.academicYear} 핵심 정보 확정`, statusNote: `일정, 지원 기간, 참가비, 학습 시간, 숙소와 주요 조건이 확인되었습니다. 지원 기간은 ${koRange(rwjpApplication?.start, rwjpApplication?.end)}입니다.`,
-    overviewTitle: '교실에서 교토의 생활까지 이어지는 5주', overviewText: '일본어 초보자도 지원할 수 있지만 시작 전 히라가나와 가타카나를 읽을 수 있어야 하며 JLPT N1 보유자는 대상이 아닙니다.',
+    overviewTitle: '교실에서 교토의 생활까지 이어지는 5주', overviewText: '일본어 초보자도 지원할 수 있지만 시작 전 히라가나와 가타카나를 읽고 쓸 수 있어야 하며 JLPT N1 보유자는 대상이 아닙니다.',
     highlights: [{ value: '57.5', label: '일본어 학습 시간' }, { value: '990', label: '문화 학습 분' }, { value: rwjpFee, label: '프로그램 참가비' }],
     academicTitle: '체계적인 일본어 수업과 문화 학습', academicIntro: '일본어 57.5시간, 문화 학습 990분을 중심으로 구성됩니다.', academicItems: ['일본어 수업 57.5시간', '문화 학습 990분', '캠퍼스와 교토 생활에서 실제로 사용하는 경험'],
-    eligibilityTitle: '지원 전에 기본 자격을 확인하세요.', eligibilityItems: ['지원 시점부터 참가 시점까지 대학 또는 대학원에 재학해야 합니다. 파트타임 학생도 가능합니다.', '초보자도 지원할 수 있으나 시작 전 히라가나와 가타카나를 읽을 수 있어야 합니다.', 'JLPT N1 보유자는 지원 대상이 아닙니다.'],
-    accommodationTitle: '다이쇼군 기숙사를 선택할 수 있습니다.', accommodationText: `기숙사비 ${rwjpDormFee}, 입실 ${koDate(rwjpOffering.checkIn)} / 퇴실 ${koDate(rwjpOffering.checkOut)}입니다.`,
-    facts: [{ key: 'dates', label: '프로그램 일정', value: koRange(rwjpDates?.start, rwjpDates?.end), status: '확정' }, { key: 'application', label: '지원 기간', value: koRange(rwjpApplication?.start, rwjpApplication?.end), status: '확정' }, { key: 'fee', label: '프로그램 참가비', value: rwjpFee, status: '확정' }, { key: 'japanese', label: '일본어 학습', value: '57.5시간', status: '확정' }, { key: 'culture', label: '문화 학습', value: '990분', status: '확정' }, { key: 'dorm', label: '기숙사비', value: rwjpDormFee, status: '확정' }, { key: 'refund', label: '결제 후 환불 공제', value: `${rwjpRefund} + 환불 불가 기수배 비용`, status: '확정' }],
+    eligibilityTitle: '지원 전에 기본 자격을 확인하세요.', eligibilityItems: ['프로그램 기간 전체에 걸쳐 대학에 재학 중이어야 합니다.', '초보자도 지원할 수 있으나 시작 전 히라가나와 가타카나를 읽고 쓸 수 있어야 합니다.', 'JLPT N1 보유자는 지원 대상이 아닙니다.'],
+    accommodationTitle: 'IH Taishogun 또는 조건에 맞는 외부 숙소를 선택할 수 있습니다.', accommodationText: `IH Taishogun 시설 이용료는 ${rwjpDormFee}이며, 입실 ${koDate(rwjpOffering.checkIn)} / 퇴실 ${koDate(rwjpOffering.checkOut)}입니다. 또는 기누가사 캠퍼스에서 약 30분 이내의 교토 시내 숙소를 직접 마련할 수 있습니다.`,
+    facts: [{ key: 'dates', label: '프로그램 일정', value: koRange(rwjpDates?.start, rwjpDates?.end), status: '확정' }, { key: 'application', label: '지원 기간', value: koRange(rwjpApplication?.start, rwjpApplication?.end), status: '확정' }, { key: 'fee', label: '프로그램 참가비', value: rwjpFee, status: '확정' }, { key: 'japanese', label: '일본어 학습', value: '57.5시간', status: '확정' }, { key: 'culture', label: '문화 학습', value: '990분', status: '확정' }, { key: 'dorm', label: '기숙사비', value: rwjpDormFee, status: '확정' }, { key: 'refund', label: '결제 후 환불 공제', value: `${rwjpRefund} 환불 불가 행정 수수료; 나머지 금액 환불`, status: '확정' }],
     nextTitle: `${rwjpOffering.academicYear} RWJP 지원을 준비하나요?`, nextText: '지원 자격, 기간, 비용, 숙소와 최신 안내를 다시 확인하세요.', verificationNote: `연도별 사실은 ${rwjpOffering.source} (${rwjpOffering.verifiedAt})에 근거합니다.`,
   },
   'rwjp-express': {
     id: 'rwjp-express', code: 'RWJP EXPRESS', name: 'RWJP Express', family: '일본어·일본문화',
-    title: `${rwjpExpressOffering.academicYear} RWJP Express | 리츠메이칸대학교`, description: `${rwjpExpressOffering.academicYear} RWJP Express는 ${koRange(rwjpExpress.dates?.start, rwjpExpress.dates?.end)}에 기누가사 캠퍼스에서 진행됩니다.`,
+    title: `${rwjpExpressOffering.academicYear} RWJP Express | 리츠메이칸대학교`, description: `${rwjpExpressOffering.academicYear} RWJP Express는 1월 OIC 세션과 2월 기누가사 세션으로 운영됩니다.`,
     japaneseHref: '/programs/rwjp-express/', englishHref: '/en/programs/rwjp-express/', heroImage: '/images/IMG_1588.JPG', heroAlt: 'RWJP Express에 참가하는 학생들',
-    kicker: `${rwjpExpressOffering.academicYear} · Winter Express · 일본어·일본문화`, headline: '더 짧은 기간에 일본어와 교토의 캠퍼스 생활을 집중적으로 경험합니다.', lead: '일본어 집중 수업, 문화 학습과 캠퍼스 경험을 약 2주에 담았습니다.',
-    campus: '기누가사 캠퍼스 · 교토', status: 'confirmed', statusLabel: `${rwjpExpressOffering.academicYear} 주요 정보 확정`, statusNote: '일정, 최소 운영 인원, 학습 시간, 숙소 기본 조건과 환불 공제 규칙이 확인되었습니다.',
-    overviewTitle: '짧고 집중적인 일본어 중심 프로그램', overviewText: '짧은 기간에 일본어를 집중적으로 배우며 교토의 캠퍼스 생활을 경험하고 싶은 학생을 위한 형식입니다.',
+    kicker: `${rwjpExpressOffering.academicYear} · Winter Express · 일본어·일본문화`, headline: '약 2주 동안 일본어와 일본에서의 대학 생활을 집중적으로 경험합니다.', lead: '일본어 집중 수업, 문화 학습과 캠퍼스 경험을 약 2주에 담았습니다.',
+    campus: '1월: 오사카 이바라키 캠퍼스(OIC) · 2월: 기누가사 캠퍼스(교토)', status: 'confirmed', statusLabel: `${rwjpExpressOffering.academicYear} 주요 정보 확정`, statusNote: '일정, 최소 운영 인원, 학습 시간, 숙소 기본 조건과 환불 공제 규칙이 확인되었습니다.',
+    overviewTitle: '짧고 집중적인 일본어 중심 프로그램', overviewText: '짧은 기간에 일본어를 집중적으로 배우며 일본의 대학 캠퍼스 생활을 경험하는 형식입니다.',
     highlights: [{ value: '22.5', label: '일본어 학습 시간' }, { value: '360', label: '문화 학습 분' }, { value: rwjpExpressOffering.minimumParticipants === null ? '추후 안내' : String(rwjpExpressOffering.minimumParticipants), label: '최소 운영 인원' }],
-    academicTitle: '22.5시간 일본어 + 360분 문화 학습', academicIntro: '일본어 1,350분과 문화 학습 360분으로 구성됩니다.', academicItems: ['일본어 수업 1,350분', '문화 학습 360분', '캠퍼스와 교토 경험'],
-    eligibilityTitle: '대학 및 대학원 재학생 대상', eligibilityItems: ['일본어 초보자도 지원할 수 있습니다.', '시작 전 히라가나와 가타카나를 읽을 수 있어야 합니다.', rwjpExpressOffering.minimumParticipants === null ? '최소 운영 인원은 확인 후 안내합니다.' : `최소 운영 인원은 ${rwjpExpressOffering.minimumParticipants}명입니다.`],
-    accommodationTitle: '다이쇼군 기숙사를 이용할 수 있습니다.', accommodationText: '원칙적으로 여러 명이 함께 사용하며 방 배정은 대학이 결정합니다.',
-    facts: [{ key: 'dates', label: '프로그램 일정', value: koRange(rwjpExpress.dates?.start, rwjpExpress.dates?.end), status: '확정' }, { key: 'minimum', label: '최소 운영 인원', value: rwjpExpressOffering.minimumParticipants === null ? '추후 안내' : `${rwjpExpressOffering.minimumParticipants}명`, status: rwjpExpressOffering.minimumParticipants === null ? '확인 예정' : '확정' }, { key: 'japanese', label: '일본어 학습', value: '22.5시간', status: '확정' }, { key: 'culture', label: '문화 학습', value: '360분', status: '확정' }, { key: 'payment', label: '결제 방법', value: rwjpExpressOffering.paymentMethod ?? '추후 안내', status: rwjpExpressOffering.paymentMethod ? '확정' : '확인 예정' }, { key: 'refund', label: '결제 후 환불 공제', value: rwjpExpressOffering.refundDeductionJPY === null ? '추후 안내' : `${expressRefund} + 환불 불가 기수배 비용`, status: rwjpExpressOffering.refundDeductionJPY === null ? '확인 예정' : '확정' }],
+    academicTitle: '22.5시간 일본어 + 360분 문화 학습', academicIntro: '일본어 1,350분과 문화 학습 360분으로 구성됩니다.', academicItems: ['일본어 수업 1,350분', 'Japan Studies 360분', '캠퍼스에서의 학습과 교류'],
+    eligibilityTitle: '대학 재학생 대상', eligibilityItems: ['프로그램 기간 전체에 걸쳐 대학에 재학 중이어야 합니다.', '일본어 초보자는 시작 전 히라가나와 가타카나를 읽고 쓸 수 있어야 합니다.', 'JLPT N1 보유자는 지원 대상이 아닙니다.'],
+    accommodationTitle: '세션에 따라 숙소 조건이 다릅니다.', accommodationText: `1월 세션은 대학 숙소를 제공하지 않으며 OIC 통학에 적합한 숙소를 참가자가 직접 준비해야 합니다. 2월 세션은 다이쇼군 기숙사(선착순)를 신청하거나 기누가사 캠퍼스에서 약 30분 이내의 교토 시내 숙소를 직접 준비할 수 있습니다.`,
+    facts: [{ key: 'january-dates', label: '1월 세션', value: `${koRange(rwjpExpress2027Sessions.january.programmeDates.start, rwjpExpress2027Sessions.january.programmeDates.end)} · OIC`, status: '확정' }, { key: 'february-dates', label: '2월 세션', value: `${koRange(rwjpExpress2027Sessions.february.programmeDates.start, rwjpExpress2027Sessions.february.programmeDates.end)} · 기누가사`, status: '확정' }, { key: 'minimum', label: '최소 운영 인원', value: rwjpExpressOffering.minimumParticipants === null ? '추후 안내' : `${rwjpExpressOffering.minimumParticipants}명`, status: rwjpExpressOffering.minimumParticipants === null ? '확인 예정' : '확정' }, { key: 'japanese', label: '일본어 학습', value: '22.5시간', status: '확정' }, { key: 'culture', label: '문화 학습', value: '360분', status: '확정' }, { key: 'payment', label: '결제 방법', value: rwjpExpressOffering.paymentMethod ?? '추후 안내', status: rwjpExpressOffering.paymentMethod ? '확정' : '확인 예정' }, { key: 'refund', label: '결제 후 환불 공제', value: rwjpExpressOffering.refundDeductionJPY === null ? '추후 안내' : `${expressRefund} 환불 불가 행정 수수료; 나머지 금액 환불`, status: rwjpExpressOffering.refundDeductionJPY === null ? '확인 예정' : '확정' }],
     nextTitle: `${rwjpExpressOffering.academicYear} RWJP Express를 생각하고 있나요?`, nextText: '신청 전 최종 모집 안내와 숙소 정보를 확인하세요.', verificationNote: `현재 사실 경계는 ${rwjpExpressOffering.source} (${rwjpExpressOffering.verifiedAt})입니다.`,
   },
   rdsp: {
