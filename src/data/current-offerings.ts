@@ -23,7 +23,7 @@ export interface CurrentOfferingFact {
   officialName: string;
   status: OfferingStatus;
   certainty: OfferingCertainty;
-  campusId: 'kinugasa' | 'oic';
+  campusId: 'kinugasa' | 'oic' | 'multiple';
   campusJa: string;
   programmeDates: DateRange | null;
   applicationPeriod: DateRange | null;
@@ -113,18 +113,18 @@ export const currentOfferingFacts: Record<CurrentOfferingId, CurrentOfferingFact
     officialName: 'RWJP Express',
     status: 'Confirmed',
     certainty: 'Confirmed',
-    campusId: 'kinugasa',
-    campusJa: '衣笠キャンパス（京都）',
-    programmeDates: { start: '2027-02-16', end: '2027-02-26' },
-    applicationPeriod: { start: '2026-11-04', end: '2026-11-18' },
-    checkIn: '2027-02-15',
-    checkOut: '2027-02-27',
+    campusId: 'multiple',
+    campusJa: '1月Session：大阪いばらきキャンパス（OIC）／2月Session：衣笠キャンパス（京都）',
+    programmeDates: null,
+    applicationPeriod: null,
+    checkIn: null,
+    checkOut: null,
     programmeFeeJPY: 170000,
     accommodationFeeJPY: 42500,
     minimumParticipants: 15,
     paymentMethod: 'Convera',
     refundDeductionJPY: 27000,
-    source: '2027_RWJP_Application_Guidelines_FINAL_20260902.pdf (Updated August 27, 2026; February Session)',
+    source: '2027_RWJP_Application_Guidelines_FINAL_20260902.pdf (Updated August 27, 2026; January and February Sessions)',
     verifiedAt: '2026-09-02',
   },
   rdsp: {
