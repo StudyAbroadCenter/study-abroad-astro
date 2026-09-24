@@ -54,7 +54,7 @@ const cn: Record<ChineseProgrammeId, LocalPage> = {
     description: `在京都立命馆大学学习日语与日本文化。${offers.rsjp.academicYear}年度日期、费用、申请期与住宿信息将在正式确认后发布。`,
     heroAlt: '参加立命馆大学短期日语项目的学生', kicker: `${offers.rsjp.academicYear} Summer · 日语与日本文化`,
     headline: '在京都学习日语，把课堂所学用在真实生活中。', lead: 'RSJP以日语学习为核心，将校园生活、文化体验与京都日常连接起来。',
-    campus: '1月：大阪茨木校区（OIC） · 2月：衣笠校区（京都）', status: 'pending', statusLabel: `${offers.rsjp.academicYear}年度详细信息待确认`,
+    campus: '衣笠校区（京都）', status: 'pending', statusLabel: `${offers.rsjp.academicYear}年度详细信息待确认`,
     statusNote: `项目名称与校区已确认。${offers.rsjp.academicYear}年度日期、费用、申请期和住宿只在正式确认后发布。`,
     overviewTitle: '在京都体验日语学习与大学生活', overviewText: '不会把往年条件自动沿用到当前年度。',
     academicTitle: '日语学习与文化语境并重', academicIntro: `${offers.rsjp.academicYear}年度具体课时与活动安排确认后发布。`,
