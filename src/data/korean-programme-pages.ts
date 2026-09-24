@@ -54,7 +54,7 @@ export const koreanProgrammePages: Record<KoreanProgrammePage['id'], KoreanProgr
     heroAlt: '리츠메이칸대학교 단기 프로그램에서 일본어를 배우는 학생들',
     kicker: `${rsjpOffering.academicYear} Summer · 일본어·일본문화`, headline: '교토에서 일본어를 배우고, 일상 속에서 직접 사용해 보세요.',
     lead: 'RSJP는 일본어 학습을 중심으로 캠퍼스 생활, 문화 체험, 교토에서의 일상을 연결하는 여름 단기 프로그램입니다.',
-    campus: '1월: OIC · 2월: 기누가사 캠퍼스', status: 'pending', statusLabel: `${rsjpOffering.academicYear}년 세부 정보 확인 예정`,
+    campus: '기누가사 캠퍼스 · 교토', status: 'pending', statusLabel: `${rsjpOffering.academicYear}년 세부 정보 확인 예정`,
     statusNote: `프로그램명과 캠퍼스는 확인되어 있습니다. ${rsjpOffering.academicYear}년 일정, 참가비, 지원 기간, 숙소는 공식 확인 후 공개합니다.`,
     overviewTitle: '일본어를 중심으로 교토와 캠퍼스를 함께 경험하는 여름 프로그램',
     overviewText: '과거 연도의 조건을 자동으로 이어 쓰지 않고, 해당 연도에 확인된 정보만 공개합니다.',
